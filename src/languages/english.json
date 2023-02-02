@@ -1,0 +1,52 @@
+{
+    "translation": {
+        "menu-start": "Start",
+        "menu-meal-creator": "Meal Creator",
+        "menu-diary": "Diary",
+        "menu-profile": "Profile",
+
+        "login-screen-welcome": "Welcome",
+        "login-screen-text-1": "Don't have an account?",
+        "login-screen-text-2": "Register now",
+        "login-screen-email": "Email",
+        "login-screen-password": "Password",
+        "login-screen-login": "LOGIN",
+        "login-screen-rememberMe": "Remember Me",
+        "login-screen-forgotPassword": "Forgot password?",
+
+        "onboarding-skip": "Skip",
+        "onboarding-next": "Next",
+        "onboarding-done": "Done",
+
+        "onboarding-title-1": "KNOW",
+        "onboarding-text-1": "Get to know the glycemic indexes of products...",
+        "onboarding-title-2": "CREATE",
+        "onboarding-text-2": "Add, modify and create healthy meals...",
+        "onboarding-title-3": "CHANGE",
+        "onboarding-text-3": "Change your diet and feel better...",
+
+        "signup-registration": "Registration",
+        "signup-email": "Email",
+        "signup-new-password": "New Password",
+        "signup-repeat-new-password": "Repeat New Password",
+        "signup-join": "JOIN",
+        
+        "homescreen-weight": "WEIGHT",
+        "homescreen-target": "TARGET",
+        "homescreen-new-target": "NEW TARGET",
+        "homescreen-body-weight-chart": "Body weight chart",
+        "homescreen-current-weight": "Current weight",
+        "homescreen-designated-target": "Designated target",
+        "homescreen-menu-glycemic-index": "Glycemic index",
+        "homescreen-menu-weight": "Weight",
+        "homescreen-menu-bmi": "BMI / WHR",
+        "homescreen-menu-blood-pressure": "Blood pressure",
+        "homescreen-menu-glucose": "Glucose",
+        "homescreen-meme-insulin-resistance": "Insulin resistance",
+        "homescreen-menu-purine": "Purine",
+        "homescreen-menu-findings": "Findings",
+        "homescreen-menu-notes": "Notes"
+
+        
+    }
+}

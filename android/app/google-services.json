@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51742417279",
+    "project_id": "fiteatprots",
+    "storage_bucket": "fiteatprots.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51742417279:android:a5cd4e9221d95360043a4a",
+        "android_client_info": {
+          "package_name": "com.fiteatpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51742417279-6lce2se3de5mb4264kp1fa3j01s7bnr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXZGWBjLQflMkIkpQjO2ogGju-36Sr1zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51742417279-6lce2se3de5mb4264kp1fa3j01s7bnr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
