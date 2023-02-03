@@ -143,7 +143,7 @@ const SettingsScreen = ({ navigation }) => {
             <View style={styles.container}>
 
                 <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
-                    <Text>Jednosta wagi:</Text>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta wagi:</Text>
                 </View>
                 <View style={{marginHorizontal: spacing.SCALE_6}}>
                    
@@ -156,14 +156,25 @@ const SettingsScreen = ({ navigation }) => {
                         borderTopStartRadius: 5,
                         borderTopEnfRadius: 5,
                         borderBottomEndRadius: 5,
-                        borderBottomStartRadius: 5
+                        borderBottomStartRadius: 5,
+                        borderColor: colors.COLORS.DEEP_BLUE,
+                        borderWidth: 1,
+                        
+                        }}
+                        dropdownTextStyles={{
+                            color: colors.TEXT.DEEP_BLUE
+                        }}
+                        inputStyles={{
+                            color: colors.TEXT.DEEP_BLUE
                         }}
                         dropdownStyles={{
-                        backgroundColor: colors.COLORS.WHITE,
-                        borderTopStartRadius: 5,
-                        borderTopEnfRadius: 5,
-                        borderBottomEndRadius: 5,
-                        borderBottomStartRadius: 5
+                            backgroundColor: colors.COLORS.WHITE,
+                            borderTopStartRadius: 5,
+                            borderTopEnfRadius: 5,
+                            borderBottomEndRadius: 5,
+                            borderBottomStartRadius: 5,
+                            borderColor: colors.COLORS.DEEP_BLUE,
+                            borderWidth: 1
                         }}
                         search={false}
                         placeholder={t('whrScreen.select-option')}
@@ -173,7 +184,7 @@ const SettingsScreen = ({ navigation }) => {
                 </View>
 
                 <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
-                    <Text>Jednosta długości:</Text>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta długości:</Text>
                 </View>
                 <View style={{marginHorizontal: spacing.SCALE_6}}>
                    
@@ -182,18 +193,27 @@ const SettingsScreen = ({ navigation }) => {
                         data={dataHeight} 
                         save="key"
                         boxStyles={{
-                        backgroundColor: colors.COLORS.WHITE,
-                        borderTopStartRadius: 5,
-                        borderTopEnfRadius: 5,
-                        borderBottomEndRadius: 5,
-                        borderBottomStartRadius: 5
+                            backgroundColor: colors.COLORS.WHITE,
+                            borderTopStartRadius: 5,
+                            borderTopEnfRadius: 5,
+                            borderBottomEndRadius: 5,
+                            borderBottomStartRadius: 5,
+                            borderColor: colors.COLORS.DEEP_BLUE,
+                            borderWidth: 1
+                        }}
+                        dropdownTextStyles={{
+                            color: colors.TEXT.DEEP_BLUE
+                        }}
+                        inputStyles={{
+                            color: colors.TEXT.DEEP_BLUE
                         }}
                         dropdownStyles={{
-                        backgroundColor: colors.COLORS.WHITE,
-                        borderTopStartRadius: 5,
-                        borderTopEnfRadius: 5,
-                        borderBottomEndRadius: 5,
-                        borderBottomStartRadius: 5
+                            backgroundColor: colors.COLORS.WHITE,
+                            borderTopStartRadius: 5,
+                            borderTopEnfRadius: 5,
+                            borderBottomEndRadius: 5,
+                            borderBottomStartRadius: 5,
+                            borderColor: colors.COLORS.DEEP_BLUE
                         }}
                         search={false}
                         placeholder={t('whrScreen.select-option')}
