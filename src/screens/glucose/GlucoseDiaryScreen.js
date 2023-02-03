@@ -57,7 +57,7 @@ const GlucoseDiaryScreen = ({ route,
     const {user} = useContext(AuthContext);
     //const [currentGlucose, setCurrentGlucose] = useState(0);
     const [getData, setGetData] = useState([]);
-    const [glucose, setGlucose] = useState(0);
+    const [glucose, setGlucose] = useState('');
     
     //---------------------------------------------------------------------------------
     const [getGlucoseMg, setGetGlucoseMg] = useState(0);
@@ -568,7 +568,7 @@ const GlucoseDiaryScreen = ({ route,
                         underlineColor={colors.COLORS.WHITE}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                         label={t('glucoseDiaryScreen.glucose') + ' (mg/dL)'}
-                        value={glucose}
+                        value={glucose.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setGlucose}
                         keyboardType="numeric"

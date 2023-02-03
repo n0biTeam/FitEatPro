@@ -342,7 +342,28 @@ const EditProfileScreen = ({ navigation }) => {
               />
             </View>
             
-          </ImageBackground> : null
+          </ImageBackground> : 
+          <ImageBackground
+          source={{uri: 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'}}
+          style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
+          imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.LIGHT_BLUE}}
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <MaterialCommunityIcons name='camera' color={colors.COLORS.WHITE} size={35}
+              style={{
+                opacity: 0.7,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 1,
+                borderColor: colors.COLORS.WHITE,
+                borderRadius: 10,
+                paddingLeft: spacing.SCALE_2, 
+                paddingTop: spacing.SCALE_2
+              }}
+            />
+          </View>
+          
+        </ImageBackground>
         }
         </View>
       </TouchableOpacity>
