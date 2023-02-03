@@ -14,8 +14,8 @@ const HomairScreen = ({ navigation }) => {
     const {user} = useContext(AuthContext); 
     const [sumHomair, setSumHomair] = useState(0.00);
     const [userData, setUserData] = useState('');
-    const [insulin, setInsulin] = useState(0);
-    const [glucose, setGlucose] = useState(0);
+    const [insulin, setInsulin] = useState('');
+    const [glucose, setGlucose] = useState('');
 
     const getUser = async () => {
       const currentUser = await firestore()
@@ -130,9 +130,10 @@ const HomairScreen = ({ navigation }) => {
                         underlineColor={colors.COLORS.LIGHT_GREY}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                         label={t('homairScreen.insulin') + ' (mU/ml)'}
-                        value={insulin}
+                        value={insulin.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setInsulin}
+                        //onChangeText={(text) => setInsulin(text)}
                         keyboardType="numeric"
                     />
                 </View>
@@ -142,9 +143,10 @@ const HomairScreen = ({ navigation }) => {
                         underlineColor={colors.COLORS.LIGHT_GREY}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                         label={t('homairScreen.glucose') + ' (mg/dl)'}
-                        value={glucose}
+                        value={glucose.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setGlucose}
+                        //onChangeText={(text) => setGlucose(text)}
                         keyboardType="numeric"
                     />
                 </View>

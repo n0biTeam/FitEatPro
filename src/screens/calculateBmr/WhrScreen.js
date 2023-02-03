@@ -15,8 +15,8 @@ const WhrScreen = ({ navigation }) => {
 
     const {user} = useContext(AuthContext); 
     const [sumWHR, setSumWHR] = useState(0.00);
-    const [waistSize, setWaistSize] = useState(0);
-    const [hipGirth, setHipGirth] = useState(0);
+    const [waistSize, setWaistSize] = useState('');
+    const [hipGirth, setHipGirth] = useState('');
     //const [male, setMale] = useState(false);
     //const [female, setFemale] = useState(false);
     const [type, setType] = useState('');
@@ -147,7 +147,7 @@ const WhrScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('whrScreen.waist-circumference') + ' (cm)'}
-                value={waistSize}
+                value={waistSize.toString()}
                 style={{backgroundColor: colors.COLORS.WHITE}}
                 onChangeText={setWaistSize}
                 keyboardType="numeric"
@@ -159,7 +159,7 @@ const WhrScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('whrScreen.hip-circumference') + ' (cm)'}
-                value={hipGirth}
+                value={hipGirth.toString()}
                 style={{backgroundColor: colors.COLORS.WHITE}}
                 onChangeText={setHipGirth}
                 keyboardType="numeric"

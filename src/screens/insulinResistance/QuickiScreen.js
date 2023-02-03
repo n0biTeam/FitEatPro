@@ -15,8 +15,8 @@ const QuickiScreen = ({ navigation }) => {
     const {user} = useContext(AuthContext); 
     const [sumHomair, setSumHomair] = useState(0.00);
     const [userData, setUserData] = useState('');
-    const [insulin, setInsulin] = useState(0);
-    const [glucose, setGlucose] = useState(0);
+    const [insulin, setInsulin] = useState('');
+    const [glucose, setGlucose] = useState('');
 
     const getUser = async () => {
       const currentUser = await firestore()
@@ -121,7 +121,7 @@ const QuickiScreen = ({ navigation }) => {
                         underlineColor={colors.COLORS.LIGHT_GREY}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                         label={t('quickiScreen.insulin') + ' (mU/ml)'}
-                        value={insulin}
+                        value={insulin.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setInsulin}
                         keyboardType="numeric"
@@ -133,7 +133,7 @@ const QuickiScreen = ({ navigation }) => {
                         underlineColor={colors.COLORS.LIGHT_GREY}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                         label={t('quickiScreen.glucose') + ' (mg/dl)'}
-                        value={glucose}
+                        value={glucose.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setGlucose}
                         keyboardType="numeric"

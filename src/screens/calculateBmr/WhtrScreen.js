@@ -15,7 +15,7 @@ const WhtrScreen = ({ navigation }) => {
 
     const {user} = useContext(AuthContext); 
     const [sumWHtR, setSumWHtR] = useState(0.00);
-    const [waistSize, setWaistSize] = useState(0);
+    const [waistSize, setWaistSize] = useState('');
     const [male, setMale] = useState(false);
     const [female, setFemale] = useState(false);
     const [userData, setUserData] = useState('');
@@ -208,7 +208,7 @@ const WhtrScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('whtrScreen.waist-circumference') + ' (cm)'}
-                value={waistSize}
+                value={waistSize.toString()}
                 style={{backgroundColor: colors.COLORS.WHITE}}
                 onChangeText={setWaistSize}
                 keyboardType="numeric"
