@@ -79,9 +79,7 @@ const insertPurineJson = async (dataPurineJson) => {
               console.error(error);
             });
         },
-
-        
-        
+   
         register: async (values) => {
     
             const email = values.email;
@@ -115,8 +113,7 @@ const insertPurineJson = async (dataPurineJson) => {
                       birthday: firestore.Timestamp.fromDate(new Date('1992-12-09T22:56:00.000Z')),
                       atcreatedAt: firestore.Timestamp.fromDate(new Date()),
                       userImg: null,
-                      weightUnit: 'kg',
-                      growthUnit: 'cm'                     
+                     
                     })
                 }).catch((error) => {
                     console.log('Error: 1' + error);
