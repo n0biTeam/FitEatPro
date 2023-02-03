@@ -1,0 +1,40 @@
+diff --git a/node_modules/react-native-dropdown-picker/src/components/Picker.js b/node_modules/react-native-dropdown-picker/src/components/Picker.js
+index c769683..82439ac 100644
+--- a/node_modules/react-native-dropdown-picker/src/components/Picker.js
++++ b/node_modules/react-native-dropdown-picker/src/components/Picker.js
+@@ -1644,7 +1644,7 @@ function Picker({
+      * @returns {JSX.Element}
+      */
+     const DropDownComponentWrapper = useCallback((Component) => (
+-        <View style={_dropDownContainerStyle}>
++        <View style={[_dropDownContainerStyle, !open && {borderWidth: 0}]}>
+             {SearchComponent}
+             {Component}
+         </View>
+@@ -1738,7 +1738,7 @@ function Picker({
+      */
+     const DropDownScrollViewComponent = useMemo(() => {
+         return (
+-            <ScrollView ref={scrollViewRef} nestedScrollEnabled={true} stickyHeaderIndices={stickyHeaderIndices} {...scrollViewProps}>
++            <ScrollView style={!open && {maxHeight: 0}} ref={scrollViewRef} nestedScrollEnabled={true} stickyHeaderIndices={stickyHeaderIndices} {...scrollViewProps}>
+                 {_items.map((item, index) => { 
+                     return (
+                         <Fragment key={item[_itemKey]}>
+@@ -1750,7 +1750,7 @@ function Picker({
+                 {_items.length === 0 && _ListEmptyComponent()}
+             </ScrollView>
+         );
+-    }, [__renderListItem, _itemKey, scrollViewProps, _ListEmptyComponent]);
++    }, [__renderListItem, _itemKey, scrollViewProps, _ListEmptyComponent, open]);
+ 
+     /**
+      * The dropdown modal component.
+@@ -1789,7 +1789,7 @@ function Picker({
+      * @returns {JSX.Element}
+      */
+     const DropDownBodyComponent = useMemo(() => {
+-        if (open || listMode === LIST_MODE.MODAL)
++        if (open || listMode === LIST_MODE.MODAL || listMode === LIST_MODE.SCROLLVIEW)
+             return DropDownComponent;
+         return null;
+     }, [open, listMode, DropDownComponent]);

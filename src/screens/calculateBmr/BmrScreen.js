@@ -5,11 +5,12 @@ import { Appbar, Button, TextInput } from 'react-native-paper';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import DropDownPicker from 'react-native-dropdown-picker';
+//import DropDownPicker from 'react-native-dropdown-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, typography, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
+import { SelectList } from 'react-native-dropdown-select-list';
 
 const BmrScreen = ({ navigation }) => {
 
@@ -48,22 +49,40 @@ const BmrScreen = ({ navigation }) => {
       //console.log('statusBarHeight: ', StatusBar.currentHeight)
   const _goBack = () => navigation.navigate('HomeScreen');
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    {label: t('bmrScreen.label-1'), value: 1.2},
-    {label: t('bmrScreen.label-2'), value: 1.3},
-    {label: t('bmrScreen.label-3'), value: 1.4},
-    {label: t('bmrScreen.label-4'), value: 1.5},
-    {label: t('bmrScreen.label-5'), value: 1.6},
-    {label: t('bmrScreen.label-6'), value: 1.7},
-    {label: t('bmrScreen.label-7'), value: 1.8},
-    {label: t('bmrScreen.label-8'), value: 1.9},
-    {label: t('bmrScreen.label-9'), value: 2.0},
-    {label: t('bmrScreen.label-10'), value: 2.2},
-  ]);
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   {label: t('bmrScreen.label-1'), value: 1.2},
+  //   {label: t('bmrScreen.label-2'), value: 1.3},
+  //   {label: t('bmrScreen.label-3'), value: 1.4},
+  //   {label: t('bmrScreen.label-4'), value: 1.5},
+  //   {label: t('bmrScreen.label-5'), value: 1.6},
+  //   {label: t('bmrScreen.label-6'), value: 1.7},
+  //   {label: t('bmrScreen.label-7'), value: 1.8},
+  //   {label: t('bmrScreen.label-8'), value: 1.9},
+  //   {label: t('bmrScreen.label-9'), value: 2.0},
+  //   {label: t('bmrScreen.label-10'), value: 2.2},
+  // ]);
 
-  const emptyBtn = (value != null && value != '')
+  const [selected, setSelected] = useState("");
+  
+
+  console.log(selected)
+
+  const data = [
+      {key:'1.2', value: t('bmrScreen.label-1')},
+      {key:'1.3', value: t('bmrScreen.label-2')},
+      {key:'1.4', value: t('bmrScreen.label-3')},
+      {key:'1.5', value: t('bmrScreen.label-4')},
+      {key:'1.6', value: t('bmrScreen.label-5')},
+      {key:'1.7', value: t('bmrScreen.label-6')},
+      {key:'1.8', value: t('bmrScreen.label-7')},
+      {key:'1.9', value: t('bmrScreen.label-8')},
+      {key:'2.0', value: t('bmrScreen.label-9')},
+      {key:'2.2', value: t('bmrScreen.label-10')},
+  ]
+
+  const emptyBtn = (selected != null && selected != '')
             && (userData.gender != null && userData.gender != '');
 
     const bmrCalc = () => {
@@ -82,11 +101,11 @@ const BmrScreen = ({ navigation }) => {
   const cpmCalc = () => {
       if(female === true){
         //console.log('Kobieta');
-        const ppm = (665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age))*value;
+        const ppm = (665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age))*selected;
         setSumCPM(ppm);
       }else{
         //console.log('Mężczyzna');
-        const ppm = (66 + (13.7 * userData.weightName) + (5 * userData.heightName) - (6.8 * age))*value;
+        const ppm = (66 + (13.7 * userData.weightName) + (5 * userData.heightName) - (6.8 * age))*selected;
         setSumCPM(ppm);
       }
   }
@@ -188,8 +207,9 @@ const BmrScreen = ({ navigation }) => {
 
       </View>
       
-      <View style={{marginTop: spacing.SCALE_10}}>
-        <DropDownPicker
+      <View style={{marginTop: spacing.SCALE_10, zIndex: 1, }}>
+        {/* <DropDownPicker
+           
             open={open}
             value={value}
             items={items}
@@ -197,16 +217,39 @@ const BmrScreen = ({ navigation }) => {
             setValue={setValue}
             setItems={setItems}
             containerStyle={{
-             
             }}
             textStyle={{
-              fontSize: typography.FONT_SIZE_15, 
-              color: colors.COLORS.DEEP_BLUE
+              fontSize: typography.FONT_SIZE_15, zIndex: 2, 
+              color: colors.COLORS.DEEP_BLUE, 
             }}
             translation={{
               PLACEHOLDER: "Wybierz"
             }}
-          />
+            dropDownContainerStyle={{
+              //height: 300
+            }}
+          /> */}
+          <SelectList 
+        setSelected={(val) => setSelected(val)} 
+        data={data} 
+        save="key"
+        boxStyles={{
+          backgroundColor: colors.COLORS.WHITE,
+          borderTopStartRadius: 5,
+          borderTopEnfRadius: 5,
+          borderBottomEndRadius: 0,
+          borderBottomStartRadius: 0
+         }}
+        dropdownStyles={{
+          backgroundColor: colors.COLORS.WHITE,
+          borderTopStartRadius: 5,
+          borderTopEnfRadius: 5,
+          borderBottomEndRadius: 5,
+          borderBottomStartRadius: 5
+        }}
+        search={false}
+        placeholder={t('whrScreen.select-option')}
+    />
       </View>
 
       <View style={{marginTop: 10}}>
@@ -214,6 +257,7 @@ const BmrScreen = ({ navigation }) => {
             {t('bmrScreen.calculate')}
         </Button>
       </View>
+      { selected &&
       <ScrollView>
       <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, alignItems: 'center',}}>
         
@@ -276,6 +320,7 @@ const BmrScreen = ({ navigation }) => {
               
     </View>
     </ScrollView>
+    }
     </View>
     
     </ImageBackground>
