@@ -100,6 +100,18 @@ const ProfileScreen = ({ navigation }) => {
         return 'Błąd'
     }
   }
+
+  const _getHeightUnit = () => {
+    if(userData.growthUnit === 'cm'){
+        return userData.heightName
+    }else if(userData.growthUnit === 'in'){
+        return (userData.heightName / 2.54).toFixed(2)
+    }else if(userData.growthUnit === 'ft'){
+        return (userData.heightName / 30.48).toFixed(2)
+    }else{
+        return 'Błąd'
+    }
+  }
   
  
   const imageBG = require('../../assets/images/bg-abstract.jpg');
@@ -241,13 +253,13 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.height')} (cm)</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.height')} ({userData.growthUnit})</Text>
               </View>     
             </View>
 
             <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
                 <MaterialCommunityIcons name='human-male-height' size={spacing.SCALE_20} color={colors.COLORS.GREEN} />
-                <Text style={styles.textValue}>{!userData.lastName ? '-' : userData.heightName}</Text>
+                <Text style={styles.textValue}>{!userData.lastName ? '-' : _getHeightUnit()}</Text>
             </View>
 
           </View>

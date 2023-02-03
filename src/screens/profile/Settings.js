@@ -16,6 +16,7 @@ const SettingsScreen = ({ navigation }) => {
   const {t, i18n} = useTranslation();
   const {user} = useContext(AuthContext);
   const [weightUnit, setWeightUnit] = useState('');
+  const [growthUnit, setGrowthUnit] = useState('');
 
   const getUser = async () => {
     await firestore()
@@ -28,6 +29,7 @@ const SettingsScreen = ({ navigation }) => {
       if( documentSnapshot.exists ) {
        
         setWeightUnit(documentSnapshot.data().weightUnit);
+        setGrowthUnit(documentSnapshot.data().growthUnit);
 
       }
     })
@@ -50,16 +52,39 @@ const SettingsScreen = ({ navigation }) => {
     }
   }
 
-
+  const _getHeightUnit = (growthUnit) => {
+    if(growthUnit === 'cm'){
+        return 'Centymetr'
+    }else if(growthUnit === 'in'){
+        return 'Cale'
+    }else if(growthUnit === 'ft'){
+        return 'Stopa'
+    }else{
+        return 'Błąd'
+    }
+  }
+  
+  console.log(_getHeightUnit(growthUnit))
+  
   const [selected, setSelected] = useState("");
-  console.log(selected)
-  console.log(weightUnit)
-  const data = [
+  const [selectedH, setSelectedH] = useState("");
+  //console.log(selected)
+  //console.log(growthUnit)
+  const dataWeidth = [
       {key:'kg', value: 'Kilogramy'},
       {key:'lb', value: 'Funt'},
       {key:'st', value: 'Stopa'},
      
   ];
+
+  const dataHeight = [
+    {key:'cm', value: 'Centymetry'},
+    {key:'in', value: 'Cale'},
+    {key:'ft', value: 'Stopa'},
+   
+];
+
+
 
   const _updateUnit = async () => {
     await firestore()
@@ -69,6 +94,7 @@ const SettingsScreen = ({ navigation }) => {
     .doc('profil')
     .update({
         weightUnit: selected,
+        growthUnit: selectedH,
     })
     .then(() => {
       console.log('User Update');
@@ -123,7 +149,7 @@ const SettingsScreen = ({ navigation }) => {
                    
                     <SelectList 
                         setSelected={(val) => setSelected(val)} 
-                        data={data} 
+                        data={dataWeidth} 
                         save="key"
                         boxStyles={{
                         backgroundColor: colors.COLORS.WHITE,
@@ -142,6 +168,36 @@ const SettingsScreen = ({ navigation }) => {
                         search={false}
                         placeholder={t('whrScreen.select-option')}
                         defaultOption={{ key: weightUnit, value: _getWeightUnit(weightUnit) }}
+                    />
+                   
+                </View>
+
+                <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
+                    <Text>Jednosta długości:</Text>
+                </View>
+                <View style={{marginHorizontal: spacing.SCALE_6}}>
+                   
+                    <SelectList 
+                        setSelected={(val) => setSelectedH(val)} 
+                        data={dataHeight} 
+                        save="key"
+                        boxStyles={{
+                        backgroundColor: colors.COLORS.WHITE,
+                        borderTopStartRadius: 5,
+                        borderTopEnfRadius: 5,
+                        borderBottomEndRadius: 5,
+                        borderBottomStartRadius: 5
+                        }}
+                        dropdownStyles={{
+                        backgroundColor: colors.COLORS.WHITE,
+                        borderTopStartRadius: 5,
+                        borderTopEnfRadius: 5,
+                        borderBottomEndRadius: 5,
+                        borderBottomStartRadius: 5
+                        }}
+                        search={false}
+                        placeholder={t('whrScreen.select-option')}
+                        defaultOption={{ key: growthUnit, value: _getHeightUnit(growthUnit) }}
                     />
                    
                 </View>
