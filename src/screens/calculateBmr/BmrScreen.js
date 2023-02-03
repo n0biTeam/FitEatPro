@@ -67,8 +67,6 @@ const BmrScreen = ({ navigation }) => {
   const [selected, setSelected] = useState("");
   
 
-  console.log(selected)
-
   const data = [
       {key:'1.2', value: t('bmrScreen.label-1')},
       {key:'1.3', value: t('bmrScreen.label-2')},
@@ -257,7 +255,7 @@ const BmrScreen = ({ navigation }) => {
             {t('bmrScreen.calculate')}
         </Button>
       </View>
-      { selected &&
+      {/* { selected && */}
       <ScrollView>
       <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, alignItems: 'center',}}>
         
@@ -320,7 +318,7 @@ const BmrScreen = ({ navigation }) => {
               
     </View>
     </ScrollView>
-    }
+    {/* } */}
     </View>
     
     </ImageBackground>

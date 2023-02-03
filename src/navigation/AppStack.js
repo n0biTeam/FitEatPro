@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { HomeScreen } from '../screens/home';
 import { colors } from '../styles';
-import { ProfileScreen, EditProfileScreen } from '../screens/profile';
+import { ProfileScreen, EditProfileScreen, SettingsScreen } from '../screens/profile';
 import { GlycemicIndex, AddGlycemicIndex, EditItemGlycemicIndex } from '../screens/glycemicIndex';
 import { DiaryScreen, DiaryItemScreen, MealScreen } from '../screens/mealLog';
 import { BmiScreen, BmrScreen, WhrScreen, WhtrScreen } from '../screens/calculateBmr';
@@ -403,6 +403,16 @@ const AppStack = () => {
                   headerTitleAlign: 'center',
                   headerShown: false,
                   }}
+    />
+
+    <Stack.Screen
+      name="SettingsScreen"
+      component={SettingsScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
     />
 
     <Stack.Screen

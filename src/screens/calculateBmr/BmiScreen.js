@@ -141,6 +141,8 @@ const BmiScreen = ({ navigation }) => {
   }
 
   const image = require('../../assets/images/owoce4.jpg');
+
+  const emptyBtn = (userData.heightName != null && userData.heightName != '');
   
   return (
     <SafeAreaProvider style={{}}>
@@ -197,7 +199,7 @@ const BmiScreen = ({ navigation }) => {
         </View>
       </View>
       <View style={{marginTop: spacing.SCALE_10}}>
-        <Button mode="contained" color={colors.COLORS.YELLOW} onPress={bmiCalc}>
+        <Button mode="contained" color={colors.COLORS.YELLOW} onPress={bmiCalc} disabled={!emptyBtn}>
             {t('bmiScreen.calculate')}
         </Button>
       </View>

@@ -76,6 +76,30 @@ const ProfileScreen = ({ navigation }) => {
       Alert.alert('', 'Wysłano na e-mail reset hasła.')
     })
   }
+
+  const _getWeightUnit = () => {
+    if(userData.weightUnit === 'kg'){
+        return userData.weightName
+    }else if(userData.weightUnit === 'lb'){
+        return (userData.weightName / 0.4536).toFixed(2)
+    }else if(userData.weightUnit === 'st'){
+        return (userData.weightName / 6.35).toFixed(2)
+    }else{
+        return 'Błąd'
+    }
+  }
+
+  const _getWeighTargetUnit = () => {
+    if(userData.weightUnit === 'kg'){
+        return userData.targetWeight
+    }else if(userData.weightUnit === 'lb'){
+        return (userData.targetWeight / 0.4536).toFixed(2)
+    }else if(userData.weightUnit === 'st'){
+        return (userData.targetWeight / 6.35).toFixed(2)
+    }else{
+        return 'Błąd'
+    }
+  }
   
  
   const imageBG = require('../../assets/images/bg-abstract.jpg');
@@ -86,7 +110,7 @@ const ProfileScreen = ({ navigation }) => {
     <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     
        <Appbar.Content title={t('profileScreen.my-profile')} />
-       <Appbar.Action icon="cog" onPress={() => {}}  />
+       <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  />
        <Appbar.Action icon="account-edit" onPress={() => navigation.navigate('EditProfile')}  />
        <Appbar.Action icon="logout" onPress={logout} style={{marginRight: spacing.SCALE_4}}/>
     </Appbar.Header>
@@ -183,13 +207,13 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.current-weight')} (kg)</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.current-weight')} ({userData.weightUnit})</Text>
               </View>     
             </View>
 
             <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
                 <MaterialCommunityIcons name='weight-kilogram' size={spacing.SCALE_20} color={colors.COLORS.GREEN} />
-                <Text style={styles.textValue}>{!userData.lastName ? '-' : userData.weightName}</Text>
+                <Text style={styles.textValue}>{!userData.lastName ? '-' : _getWeightUnit()}</Text>
             </View>
 
           </View>
@@ -198,13 +222,13 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.target-weight')} (kg)</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.target-weight')} ({userData.weightUnit})</Text>
               </View>     
             </View>
 
             <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
                 <MaterialCommunityIcons name='weight-kilogram' size={spacing.SCALE_20} color={colors.COLORS.GREEN} />
-                <Text style={styles.textValue}>{!userData.targetWeight ? '-' : userData.targetWeight}</Text>
+                <Text style={styles.textValue}>{!userData.targetWeight ? '-' :  _getWeighTargetUnit()}</Text>
             </View>
 
           </View>
