@@ -255,7 +255,7 @@ const SignupScreen = ({ navigation }) => {
                     
                   }}>
                    <View style={{flexDirection: 'row' }}>
-                        <Text style={{color: !isValid ? colors.COLORS.DEEP_BLUE : colors.COLORS.WHITE, marginLeft: spacing.SCALE_10, fontWeight: 'bold'}}>DOŁĄCZ</Text> 
+                        <Text style={{color: !isValid ? colors.COLORS.DEEP_BLUE : colors.COLORS.WHITE, marginLeft: spacing.SCALE_10, fontWeight: 'bold'}}>{t('signup-join')}</Text> 
                     </View>
               </TouchableOpacity>
 
