@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, ImageBackground, Dimensions, StatusBar, Touchab
 import { TextInput, Appbar } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AuthContext } from '../../navigation/AuthProvider';
-import auth, { firebase } from '@react-native-firebase/auth';
 import RBSheet from "react-native-raw-bottom-sheet";
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
@@ -19,8 +18,6 @@ import { useTranslation } from 'react-i18next';
 const EditProfileScreen = ({ navigation }) => {
 
   const {t, i18n} = useTranslation();
-
-  
 
   const {user} = useContext(AuthContext); 
   const [image, setImage] = useState(null);
@@ -96,12 +93,75 @@ const EditProfileScreen = ({ navigation }) => {
    
   const handleUpdate = async () => {
     let imgUrl = await uploadImage();
-    //console.log('image: ' + imgUrl);
+    console.log('imgUrl: ' + imgUrl);
     
     if( imgUrl === null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
-    console.log('image: ' + imgUrl);
+    console.log('imgUrl: ' + imgUrl);
+    console.log('imageB: '+ userData.userImg);
+
+    // Waga aktualna
+    if(userData.weightUnit === 'kg'){
+      weightKG = parseFloat(userData.weightName);               
+      weightLB = parseFloat(userData.weightName) / 0.4536;      
+      weightST = parseFloat(userData.weightName) / 6.35;        
+    }else if(userData.weightUnit === 'lb'){
+      weightKG = parseFloat(userData.weightName) * 0.45359237;  
+      weightLB = parseFloat(userData.weightName);               
+      weightST = parseFloat(userData.weightName) / 14;          
+    }else{
+      weightKG = parseFloat(userData.weightName) / 0.15747;     
+      weightLB = parseFloat(userData.weightName) / 0.0714286;   
+      weightST = parseFloat(userData.weightName);               
+    }
+
+    // Waga docelowa
+    if(userData.weightUnit === 'kg'){
+      targetKG = parseFloat(userData.targetWeight);                
+      targetLB = parseFloat(userData.targetWeight) / 0.4536;      
+      targetST = parseFloat(userData.targetWeight) / 6.35;        
+    }else if(userData.weightUnit === 'lb'){
+      targetKG = parseFloat(userData.targetWeight) * 0.45359237;  
+      targetLB = parseFloat(userData.targetWeight);               
+      targetST = parseFloat(userData.targetWeight) / 14;          
+    }else{
+      targetKG = parseFloat(userData.targetWeight) / 0.15747;     
+      targetLB = parseFloat(userData.targetWeight) / 0.0714286;   
+      targetST = parseFloat(userData.targetWeight);               
+    }
+
+    // Różnica
+    if(userData.weightUnit === 'kg'){
+      diffKG = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);              
+      diffLB = (parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536);      
+      diffST = (parseFloat(userData.weightName) / 6.35) - (parseFloat(userData.targetWeight) / 6.35);        
+    }else if(userData.weightUnit === 'lb'){
+      diffKG = (parseFloat(userData.weightName) * 0.45359237) - (parseFloat(userData.targetWeight) * 0.45359237);  
+      diffLB = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
+      diffST = (parseFloat(userData.weightName) / 14) - (parseFloat(userData.targetWeight) / 14);          
+    }else{
+      diffKG = (parseFloat(userData.weightName) / 0.15747) - (parseFloat(userData.targetWeight) / 0.15747);
+      diffLB = (parseFloat(userData.weightName) / 0.0714286) - (parseFloat(userData.targetWeight) / 0.0714286);   
+      diffST = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
+    }
+
+    // Wzrost
+    if(userData.growthUnit === 'cm'){
+      heightCM = parseFloat(userData.heightName);
+      heightIN = parseFloat(userData.heightName) / 2.54;
+      heightFT = parseFloat(userData.heightName) / 30.48;
+    }else if(userData.growthUnit === 'in'){
+      heightCM = parseFloat(userData.heightName) * 2.54;
+      heightIN = parseFloat(userData.heightName);               
+      heightFT = parseFloat(userData.heightName) / 12;
+    }else{
+      heightCM = parseFloat(userData.heightName) * 30.48;
+      heightIN = parseFloat(userData.heightName) * 12;   
+      heightFT = parseFloat(userData.heightName);               
+    }
+
+    //console.log('image: ' + image);
     await firestore()
     .collection('users')
     .doc(user.uid)
@@ -110,13 +170,26 @@ const EditProfileScreen = ({ navigation }) => {
     .update({
       firstName: userData.firstName,
       lastName: userData.lastName,
-      weightName: parseFloat(userData.weightName),
-      heightName: parseFloat(userData.heightName),
-      targetWeight: parseFloat(userData.targetWeight),
+      
+      weightName: weightKG,
+      weightNameLB: weightLB,
+      weightNameST: weightST,
+
+      targetWeight: targetKG,
+      targetWeightLB: targetLB,
+      targetWeightST: targetST,
+      
+      heightName: heightCM,
+      heightNameIN: heightIN,
+      heightNameFT: heightFT,
+      
       birthday: date,
       gender: gender ? gender : userData.gender,
-      userImg: imgUrl,
-      difference: parseFloat(userData.weightName) - parseFloat(userData.targetWeight)
+      userImg: imgUrl === null ? null : imgUrl,
+      difference: diffKG,
+      differenceLB: diffLB,
+      differenceST: diffST,
+
     })
     .then(() => {
       console.log('User Update');

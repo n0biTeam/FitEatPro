@@ -44,6 +44,7 @@ const HomeScreen = ({ navigation }) => {
   const [difference, setDifference] = useState(0);
 
   const [dataCharts, setDataCharts] = useState([0]);
+  const [dataChartsLB, setDataChartsLB] = useState([0]);
   const [dataDate, setDataDate] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
 
@@ -83,12 +84,19 @@ const HomeScreen = ({ navigation }) => {
          querySnapshot => {
           const dataCharts = [];
           const dataCharts2 = [];
+
+          const dataChartsLB = [];
+          const dataChartsLB2 = []
+
           const dataDate = [];
             querySnapshot.forEach(doc => {
             if( doc.exists ) {
             //console.log('User data: ', doc.data());
               dataCharts.push(doc.data().currentWeight); 
               dataCharts2.push(doc.data().targetWeight); 
+
+              dataChartsLB.push(doc.data().currentWeightLB); 
+              dataChartsLB2.push(doc.data().targetWeightLB); 
               
               //const year = format((doc.data().createdAt).toDate(), 'yyyy');
               const month = format((doc.data().createdAt).toDate(), 'MM');
@@ -101,9 +109,16 @@ const HomeScreen = ({ navigation }) => {
              
                
             });
+
+            console.log(userData.weightUnit)
+           
             const arrayData = dataCharts;
             arrayData.reverse();
             setDataCharts(arrayData);
+           
+            const arrayDataLB = dataChartsLB;
+            arrayDataLB.reverse();
+            setDataChartsLB(arrayDataLB);
 
            
             const arrayData2 = dataCharts2;
@@ -122,6 +137,15 @@ const HomeScreen = ({ navigation }) => {
       )
   };
 
+const _chartWeight = () => {
+  if(userData.weightUnit === 'kg'){
+      return dataCharts;
+  }else if(userData.weightUnit === 'lb'){
+      return dataChartsLB;
+  }
+}
+
+console.log(dataCharts)
  
   const handleAdd = async () => {
     await firestore()
@@ -147,9 +171,40 @@ const HomeScreen = ({ navigation }) => {
     getCharts();
     navigation.addListener("focus", () => setLoading(!loading));
     
-  }, [navigation, loading, weight, difference, targetWeight]);
+  }, [navigation, loading, weight]);
 
-  let [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0, visible: false, value: 0 })
+  const _getWeightUnit = () => {
+    try{
+        if(userData.weightUnit === 'kg'){
+            return Number(userData.weightName);
+        }else if(userData.weightUnit === 'lb'){
+            return Number(userData.weightNameLB)
+        }else if(userData.weightUnit === 'st'){
+            return Number(userData.weightNameST)
+        }else{
+            return ''
+        }
+      }catch(e){
+      console.log(e);
+    }
+  }
+
+  //console.log(weight)
+
+  const _getTargetUnit = () => {
+    if(userData.weightUnit === 'kg'){
+        return Number(userData.targetWeight)
+    }else if(userData.weightUnit === 'lb'){
+        return Number(userData.targetWeightLB);
+    }else if(userData.weightUnit === 'st'){
+        return Number(userData.targetWeightST);
+    }else{
+        return ''
+    }
+  }
+
+
+  let [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0, visible: false, value: 0 });
 
   
   const charts = (dataCharts, dataCharts2, dataDate) => {
@@ -228,7 +283,7 @@ const HomeScreen = ({ navigation }) => {
                         width={Dimensions.get("window").width-12} // from react-native
                         height={190}
                         yAxisLabel=""
-                        yAxisSuffix=" kg"
+                        yAxisSuffix={' ' + userData.weightUnit}
                         yAxisInterval={1} // optional, defaults to 1
                         chartConfig={{
                             backgroundColor: colors.COLORS.BLACK,
@@ -280,7 +335,7 @@ const HomeScreen = ({ navigation }) => {
         width={Dimensions.get("window").width-12} // from react-native
         height={190}
         yAxisLabel=""
-        yAxisSuffix=" kg"
+        yAxisSuffix={' ' + userData.weightUnit}
         yAxisInterval={1} // optional, defaults to 1
         //fromZero={true}
         //verticalLabelRotation={-30}
@@ -458,10 +513,10 @@ const HomeScreen = ({ navigation }) => {
        <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
           <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, marginBottom: spacing.SCALE_3}}>{t('homescreen-weight')}</Text>
           <CircularProgress
-            value={!weight ? 0 : weight}
+            value={!weight ? 0 : _getWeightUnit()}
             radius={spacing.SCALE_21}
             //inActiveStrokeOpacity={0.3}
-            maxValue={!weight ? 0 : weight}
+            maxValue={!weight ? 0 : _getWeightUnit()}
             rotation={360}
             activeStrokeWidth={5}
             inActiveStrokeWidth={5}
@@ -475,7 +530,7 @@ const HomeScreen = ({ navigation }) => {
             }}
             progressFormatter={(value, total) => {
               'worklet';   
-              return value.toFixed(2);
+              return value.toFixed(1);
             }}
           />
        </View>
@@ -487,7 +542,7 @@ const HomeScreen = ({ navigation }) => {
           weight > targetWeight ?
           (
         <CircularProgress
-            value={weight-targetWeight}
+            value={_getWeightUnit()-_getTargetUnit()}
             radius={spacing.SCALE_30}
             //inActiveStrokeOpacity={0.3}
             maxValue={difference}
@@ -529,14 +584,14 @@ const HomeScreen = ({ navigation }) => {
        <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
           <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, marginBottom: spacing.SCALE_3}}>{t('homescreen-target')}</Text>
           <CircularProgress
-            value={!targetWeight ? 0 : targetWeight}
+            value={!targetWeight ? 0 : _getTargetUnit()}
             radius={spacing.SCALE_20}
             //inActiveStrokeOpacity={0.3}
-            maxValue={!targetWeight ? 0 : targetWeight}
+            maxValue={!targetWeight ? 0 : _getTargetUnit()}
             rotation={360}
             activeStrokeWidth={5}
             inActiveStrokeWidth={5}
-            inActiveStrokeColor={colors.COLORS.LIGHT_GREY}
+            inActiveStrokeColor={colors.BMI.BMI_3}
             progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: typography.FONT_SIZE_10 }}
             activeStrokeColor={ colors.BMI.BMI_3}
             duration={0}

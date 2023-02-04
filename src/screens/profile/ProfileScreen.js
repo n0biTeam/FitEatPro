@@ -11,7 +11,7 @@ import moment from 'moment/moment';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native-gesture-handler';
-import auth, {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 
 const ProfileScreen = ({ navigation }) => {
@@ -79,23 +79,25 @@ const ProfileScreen = ({ navigation }) => {
 
   const _getWeightUnit = () => {
     if(userData.weightUnit === 'kg'){
-        return userData.weightName
+        return (userData.weightName).toFixed(2);
     }else if(userData.weightUnit === 'lb'){
-        return (userData.weightName / 0.4536).toFixed(2)
+        return (userData.weightNameLB).toFixed(2);
     }else if(userData.weightUnit === 'st'){
-        return (userData.weightName / 6.35).toFixed(2)
+        return (userData.weightNameST).toFixed(2);
     }else{
         return 'Błąd'
     }
   }
 
+  console.log(_getWeightUnit())
+
   const _getWeighTargetUnit = () => {
     if(userData.weightUnit === 'kg'){
-        return userData.targetWeight
+        return (userData.targetWeight).toFixed(2)
     }else if(userData.weightUnit === 'lb'){
-        return (userData.targetWeight / 0.4536).toFixed(2)
+        return (userData.targetWeightLB).toFixed(2)
     }else if(userData.weightUnit === 'st'){
-        return (userData.targetWeight / 6.35).toFixed(2)
+        return (userData.targetWeightST).toFixed(2)
     }else{
         return 'Błąd'
     }
@@ -105,9 +107,9 @@ const ProfileScreen = ({ navigation }) => {
     if(userData.growthUnit === 'cm'){
         return userData.heightName
     }else if(userData.growthUnit === 'in'){
-        return (userData.heightName / 2.54).toFixed(2)
+        return (userData.heightNameIN).toFixed(2)
     }else if(userData.growthUnit === 'ft'){
-        return (userData.heightName / 30.48).toFixed(2)
+        return (userData.heightNameFT).toFixed(2)
     }else{
         return 'Błąd'
     }
@@ -225,7 +227,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
                 <MaterialCommunityIcons name='weight-kilogram' size={spacing.SCALE_20} color={colors.COLORS.GREEN} />
-                <Text style={styles.textValue}>{!userData.lastName ? '-' : _getWeightUnit()}</Text>
+                <Text style={styles.textValue}>{!userData.weightName ? '-' : _getWeightUnit()}</Text>
             </View>
 
           </View>
@@ -259,7 +261,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
                 <MaterialCommunityIcons name='human-male-height' size={spacing.SCALE_20} color={colors.COLORS.GREEN} />
-                <Text style={styles.textValue}>{!userData.lastName ? '-' : _getHeightUnit()}</Text>
+                <Text style={styles.textValue}>{!userData.heightName ? '-' : _getHeightUnit()}</Text>
             </View>
 
           </View>

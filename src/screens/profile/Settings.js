@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 
 const SettingsScreen = ({ navigation }) => {
   
@@ -17,6 +16,7 @@ const SettingsScreen = ({ navigation }) => {
   const {user} = useContext(AuthContext);
   const [weightUnit, setWeightUnit] = useState('');
   const [growthUnit, setGrowthUnit] = useState('');
+
 
   const getUser = async () => {
     await firestore()
@@ -64,8 +64,7 @@ const SettingsScreen = ({ navigation }) => {
     }
   }
   
-  console.log(_getHeightUnit(growthUnit))
-  
+    
   const [selected, setSelected] = useState("");
   const [selectedH, setSelectedH] = useState("");
   //console.log(selected)

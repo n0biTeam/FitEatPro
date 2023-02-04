@@ -42,6 +42,30 @@ const BmiScreen = ({ navigation }) => {
         setSumBMI(result);
   }
 
+  const _getWeightUnit = () => {
+    if(userData.weightUnit === 'kg'){
+        return userData.weightName
+    }else if(userData.weightUnit === 'lb'){
+        return (userData.weightNameLB).toFixed(2)
+    }else if(userData.weightUnit === 'st'){
+        return (userData.weightNameST).toFixed(2)
+    }else{
+        return ''
+    }
+  }
+
+  const _getHeightUnit = () => {
+    if(userData.growthUnit === 'cm'){
+        return userData.heightName
+    }else if(userData.growthUnit === 'in'){
+        return (userData.heightNameIN).toFixed(2)
+    }else if(userData.growthUnit === 'ft'){
+        return (userData.heightNameFT).toFixed(2)
+    }else{
+        return ''
+    }
+  }
+
   const colorBMI = (sumBMI) => {
     let color;
     if(sumBMI < 16.00){
@@ -175,13 +199,13 @@ const BmiScreen = ({ navigation }) => {
         <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.WHITE}}>{t('bmiScreen.enter-values')}</Text>
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 1, marginRight: spacing.SCALE_3, elevation: 5}}>
-            <TextInput
+        <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={ t('bmiScreen.height') + ' (cm)' }
-                value={userData ? userData.heightName.toString() : ''}
+                label={ t('bmiScreen.body-weight') + ' (' + userData.weightUnit + ')'}
+                value={userData ? _getWeightUnit().toString() : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, heightName: txt})}
+                onChangeText={(txt) => setUserData({...userData, weightName: txt})}
                 keyboardType="numeric"
             />
         </View>
@@ -190,10 +214,10 @@ const BmiScreen = ({ navigation }) => {
             <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={ t('bmiScreen.body-weight') + ' (kg)'}
-                value={userData ? userData.weightName.toString() : ''}
+                label={ t('bmiScreen.height') +  ' ('+ userData.growthUnit + ')' }
+                value={userData ? _getHeightUnit().toString() : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, weightName: txt})}
+                onChangeText={(txt) => setUserData({...userData, heightName: txt})}
                 keyboardType="numeric"
             />
         </View>

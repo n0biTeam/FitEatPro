@@ -1,22 +1,23 @@
 import React, {createContext, useState } from 'react';
-import { Alert, ToastAndroid } from 'react-native';
-import auth, { firebase } from '@react-native-firebase/auth';
+import { ToastAndroid } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
 import dataPL from '../data/dataPL';
 import dataPurinePL from '../data/dataPurinePL';
 
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
-  const [user, setUser] = useState();
+   const [user, setUser] = useState();
 
-   const dataJson = dataPL;
-   const dataPurineJson = dataPurinePL;
+   const dataJsonPL = dataPL;
+   const dataPurineJsonPL = dataPurinePL;
    
-   const insertJson = async (dataJson) => {
+   const insertJson = async (dataJsonPL) => {
     try {
       const promises = [];
-      dataJson.forEach((item) => {
+      dataJsonPL.forEach((item) => {
         promises.push(
          firestore().collection('users')
         .doc(auth().currentUser.uid).collection('products')
@@ -30,10 +31,10 @@ export const AuthProvider = ({children}) => {
     }
 }
 
-const insertPurineJson = async (dataPurineJson) => {
+const insertPurineJson = async (dataPurineJsonPL) => {
   try {
     const promises = [];
-    dataPurineJson.forEach((item) => {
+    dataPurineJsonPL.forEach((item) => {
       promises.push(
        firestore().collection('users')
       .doc(auth().currentUser.uid).collection('purines')
@@ -83,7 +84,7 @@ const insertPurineJson = async (dataPurineJson) => {
         register: async (values) => {
     
             const email = values.email;
-            console.log(email);
+            //console.log(email);
             await auth()
                 .createUserWithEmailAndPassword(
                     values.email,
@@ -114,20 +115,25 @@ const insertPurineJson = async (dataPurineJson) => {
                       atcreatedAt: firestore.Timestamp.fromDate(new Date()),
                       userImg: null,
                       weightUnit: 'kg',
-                      growthUnit: 'cm'
-                     
+                      growthUnit: 'cm',
+                      weightNameLB: 0, 
+                      weightNameST: 0,
+                      heightNameIN: 0,
+                      heightNameFT: 0,
+                      targetWeightLB: 0,
+                      targetWeightST: 0
                     })
                 }).catch((error) => {
                     console.log('Error: 1' + error);
                  })
                  .then(async() => {
-                  await insertJson(dataJson);
+                  await insertJson(dataJsonPL);
                  })
                  .catch((error) => {
                   console.log('Error: 2' + error);
                  })
                  .then(async () => {
-                    await insertPurineJson(dataPurineJson);
+                    await insertPurineJson(dataPurineJsonPL);
                   })
                  .catch((error) => {
                     console.log('Error: 3' + error);

@@ -58,6 +58,8 @@ const [isExtended, setIsExtended] = useState(true);
   const {user} = useContext(AuthContext);
   const [userAge, setUserAge] = useState(0);   //Wiek
   const [userWeight, setUserWeight] = useState(0); //waga
+  const [userWeightLB, setUserWeightLB] = useState(0); //waga funt
+  const [userWeightST, setUserWeightST] = useState(0); //waga stopa
   const [userHeigth, setUserHeight] = useState(0); //wzrost
   const [userTargetWeight, setUserTargetWeight] = useState(0); //waga docelowa
   const [userTarget, setUserTarget] = useState(0); //roznica
@@ -79,6 +81,7 @@ const [isExtended, setIsExtended] = useState(true);
   const [currentWeight, setCurrentWeight] = useState(0);
 
   //---------------------------------------------------------------------------------
+  const [userData, setUserData] = useState([]);
   // const [wagBmi, setWagBmi] = useState(0);
   // const [wagDate, setWagDate] = useState(new Date());
   // const [wagBai, setWagBai] = useState(0);
@@ -98,15 +101,18 @@ const [isExtended, setIsExtended] = useState(true);
      .get()
      .then(( doc ) => {
        if( doc.exists ) {
-         //setUserData(doc.data());
+         setUserData(doc.data());
          const dateB = new Date(doc.data().birthday.seconds * 1000);
          setUserAge(new Date().getFullYear() - dateB.getFullYear());
          setUserWeight(doc.data().weightName);
+         setUserWeightLB(doc.data().weightNameLB);
+         setUserWeightST(doc.data().weightNameST);
          setUserHeight(doc.data().heightName);
          //setSum(doc.data().weightName - doc.data().targetWeight);
          setUserTargetWeight(doc.data().targetWeight);
          setUserTarget(doc.data().weightName - doc.data().targetWeight);
          setUserGender(doc.data().gender);
+
 
        }
      })
@@ -120,9 +126,9 @@ const [isExtended, setIsExtended] = useState(true);
    }, [navigation, loading, currentWeightInput]);
 
    useEffect(() => {
-    // setTimeout(() =>{
+    
       getWeight();
-    // }, 1000);
+    
    }, []);
 
    const getWeight = () => {
@@ -155,6 +161,40 @@ const [isExtended, setIsExtended] = useState(true);
     )
   }
 
+  console.log(userData.weightUnit)
+  const _getWeightUnit = () => {
+    try{
+        if(userData.weightUnit === 'kg'){
+            return Number(userData.weightName).toFixed(2);
+        }else if(userData.weightUnit === 'lb'){
+            return Number(userData.weightNameLB).toFixed(2);
+        }else if(userData.weightUnit === 'st'){
+            return Number(userData.weightNameST).toFixed(2);
+        }else{
+            return ''
+        }
+      }catch(e){
+      console.log(e);
+    }
+  }
+  console.log(_getWeightUnit())
+
+  const _getTargetUnit = () => {
+    try{
+      if(userData.weightUnit === 'kg'){
+          return Number(userData.targetWeight).toFixed(2);
+      }else if(userData.weightUnit === 'lb'){
+          return Number(userData.targetWeightLB).toFixed(2);;
+      }else if(userData.weightUnit === 'st'){
+          return Number(userData.targetWeightST).toFixed(2);;
+      }else{
+          return ''
+      }
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   const sing = (item) => {
 
     if(item.difference === 0){
@@ -163,13 +203,37 @@ const [isExtended, setIsExtended] = useState(true);
         )
     }
     else if(item.difference > 0 ){
-        return (
+      
+      if(userData.weightUnit === 'kg'){
+         return (
             <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.difference).toFixed(2)}</Text>
         )
-    }else{
+      }else if(userData.weightUnit === 'lb'){
         return (
+          <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.differenceLB).toFixed(2)}</Text>
+      )
+      }else{
+        return (
+          <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.differenceST).toFixed(2)}</Text>
+      )
+      }
+       
+
+    }else{
+      
+        if(userData.weightUnit === 'kg'){
+          return (
             <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.difference).toFixed(2)}</Text>
         )
+      }else if(userData.weightUnit === 'lb'){
+        return (
+          <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.differenceLB).toFixed(2)}</Text>
+      )
+      }else{
+        return (
+          <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.differenceST).toFixed(2)}</Text>
+      )
+     }
     }
 
 }
@@ -246,13 +310,70 @@ const [isExtended, setIsExtended] = useState(true);
   
 
 
-  const getDifference = () => {
-     //Różnica waga aktualna - waga docelowa 
-     const weightDifference = parseFloat(currentWeightInput) - parseFloat(userWeight);
-     return weightDifference;
-  }
+  // const getDifference = () => {
+  //    //Różnica waga aktualna - waga docelowa 
+  //    if(userData.weightUnit === 'kg'){
+  //       const weightDifference = parseFloat(currentWeightInput) - parseFloat(userWeight);
+  //    }
+     
+  //    return weightDifference;
+  // }
+
+
 
   const _handleAdd = async () => {
+
+    let diffKG = 0;
+    let diffLB = 0;
+    let diffST = 0;
+
+    if(userData.weightUnit === 'kg'){
+      diffKG = parseFloat(currentWeightInput) - parseFloat(userWeight);
+      diffLB = parseFloat(currentWeightInput / 0.4536) - parseFloat(userWeight / 0.4536);
+      diffST = parseFloat(currentWeightInput / 6.35) - parseFloat(userWeight / 6.35);
+    }else if(userData.weightUnit === 'lb'){
+      diffKG = parseFloat(currentWeightInput * 0.45359237) - parseFloat(userWeight * 0.45359237);
+      diffLB = parseFloat(currentWeightInput) - parseFloat(userWeight);
+      diffST = parseFloat(currentWeightInput / 14) - parseFloat(userWeight / 14);
+    }else{
+      diffKG = parseFloat(currentWeightInput / 0.15747) - parseFloat(userWeight / 0.15747);
+      diffLB = parseFloat(currentWeightInput / 0.0714286) - parseFloat(userWeight / 0.0714286);
+      diffST = parseFloat(currentWeightInput) - parseFloat(userWeight);
+    }
+
+    if(userData.weightUnit === 'kg'){
+      lbmKG = getLMB();
+      lbmLB = getLMB() / 0.4536;
+      lbmST = getLMB() / 6.35;
+    }else if(userData.weightUnit === 'lb'){
+      lbmKG = getLMB() * 0.45359237;
+      lbmLB = getLMB();
+      lbmST = getLMB() / 14;
+    }else {
+      lbmKG = getLMB() / 0.15747;
+      lbmLB = getLMB() / 0.0714286;
+      lbmST = getLMB();
+    }
+
+
+    let weightKG = 0;
+    let weightLB = 0;
+    let weightST = 0;
+    // Waga aktualna
+    if(userData.weightUnit === 'kg'){
+      
+      weightKG = parseFloat(currentWeightInput);               
+      weightLB = parseFloat(currentWeightInput) / 0.4536;      
+      weightST = parseFloat(currentWeightInput) / 6.35;        
+    }else if(userData.weightUnit === 'lb'){
+      weightKG = parseFloat(currentWeightInput) * 0.45359237;  
+      weightLB = parseFloat(currentWeightInput);               
+      weightST = parseFloat(currentWeightInput) / 14;          
+    }else{
+      weightKG = parseFloat(currentWeightInput) / 0.15747;     
+      weightLB = parseFloat(currentWeightInput) / 0.0714286;   
+      weightST = parseFloat(currentWeightInput);               
+    }    
      
     const bai = hipGirth / Math.pow((userHeigth/100), 1.5)-18;
 
@@ -262,7 +383,10 @@ const [isExtended, setIsExtended] = useState(true);
     .collection('profile')
     .doc('profil')
     .update({
-      weightName: parseFloat(currentWeightInput),
+     // weightName: parseFloat(currentWeightInput),
+      weightName: weightKG,
+      weightNameLB: weightLB,
+      weightNameST: weightST,
     });
 
    await firestore()
@@ -273,12 +397,20 @@ const [isExtended, setIsExtended] = useState(true);
       //createdAt: getDataTime(),
       createdAt: firestore.Timestamp.fromDate(new Date()),
       bmi: getBMI(),
-      currentWeight: parseFloat(currentWeightInput),
-      lbm: getLMB(),
-      targetWeight: parseFloat(userTargetWeight),
+      currentWeight: weightKG,
+      currentWeightLB: weightLB,
+      currentWeightST: weightST,
+      lbm: lbmKG,
+      lbmLB: lbmLB,
+      lbmST: lbmST,
+      targetWeight: parseFloat(userData.targetWeight),
+      targetWeightLB: parseFloat(userData.targetWeightLB),
+      targetWeightST: parseFloat(userData.targetWeightST),
       //weightDifference: parseFloat(subWeight),
       bai: hipGirth ? bai : 0,
-      difference: dataWeight.length === 0 ? 0 : getDifference()
+      difference: dataWeight.length === 0 ? 0 : diffKG,
+      differenceLB: dataWeight.length === 0 ? 0 : diffLB,
+      differenceST: dataWeight.length === 0 ? 0 : diffST,
     })
     .then(() => {
       console.log('Added');
@@ -298,17 +430,35 @@ const [isExtended, setIsExtended] = useState(true);
       return (
         <View style={{alignItems: 'center'}}>
           <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(userTarget).toFixed(2)}</Text>
-          <Text style={{fontSize: typography.FONT_SIZE_10}}>(kg)</Text>
+          <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
         </View>
       );
     } else {
       if(item.currentWeight - userTargetWeight > 0){
-        return (
-                <View style={{alignItems: 'center'}}>
-                  <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeight - userTargetWeight).toFixed(2)}</Text>
-                  <Text style={{fontSize: typography.FONT_SIZE_10}}>(kg)</Text>
-                </View>
-        );
+        
+          if(userData.weightUnit === 'kg'){
+            return (
+                    <View style={{alignItems: 'center'}}>
+                      <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeight - item.targetWeight).toFixed(2)}</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+                    </View>
+            );
+          } else if(userData.weightUnit === 'lb'){
+            return (
+              <View style={{alignItems: 'center'}}>
+                <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeightLB - item.targetWeightLB).toFixed(2)}</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+              </View>
+            );
+          } else {
+            return (
+              <View style={{alignItems: 'center'}}>
+                <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeightST - item.targetWeightST).toFixed(2)}</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+              </View>
+            );
+          }
+
       }else{
         return (
                 
@@ -740,24 +890,24 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                 <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
                   <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.current-weight')}</Text>
                     <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-                      <Text style={styles.textCard}>{ userWeight }</Text>
-                      <Text style={{fontSize: 10}}>(kg)</Text>
+                      <Text style={styles.textCard}>{ _getWeightUnit() }</Text>
+                      <Text style={{fontSize: 10}}>({userData.weightUnit})</Text>
                   </View>
                 </View>
 
                 <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
                 <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.target-weight')}</Text>
                   <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-                    <Text style={styles.textCard}>{userTargetWeight}</Text>
-                    <Text style={{fontSize: typography.FONT_SIZE_10}}>(kg)</Text>
+                    <Text style={styles.textCard}>{_getTargetUnit()}</Text>
+                    <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
                   </View>
                 </View>
 
                 <View style={styles.boxCard}>
                 <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.difference')}</Text>
                   <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-                    <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(userWeight - userTargetWeight).toFixed(2)}</Text>
-                    <Text style={{fontSize: typography.FONT_SIZE_10}}>(kg)</Text>
+                    <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(_getWeightUnit() - _getTargetUnit()).toFixed(2)}</Text>
+                    <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
                    
                   </View>
                 </View>
@@ -906,16 +1056,29 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                           <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
                             <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.current-weight')}</Text>
                               <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-                                <Text style={styles.textCard}>{ dataWeight.length === 0 ? userWeight.toFixed(2) : (item.currentWeight).toFixed(2) }</Text>
-                                <Text style={{fontSize: 10}}>(kg)</Text>
+                                <Text style={styles.textCard}>
+                                  {/* { dataWeight.length === 0 ? userWeight.toFixed(2) : (item.currentWeight).toFixed(2) } */}
+                                  
+                                  { userData.weightUnit === 'kg' && Number(item.currentWeight).toFixed(2) }
+                                  { userData.weightUnit === 'lb' && (Number(item.currentWeightLB)).toFixed(2) }
+                                  { userData.weightUnit === 'st' && (Number(item.currentWeightST)).toFixed(2) }
+                                  
+                                  
+                                </Text>
+                                <Text style={{fontSize: 10}}>({userData.weightUnit})</Text>
                             </View>
                           </View>
 
                           <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
                           <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.target-weight')}</Text>
                             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-                              <Text style={styles.textCard}>{userTargetWeight < item.targetWeight ? userTargetWeight : item.targetWeight}</Text>
-                              <Text style={{fontSize: typography.FONT_SIZE_10}}>(kg)</Text>
+                              <Text style={styles.textCard}>
+                                {/* {userTargetWeight < item.targetWeight ? userTargetWeight : item.targetWeight} */}
+                                
+                                { _getTargetUnit() }
+                               
+                              </Text>
+                              <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
                             </View>
                           </View>
 
@@ -967,11 +1130,17 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                             }
                         </View>
                         <View style={{alignItems: 'center'}}>
-                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>{Number(item.currentWeight).toFixed(2)} </Text>                          
+                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>
+                              {/* {Number(item.currentWeight).toFixed(2)} */}
+                              { userData.weightUnit === 'kg' && Number(item.currentWeight).toFixed(2) }
+                              { userData.weightUnit === 'lb' && Number(item.currentWeightLB).toFixed(2) }
+                              { userData.weightUnit === 'st' && Number(item.currentWeightST).toFixed(2) }
+                            </Text>                          
                             {sing(item)}
+                            
                         </View>
                         <View>
-                        <Text style={{fontSize: 12, fontWeight: '400', color: colors.TEXT.DEEP_BLUE}}> kg</Text>
+                        <Text style={{fontSize: 12, fontWeight: '400', color: colors.TEXT.DEEP_BLUE}}> {userData.weightUnit}</Text>
                         </View>
                      </View>
 
@@ -1051,7 +1220,12 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                           </View>
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (item.lbm).toFixed(2) }<Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> kg</Text></Text>
+                            <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
+                              {/* { (item.lbm).toFixed(2) } */}
+                              { userData.weightUnit === 'kg' && Number(item.lbm).toFixed(2) }
+                              { userData.weightUnit === 'lb' && Number(item.lbmLB).toFixed(2) }
+                              { userData.weightUnit === 'st' && Number(item.lbmST).toFixed(2) }
+                            <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> {userData.weightUnit}</Text></Text>
                           </View>
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -1119,7 +1293,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                     <TextInput
                         underlineColor={colors.COLORS.WHITE}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                        label={t('weightLogScreen.modal-current-weight') + ' [kg]'}
+                        label={t('weightLogScreen.modal-current-weight') + ' [' + userData.weightUnit + ']'} 
                         value={currentWeightInput.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setCurrentWeightInput}
@@ -1132,7 +1306,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                     <TextInput
                         underlineColor={colors.COLORS.WHITE}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                        label={t('weightLogScreen.hip-circumference') + ' [cm]'}
+                        label={t('weightLogScreen.hip-circumference') + ' [' + userData.growthUnit + ']'}
                         value={hipGirth.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setHipGirth}
