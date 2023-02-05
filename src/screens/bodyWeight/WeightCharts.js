@@ -11,10 +11,11 @@ import { pl } from 'date-fns/locale';
 import { LineChart } from "react-native-chart-kit";
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
 import { colors, spacing } from '../../styles';
-
+import { useTranslation } from 'react-i18next';
 
 const WeightCharts = ({ navigation }) => {
 
+  const {t, i18n} = useTranslation();
   const {user} = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
@@ -33,8 +34,8 @@ const WeightCharts = ({ navigation }) => {
       const [dataChartsLB, setDataChartsLB] = useState([0]);
       const [dataChartsLB2, setDataChartsLB2] = useState([0]);
 
-      const [dataChartsST, setDataChartsST] = useState([0]);
-      const [dataChartsST2, setDataChartsST2] = useState([0]);
+      // const [dataChartsST, setDataChartsST] = useState([0]);
+      // const [dataChartsST2, setDataChartsST2] = useState([0]);
       const [dataDate, setDataDate] = useState([0]);
       const [dataDate30, setDataDate30] = useState([0]);
 
@@ -66,8 +67,8 @@ const WeightCharts = ({ navigation }) => {
               const dataChartsLB = [];
               const dataChartsLB2 = [];
 
-              const dataChartsST = [];
-              const dataChartsST2 = [];
+              // const dataChartsST = [];
+              // const dataChartsST2 = [];
 
                 querySnapshot.forEach(doc => {
                  if( doc.exists ) {
@@ -78,8 +79,8 @@ const WeightCharts = ({ navigation }) => {
                   dataChartsLB.push(doc.data().currentWeightLB); 
                   dataChartsLB2.push(doc.data().targetWeightLB); 
     
-                  dataChartsST.push(doc.data().currentWeightST); 
-                  dataChartsST2.push(doc.data().targetWeightST); 
+                  // dataChartsST.push(doc.data().currentWeightST); 
+                  // dataChartsST2.push(doc.data().targetWeightST); 
                   
                   const year = format((doc.data().createdAt).toDate(), 'yyyy');
                   const month = format((doc.data().createdAt).toDate(), 'MM');
@@ -108,9 +109,9 @@ const WeightCharts = ({ navigation }) => {
                   setDataChartsLB(arrayDataLB);
 
                   // waga ST
-                  const arrayDataST = dataChartsST;
-                  arrayDataST.reverse();
-                  setDataChartsST(arrayDataST);
+                  // const arrayDataST = dataChartsST;
+                  // arrayDataST.reverse();
+                  // setDataChartsST(arrayDataST);
 
                   // cel KG
                   const arrayData2 = dataCharts2;
@@ -123,9 +124,9 @@ const WeightCharts = ({ navigation }) => {
                   setDataChartsLB2(arrayDataLB2);
 
                   //cel ST
-                  const arrayDataST2 = dataChartsST2;
-                  arrayDataST2.reverse();
-                  setDataChartsST2(arrayDataST2);
+                  // const arrayDataST2 = dataChartsST2;
+                  // arrayDataST2.reverse();
+                  // setDataChartsST2(arrayDataST2);
 
                   const arrayDate = dataDate;
                   arrayDate.reverse();
@@ -150,11 +151,8 @@ const WeightCharts = ({ navigation }) => {
         if(userData.weightUnit === 'kg'){
             const chart = dataCharts;
             return chart;
-        }else if(userData.weightUnit === 'lb'){
-            const chart = dataChartsLB
-            return chart;
         }else{
-            const chart = dataChartsST;
+            const chart = dataChartsLB
             return chart;
         }
       }catch(e){
@@ -169,11 +167,8 @@ const WeightCharts = ({ navigation }) => {
         if(userData.weightUnit === 'kg'){
             const chart = dataCharts2;
             return chart;
-        }else if(userData.weightUnit === 'lb'){
-            const chart = dataChartsLB2
-            return chart;
         }else{
-            const chart = dataChartsST2;
+            const chart = dataChartsLB2
             return chart;
         }
       }catch(e){
@@ -261,7 +256,7 @@ const WeightCharts = ({ navigation }) => {
                   width={Dimensions.get("window").width-12} // from react-native
                   height={200}
                   yAxisLabel=""
-                  yAxisSuffix=" kg"
+                  yAxisSuffix={' ' + userData.weightUnit}
                   yAxisInterval={1} // optional, defaults to 1
                   chartConfig={{
                     backgroundColor: colors.COLORS.BLACK,
@@ -345,7 +340,7 @@ const WeightCharts = ({ navigation }) => {
                   width={Dimensions.get("window").width-12} // from react-native
                   height={200}
                   yAxisLabel=""
-                  yAxisSuffix=" kg"
+                  yAxisSuffix={' ' + userData.weightUnit}
                   yAxisInterval={1} // optional, defaults to 1
                   chartConfig={{
                     backgroundColor: colors.COLORS.BLACK,

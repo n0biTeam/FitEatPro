@@ -24,9 +24,11 @@ const WeightDetailScreen = ({ route, navigation }) => {
     const [dateWag, setDateWag] = useState(new Date());
     const [age, setAge] = useState(0);
     const [weight, setWeight] = useState(0);
+    const [weightLB, setWeightLB] = useState(0);
     const [targetWeight, setTargetWeight] = useState(0);
     const [lastId, setLastId] = useState([]);
     const [difference, setDifference] = useState(0);
+    const [differenceLB, setDifferenceLB] = useState(0);
 
     useEffect(() => {
       getUser();
@@ -48,6 +50,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
           const dateB = new Date(doc.data().birthday.seconds * 1000);
           setAge(new Date().getFullYear() - dateB.getFullYear());
           setWeight(doc.data().weightName);
+          setWeightLB(doc.data().weightNameLB);
           //setSum(doc.data().weightName - doc.data().targetWeight);
           setTargetWeight(doc.data().targetWeight);
         }
@@ -66,6 +69,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
                if( doc.exists ) {
                 //lastId.push({...doc.data(), id: doc.id}); 
                 setDifference(doc.data().difference);
+                setDifferenceLB(doc.data().differenceLB);
                 setLastId(doc.id);
                }
                
@@ -480,6 +484,27 @@ const WeightDetailScreen = ({ route, navigation }) => {
     }
 
     const _handleDelete = async () => {
+        let weightKG = 0;
+        let weightLB2 = 0;
+      if(userData.widthUnit === 'kg'){
+        weightKG = parseFloat(weight - difference);
+        weightLB2 = parseFloat(weightLB - differenceLB);
+      }else{
+        weightKG = parseFloat(weight - difference);
+        weightLB2 = parseFloat(weightLB - differenceLB);
+      }
+
+      // let diffKG = 0;
+      // let diffLB = 0;
+      // if(userData.widthUnit === 'kg'){
+      //   diffKG = parseFloat(weight - difference);
+      //   diffLB = parseFloat(weightLB - differenceLB);
+      // }else{
+      //   diffKG = parseFloat(weight - difference);
+      //   diffLB = parseFloat(weightLB - differenceLB);
+      // }
+      console.log('KG: ' + weightKG)
+      console.log('LB: ' + weightLB2)
       await firestore()
       .collection('users')
       .doc(user.uid)
@@ -493,7 +518,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
       .collection('profile')
       .doc('profil')
       .update({
-        weightName: parseFloat(weight - difference),
+        weightName: weightKG,
+        weightNameLB: weightLB2,
     })
       .then(() => {
          ToastAndroid.show(t('weightDetalScreen.toast.delete-text'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
@@ -578,7 +604,12 @@ const WeightDetailScreen = ({ route, navigation }) => {
               </View>
 
               <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (dataWeight.currentWeight).toFixed(2) }<Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> kg</Text></Text>
+                <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
+                  {/* { (dataWeight.currentWeight).toFixed(2) } */}
+                  { userData.weightUnit === 'kg' && Number(dataWeight.currentWeight).toFixed(2) }
+                  { userData.weightUnit === 'lb' && Number(dataWeight.currentWeightLB).toFixed(2) }
+                  <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}>
+                     {' '+ userData.weightUnit}</Text></Text>
               </View>
 
               <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -659,7 +690,13 @@ const WeightDetailScreen = ({ route, navigation }) => {
               </View>
 
               <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ dataWeight.lbm.toFixed(2) }<Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> kg</Text></Text>
+                <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
+                  {/* { dataWeight.lbm.toFixed(2) } */}
+                  { userData.weightUnit === 'kg' && Number(dataWeight.lbm).toFixed(2) }
+                  { userData.weightUnit === 'lb' && Number(dataWeight.lbmLB).toFixed(2) }
+                  <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> 
+                  {' ' + userData.weightUnit}
+                  </Text></Text>
               </View>
 
               <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

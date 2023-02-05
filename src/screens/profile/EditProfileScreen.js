@@ -103,62 +103,62 @@ const EditProfileScreen = ({ navigation }) => {
 
     // Waga aktualna
     if(userData.weightUnit === 'kg'){
-      weightKG = parseFloat(userData.weightName);               
-      weightLB = parseFloat(userData.weightName) / 0.4536;      
-      weightST = parseFloat(userData.weightName) / 6.35;        
+      weightKG = (parseFloat(userData.weightName)).toFixed(2);               
+      weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);      
+      //weightST = parseFloat(userData.weightName) / 6.35;        
     }else if(userData.weightUnit === 'lb'){
-      weightKG = parseFloat(userData.weightName) * 0.45359237;  
-      weightLB = parseFloat(userData.weightName);               
-      weightST = parseFloat(userData.weightName) / 14;          
+      weightKG = (parseFloat(userData.weightName) * 0.45359237).toFixed(2);  
+      weightLB = (parseFloat(userData.weightName)).toFixed(2);
+      //weightST = parseFloat(userData.weightName) / 14;          
     }else{
-      weightKG = parseFloat(userData.weightName) / 0.15747;     
-      weightLB = parseFloat(userData.weightName) / 0.0714286;   
-      weightST = parseFloat(userData.weightName);               
+      weightKG = (parseFloat(userData.weightName) / 0.15747).toFixed(2);
+      weightLB = (parseFloat(userData.weightName) / 0.0714286).toFixed(2);
+     // weightST = parseFloat(userData.weightName);               
     }
 
     // Waga docelowa
     if(userData.weightUnit === 'kg'){
-      targetKG = parseFloat(userData.targetWeight);                
-      targetLB = parseFloat(userData.targetWeight) / 0.4536;      
-      targetST = parseFloat(userData.targetWeight) / 6.35;        
+      targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
+      targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2)  
+     // targetST = parseFloat(userData.targetWeight) / 6.35;        
     }else if(userData.weightUnit === 'lb'){
-      targetKG = parseFloat(userData.targetWeight) * 0.45359237;  
-      targetLB = parseFloat(userData.targetWeight);               
-      targetST = parseFloat(userData.targetWeight) / 14;          
+      targetKG = (parseFloat(userData.targetWeight) * 0.45359237).toFixed(2);  
+      targetLB = (parseFloat(userData.targetWeight)).toFixed(2);
+     // targetST = parseFloat(userData.targetWeight) / 14;          
     }else{
-      targetKG = parseFloat(userData.targetWeight) / 0.15747;     
-      targetLB = parseFloat(userData.targetWeight) / 0.0714286;   
-      targetST = parseFloat(userData.targetWeight);               
+      targetKG = (parseFloat(userData.targetWeight) / 0.15747).toFixed(2);
+      targetLB = (parseFloat(userData.targetWeight) / 0.0714286).toFixed(2);
+     // targetST = parseFloat(userData.targetWeight);               
     }
 
     // Różnica
     if(userData.weightUnit === 'kg'){
-      diffKG = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);              
-      diffLB = (parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536);      
-      diffST = (parseFloat(userData.weightName) / 6.35) - (parseFloat(userData.targetWeight) / 6.35);        
+      diffKG = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
+      diffLB = ((parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536)).toFixed(2);
+      //diffST = (parseFloat(userData.weightName) / 6.35) - (parseFloat(userData.targetWeight) / 6.35);        
     }else if(userData.weightUnit === 'lb'){
-      diffKG = (parseFloat(userData.weightName) * 0.45359237) - (parseFloat(userData.targetWeight) * 0.45359237);  
-      diffLB = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
-      diffST = (parseFloat(userData.weightName) / 14) - (parseFloat(userData.targetWeight) / 14);          
+      diffKG = ((parseFloat(userData.weightName) * 0.45359237) - (parseFloat(userData.targetWeight) * 0.45359237)).toFixed(2);
+      diffLB = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
+     // diffST = (parseFloat(userData.weightName) / 14) - (parseFloat(userData.targetWeight) / 14);          
     }else{
-      diffKG = (parseFloat(userData.weightName) / 0.15747) - (parseFloat(userData.targetWeight) / 0.15747);
-      diffLB = (parseFloat(userData.weightName) / 0.0714286) - (parseFloat(userData.targetWeight) / 0.0714286);   
-      diffST = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
+      diffKG = ((parseFloat(userData.weightName) / 0.15747) - (parseFloat(userData.targetWeight) / 0.15747)).toFixed(2);
+      diffLB = ((parseFloat(userData.weightName) / 0.0714286) - (parseFloat(userData.targetWeight) / 0.0714286)).toFixed(2);   
+      //diffST = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
     }
 
     // Wzrost
     if(userData.growthUnit === 'cm'){
-      heightCM = parseFloat(userData.heightName);
-      heightIN = parseFloat(userData.heightName) / 2.54;
-      heightFT = parseFloat(userData.heightName) / 30.48;
+      heightCM = (parseFloat(userData.heightName)).toFixed(2);
+      heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
+      //heightFT = parseFloat(userData.heightName) / 30.48;
     }else if(userData.growthUnit === 'in'){
-      heightCM = parseFloat(userData.heightName) * 2.54;
-      heightIN = parseFloat(userData.heightName);               
-      heightFT = parseFloat(userData.heightName) / 12;
+      heightCM = (parseFloat(userData.heightName) * 2.54).toFixed(2);
+      heightIN = (parseFloat(userData.heightName)).toFixed(2);               
+     // heightFT = parseFloat(userData.heightName) / 12;
     }else{
-      heightCM = parseFloat(userData.heightName) * 30.48;
-      heightIN = parseFloat(userData.heightName) * 12;   
-      heightFT = parseFloat(userData.heightName);               
+      heightCM = (parseFloat(userData.heightName) * 30.48).toFixed(2);
+      heightIN = (parseFloat(userData.heightName) * 12).toFixed(2);   
+     // heightFT = parseFloat(userData.heightName);               
     }
 
     //console.log('image: ' + image);
@@ -171,24 +171,24 @@ const EditProfileScreen = ({ navigation }) => {
       firstName: userData.firstName,
       lastName: userData.lastName,
       
-      weightName: weightKG,
-      weightNameLB: weightLB,
-      weightNameST: weightST,
+      weightName: parseFloat(weightKG),
+      weightNameLB: parseFloat(weightLB),
+      //weightNameST: weightST,
 
-      targetWeight: targetKG,
-      targetWeightLB: targetLB,
-      targetWeightST: targetST,
+      targetWeight: parseFloat(targetKG),
+      targetWeightLB: parseFloat(targetLB),
+      //targetWeightST: targetST,
       
-      heightName: heightCM,
-      heightNameIN: heightIN,
-      heightNameFT: heightFT,
+      heightName: parseFloat(heightCM),
+      heightNameIN: parseFloat(heightIN),
+      //heightNameFT: heightFT,
       
       birthday: date,
       gender: gender ? gender : userData.gender,
       userImg: imgUrl === null ? null : imgUrl,
-      difference: diffKG,
-      differenceLB: diffLB,
-      differenceST: diffST,
+      difference: parseFloat(diffKG),
+      differenceLB: parseFloat(diffLB),
+      //differenceST: diffST,
 
     })
     .then(() => {

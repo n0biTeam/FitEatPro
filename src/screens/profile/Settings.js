@@ -43,24 +43,24 @@ const SettingsScreen = ({ navigation }) => {
   const _getWeightUnit = (weightUnit) => {
     if(weightUnit === 'kg'){
         return 'Kilogram'
-    }else if(weightUnit === 'lb'){
-        return 'Funt'
-    }else if(weightUnit === 'st'){
-        return 'Stopa'
     }else{
-        return 'Błąd'
+        return 'Funt'
+    // }else if(weightUnit === 'st'){
+    //     return 'Stopa'
+    // }else{
+    //     return 'Błąd'
     }
   }
 
   const _getHeightUnit = (growthUnit) => {
     if(growthUnit === 'cm'){
         return 'Centymetr'
-    }else if(growthUnit === 'in'){
-        return 'Cale'
-    }else if(growthUnit === 'ft'){
-        return 'Stopa'
     }else{
-        return 'Błąd'
+        return 'Cale'
+    // }else if(growthUnit === 'ft'){
+    //     return 'Stopa'
+    // }else{
+    //     return 'Błąd'
     }
   }
   
@@ -72,14 +72,14 @@ const SettingsScreen = ({ navigation }) => {
   const dataWeidth = [
       {key:'kg', value: 'Kilogramy'},
       {key:'lb', value: 'Funt'},
-      {key:'st', value: 'Stopa'},
+      // {key:'st', value: 'Stopa'},
      
   ];
 
   const dataHeight = [
     {key:'cm', value: 'Centymetry'},
     {key:'in', value: 'Cale'},
-    {key:'ft', value: 'Stopa'},
+    // {key:'ft', value: 'Stopa'},
    
 ];
 

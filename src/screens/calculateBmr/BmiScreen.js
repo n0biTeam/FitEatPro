@@ -15,6 +15,8 @@ const BmiScreen = ({ navigation }) => {
     const {user} = useContext(AuthContext); 
     const [sumBMI, setSumBMI] = useState(0.00);
     const [userData, setUserData] = useState('');
+    const [weightName, setWeightName] = useState('');
+    const [heightName, setHeightName] = useState('');
 
     const getUser = async () => {
         await firestore()
@@ -38,33 +40,20 @@ const BmiScreen = ({ navigation }) => {
     const _goBack = () => navigation.navigate('HomeScreen');
   
     const bmiCalc = () => {
-        const result = parseFloat(userData.weightName) / ((parseFloat(userData.heightName)*parseFloat(userData.heightName))/10000);
-        setSumBMI(result);
+
+        console.log(parseFloat(userData.weightName))
+        console.log((parseFloat(userData.heightName)))
+        if(userData.weightUnit === 'kg'){
+          const result = parseFloat(userData.weightName) / ((parseFloat(userData.heightName)*parseFloat(userData.heightName))/10000);
+          setSumBMI(result);
+        }else{
+          const result = parseFloat(userData.weightNameLB * 0.45359237) / ((parseFloat(userData.heightNameIN*2.54)*parseFloat(userData.heightNameIN*2.54))/10000);
+          setSumBMI(result);
+        }
+        
   }
 
-  const _getWeightUnit = () => {
-    if(userData.weightUnit === 'kg'){
-        return userData.weightName
-    }else if(userData.weightUnit === 'lb'){
-        return (userData.weightNameLB).toFixed(2)
-    }else if(userData.weightUnit === 'st'){
-        return (userData.weightNameST).toFixed(2)
-    }else{
-        return ''
-    }
-  }
-
-  const _getHeightUnit = () => {
-    if(userData.growthUnit === 'cm'){
-        return userData.heightName
-    }else if(userData.growthUnit === 'in'){
-        return (userData.heightNameIN).toFixed(2)
-    }else if(userData.growthUnit === 'ft'){
-        return (userData.heightNameFT).toFixed(2)
-    }else{
-        return ''
-    }
-  }
+  
 
   const colorBMI = (sumBMI) => {
     let color;
@@ -203,9 +192,10 @@ const BmiScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={ t('bmiScreen.body-weight') + ' (' + userData.weightUnit + ')'}
-                value={userData ? _getWeightUnit().toString() : ''}
+                value={userData ? (userData.weightUnit === 'kg' ? (userData.weightName).toString() : (userData.weightNameLB).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, weightName: txt})}
+                onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
+                //onChangeText={setWeightName}
                 keyboardType="numeric"
             />
         </View>
@@ -214,10 +204,10 @@ const BmiScreen = ({ navigation }) => {
             <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={ t('bmiScreen.height') +  ' ('+ userData.growthUnit + ')' }
-                value={userData ? _getHeightUnit().toString() : ''}
+                label={ t('bmiScreen.height') +  ' (' + userData.growthUnit + ')' }
+                value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, heightName: txt})}
+                onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
                 keyboardType="numeric"
             />
         </View>

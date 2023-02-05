@@ -80,12 +80,8 @@ const ProfileScreen = ({ navigation }) => {
   const _getWeightUnit = () => {
     if(userData.weightUnit === 'kg'){
         return (userData.weightName).toFixed(2);
-    }else if(userData.weightUnit === 'lb'){
-        return (userData.weightNameLB).toFixed(2);
-    }else if(userData.weightUnit === 'st'){
-        return (userData.weightNameST).toFixed(2);
     }else{
-        return 'Błąd'
+        return userData.weightNameLB;
     }
   }
 
@@ -94,24 +90,16 @@ const ProfileScreen = ({ navigation }) => {
   const _getWeighTargetUnit = () => {
     if(userData.weightUnit === 'kg'){
         return (userData.targetWeight).toFixed(2)
-    }else if(userData.weightUnit === 'lb'){
-        return (userData.targetWeightLB).toFixed(2)
-    }else if(userData.weightUnit === 'st'){
-        return (userData.targetWeightST).toFixed(2)
     }else{
-        return 'Błąd'
+        return (userData.targetWeightLB).toFixed(2)
     }
   }
 
   const _getHeightUnit = () => {
     if(userData.growthUnit === 'cm'){
         return userData.heightName
-    }else if(userData.growthUnit === 'in'){
-        return (userData.heightNameIN).toFixed(2)
-    }else if(userData.growthUnit === 'ft'){
-        return (userData.heightNameFT).toFixed(2)
     }else{
-        return 'Błąd'
+        return (userData.heightNameIN);
     }
   }
   

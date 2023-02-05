@@ -117,11 +117,11 @@ const insertPurineJson = async (dataPurineJsonPL) => {
                       weightUnit: 'kg',
                       growthUnit: 'cm',
                       weightNameLB: 0, 
-                      weightNameST: 0,
+                      //weightNameST: 0,
                       heightNameIN: 0,
-                      heightNameFT: 0,
+                      //heightNameFT: 0,
                       targetWeightLB: 0,
-                      targetWeightST: 0
+                      //targetWeightST: 0
                     })
                 }).catch((error) => {
                     console.log('Error: 1' + error);

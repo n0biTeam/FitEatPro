@@ -50,8 +50,8 @@ const HomeScreen = ({ navigation }) => {
   const [dataChartsLB, setDataChartsLB] = useState([0]);
   const [dataChartsLB2, setDataChartsLB2] = useState([0]);
 
-  const [dataChartsST, setDataChartsST] = useState([0]);
-  const [dataChartsST2, setDataChartsST2] = useState([0]);
+  // const [dataChartsST, setDataChartsST] = useState([0]);
+  // const [dataChartsST2, setDataChartsST2] = useState([0]);
   
   const [weight, setWeight] = useState(0);
   const [targetWeight, setTargetWeight] = useState(0);
@@ -76,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
         setUserData(doc.data());
         setWeight(doc.data().weightName);
         setTargetWeight(doc.data().targetWeight);
-        setDifference(doc.data().difference);
+        //setDifference(doc.data().difference);
       }
     })
   }
@@ -93,8 +93,8 @@ const HomeScreen = ({ navigation }) => {
           const dataChartsLB = [];
           const dataChartsLB2 = [];
 
-          const dataChartsST = [];
-          const dataChartsST2 = [];
+          // const dataChartsST = [];
+          // const dataChartsST2 = [];
 
           const dataDate = [];
             querySnapshot.forEach(doc => {
@@ -106,8 +106,8 @@ const HomeScreen = ({ navigation }) => {
               dataChartsLB.push(doc.data().currentWeightLB); 
               dataChartsLB2.push(doc.data().targetWeightLB); 
 
-              dataChartsST.push(doc.data().currentWeightST); 
-              dataChartsST2.push(doc.data().targetWeightST); 
+              // dataChartsST.push(doc.data().currentWeightST); 
+              // dataChartsST2.push(doc.data().targetWeightST); 
               
               //const year = format((doc.data().createdAt).toDate(), 'yyyy');
               const month = format((doc.data().createdAt).toDate(), 'MM');
@@ -135,9 +135,9 @@ const HomeScreen = ({ navigation }) => {
             setDataChartsLB(arrayDataLB);
 
             // waga ST
-            const arrayDataST = dataChartsST;
-            arrayDataST.reverse();
-            setDataChartsST(arrayDataST);
+            // const arrayDataST = dataChartsST;
+            // arrayDataST.reverse();
+            // setDataChartsST(arrayDataST);
 
             // cel KG
             const arrayData2 = dataCharts2;
@@ -150,9 +150,9 @@ const HomeScreen = ({ navigation }) => {
             setDataChartsLB2(arrayDataLB2);
 
             //cel ST
-            const arrayDataST2 = dataChartsST2;
-            arrayDataST2.reverse();
-            setDataChartsST2(arrayDataST2);
+            // const arrayDataST2 = dataChartsST2;
+            // arrayDataST2.reverse();
+            // setDataChartsST2(arrayDataST2);
 
             const arrayDate = dataDate;
             arrayDate.reverse();
@@ -171,11 +171,8 @@ const _chartWeight = () => {
   if(userData.weightUnit === 'kg'){
       const chart = dataCharts;
       return chart;
-  }else if(userData.weightUnit === 'lb'){
-      const chart = dataChartsLB
-      return chart;
   }else{
-      const chart = dataChartsST;
+      const chart = dataChartsLB
       return chart;
   }
 }catch(e){
@@ -188,17 +185,28 @@ const _chartWeight2 = () => {
   if(userData.weightUnit === 'kg'){
       const chart = dataCharts2;
       return chart;
-  }else if(userData.weightUnit === 'lb'){
-      const chart = dataChartsLB2
-      return chart;
   }else{
-      const chart = dataChartsST2;
+      const chart = dataChartsLB2
       return chart;
   }
 }catch(e){
   console.log(e);
 }
 }
+
+const _differenceWeight = () => {
+  try{
+    if(userData.weightUnit === 'kg'){
+       return userData.difference;
+    }else{
+        return userData.differenceLB;
+    }
+  }catch(e){
+    console.log(e);
+  }
+}
+
+console.log(_differenceWeight())
 
 //console.log(_chartWeight())
  
@@ -600,7 +608,7 @@ const _chartWeight2 = () => {
             value={_getWeightUnit()-_getTargetUnit()}
             radius={spacing.SCALE_30}
             //inActiveStrokeOpacity={0.3}
-            maxValue={difference}
+            maxValue={_differenceWeight()}
             rotation={360}
             valuePrefix={'+'}
             activeStrokeWidth={5}
