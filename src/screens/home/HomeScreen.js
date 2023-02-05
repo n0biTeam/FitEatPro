@@ -200,7 +200,7 @@ const _chartWeight2 = () => {
 }
 }
 
-console.log(_chartWeight())
+//console.log(_chartWeight())
  
   const handleAdd = async () => {
     await firestore()

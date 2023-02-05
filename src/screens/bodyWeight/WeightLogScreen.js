@@ -57,7 +57,7 @@ const [isExtended, setIsExtended] = useState(true);
   //---------------------------------------------------------------
   const {user} = useContext(AuthContext);
   const [userAge, setUserAge] = useState(0);   //Wiek
-  const [userWeight, setUserWeight] = useState(0); //waga
+  const [userWeight, setUserWeight] = useState(0); //waga KG
   const [userWeightLB, setUserWeightLB] = useState(0); //waga funt
   const [userWeightST, setUserWeightST] = useState(0); //waga stopa
   const [userHeigth, setUserHeight] = useState(0); //wzrost
@@ -161,7 +161,7 @@ const [isExtended, setIsExtended] = useState(true);
     )
   }
 
-  console.log(userData.weightUnit)
+  //console.log(userData.weightUnit)
   const _getWeightUnit = () => {
     try{
         if(userData.weightUnit === 'kg'){
@@ -177,7 +177,7 @@ const [isExtended, setIsExtended] = useState(true);
       console.log(e);
     }
   }
-  console.log(_getWeightUnit())
+  //console.log(_getWeightUnit())
 
   const _getTargetUnit = () => {
     try{
@@ -194,6 +194,24 @@ const [isExtended, setIsExtended] = useState(true);
       console.log(e);
     }
   }
+
+  //hipGirth
+  //Zamiana jednostek wysokości
+  const _getHightUnit = () => {
+    try{
+      if(userData.growthUnit === 'cm'){
+        return hipGirth;
+      }else if(userData.growthUnit === 'in'){
+        return hipGirth * 2.54;
+      }else {
+        return hipGirth / 12;
+      }
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+  //console.log(_getHightUnit())
 
   const sing = (item) => {
 
@@ -326,20 +344,24 @@ const [isExtended, setIsExtended] = useState(true);
     let diffKG = 0;
     let diffLB = 0;
     let diffST = 0;
+    
 
     if(userData.weightUnit === 'kg'){
       diffKG = parseFloat(currentWeightInput) - parseFloat(userWeight);
       diffLB = parseFloat(currentWeightInput / 0.4536) - parseFloat(userWeight / 0.4536);
       diffST = parseFloat(currentWeightInput / 6.35) - parseFloat(userWeight / 6.35);
     }else if(userData.weightUnit === 'lb'){
-      diffKG = parseFloat(currentWeightInput * 0.45359237) - parseFloat(userWeight * 0.45359237);
-      diffLB = parseFloat(currentWeightInput) - parseFloat(userWeight);
-      diffST = parseFloat(currentWeightInput / 14) - parseFloat(userWeight / 14);
+      diffKG = parseFloat(currentWeightInput * 0.45359237) - parseFloat(userWeight);
+      diffLB = parseFloat(currentWeightInput) - parseFloat(userWeightLB);
+      diffST = parseFloat(currentWeightInput / 14) - parseFloat(userWeightST);
     }else{
-      diffKG = parseFloat(currentWeightInput / 0.15747) - parseFloat(userWeight / 0.15747);
-      diffLB = parseFloat(currentWeightInput / 0.0714286) - parseFloat(userWeight / 0.0714286);
-      diffST = parseFloat(currentWeightInput) - parseFloat(userWeight);
+      diffKG = parseFloat(currentWeightInput / 0.15747304) - parseFloat(userWeight);
+      diffLB = parseFloat(currentWeightInput * 14) - parseFloat(userWeightLB);
+      diffST = parseFloat(currentWeightInput) - parseFloat(userWeightST);
     }
+    // console.log("KG: " + diffKG)
+    // console.log('LB: ' + diffLB)
+    // console.log('ST: ' + diffST)
 
     if(userData.weightUnit === 'kg'){
       lbmKG = getLMB();
@@ -375,7 +397,7 @@ const [isExtended, setIsExtended] = useState(true);
       weightST = parseFloat(currentWeightInput);               
     }    
      
-    const bai = hipGirth / Math.pow((userHeigth/100), 1.5)-18;
+    const bai = _getHightUnit() / Math.pow((userHeigth/100), 1.5)-18;
 
     await firestore()
     .collection('users')
