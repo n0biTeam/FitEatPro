@@ -44,10 +44,15 @@ const HomeScreen = ({ navigation }) => {
   const [difference, setDifference] = useState(0);
 
   const [dataCharts, setDataCharts] = useState([0]);
-  const [dataChartsLB, setDataChartsLB] = useState([0]);
-  const [dataDate, setDataDate] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
+  const [dataDate, setDataDate] = useState([0]);
+  
+  const [dataChartsLB, setDataChartsLB] = useState([0]);
+  const [dataChartsLB2, setDataChartsLB2] = useState([0]);
 
+  const [dataChartsST, setDataChartsST] = useState([0]);
+  const [dataChartsST2, setDataChartsST2] = useState([0]);
+  
   const [weight, setWeight] = useState(0);
   const [targetWeight, setTargetWeight] = useState(0);
   const [net, setNet] = useState(null);
@@ -86,7 +91,10 @@ const HomeScreen = ({ navigation }) => {
           const dataCharts2 = [];
 
           const dataChartsLB = [];
-          const dataChartsLB2 = []
+          const dataChartsLB2 = [];
+
+          const dataChartsST = [];
+          const dataChartsST2 = [];
 
           const dataDate = [];
             querySnapshot.forEach(doc => {
@@ -97,6 +105,9 @@ const HomeScreen = ({ navigation }) => {
 
               dataChartsLB.push(doc.data().currentWeightLB); 
               dataChartsLB2.push(doc.data().targetWeightLB); 
+
+              dataChartsST.push(doc.data().currentWeightST); 
+              dataChartsST2.push(doc.data().targetWeightST); 
               
               //const year = format((doc.data().createdAt).toDate(), 'yyyy');
               const month = format((doc.data().createdAt).toDate(), 'MM');
@@ -110,20 +121,38 @@ const HomeScreen = ({ navigation }) => {
                
             });
 
-            console.log(userData.weightUnit)
+            //console.log(userData.weightUnit)
            
+           
+            // waga KG
             const arrayData = dataCharts;
             arrayData.reverse();
             setDataCharts(arrayData);
-           
+             
+            // waga LB
             const arrayDataLB = dataChartsLB;
             arrayDataLB.reverse();
             setDataChartsLB(arrayDataLB);
 
-           
+            // waga ST
+            const arrayDataST = dataChartsST;
+            arrayDataST.reverse();
+            setDataChartsST(arrayDataST);
+
+            // cel KG
             const arrayData2 = dataCharts2;
             arrayData2.reverse();
             setDataCharts2(arrayData2);
+
+            // cel LB
+            const arrayDataLB2 = dataChartsLB2;
+            arrayDataLB2.reverse();
+            setDataChartsLB2(arrayDataLB2);
+
+            //cel ST
+            const arrayDataST2 = dataChartsST2;
+            arrayDataST2.reverse();
+            setDataChartsST2(arrayDataST2);
 
             const arrayDate = dataDate;
             arrayDate.reverse();
@@ -138,14 +167,40 @@ const HomeScreen = ({ navigation }) => {
   };
 
 const _chartWeight = () => {
+  try{
   if(userData.weightUnit === 'kg'){
-      return dataCharts;
+      const chart = dataCharts;
+      return chart;
   }else if(userData.weightUnit === 'lb'){
-      return dataChartsLB;
+      const chart = dataChartsLB
+      return chart;
+  }else{
+      const chart = dataChartsST;
+      return chart;
   }
+}catch(e){
+  console.log(e);
+}
 }
 
-console.log(dataCharts)
+const _chartWeight2 = () => {
+  try{
+  if(userData.weightUnit === 'kg'){
+      const chart = dataCharts2;
+      return chart;
+  }else if(userData.weightUnit === 'lb'){
+      const chart = dataChartsLB2
+      return chart;
+  }else{
+      const chart = dataChartsST2;
+      return chart;
+  }
+}catch(e){
+  console.log(e);
+}
+}
+
+console.log(_chartWeight())
  
   const handleAdd = async () => {
     await firestore()
@@ -209,7 +264,7 @@ console.log(dataCharts)
   
   const charts = (dataCharts, dataCharts2, dataDate) => {
    
-    if (dataCharts?.length === 0) {
+    if (dataCharts.length === 0) {
       return (
         <View style={{elevation: 5}}>
         <LineChart
@@ -268,12 +323,12 @@ console.log(dataCharts)
                   labels: dataDate,
                   datasets: [
                     {
-                      data: dataCharts2,
+                      data: _chartWeight2(),
                       strokeWidth: 3,
                       color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
                     },
                     {
-                      data: dataCharts,
+                      data: _chartWeight(),
                       strokeWidth: 3,
                       color: (opacity = 1) => `rgba(0,255,0,${opacity})`,
                     }
@@ -321,11 +376,11 @@ console.log(dataCharts)
         data={{
           labels: dataDate,
           datasets: [
-            { data: dataCharts,
+            { data: _chartWeight(),
              strokeWidth: 3,
             color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
             }, // optional },
-            { data: dataCharts2,
+            { data: _chartWeight2(),
               strokeWidth: 3,
               color: (opacity = 1) => `rgba(0,255,0,${opacity})`,
             },
@@ -369,9 +424,9 @@ console.log(dataCharts)
         decorator={() => {
           return tooltipPos.visible ? <View>
               <Svg>
-                  <Rect x={tooltipPos.x - 14} 
+                  <Rect x={tooltipPos.x - 20} 
                       y={tooltipPos.y + 13} 
-                      width="37" 
+                      width="50" 
                       height="24"
                       fill={colors.COLORS.DEEP_BLUE} />
                       <TextSVG
@@ -381,7 +436,7 @@ console.log(dataCharts)
                           fontSize="14"
                           fontWeight="bold"
                           textAnchor="middle">
-                          {tooltipPos.value}
+                          {(tooltipPos.value).toFixed(2)}
                       </TextSVG>
               </Svg>
           </View> : null
