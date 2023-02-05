@@ -1,18 +1,14 @@
 import { StyleSheet, Text, View, Animated, ImageBackground, StatusBar, Dimensions, ToastAndroid, ActivityIndicator, Pressable } from 'react-native'
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { AnimatedFAB, DefaultTheme, Provider as PaperProvider, Appbar, TextInput, Button } from 'react-native-paper';
+import { AnimatedFAB, DefaultTheme, Provider as PaperProvider, Appbar, TextInput } from 'react-native-paper';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import RBSheet from "react-native-raw-bottom-sheet";
-import DatePicker from 'react-native-date-picker';
-import moment from 'moment/moment';
 import { format } from 'date-fns';
-import { pl } from 'date-fns/locale';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { ScrollView } from 'react-native-gesture-handler';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import BigList from "react-native-big-list";
@@ -301,8 +297,20 @@ const [isExtended, setIsExtended] = useState(true);
 
   const getBMI = () => {
 
-    const bmi = parseFloat(currentWeightInput) / ((parseFloat(userHeigth) * parseFloat(userHeigth)) / 10000);
-    return bmi;
+    if(userData.weightUnit === 'kg'){
+      const bmi = parseFloat(currentWeightInput) / ((parseFloat(userHeigth) * parseFloat(userHeigth)) / 10000);
+      return bmi;
+    }else if(userData.weightUnit === 'lb'){
+      const bmi = parseFloat(currentWeightInput * 0.45359237) / ((parseFloat(userHeigth) * parseFloat(userHeigth)) / 10000);
+      return bmi;
+    }else{
+      const bmi = parseFloat(currentWeightInput / 0.15747) / ((parseFloat(userHeigth) * parseFloat(userHeigth)) / 10000);
+      return bmi;
+    }
+
+
+    
+    
     
   }
   //console.log(dataWeight)
@@ -341,6 +349,7 @@ const [isExtended, setIsExtended] = useState(true);
 
   const _handleAdd = async () => {
 
+    console.log(getBMI())
     let diffKG = 0;
     let diffLB = 0;
     let diffST = 0;
