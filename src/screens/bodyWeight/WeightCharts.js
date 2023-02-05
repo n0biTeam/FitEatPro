@@ -27,11 +27,31 @@ const WeightCharts = ({ navigation }) => {
     const changeNumber2 = () => {
       setSeven(30);
     }
-
+      const [userData, setUserData] = useState('');
       const [dataCharts, setDataCharts] = useState([0]);
       const [dataCharts2, setDataCharts2] = useState([0]);
+      const [dataChartsLB, setDataChartsLB] = useState([0]);
+      const [dataChartsLB2, setDataChartsLB2] = useState([0]);
+
+      const [dataChartsST, setDataChartsST] = useState([0]);
+      const [dataChartsST2, setDataChartsST2] = useState([0]);
       const [dataDate, setDataDate] = useState([0]);
       const [dataDate30, setDataDate30] = useState([0]);
+
+      const getUser = async () => {
+        await firestore()
+        .collection('users')
+        .doc(user.uid)
+        .collection('profile')
+        .doc('profil')
+        .get()
+        .then(( doc ) => {
+          if( doc.exists ) {
+            //console.log('User Data: ', documentSnapshot.data());
+            setUserData(doc.data());
+          }
+        })
+      }
 
       const getCharts = () => {
         firestore().collection('users').doc(user.uid).collection('weightLog')
@@ -43,11 +63,23 @@ const WeightCharts = ({ navigation }) => {
               const dataCharts2 = [];
               const dataDate = [];
               const dataDate2 = [];
+              const dataChartsLB = [];
+              const dataChartsLB2 = [];
+
+              const dataChartsST = [];
+              const dataChartsST2 = [];
+
                 querySnapshot.forEach(doc => {
                  if( doc.exists ) {
                 //console.log('User data: ', doc.data());
                   dataCharts.push(doc.data().currentWeight);
                   dataCharts2.push(doc.data().targetWeight); 
+
+                  dataChartsLB.push(doc.data().currentWeightLB); 
+                  dataChartsLB2.push(doc.data().targetWeightLB); 
+    
+                  dataChartsST.push(doc.data().currentWeightST); 
+                  dataChartsST2.push(doc.data().targetWeightST); 
                   
                   const year = format((doc.data().createdAt).toDate(), 'yyyy');
                   const month = format((doc.data().createdAt).toDate(), 'MM');
@@ -61,15 +93,39 @@ const WeightCharts = ({ navigation }) => {
                   dataDate.push(fullDate);
                   dataDate2.push(monthDate);
 
+                  
+
                  }
                 });
+                  // waga KG
                   const arrayData = dataCharts;
                   arrayData.reverse();
                   setDataCharts(arrayData);
+                  
+                  // waga LB
+                  const arrayDataLB = dataChartsLB;
+                  arrayDataLB.reverse();
+                  setDataChartsLB(arrayDataLB);
 
+                  // waga ST
+                  const arrayDataST = dataChartsST;
+                  arrayDataST.reverse();
+                  setDataChartsST(arrayDataST);
+
+                  // cel KG
                   const arrayData2 = dataCharts2;
                   arrayData2.reverse();
                   setDataCharts2(arrayData2);
+
+                  // cel LB
+                  const arrayDataLB2 = dataChartsLB2;
+                  arrayDataLB2.reverse();
+                  setDataChartsLB2(arrayDataLB2);
+
+                  //cel ST
+                  const arrayDataST2 = dataChartsST2;
+                  arrayDataST2.reverse();
+                  setDataChartsST2(arrayDataST2);
 
                   const arrayDate = dataDate;
                   arrayDate.reverse();
@@ -89,11 +145,45 @@ const WeightCharts = ({ navigation }) => {
           )
       };
 
-      
+      const _chartWeight = () => {
+        try{
+        if(userData.weightUnit === 'kg'){
+            const chart = dataCharts;
+            return chart;
+        }else if(userData.weightUnit === 'lb'){
+            const chart = dataChartsLB
+            return chart;
+        }else{
+            const chart = dataChartsST;
+            return chart;
+        }
+      }catch(e){
+        console.log(e);
+      }
+      }
+
+      //console.log(_chartWeight())
+
+      const _chartWeight2 = () => {
+        try{
+        if(userData.weightUnit === 'kg'){
+            const chart = dataCharts2;
+            return chart;
+        }else if(userData.weightUnit === 'lb'){
+            const chart = dataChartsLB2
+            return chart;
+        }else{
+            const chart = dataChartsST2;
+            return chart;
+        }
+      }catch(e){
+        console.log(e);
+      }
+      }
 
       useEffect(() => {
       
-       
+        getUser();
         getCharts();
         const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
         return unsubscribe;
@@ -104,7 +194,7 @@ const WeightCharts = ({ navigation }) => {
 
       const charts = (dataCharts, dataCharts2, dataDate, dataDate30) => {
         //console.log(dataCharts);
-        if (dataCharts?.length === 0) {
+        if (dataCharts.length === 0) {
           return (
             <View style={{elevation: 5}}>
         <LineChart
@@ -157,16 +247,16 @@ const WeightCharts = ({ navigation }) => {
                 data={{
                   labels: dataDate,
                   datasets: [
-                    { data: dataCharts, 
+                    { data: _chartWeight(), 
                       strokeWidth: 3,
                       color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
                     }, // optional },
-                    { data: dataCharts2,
+                    { data: _chartWeight2(),
                       strokeWidth: 3,
                       color: (opacity = 1) => `rgba(0,255,0,${opacity})`,
                     },
                   ],
-                  legend: ["Aktualna waga ", "Wyznaczony cel"]
+                  legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
                   width={Dimensions.get("window").width-12} // from react-native
                   height={200}
@@ -197,9 +287,9 @@ const WeightCharts = ({ navigation }) => {
                   decorator={() => {
                     return tooltipPos.visible ? <View>
                         <Svg>
-                            <Rect x={tooltipPos.x - 14} 
+                            <Rect x={tooltipPos.x - 20} 
                                 y={tooltipPos.y + 13} 
-                                width="37" 
+                                width="50" 
                                 height="24"
                                 fill={colors.COLORS.DEEP_BLUE} />
                                 <TextSVG
@@ -209,7 +299,7 @@ const WeightCharts = ({ navigation }) => {
                                     fontSize="14"
                                     fontWeight="bold"
                                     textAnchor="middle">
-                                    {tooltipPos.value}
+                                    {(tooltipPos.value).toFixed(2)}
                                 </TextSVG>
                         </Svg>
                     </View> : null
@@ -241,16 +331,16 @@ const WeightCharts = ({ navigation }) => {
                 data={{
                   labels: dataDate30,
                   datasets: [
-                    { data: dataCharts, 
+                    { data: _chartWeight(), 
                       strokeWidth: 3,
                       color: (opacity = 1) => `rgba(255,0,0,${opacity})`,
                     }, // optional },
-                    { data: dataCharts2,
+                    { data: _chartWeight2(),
                       strokeWidth: 3,
                       color: (opacity = 1) => `rgba(0,255,0,${opacity})`,
                     },
                   ],
-                  legend: ["Aktualna waga ", "Wyznaczony cel"]
+                  legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
                   width={Dimensions.get("window").width-12} // from react-native
                   height={200}
@@ -281,9 +371,9 @@ const WeightCharts = ({ navigation }) => {
                   decorator={() => {
                     return tooltipPos.visible ? <View>
                         <Svg>
-                            <Rect x={tooltipPos.x - 14} 
+                            <Rect x={tooltipPos.x - 20} 
                                 y={tooltipPos.y + 13} 
-                                width="37" 
+                                width="50" 
                                 height="24"
                                 fill={colors.COLORS.DEEP_BLUE} />
                                 <TextSVG
@@ -293,7 +383,7 @@ const WeightCharts = ({ navigation }) => {
                                     fontSize="14"
                                     fontWeight="bold"
                                     textAnchor="middle">
-                                    {tooltipPos.value}
+                                    {(tooltipPos.value).toFixed(2)}
                                 </TextSVG>
                         </Svg>
                     </View> : null
@@ -373,7 +463,7 @@ const WeightCharts = ({ navigation }) => {
           </View>
           {/* } */}
 
-      { dataCharts.length >= 2 &&
+      {/* { dataCharts.length >= 2 && */}
               
               <View style={{flexDirection: 'row'}}>
                 <View style={{ flex:1, marginRight: spacing.SCALE_3}}>
@@ -388,7 +478,7 @@ const WeightCharts = ({ navigation }) => {
                 </View>
               </View>
               
-          }
+           {/* } */}
         </View>
 
     </ImageBackground>

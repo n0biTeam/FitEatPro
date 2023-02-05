@@ -262,7 +262,7 @@ const _chartWeight2 = () => {
   let [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0, visible: false, value: 0 });
 
   
-  const charts = (dataCharts, dataCharts2, dataDate) => {
+  const charts = (dataCharts, dataDate) => {
    
     if (dataCharts.length === 0) {
       return (
@@ -333,7 +333,7 @@ const _chartWeight2 = () => {
                       color: (opacity = 1) => `rgba(0,255,0,${opacity})`,
                     }
                   ],
-                  legend: ["Aktualna waga ", "Wyznaczony cel"]
+                  legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
                         width={Dimensions.get("window").width-12} // from react-native
                         height={190}
