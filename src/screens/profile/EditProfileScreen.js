@@ -39,28 +39,6 @@ const EditProfileScreen = ({ navigation }) => {
 
 
 
-  // useEffect(() => {
-  //   const subscriber = firestore()
-  //     .collection('users')
-  //     .doc(user.uid)
-  //     .collection('profile')
-  //     .doc('profil')
-  //     .onSnapshot(documentSnapshot => {
-  //       if( documentSnapshot.exists ) {
-  //         setUserData(documentSnapshot.data());
-  //         const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
-  //         setDate(dateB);
-  //         const v = documentSnapshot.data().gender;
-  //         setGenderV(v);
-  //         setImage(documentSnapshot.data().userImg)
-  //       }
-  //     });
-
-  //   // Stop listening for updates when no longer required
-  //   return () => subscriber();
-  // }, []);
-
-
   const getUser = async () => {
     await firestore()
     .collection('users')
@@ -78,16 +56,6 @@ const EditProfileScreen = ({ navigation }) => {
               //setImage(documentSnapshot.data().userImg)
             }
       })
-      // .onSnapshot(documentSnapshot => {
-      //   if( documentSnapshot.exists ) {
-      //     setUserData(documentSnapshot.data());
-      //     const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
-      //     setDate(dateB);
-      //     const v = documentSnapshot.data().gender;
-      //     setGenderV(v);
-      //     setImage(documentSnapshot.data().userImg)
-      //   }
-      // });
   }
 
   
@@ -95,44 +63,18 @@ const EditProfileScreen = ({ navigation }) => {
     getUser();
     
   }, []);
-
-  console.log('USER: ' + userData)
-
-  // const getUser = async () => {
-  //    await firestore()
-  //   .collection('users')
-  //   .doc(user.uid)
-  //   .collection('profile')
-  //   .doc('profil')
-  //   .get()
-  //   .then(( documentSnapshot ) => {
-  //     if( documentSnapshot.exists ) {
-  //       //console.log('User Data: ', documentSnapshot.data());
-  //       setUserData(documentSnapshot.data());
-  //       //console.log(documentSnapshot.data().birthday);
-  //       const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
-  //       //setBirthdayDate(moment(dateB).format("DD-MM-YYYY"));
-  //       setDate(dateB);
-  //       const v = documentSnapshot.data().gender;
-  //       setGenderV(v);
-              
-       
-  //     }
-  //   })
-  // }
-
-   
+     
   const handleUpdate = async () => {
     let imgUrl = await uploadImage();
     // console.log('imgUrl: ' + imgUrl);
-    console.log('imgUrl: ' + imgUrl);
-    console.log('imageB: '+ userData.userImg);
+    // console.log('imgUrl: ' + imgUrl);
+    // console.log('imageB: '+ userData.userImg);
     
     if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
-     console.log('imgUrl: ' + imgUrl);
-     console.log('imageB: '+ userData.userImg);
+    //  console.log('imgUrl: ' + imgUrl);
+    //  console.log('imageB: '+ userData.userImg);
 
     // Waga aktualna
     if(userData.weightUnit === 'kg'){
@@ -408,11 +350,15 @@ const EditProfileScreen = ({ navigation }) => {
             source={{uri: image}}
             style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
           /> */}
-          
-          
-        { image === null ?
           <ImageBackground
-            source={userData ? {uri: userData.userImg} : {uri: 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'} }
+            source={{
+              uri: image
+               ? image 
+               : userData 
+               ? userData.userImg || 
+              'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'
+              : 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'
+              }}
             style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
             imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.LIGHT_BLUE}}
           >
@@ -430,30 +376,9 @@ const EditProfileScreen = ({ navigation }) => {
                 }}
               />
             </View>
-            
-          </ImageBackground> : 
-          <ImageBackground
-          source={{uri: image}}
-          style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
-          imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.LIGHT_BLUE}}
-        >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <MaterialCommunityIcons name='camera' color={colors.COLORS.WHITE} size={35}
-              style={{
-                opacity: 0.7,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderWidth: 1,
-                borderColor: colors.COLORS.WHITE,
-                borderRadius: 10,
-                paddingLeft: spacing.SCALE_2, 
-                paddingTop: spacing.SCALE_2
-              }}
-            />
-          </View>
+
+          </ImageBackground>
           
-        </ImageBackground>
-        }
         </View>
       </TouchableOpacity>
     </View>
