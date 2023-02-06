@@ -58,8 +58,29 @@ const MealScreen = ({
   const [sumFat, setSumFat] = useState(0);
   const [sumFiber, setSumFiber] = useState(0);
   const [sumSugar, setSumSugar] = useState(0);
+  const [diaryUnit, setDiaryUnit] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const [idMeal, setIdMeal] = useState('');
+  const getUser = async () => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .get()
+    .then(( documentSnapshot ) => {
+      if( documentSnapshot.exists ) {
+        setDiaryUnit(documentSnapshot.data().diaryUnit);
+      }
+    })
+  }
+ 
+  useEffect(() => {
+    getUser();
+    navigation.addListener("focus", () => setLoading(!loading));
+  }, [navigation, loading]);
+
+  //const [idMeal, setIdMeal] = useState('');
 
   const getMealList = () => {
 
@@ -427,7 +448,7 @@ const colorLG = (ladunek) => {
               inActiveStrokeWidth={12}
               progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_20 }}
               activeStrokeColor={colorFirst(total)}
-              inActiveStrokeColor="#ccc"
+              inActiveStrokeColor={colors.COLORS.GREY_CCC}
               duration={5000}
               dashedStrokeConfig={{
                 count: 40,
@@ -469,16 +490,18 @@ const colorLG = (ladunek) => {
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3, flexDirection: 'row', marginRight: spacing.SCALE_3}}>
               <View style={{justifyContent: 'center'}}>
-                <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('mealScreen.meal-weight')} </Text>
+                <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>{t('mealScreen.meal-weight')} </Text>
               </View>
               <View>
-                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>{sumGramma} g</Text>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_16}}>
+                  { diaryUnit === 'g' ? sumGramma : (sumGramma * 0.03527396195).toFixed(2) } {diaryUnit}
+                </Text>
               </View>
             </View>
 
             <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3, marginLeft: spacing.SCALE_3}}>
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>{sumKcal} kcal / {(sumKcal*4.184).toFixed(0)} kJ</Text>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_16}}>{sumKcal} kcal / {(sumKcal*4.184).toFixed(0)} kJ</Text>
               </View>
             </View>
           </View>
@@ -494,9 +517,20 @@ const colorLG = (ladunek) => {
                 </View>
 
                 <View style={{alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginLeft: spacing.SCALE_10}}>
-                    <Text style={styles.textContainer}>{(sumCarbs).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumProtein).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumFat).toFixed(1)}</Text>
+                    <Text style={styles.textContainer}>
+                      {diaryUnit === 'g' ? (sumCarbs).toFixed(1) : (sumCarbs * 0.03527396195).toFixed(2)} 
+                      <Text style={{textTransform: 'lowercase'}}> {diaryUnit}</Text>
+                    </Text>
+                    <Text style={styles.textContainer}>
+                      {/* {(sumProtein).toFixed(1)}  */}
+                      {diaryUnit === 'g' ? (sumProtein).toFixed(1) : (sumProtein * 0.03527396195).toFixed(2)}
+                      <Text style={{textTransform: 'lowercase'}}> {diaryUnit}</Text>
+                    </Text>
+                    <Text style={styles.textContainer}>
+                      {/* {(sumFat).toFixed(1)}  */}
+                      {diaryUnit === 'g' ? (sumFat).toFixed(1) : (sumFat * 0.03527396195).toFixed(2)}
+                      <Text style={{textTransform: 'lowercase'}}> {diaryUnit}</Text>
+                    </Text>
                     
                 </View>
               </View>
@@ -509,9 +543,21 @@ const colorLG = (ladunek) => {
                 </View>
 
                 <View style={{alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
-                    <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumCholesterol).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumSugar).toFixed(1)}</Text>
+                    <Text style={styles.textContainer}>
+                      {/* {(sumFiber).toFixed(1)}  */}
+                      {diaryUnit === 'g' ? (sumFiber).toFixed(1) : (sumFiber * 0.03527396195).toFixed(2)}
+                      <Text style={{textTransform: 'lowercase'}}> {diaryUnit}</Text>
+                    </Text>
+                    <Text style={styles.textContainer}>
+                      {/* {(sumCholesterol).toFixed(1)}  */}
+                      {diaryUnit === 'g' ? (sumCholesterol).toFixed(1) : (sumCholesterol * 0.03527396195).toFixed(2)}
+                      <Text style={{textTransform: 'lowercase'}}> {diaryUnit}</Text>
+                    </Text>
+                    <Text style={styles.textContainer}>
+                      {/* {(sumSugar).toFixed(1)}  */}
+                      {diaryUnit === 'g' ? (sumSugar).toFixed(1) : (sumSugar * 0.03527396195).toFixed(2)}
+                      <Text style={{textTransform: 'lowercase'}}> {diaryUnit}</Text>
+                    </Text>
                 </View>
               </View>
 
@@ -549,7 +595,7 @@ const colorLG = (ladunek) => {
                          }}
                         >
                             <View style={{justifyContent: 'center', marginRight: spacing.SCALE_6}}>
-                              <Text>{item.quantity} g</Text>
+                              <Text>{diaryUnit === 'g' ? item.quantity : (item.quantity * 0.03527396195).toFixed(2)} {diaryUnit}</Text>
                             </View>
                             <MaterialCommunityIcons name="square-edit-outline" size={spacing.SCALE_24} color={colors.COLORS.DEEP_BLUE} />
                         </TouchableOpacity>
@@ -582,7 +628,7 @@ const colorLG = (ladunek) => {
                               <View initialItem={initialItem} style={{flex: 1, justifyContent: 'center'}}>
                                 <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, marginBottom: spacing.SCALE_6}}>{initialItem.name}</Text>
                                 <TextInput 
-                                  placeholder={parseInt(initialItem.quantity).toString()}
+                                  placeholder={diaryUnit === 'g' ? parseInt(initialItem.quantity).toString() : ((parseFloat(initialItem.quantity * 0.03527396195)).toFixed(2)).toString() }
                                   keyboardType="numeric"
                                   label={t('mealScreen.modal-enter-quantity')}
                                   value={number}

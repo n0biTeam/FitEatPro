@@ -17,6 +17,7 @@ const SettingsScreen = ({ navigation }) => {
   const {user} = useContext(AuthContext);
   const [weightUnit, setWeightUnit] = useState('');
   const [growthUnit, setGrowthUnit] = useState('');
+  const [diaryUnit, setDiaryUnit] = useState('');
 
 
   const getUser = async () => {
@@ -31,7 +32,7 @@ const SettingsScreen = ({ navigation }) => {
        
         setWeightUnit(documentSnapshot.data().weightUnit);
         setGrowthUnit(documentSnapshot.data().growthUnit);
-
+        setDiaryUnit(documentSnapshot.data().diaryUnit);
       }
     })
   }
@@ -46,10 +47,6 @@ const SettingsScreen = ({ navigation }) => {
         return 'Kilogram'
     }else{
         return 'Funt'
-    // }else if(weightUnit === 'st'){
-    //     return 'Stopa'
-    // }else{
-    //     return 'Błąd'
     }
   }
 
@@ -58,30 +55,38 @@ const SettingsScreen = ({ navigation }) => {
         return 'Centymetr'
     }else{
         return 'Cale'
-    // }else if(growthUnit === 'ft'){
-    //     return 'Stopa'
-    // }else{
-    //     return 'Błąd'
+    }
+  }
+
+  const _getDiaryUnit = (diaryUnit) => {
+    if(diaryUnit === UNIT.GR){
+        return 'Gram'
+    }else{
+        return 'Uncja'
     }
   }
   
     
   const [selected, setSelected] = useState("");
   const [selectedH, setSelectedH] = useState("");
+  const [selectedD, setSelectedD] = useState("");
   //console.log(selected)
   //console.log(growthUnit)
   const dataWeidth = [
       {key: UNIT.KG, value: 'Kilogramy'},
       {key: UNIT.LB, value: 'Funt'},
       // {key:'st', value: 'Stopa'},
-     
   ];
 
   const dataHeight = [
     {key: UNIT.CM, value: 'Centymetry'},
     {key: UNIT.IN, value: 'Cale'},
     // {key:'ft', value: 'Stopa'},
-   
+];
+
+const dataDiary = [
+  {key: UNIT.GR, value: 'Gram'},
+  {key: UNIT.OZ, value: 'Uncja'}, 
 ];
 
 
@@ -95,6 +100,7 @@ const SettingsScreen = ({ navigation }) => {
     .update({
         weightUnit: selected,
         growthUnit: selectedH,
+        diaryUnit: selectedD
     })
     .then(() => {
       console.log('User Update');
@@ -143,7 +149,7 @@ const SettingsScreen = ({ navigation }) => {
             <View style={styles.container}>
 
                 <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
-                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta wagi:</Text>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta masy ciała:</Text>
                 </View>
                 <View style={{marginHorizontal: spacing.SCALE_6}}>
                    
@@ -218,6 +224,47 @@ const SettingsScreen = ({ navigation }) => {
                         search={false}
                         placeholder={t('whrScreen.select-option')}
                         defaultOption={{ key: growthUnit, value: _getHeightUnit(growthUnit) }}
+                    />
+                   
+                </View>
+
+                <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta wagi w dzienniku posiłów:</Text>
+                </View>
+                <View style={{marginHorizontal: spacing.SCALE_6}}>
+                   
+                    <SelectList 
+                        setSelected={(val) => setSelectedD(val)} 
+                        data={dataDiary} 
+                        save="key"
+                        boxStyles={{
+                        backgroundColor: colors.COLORS.WHITE,
+                        borderTopStartRadius: 5,
+                        borderTopEnfRadius: 5,
+                        borderBottomEndRadius: 5,
+                        borderBottomStartRadius: 5,
+                        borderColor: colors.COLORS.DEEP_BLUE,
+                        borderWidth: 1,
+                        
+                        }}
+                        dropdownTextStyles={{
+                            color: colors.TEXT.DEEP_BLUE
+                        }}
+                        inputStyles={{
+                            color: colors.TEXT.DEEP_BLUE
+                        }}
+                        dropdownStyles={{
+                            backgroundColor: colors.COLORS.WHITE,
+                            borderTopStartRadius: 5,
+                            borderTopEnfRadius: 5,
+                            borderBottomEndRadius: 5,
+                            borderBottomStartRadius: 5,
+                            borderColor: colors.COLORS.DEEP_BLUE,
+                            borderWidth: 1
+                        }}
+                        search={false}
+                        placeholder={t('whrScreen.select-option')}
+                        defaultOption={{ key: diaryUnit, value: _getDiaryUnit(diaryUnit) }}
                     />
                    
                 </View>
