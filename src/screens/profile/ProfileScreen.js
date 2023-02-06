@@ -85,7 +85,7 @@ const ProfileScreen = ({ navigation }) => {
     }
   }
 
-  console.log(_getWeightUnit())
+  //console.log(_getWeightUnit())
 
   const _getWeighTargetUnit = () => {
     if(userData.weightUnit === 'kg'){

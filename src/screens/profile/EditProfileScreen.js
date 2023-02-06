@@ -39,33 +39,64 @@ const EditProfileScreen = ({ navigation }) => {
 
 
 
-  useEffect(() => {
-    const subscriber = firestore()
-      .collection('users')
-      .doc(user.uid)
-      .collection('profile')
-      .doc('profil')
-      .onSnapshot(documentSnapshot => {
+  // useEffect(() => {
+  //   const subscriber = firestore()
+  //     .collection('users')
+  //     .doc(user.uid)
+  //     .collection('profile')
+  //     .doc('profil')
+  //     .onSnapshot(documentSnapshot => {
+  //       if( documentSnapshot.exists ) {
+  //         setUserData(documentSnapshot.data());
+  //         const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
+  //         setDate(dateB);
+  //         const v = documentSnapshot.data().gender;
+  //         setGenderV(v);
+  //         setImage(documentSnapshot.data().userImg)
+  //       }
+  //     });
+
+  //   // Stop listening for updates when no longer required
+  //   return () => subscriber();
+  // }, []);
+
+
+  const getUser = async () => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .get()
+      .then((documentSnapshot) =>{
         if( documentSnapshot.exists ) {
-          setUserData(documentSnapshot.data());
-          const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
-          setDate(dateB);
-          const v = documentSnapshot.data().gender;
-          setGenderV(v);
-          setImage(documentSnapshot.data().userImg)
-        }
-      });
-
-    // Stop listening for updates when no longer required
-    return () => subscriber();
-  }, []);
-
+              setUserData(documentSnapshot.data());
+              const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
+              setDate(dateB);
+              const v = documentSnapshot.data().gender;
+              setGenderV(v);
+              //setImage(documentSnapshot.data().userImg)
+            }
+      })
+      // .onSnapshot(documentSnapshot => {
+      //   if( documentSnapshot.exists ) {
+      //     setUserData(documentSnapshot.data());
+      //     const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
+      //     setDate(dateB);
+      //     const v = documentSnapshot.data().gender;
+      //     setGenderV(v);
+      //     setImage(documentSnapshot.data().userImg)
+      //   }
+      // });
+  }
 
   
-  // useEffect(() => {
-  //   getUser();
+  useEffect(() => {
+    getUser();
     
-  // }, []);
+  }, []);
+
+  console.log('USER: ' + userData)
 
   // const getUser = async () => {
   //    await firestore()
@@ -94,27 +125,16 @@ const EditProfileScreen = ({ navigation }) => {
   const handleUpdate = async () => {
     let imgUrl = await uploadImage();
     // console.log('imgUrl: ' + imgUrl);
+    console.log('imgUrl: ' + imgUrl);
+    console.log('imageB: '+ userData.userImg);
     
-    if( imgUrl === null && userData.userImg ) {
+    if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
-    // console.log('imgUrl: ' + imgUrl);
-    // console.log('imageB: '+ userData.userImg);
+     console.log('imgUrl: ' + imgUrl);
+     console.log('imageB: '+ userData.userImg);
 
     // Waga aktualna
-    // if(userData.weightUnit === 'kg'){
-    //   weightKG = (parseFloat(userData.weightName)).toFixed(2);               
-    //   weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);      
-    //   //weightST = parseFloat(userData.weightName) / 6.35;        
-    // }else if(userData.weightUnit === 'lb'){
-    //   weightKG = (parseFloat(userData.weightName) * 0.45359237).toFixed(2);  
-    //   weightLB = (parseFloat(userData.weightName)).toFixed(2);
-    //   //weightST = parseFloat(userData.weightName) / 14;          
-    // }else{
-    //   weightKG = (parseFloat(userData.weightName) / 0.15747).toFixed(2);
-    //   weightLB = (parseFloat(userData.weightName) / 0.0714286).toFixed(2);
-    //  // weightST = parseFloat(userData.weightName);               
-    // }
     if(userData.weightUnit === 'kg'){
       weightKG = (parseFloat(userData.weightName)).toFixed(2);
       weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);
@@ -124,20 +144,6 @@ const EditProfileScreen = ({ navigation }) => {
     }
 
     // Waga docelowa
-    // if(userData.weightUnit === 'kg'){
-    //   targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
-    //   targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2)  
-    //  // targetST = parseFloat(userData.targetWeight) / 6.35;        
-    // }else if(userData.weightUnit === 'lb'){
-    //   targetKG = (parseFloat(userData.targetWeight) * 0.45359237).toFixed(2);  
-    //   targetLB = (parseFloat(userData.targetWeight)).toFixed(2);
-    //  // targetST = parseFloat(userData.targetWeight) / 14;          
-    // }else{
-    //   targetKG = (parseFloat(userData.targetWeight) / 0.15747).toFixed(2);
-    //   targetLB = (parseFloat(userData.targetWeight) / 0.0714286).toFixed(2);
-    //  // targetST = parseFloat(userData.targetWeight);               
-    // }
-
     if(userData.weightUnit === 'kg'){
       targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
       targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2);
@@ -146,21 +152,7 @@ const EditProfileScreen = ({ navigation }) => {
       targetLB = (parseFloat(userData.targetWeight)/ 0.4536).toFixed(2);
     }
 
-    
     // Różnica
-    // if(userData.weightUnit === 'kg'){
-    //   diffKG = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
-    //   diffLB = ((parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536)).toFixed(2);
-    //   //diffST = (parseFloat(userData.weightName) / 6.35) - (parseFloat(userData.targetWeight) / 6.35);        
-    // }else if(userData.weightUnit === 'lb'){
-    //   diffKG = ((parseFloat(userData.weightName) * 0.45359237) - (parseFloat(userData.targetWeight) * 0.45359237)).toFixed(2);
-    //   diffLB = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
-    //  // diffST = (parseFloat(userData.weightName) / 14) - (parseFloat(userData.targetWeight) / 14);          
-    // }else{
-    //   diffKG = ((parseFloat(userData.weightName) / 0.15747) - (parseFloat(userData.targetWeight) / 0.15747)).toFixed(2);
-    //   diffLB = ((parseFloat(userData.weightName) / 0.0714286) - (parseFloat(userData.targetWeight) / 0.0714286)).toFixed(2);   
-    //   //diffST = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
-    // }
     if(userData.weightUnit === 'kg'){
       diffKG = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
       diffLB = ((parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536)).toFixed(2);
@@ -173,20 +165,6 @@ const EditProfileScreen = ({ navigation }) => {
     console.log('LB: ' + parseFloat(diffLB))
 
     // Wzrost
-    // if(userData.growthUnit === 'cm'){
-    //   heightCM = (parseFloat(userData.heightName)).toFixed(2);
-    //   heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
-    //   //heightFT = parseFloat(userData.heightName) / 30.48;
-    // }else if(userData.growthUnit === 'in'){
-    //   heightCM = (parseFloat(userData.heightName) * 2.54).toFixed(2);
-    //   heightIN = (parseFloat(userData.heightName)).toFixed(2);               
-    //  // heightFT = parseFloat(userData.heightName) / 12;
-    // }else{
-    //   heightCM = (parseFloat(userData.heightName) * 30.48).toFixed(2);
-    //   heightIN = (parseFloat(userData.heightName) * 12).toFixed(2);   
-    //  // heightFT = parseFloat(userData.heightName);               
-    // }
-
     if(userData.growthUnit === 'cm'){
       heightCM = (parseFloat(userData.heightName)).toFixed(2);
       heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
@@ -204,26 +182,27 @@ const EditProfileScreen = ({ navigation }) => {
     .collection('profile')
     .doc('profil')
     .update({
-      firstName: userData.firstName,
-      lastName: userData.lastName,
+      // firstName: userData.firstName,
+      // lastName: userData.lastName,
       
-      weightName: parseFloat(weightKG),
-      weightNameLB: parseFloat(weightLB),
-      //weightNameST: weightST,
+      // weightName: parseFloat(weightKG),
+      // weightNameLB: parseFloat(weightLB),
+      // //weightNameST: weightST,
 
-      targetWeight: parseFloat(targetKG),
-      targetWeightLB: parseFloat(targetLB),
-      //targetWeightST: targetST,
+      // targetWeight: parseFloat(targetKG),
+      // targetWeightLB: parseFloat(targetLB),
+      // //targetWeightST: targetST,
       
-      heightName: parseFloat(heightCM),
-      heightNameIN: parseFloat(heightIN),
-      //heightNameFT: heightFT,
+      // heightName: parseFloat(heightCM),
+      // heightNameIN: parseFloat(heightIN),
+      // //heightNameFT: heightFT,
       
-      birthday: date,
-      gender: gender ? gender : userData.gender,
-      userImg: imgUrl === null ? null : imgUrl,
-      difference: parseFloat(diffKG),
-      differenceLB: parseFloat(diffLB),
+      // birthday: date,
+      // gender: gender ? gender : userData.gender,
+      //userImg: imgUrl === null ? imgUrl : imgUrl,
+      userImg: imgUrl,
+      // difference: parseFloat(diffKG),
+      // differenceLB: parseFloat(diffLB),
       //differenceST: diffST,
 
     })
@@ -236,7 +215,7 @@ const EditProfileScreen = ({ navigation }) => {
   }
 
  //console.log(image2)
-  useEffect(() => {
+  // useEffect(() => {
     // firebase.firestore().collection('users')
     // .doc(user.uid).collection('profile').doc('profil').get()
     // .then((snapshot) => {
@@ -248,7 +227,7 @@ const EditProfileScreen = ({ navigation }) => {
     //     console.log('User does not exist 12');
     //   }
     // })
-    }, []);
+    // }, []);
   
   const refRBSheet = useRef();
   const [isOpen, setIsOpen] = useState(true);
@@ -286,6 +265,7 @@ const EditProfileScreen = ({ navigation }) => {
      });
   }
 
+  //console.log(image)
   const uploadImage = async () => {
 
     if(image == null) {
@@ -318,7 +298,7 @@ const EditProfileScreen = ({ navigation }) => {
       await task;
       
       const url = await storageRef.getDownloadURL();
-      
+      //console.log('URL: ' + url)
       
       setUploading(false);
       setImage(null);
@@ -430,9 +410,9 @@ const EditProfileScreen = ({ navigation }) => {
           /> */}
           
           
-        { image !== null ?
+        { image === null ?
           <ImageBackground
-            source={userData ? {uri: image} : {uri: 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'} }
+            source={userData ? {uri: userData.userImg} : {uri: 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'} }
             style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
             imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.LIGHT_BLUE}}
           >
@@ -453,7 +433,7 @@ const EditProfileScreen = ({ navigation }) => {
             
           </ImageBackground> : 
           <ImageBackground
-          source={{uri: 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'}}
+          source={{uri: image}}
           style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
           imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.LIGHT_BLUE}}
         >
@@ -484,7 +464,7 @@ const EditProfileScreen = ({ navigation }) => {
           
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <MaterialCommunityIcons name='account-check' size={typography.FONT_SIZE_20} color={colors.COLORS.DEEP_BLUE} />
-            <Text style={{color: colors.COLORS.DEEP_BLUE, marginLeft: spacing.SCALE_6, fontSize: typography.FONT_SIZE_15, fontWeight: 'bold'}}>{userData.email}</Text>
+            <Text style={{color: colors.COLORS.DEEP_BLUE, marginLeft: spacing.SCALE_6, fontSize: typography.FONT_SIZE_15, fontWeight: 'bold'}}>{user.email}</Text>
           </View>
             
           <TextInput
