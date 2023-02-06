@@ -8,6 +8,7 @@ import firestore from '@react-native-firebase/firestore';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const WhrScreen = ({ navigation }) => {
 
@@ -60,7 +61,7 @@ const WhrScreen = ({ navigation }) => {
   const calcWHR = () => {
 
     if(userData.gender === 1){
-      if(userData.growthUnit === 'cm'){
+      if(userData.growthUnit === UNIT.CM){
         const whr = waistSize / hipGirth;
         setSumWHR(whr);
       }else{

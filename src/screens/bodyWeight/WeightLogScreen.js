@@ -12,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import BigList from "react-native-big-list";
+import { UNIT } from '../../styles/units';
 
 const theme = {
   ...DefaultTheme,
@@ -160,7 +161,7 @@ const [isExtended, setIsExtended] = useState(true);
   //console.log(userData.weightUnit)
   const _getWeightUnit = () => {
     try{
-        if(userData.weightUnit === 'kg'){
+        if(userData.weightUnit === UNIT.KG){
             return Number(userData.weightName).toFixed(2);
         }else{
             return Number(userData.weightNameLB).toFixed(2);
@@ -173,7 +174,7 @@ const [isExtended, setIsExtended] = useState(true);
 
   const _getTargetUnit = () => {
     try{
-      if(userData.weightUnit === 'kg'){
+      if(userData.weightUnit === UNIT.KG){
           return Number(userData.targetWeight).toFixed(2);
       }else{
           return Number(userData.targetWeightLB).toFixed(2);;
@@ -187,7 +188,7 @@ const [isExtended, setIsExtended] = useState(true);
   //Zamiana jednostek wysokości
   const _getHightUnit = () => {
     try{
-      if(userData.growthUnit === 'cm'){
+      if(userData.growthUnit === UNIT.CM){
         return hipGirth;
       }else{
         return hipGirth * 2.54;
@@ -208,34 +209,26 @@ const [isExtended, setIsExtended] = useState(true);
     }
     else if(item.difference > 0 ){
       
-      if(userData.weightUnit === 'kg'){
+      if(userData.weightUnit === UNIT.KG){
          return (
             <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.difference).toFixed(2)}</Text>
         )
-      }else if(userData.weightUnit === 'lb'){
-        return (
-          <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.differenceLB).toFixed(2)}</Text>
-      )
       }else{
         return (
-          <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.differenceST).toFixed(2)}</Text>
+          <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.differenceLB).toFixed(2)}</Text>
       )
       }
        
 
     }else{
       
-        if(userData.weightUnit === 'kg'){
+        if(userData.weightUnit === UNIT.KG){
           return (
             <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.difference).toFixed(2)}</Text>
         )
-      }else if(userData.weightUnit === 'lb'){
-        return (
-          <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.differenceLB).toFixed(2)}</Text>
-      )
       }else{
         return (
-          <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.differenceST).toFixed(2)}</Text>
+          <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.differenceLB).toFixed(2)}</Text>
       )
      }
     }
@@ -243,51 +236,9 @@ const [isExtended, setIsExtended] = useState(true);
 }
 
 
-  // useEffect(() => {
-    
-  //   const unsubscribe = 
-  //     firestore().collection('users').doc(user.uid).collection('weightLog')
-  //         .orderBy('createdAt', 'desc')
-  //         .limit(1)
-  //         .onSnapshot(onResult, onError);
-  //       return unsubscribe;
-  // }, []);
-
-  // const onResult = async (querySnapshot) => {
-  //   try {
-  //     const dataWeight = [];
-  //      await querySnapshot.forEach(function(doc) {
-  //       if(doc.exists) {
-
-  //         const subWag = doc.data().currentWeight - doc.data().targetWeight;
-          
-  //         dataWeight.push({...doc.data(), id: doc.id, subWag: subWag}); 
-  //         //setWeightWag(doc.data().currentWeight);
-  //         //setSubWeight(doc.data().targetWeight - doc.data().currentWeight)
-  //         //setTargetWeight(doc.data().targetWeight);
-  //         //setWagDate(doc.data().createdAt);
-  //         //setWagBmi(doc.data().bmi);
-  //         //setWagLBM(doc.data().lbm);
-  //         //setWagBai(doc.data().bai);
-  //         setDataWeight(dataWeight);
-  //       }
-  //       });
-  //       //setDataWeight(dataWeight);  
-        
-  //   } catch (error) {
-  //     ToastAndroid.show(t('weightLogScreen.connection-problem'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-  //     console.log(error);
-  //   }
-   
-  // }
-
-  // const onError = () => {
-  //   ToastAndroid.show(t('weightLogScreen.connection-problem'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-  // }
-
   const getBMI = () => {
 
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       const bmi = parseFloat(currentWeightInput) / ((parseFloat(userHeigth) * parseFloat(userHeigth)) / 10000);
       return bmi;
     }else{
@@ -322,18 +273,6 @@ const [isExtended, setIsExtended] = useState(true);
 
   
 
-
-  // const getDifference = () => {
-  //    //Różnica waga aktualna - waga docelowa 
-  //    if(userData.weightUnit === 'kg'){
-  //       const weightDifference = parseFloat(currentWeightInput) - parseFloat(userWeight);
-  //    }
-     
-  //    return weightDifference;
-  // }
-
-
-
   const _handleAdd = async () => {
 
     console.log(getBMI())
@@ -342,56 +281,59 @@ const [isExtended, setIsExtended] = useState(true);
     //let diffST = 0;
     
 
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       diffKG = parseFloat(currentWeightInput) - parseFloat(userWeight);
       diffLB = parseFloat(currentWeightInput / 0.4536) - parseFloat(userWeight / 0.4536);
      // diffST = parseFloat(currentWeightInput / 6.35) - parseFloat(userWeight / 6.35);
-    }else if(userData.weightUnit === 'lb'){
+    }else{
       diffKG = parseFloat(currentWeightInput * 0.45359237) - parseFloat(userWeight);
       diffLB = parseFloat(currentWeightInput) - parseFloat(userWeightLB);
      // diffST = parseFloat(currentWeightInput / 14) - parseFloat(userWeightST);
-    }else{
-      diffKG = parseFloat(currentWeightInput / 0.15747304) - parseFloat(userWeight);
-      diffLB = parseFloat(currentWeightInput * 14) - parseFloat(userWeightLB);
-     // diffST = parseFloat(currentWeightInput) - parseFloat(userWeightST);
     }
+    // else{
+    //   diffKG = parseFloat(currentWeightInput / 0.15747304) - parseFloat(userWeight);
+    //   diffLB = parseFloat(currentWeightInput * 14) - parseFloat(userWeightLB);
+    //  // diffST = parseFloat(currentWeightInput) - parseFloat(userWeightST);
+    // }
     // console.log("KG: " + diffKG)
     // console.log('LB: ' + diffLB)
     // console.log('ST: ' + diffST)
 
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       lbmKG = getLMB();
       lbmLB = getLMB() / 0.4536;
      // lbmST = getLMB() / 6.35;
-    }else if(userData.weightUnit === 'lb'){
+    }else{
       lbmKG = getLMB() * 0.45359237;
       lbmLB = getLMB();
     //  lbmST = getLMB() / 14;
-    }else {
-      lbmKG = getLMB() / 0.15747;
-      lbmLB = getLMB() / 0.0714286;
-     // lbmST = getLMB();
     }
+    // else {
+    //   lbmKG = getLMB() / 0.15747;
+    //   lbmLB = getLMB() / 0.0714286;
+    //  // lbmST = getLMB();
+    // }
 
 
     let weightKG = 0;
     let weightLB = 0;
     //let weightST = 0;
     // Waga aktualna
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       
       weightKG = parseFloat(currentWeightInput);               
       weightLB = parseFloat(currentWeightInput) / 0.4536;      
      // weightST = parseFloat(currentWeightInput) / 6.35;        
-    }else if(userData.weightUnit === 'lb'){
+    }else{
       weightKG = parseFloat(currentWeightInput) * 0.45359237;  
       weightLB = parseFloat(currentWeightInput);               
      // weightST = parseFloat(currentWeightInput) / 14;          
-    }else{
-      weightKG = parseFloat(currentWeightInput) / 0.15747;     
-      weightLB = parseFloat(currentWeightInput) / 0.0714286;   
-    //  weightST = parseFloat(currentWeightInput);               
-    }    
+    }
+    // else{
+    //   weightKG = parseFloat(currentWeightInput) / 0.15747;     
+    //   weightLB = parseFloat(currentWeightInput) / 0.0714286;   
+    // //  weightST = parseFloat(currentWeightInput);               
+    // }    
      
     const bai = _getHightUnit() / Math.pow((userHeigth/100), 1.5)-18;
 
@@ -454,7 +396,7 @@ const [isExtended, setIsExtended] = useState(true);
     } else {
       if(item.currentWeight - userTargetWeight > 0){
         
-          if(userData.weightUnit === 'kg'){
+          if(userData.weightUnit === UNIT.KG){
             return (
                     <View style={{alignItems: 'center'}}>
                       <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeight - item.targetWeight).toFixed(2)}</Text>
@@ -927,132 +869,6 @@ const [isExpanded3, setIsExpanded3] = useState(false);
               ) : ('')
             }
               
-              {/* { dataWeight.length === 1 &&
-                <View style={{marginTop: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: 5, elevation: 5}}>
-                  <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-             
-                    <View>
-                      <MaterialCommunityIcons name='clock-time-five' size={spacing.SCALE_14} color={colors.COLORS.DEEP_BLUE} />
-                    </View>
-                  
-                    <View>
-                      <Text style={{marginLeft: spacing.SCALE_3, fontSize: typography.FONT_SIZE_11, color: colors.TEXT.DEEP_BLUE}}>{format(wagDate.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
-                    </View>
-
-                  </View>
-
-                  <View style={{flexDirection: 'row', padding: spacing.SCALE_10, borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY, borderTopWidth: 1, borderTopColor: colors.COLORS.LIGHT_GREY}}>
-              
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                  
-                      <View style={{justifyContent: 'center'}}>
-                        <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
-                      </View>
-                    
-                      <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                        <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>{t('weightLogScreen.weight')}</Text>
-                      </View>
-                  
-                    </View>
-
-                      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ weightWag }<Text style={{fontSize: 12, fontWeight: '400'}}> kg</Text></Text>
-                      </View>
-
-                      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                        {textBMI(wagBmi)}
-                      </View>
-
-                  </View>
-
-
-                  <Pressable style={{flexDirection: 'row', padding: spacing.SCALE_10, borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY}}
-                  onPress={() => {setIsExpanded3(!isExpanded3);}}
-                  >
-              
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                      <View style={{justifyContent: 'center'}}>
-                        <MaterialCommunityIcons name='alpha-b-box-outline' size={spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
-                      </View>
-                      <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                        <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>BMI</Text>
-                      </View>
-                    </View>
-
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ wagBmi.toFixed(1) }</Text>
-                    </View>
-
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-    
-                      {textBMI(wagBmi)}
-                    </View>
-                  
-                  </Pressable>
-                
-                  <ExpandableView3 expanded={isExpanded3} />
-
-                  { wagBai !== 0 &&
-                    <>
-                    <Pressable style={{flexDirection: 'row', padding: spacing.SCALE_10}} 
-                    onPress={() => {setIsExpanded2(!isExpanded2);}}
-                    >
-                      
-                      <View style={{flex: 1, flexDirection: 'row'}}>
-                        <View style={{justifyContent: 'center'}}>
-                          <SimpleLineIcons name='drop' size={spacing.SCALE_20} color={colors.COLORS.GREY_AAA} />
-                        </View>
-                        <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                          <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16}}>BAI</Text>
-                        </View>
-                      </View>
-
-                      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (wagBai).toFixed(2) }<Text style={{fontSize: 12, fontWeight: '400'}}> %</Text></Text>
-                      </View>
-
-                      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                          {textBAI(wagBai)}
-                      </View>
-
-                    </Pressable>
-                    <ExpandableView2 expanded={isExpanded2} />
-                    </>
-                  }
-
-                  <Pressable style={{flexDirection: 'row', padding: spacing.SCALE_10, borderTopWidth: 1, borderTopColor: colors.COLORS.LIGHT_GREY}}
-                    onPress={() => {setIsExpanded(!isExpanded);}}
-                  >
-              
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                      <View style={{justifyContent: 'center'}}>
-                        <MaterialCommunityIcons name='human-child' size={spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
-                       
-                      </View>
-                      <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                        <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16}}>LBM</Text>
-                      </View>
-                    </View>
-
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ wagLBM.toFixed(2) }<Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> kg</Text></Text>
-                    </View>
-
-                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    
-                    </View>
-
-                  </Pressable>
-                  <ExpandableView expanded={isExpanded} />
-
-
-                </View>
-              } */}
-
-
-
-            {/* </View> */}
-
             
               { dataWeight.length > 0 ?
                   (
@@ -1070,8 +886,8 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                                 <Text style={styles.textCard}>
                                   {/* { dataWeight.length === 0 ? userWeight.toFixed(2) : (item.currentWeight).toFixed(2) } */}
                                   
-                                  { userData.weightUnit === 'kg' && Number(item.currentWeight).toFixed(2) }
-                                  { userData.weightUnit === 'lb' && (Number(item.currentWeightLB)).toFixed(2) }
+                                  { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
+                                  { userData.weightUnit === UNIT.LB && (Number(item.currentWeightLB)).toFixed(2) }
                                   {/* { userData.weightUnit === 'st' && (Number(item.currentWeightST)).toFixed(2) } */}
                                   
                                   
@@ -1128,10 +944,6 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                               </View>
                           
                             </View>
-
-                              {/* <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                                <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ item.currentWeight }<Text style={{fontSize: 12, fontWeight: '400'}}> kg</Text></Text>
-                              </View> */}
                               
                               <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
                         
@@ -1143,8 +955,8 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                         <View style={{alignItems: 'center'}}>
                             <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>
                               {/* {Number(item.currentWeight).toFixed(2)} */}
-                              { userData.weightUnit === 'kg' && Number(item.currentWeight).toFixed(2) }
-                              { userData.weightUnit === 'lb' && Number(item.currentWeightLB).toFixed(2) }
+                              { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
+                              { userData.weightUnit === UNIT.LB && Number(item.currentWeightLB).toFixed(2) }
                               {/* { userData.weightUnit === 'st' && Number(item.currentWeightST).toFixed(2) } */}
                             </Text>                          
                             {sing(item)}
@@ -1233,8 +1045,8 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
                               {/* { (item.lbm).toFixed(2) } */}
-                              { userData.weightUnit === 'kg' && Number(item.lbm).toFixed(2) }
-                              { userData.weightUnit === 'lb' && Number(item.lbmLB).toFixed(2) }
+                              { userData.weightUnit === UNIT.KG && Number(item.lbm).toFixed(2) }
+                              { userData.weightUnit === UNIT.LB && Number(item.lbmLB).toFixed(2) }
                               {/* { userData.weightUnit === 'st' && Number(item.lbmST).toFixed(2) } */}
                             <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> {userData.weightUnit}</Text></Text>
                           </View>

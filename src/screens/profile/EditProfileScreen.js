@@ -13,6 +13,7 @@ import MySwitch from '../../components/MySwitch';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 
 const EditProfileScreen = ({ navigation }) => {
@@ -66,18 +67,13 @@ const EditProfileScreen = ({ navigation }) => {
      
   const handleUpdate = async () => {
     let imgUrl = await uploadImage();
-    // console.log('imgUrl: ' + imgUrl);
-    // console.log('imgUrl: ' + imgUrl);
-    // console.log('imageB: '+ userData.userImg);
     
     if( imgUrl == null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
-    //  console.log('imgUrl: ' + imgUrl);
-    //  console.log('imageB: '+ userData.userImg);
 
     // Waga aktualna
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       weightKG = (parseFloat(userData.weightName)).toFixed(2);
       weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);
     }else{
@@ -86,7 +82,7 @@ const EditProfileScreen = ({ navigation }) => {
     }
 
     // Waga docelowa
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
       targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2);
     }else{
@@ -95,7 +91,7 @@ const EditProfileScreen = ({ navigation }) => {
     }
 
     // Różnica
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       diffKG = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
       diffLB = ((parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536)).toFixed(2);
     }else{
@@ -103,19 +99,14 @@ const EditProfileScreen = ({ navigation }) => {
       diffLB = (parseFloat(userData.weightName / 0.4536) - parseFloat(userData.targetWeight / 0.4536)).toFixed(2);
     }
 
-    console.log('KG: ' + parseFloat(diffKG))
-    console.log('LB: ' + parseFloat(diffLB))
-
     // Wzrost
-    if(userData.growthUnit === 'cm'){
+    if(userData.growthUnit === UNIT.CM){
       heightCM = (parseFloat(userData.heightName)).toFixed(2);
       heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
     }else{
       heightCM = (parseFloat(userData.heightName)).toFixed(2);
       heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
     }
-    // console.log('CM: ' + parseFloat(heightCM))
-    // console.log('IN: ' + parseFloat(heightIN))
 
     console.log('image: ' + image);
     await firestore()
@@ -124,28 +115,28 @@ const EditProfileScreen = ({ navigation }) => {
     .collection('profile')
     .doc('profil')
     .update({
-      // firstName: userData.firstName,
-      // lastName: userData.lastName,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
       
-      // weightName: parseFloat(weightKG),
-      // weightNameLB: parseFloat(weightLB),
-      // //weightNameST: weightST,
+      weightName: parseFloat(weightKG),
+      weightNameLB: parseFloat(weightLB),
+      //weightNameST: weightST,
 
-      // targetWeight: parseFloat(targetKG),
-      // targetWeightLB: parseFloat(targetLB),
-      // //targetWeightST: targetST,
+      targetWeight: parseFloat(targetKG),
+      targetWeightLB: parseFloat(targetLB),
+      //targetWeightST: targetST,
       
-      // heightName: parseFloat(heightCM),
-      // heightNameIN: parseFloat(heightIN),
-      // //heightNameFT: heightFT,
+      heightName: parseFloat(heightCM),
+      heightNameIN: parseFloat(heightIN),
+      //heightNameFT: heightFT,
       
-      // birthday: date,
-      // gender: gender ? gender : userData.gender,
-      //userImg: imgUrl === null ? imgUrl : imgUrl,
+      birthday: date,
+      gender: gender ? gender : userData.gender,
+      userImg: imgUrl === null ? imgUrl : imgUrl,
       userImg: imgUrl,
-      // difference: parseFloat(diffKG),
-      // differenceLB: parseFloat(diffLB),
-      //differenceST: diffST,
+      difference: parseFloat(diffKG),
+      differenceLB: parseFloat(diffLB),
+      differenceST: diffST,
 
     })
     .then(() => {
@@ -155,21 +146,6 @@ const EditProfileScreen = ({ navigation }) => {
     })
 
   }
-
- //console.log(image2)
-  // useEffect(() => {
-    // firebase.firestore().collection('users')
-    // .doc(user.uid).collection('profile').doc('profil').get()
-    // .then((snapshot) => {
-    //   if(snapshot.exists){
-    //     setUserData(snapshot.data())
-        
-    //   }
-    //   else{
-    //     console.log('User does not exist 12');
-    //   }
-    // })
-    // }, []);
   
   const refRBSheet = useRef();
   const [isOpen, setIsOpen] = useState(true);
@@ -414,8 +390,8 @@ const EditProfileScreen = ({ navigation }) => {
               activeUnderlineColor={colors.COLORS.DEEP_BLUE}
               label={t('editProfileScreen.height') + ' (' + userData.growthUnit + ')'}
               //value={userData ? String(userData.heightName) : String('0')}
-              value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
-              onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
+              value={userData ? (userData.growthUnit === UNIT.CM ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
+              onChangeText={(txt) => userData.growthUnit === UNIT.CM ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
               //onChangeText={(txt) => setUserData({...userData, heightName: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
@@ -428,8 +404,8 @@ const EditProfileScreen = ({ navigation }) => {
              activeUnderlineColor={colors.COLORS.DEEP_BLUE}
               label={t('editProfileScreen.current-weight') + ' (' + userData.weightUnit + ')'}
               //value={userData ? String(userData.weightName) : ''}
-              value={userData ? (userData.weightUnit === 'kg' ? ( userData.weightName).toString() : (userData.weightNameLB).toString() ) : ''}
-              onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
+              value={userData ? (userData.weightUnit === UNIT.KG ? ( userData.weightName).toString() : (userData.weightNameLB).toString() ) : ''}
+              onChangeText={(txt) => userData.weightUnit === UNIT.KG ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
               //onChangeText={(txt) => setUserData({...userData, weightName: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
@@ -443,8 +419,8 @@ const EditProfileScreen = ({ navigation }) => {
               activeUnderlineColor={colors.COLORS.DEEP_BLUE}
               label={t('editProfileScreen.target-weight') + ' (' + userData.weightUnit + ')'}
               //value={userData ? String(userData.targetWeight) : ''}
-              value={userData ? (userData.weightUnit === 'kg' ? (userData.targetWeight).toString() : (userData.targetWeightLB).toString()) : ''}
-              onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, targetWeight: txt})) : (setUserData({...userData, targetWeightLB: txt}))}
+              value={userData ? (userData.weightUnit === UNIT.KG ? (userData.targetWeight).toString() : (userData.targetWeightLB).toString()) : ''}
+              onChangeText={(txt) => userData.weightUnit === UNIT.KG ? (setUserData({...userData, targetWeight: txt})) : (setUserData({...userData, targetWeightLB: txt}))}
               //onChangeText={(txt) => setUserData({...userData, targetWeight: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}

@@ -9,6 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const WeightDetailScreen = ({ route, navigation }) => {
   
@@ -486,7 +487,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
     const _handleDelete = async () => {
         let weightKG = 0;
         let weightLB2 = 0;
-      if(userData.widthUnit === 'kg'){
+      if(userData.widthUnit === UNIT.KG){
         weightKG = parseFloat(weight - difference);
         weightLB2 = parseFloat(weightLB - differenceLB);
       }else{
@@ -494,17 +495,6 @@ const WeightDetailScreen = ({ route, navigation }) => {
         weightLB2 = parseFloat(weightLB - differenceLB);
       }
 
-      // let diffKG = 0;
-      // let diffLB = 0;
-      // if(userData.widthUnit === 'kg'){
-      //   diffKG = parseFloat(weight - difference);
-      //   diffLB = parseFloat(weightLB - differenceLB);
-      // }else{
-      //   diffKG = parseFloat(weight - difference);
-      //   diffLB = parseFloat(weightLB - differenceLB);
-      // }
-      // console.log('KG: ' + weightKG)
-      // console.log('LB: ' + weightLB2)
       await firestore()
       .collection('users')
       .doc(user.uid)
@@ -606,8 +596,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
               <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
                   {/* { (dataWeight.currentWeight).toFixed(2) } */}
-                  { userData.weightUnit === 'kg' && Number(dataWeight.currentWeight).toFixed(2) }
-                  { userData.weightUnit === 'lb' && Number(dataWeight.currentWeightLB).toFixed(2) }
+                  { userData.weightUnit === UNIT.KG && Number(dataWeight.currentWeight).toFixed(2) }
+                  { userData.weightUnit === UNIT.LB && Number(dataWeight.currentWeightLB).toFixed(2) }
                   <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}>
                      {' '+ userData.weightUnit}</Text></Text>
               </View>
@@ -692,8 +682,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
               <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
                   {/* { dataWeight.lbm.toFixed(2) } */}
-                  { userData.weightUnit === 'kg' && Number(dataWeight.lbm).toFixed(2) }
-                  { userData.weightUnit === 'lb' && Number(dataWeight.lbmLB).toFixed(2) }
+                  { userData.weightUnit === UNIT.KG && Number(dataWeight.lbm).toFixed(2) }
+                  { userData.weightUnit === UNIT.LB && Number(dataWeight.lbmLB).toFixed(2) }
                   <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> 
                   {' ' + userData.weightUnit}
                   </Text></Text>

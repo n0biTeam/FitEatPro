@@ -11,6 +11,7 @@ import { colors, typography, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import { SelectList } from 'react-native-dropdown-select-list';
+import { UNIT } from '../../styles/units';
 
 const BmrScreen = ({ navigation }) => {
 
@@ -85,7 +86,7 @@ const BmrScreen = ({ navigation }) => {
 
     const bmrCalc = () => {
     //console.log(userData.weightName);
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       if(userData.gender === 1){
         //console.log('Kobieta');
         const ppm = 665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age);
@@ -109,7 +110,7 @@ const BmrScreen = ({ navigation }) => {
   }
 
   const cpmCalc = () => {
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
       if(female === true){
         //console.log('Kobieta');
         const ppm = (665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age))*selected;
@@ -168,9 +169,9 @@ const BmrScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('bmrScreen.body-weight') + ' (' + userData.weightUnit + ')'}
-                value={userData ? (userData.weightUnit === 'kg' ? (userData.weightName).toString() : (userData.weightNameLB).toString()) : ''}
+                value={userData ? (userData.weightUnit === UNIT.KG ? (userData.weightName).toString() : (userData.weightNameLB).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
+                onChangeText={(txt) => userData.weightUnit === UNIT.KG ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
                 keyboardType="numeric"
             />
         </View>
@@ -180,9 +181,9 @@ const BmrScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('bmrScreen.height') + ' (' + userData.growthUnit + ')'}
-                value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
+                value={userData ? (userData.growthUnit === UNIT.CM ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
+                onChangeText={(txt) => userData.growthUnit === UNIT.CM ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
                 keyboardType="numeric"
             />
         </View>

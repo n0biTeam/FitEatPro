@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
 import dataPL from '../data/dataPL';
 import dataPurinePL from '../data/dataPurinePL';
-
+import { UNIT } from '../styles/units';
 
 export const AuthContext = createContext();
 
@@ -114,8 +114,8 @@ const insertPurineJson = async (dataPurineJsonPL) => {
                       birthday: firestore.Timestamp.fromDate(new Date('1992-12-09T22:56:00.000Z')),
                       atcreatedAt: firestore.Timestamp.fromDate(new Date()),
                       userImg: null,
-                      weightUnit: 'kg',
-                      growthUnit: 'cm',
+                      weightUnit: UNIT.KG,
+                      growthUnit: UNIT.CM,
                       weightNameLB: 0, 
                       //weightNameST: 0,
                       heightNameIN: 0,

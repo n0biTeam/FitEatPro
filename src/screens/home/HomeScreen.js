@@ -15,6 +15,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
+import { UNIT } from '../../styles/units';
 
 
 const theme = {
@@ -40,8 +41,8 @@ const HomeScreen = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(true);
   const heightModal = (Dimensions.get('window').height/3);
   const [newTarget, setNewTarget] = useState(0);
-  const [sumTarget, setSumTarget] = useState(0);
-  const [difference, setDifference] = useState(0);
+  //const [sumTarget, setSumTarget] = useState(0);
+  //const [difference, setDifference] = useState(0);
 
   const [dataCharts, setDataCharts] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
@@ -168,7 +169,7 @@ const HomeScreen = ({ navigation }) => {
 
 const _chartWeight = () => {
   try{
-  if(userData.weightUnit === 'kg'){
+  if(userData.weightUnit === UNIT.KG){
       const chart = dataCharts;
       return chart;
   }else{
@@ -182,7 +183,7 @@ const _chartWeight = () => {
 
 const _chartWeight2 = () => {
   try{
-  if(userData.weightUnit === 'kg'){
+  if(userData.weightUnit === UNIT.KG){
       const chart = dataCharts2;
       return chart;
   }else{
@@ -196,7 +197,7 @@ const _chartWeight2 = () => {
 
 const _differenceWeight = () => {
   try{
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
        return userData.difference;
     }else{
         return userData.differenceLB;
@@ -206,10 +207,7 @@ const _differenceWeight = () => {
   }
 }
 
-//console.log(_differenceWeight())
 
-//console.log(_chartWeight())
- 
   const handleAdd = async () => {
     await firestore()
         .collection('users')
@@ -238,14 +236,10 @@ const _differenceWeight = () => {
 
   const _getWeightUnit = () => {
     try{
-        if(userData.weightUnit === 'kg'){
+        if(userData.weightUnit === UNIT.KG){
             return Number(userData.weightName);
-        }else if(userData.weightUnit === 'lb'){
-            return Number(userData.weightNameLB)
-        }else if(userData.weightUnit === 'st'){
-            return Number(userData.weightNameST)
         }else{
-            return ''
+            return Number(userData.weightNameLB)
         }
       }catch(e){
       console.log(e);
@@ -255,14 +249,10 @@ const _differenceWeight = () => {
   //console.log(weight)
 
   const _getTargetUnit = () => {
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
         return Number(userData.targetWeight)
-    }else if(userData.weightUnit === 'lb'){
-        return Number(userData.targetWeightLB);
-    }else if(userData.weightUnit === 'st'){
-        return Number(userData.targetWeightST);
     }else{
-        return ''
+        return Number(userData.targetWeightLB);
     }
   }
 
@@ -291,7 +281,7 @@ const _differenceWeight = () => {
     
     height={210}
     yAxisLabel=""
-    yAxisSuffix=" kg"
+    yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
     chartConfig={{
       backgroundColor: colors.COLORS.BLACK,
@@ -599,7 +589,6 @@ const _differenceWeight = () => {
        </View>
 
        <View style={{flex: 1, alignItems: 'center'}}>
-        {/* <Text style={{color: TEXT.WHITE, fontSize: 10, marginBottom: 3}}>Cel: {targetWeight} kg</Text> */}
         <Text></Text>
         {
           weight > targetWeight ?
@@ -823,7 +812,7 @@ const _differenceWeight = () => {
                     <TextInput
                         underlineColor={colors.COLORS.WHITE}
                         activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                        label="Waga docelowa (kg)"
+                        label={'Waga docelowa (' + UNIT.KG + ')'} 
                         value={newTarget}
                         style={{backgroundColor: colors.COLORS.LIGHT_GREY}}
                         onChangeText={setNewTarget}

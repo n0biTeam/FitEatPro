@@ -10,6 +10,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const HistoryWeightScreen = ({ navigation }) => {
 
@@ -324,8 +325,8 @@ const HistoryWeightScreen = ({ navigation }) => {
                         <View style={{alignItems: 'center'}}>
                             <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>
                               {/* {Number(item.currentWeight).toFixed(2)} */}
-                              { userData.weightUnit === 'kg' && Number(item.currentWeight).toFixed(2) }
-                              { userData.weightUnit === 'lb' && Number(item.currentWeightLB).toFixed(2) }
+                              { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
+                              { userData.weightUnit === UNIT.LB && Number(item.currentWeightLB).toFixed(2) }
                             </Text>                          
                             {sing(item)}
                         </View>

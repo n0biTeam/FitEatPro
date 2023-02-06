@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
+import { UNIT } from '../../styles/units';
 
 const SettingsScreen = ({ navigation }) => {
   
@@ -41,7 +42,7 @@ const SettingsScreen = ({ navigation }) => {
 
   
   const _getWeightUnit = (weightUnit) => {
-    if(weightUnit === 'kg'){
+    if(weightUnit === UNIT.KG){
         return 'Kilogram'
     }else{
         return 'Funt'
@@ -53,7 +54,7 @@ const SettingsScreen = ({ navigation }) => {
   }
 
   const _getHeightUnit = (growthUnit) => {
-    if(growthUnit === 'cm'){
+    if(growthUnit === UNIT.CM){
         return 'Centymetr'
     }else{
         return 'Cale'
@@ -70,15 +71,15 @@ const SettingsScreen = ({ navigation }) => {
   //console.log(selected)
   //console.log(growthUnit)
   const dataWeidth = [
-      {key:'kg', value: 'Kilogramy'},
-      {key:'lb', value: 'Funt'},
+      {key: UNIT.KG, value: 'Kilogramy'},
+      {key: UNIT.LB, value: 'Funt'},
       // {key:'st', value: 'Stopa'},
      
   ];
 
   const dataHeight = [
-    {key:'cm', value: 'Centymetry'},
-    {key:'in', value: 'Cale'},
+    {key: UNIT.CM, value: 'Centymetry'},
+    {key: UNIT.IN, value: 'Cale'},
     // {key:'ft', value: 'Stopa'},
    
 ];

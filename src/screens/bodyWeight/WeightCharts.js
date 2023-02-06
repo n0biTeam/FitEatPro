@@ -12,6 +12,7 @@ import { LineChart } from "react-native-chart-kit";
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
 import { colors, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const WeightCharts = ({ navigation }) => {
 
@@ -148,7 +149,7 @@ const WeightCharts = ({ navigation }) => {
 
       const _chartWeight = () => {
         try{
-        if(userData.weightUnit === 'kg'){
+        if(userData.weightUnit === UNIT.KG){
             const chart = dataCharts;
             return chart;
         }else{
@@ -164,7 +165,7 @@ const WeightCharts = ({ navigation }) => {
 
       const _chartWeight2 = () => {
         try{
-        if(userData.weightUnit === 'kg'){
+        if(userData.weightUnit === UNIT.KG){
             const chart = dataCharts2;
             return chart;
         }else{
@@ -208,7 +209,7 @@ const WeightCharts = ({ navigation }) => {
     width={Dimensions.get("window").width-12} // from react-native
     height={220}
     yAxisLabel=""
-    yAxisSuffix=" kg"
+    yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
     chartConfig={{
       backgroundColor: colors.COLORS.BLACK,

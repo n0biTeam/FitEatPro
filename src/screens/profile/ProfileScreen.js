@@ -12,6 +12,7 @@ import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
+import { UNIT } from '../../styles/units';
 
 
 const ProfileScreen = ({ navigation }) => {
@@ -78,7 +79,7 @@ const ProfileScreen = ({ navigation }) => {
   }
 
   const _getWeightUnit = () => {
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
         return (userData.weightName).toFixed(2);
     }else{
         return userData.weightNameLB;
@@ -88,7 +89,7 @@ const ProfileScreen = ({ navigation }) => {
   //console.log(_getWeightUnit())
 
   const _getWeighTargetUnit = () => {
-    if(userData.weightUnit === 'kg'){
+    if(userData.weightUnit === UNIT.KG){
         return (userData.targetWeight).toFixed(2)
     }else{
         return (userData.targetWeightLB).toFixed(2)
@@ -96,7 +97,7 @@ const ProfileScreen = ({ navigation }) => {
   }
 
   const _getHeightUnit = () => {
-    if(userData.growthUnit === 'cm'){
+    if(userData.growthUnit === UNIT.CM){
         return userData.heightName
     }else{
         return (userData.heightNameIN);
@@ -110,11 +111,10 @@ const ProfileScreen = ({ navigation }) => {
     
     <SafeAreaProvider>
     <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
-    
-       <Appbar.Content title={t('profileScreen.my-profile')} />
-       <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  />
-       <Appbar.Action icon="account-edit" onPress={() => navigation.navigate('EditProfile')}  />
-       <Appbar.Action icon="logout" onPress={logout} style={{marginRight: spacing.SCALE_4}}/>
+      <Appbar.Content title={t('profileScreen.my-profile')} />
+        <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  />
+        <Appbar.Action icon="account-edit" onPress={() => navigation.navigate('EditProfile')}  />
+        <Appbar.Action icon="logout" onPress={logout} style={{marginRight: spacing.SCALE_4}}/>
     </Appbar.Header>
         <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -151,7 +151,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.box}>
       <View style={{marginBottom: spacing.SCALE_10, paddingHorizontal: spacing.SCALE_6, flexDirection: 'row', alignContent: 'center' }}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Avatar.Image size={spacing.SCALE_80} source={{uri: userData.userImg != null ? userData.userImg : image }} />
+            <Avatar.Image size={spacing.SCALE_90} source={{uri: userData.userImg != null ? userData.userImg : image }} />
         </View>
      </View>
 

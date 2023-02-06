@@ -8,6 +8,7 @@ import firestore from '@react-native-firebase/firestore';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const WhtrScreen = ({ navigation }) => {
 
@@ -59,7 +60,7 @@ const WhtrScreen = ({ navigation }) => {
     //  console.log('Obwod talii: ' + waistSize);
     //  console.log('Wzrost: ' + userData.heightName);
     // console.log('Plec: ' + male);
-    if(userData.growthUnit === 'cm'){
+    if(userData.growthUnit === UNIT.CM){
       if(female === true){
         const whtr = (waistSize / userData.heightName) * 100;
         setSumWHtR(whtr);        
@@ -230,9 +231,9 @@ const WhtrScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('whtrScreen.height') + ' (' + userData.growthUnit + ')'}
-                value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
+                value={userData ? (userData.growthUnit === UNIT.CM ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
+                onChangeText={(txt) => userData.growthUnit === UNIT.CM ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
                 keyboardType="numeric"
             />
         </View>

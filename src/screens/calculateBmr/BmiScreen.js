@@ -7,6 +7,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const BmiScreen = ({ navigation }) => {
 
@@ -41,7 +42,7 @@ const BmiScreen = ({ navigation }) => {
 
         console.log(parseFloat(userData.weightName))
         console.log((parseFloat(userData.heightName)))
-        if(userData.weightUnit === 'kg'){
+        if(userData.weightUnit === UNIT.KG){
           const result = parseFloat(userData.weightName) / ((parseFloat(userData.heightName)*parseFloat(userData.heightName))/10000);
           setSumBMI(result);
         }else{
@@ -190,9 +191,9 @@ const BmiScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={ t('bmiScreen.body-weight') + ' (' + userData.weightUnit + ')'}
-                value={userData ? (userData.weightUnit === 'kg' ? (userData.weightName).toString() : (userData.weightNameLB).toString()) : ''}
+                value={userData ? (userData.weightUnit === UNIT.KG ? (userData.weightName).toString() : (userData.weightNameLB).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
+                onChangeText={(txt) => userData.weightUnit === UNIT.KG ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
                 //onChangeText={setWeightName}
                 keyboardType="numeric"
             />
@@ -203,9 +204,9 @@ const BmiScreen = ({ navigation }) => {
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={ t('bmiScreen.height') +  ' (' + userData.growthUnit + ')' }
-                value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
+                value={userData ? (userData.growthUnit === UNIT.CM ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
+                onChangeText={(txt) => userData.growthUnit === UNIT.CM ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
                 keyboardType="numeric"
             />
         </View>
