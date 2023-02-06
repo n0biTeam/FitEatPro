@@ -23,7 +23,7 @@ const EditProfileScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState('');
   //const [loading, setLoading] = useState(true);
 
   const [date, setDate] = useState(new Date());
@@ -93,75 +93,111 @@ const EditProfileScreen = ({ navigation }) => {
    
   const handleUpdate = async () => {
     let imgUrl = await uploadImage();
-    console.log('imgUrl: ' + imgUrl);
+    // console.log('imgUrl: ' + imgUrl);
     
     if( imgUrl === null && userData.userImg ) {
       imgUrl = userData.userImg;
     }
-    console.log('imgUrl: ' + imgUrl);
-    console.log('imageB: '+ userData.userImg);
+    // console.log('imgUrl: ' + imgUrl);
+    // console.log('imageB: '+ userData.userImg);
 
     // Waga aktualna
+    // if(userData.weightUnit === 'kg'){
+    //   weightKG = (parseFloat(userData.weightName)).toFixed(2);               
+    //   weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);      
+    //   //weightST = parseFloat(userData.weightName) / 6.35;        
+    // }else if(userData.weightUnit === 'lb'){
+    //   weightKG = (parseFloat(userData.weightName) * 0.45359237).toFixed(2);  
+    //   weightLB = (parseFloat(userData.weightName)).toFixed(2);
+    //   //weightST = parseFloat(userData.weightName) / 14;          
+    // }else{
+    //   weightKG = (parseFloat(userData.weightName) / 0.15747).toFixed(2);
+    //   weightLB = (parseFloat(userData.weightName) / 0.0714286).toFixed(2);
+    //  // weightST = parseFloat(userData.weightName);               
+    // }
     if(userData.weightUnit === 'kg'){
-      weightKG = (parseFloat(userData.weightName)).toFixed(2);               
-      weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);      
-      //weightST = parseFloat(userData.weightName) / 6.35;        
-    }else if(userData.weightUnit === 'lb'){
-      weightKG = (parseFloat(userData.weightName) * 0.45359237).toFixed(2);  
-      weightLB = (parseFloat(userData.weightName)).toFixed(2);
-      //weightST = parseFloat(userData.weightName) / 14;          
+      weightKG = (parseFloat(userData.weightName)).toFixed(2);
+      weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);
     }else{
-      weightKG = (parseFloat(userData.weightName) / 0.15747).toFixed(2);
-      weightLB = (parseFloat(userData.weightName) / 0.0714286).toFixed(2);
-     // weightST = parseFloat(userData.weightName);               
+      weightKG = (parseFloat(userData.weightName)).toFixed(2);
+      weightLB = (parseFloat(userData.weightName) / 0.4536).toFixed(2);
     }
 
     // Waga docelowa
+    // if(userData.weightUnit === 'kg'){
+    //   targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
+    //   targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2)  
+    //  // targetST = parseFloat(userData.targetWeight) / 6.35;        
+    // }else if(userData.weightUnit === 'lb'){
+    //   targetKG = (parseFloat(userData.targetWeight) * 0.45359237).toFixed(2);  
+    //   targetLB = (parseFloat(userData.targetWeight)).toFixed(2);
+    //  // targetST = parseFloat(userData.targetWeight) / 14;          
+    // }else{
+    //   targetKG = (parseFloat(userData.targetWeight) / 0.15747).toFixed(2);
+    //   targetLB = (parseFloat(userData.targetWeight) / 0.0714286).toFixed(2);
+    //  // targetST = parseFloat(userData.targetWeight);               
+    // }
+
     if(userData.weightUnit === 'kg'){
       targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
-      targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2)  
-     // targetST = parseFloat(userData.targetWeight) / 6.35;        
-    }else if(userData.weightUnit === 'lb'){
-      targetKG = (parseFloat(userData.targetWeight) * 0.45359237).toFixed(2);  
-      targetLB = (parseFloat(userData.targetWeight)).toFixed(2);
-     // targetST = parseFloat(userData.targetWeight) / 14;          
+      targetLB = (parseFloat(userData.targetWeight) / 0.4536).toFixed(2);
     }else{
-      targetKG = (parseFloat(userData.targetWeight) / 0.15747).toFixed(2);
-      targetLB = (parseFloat(userData.targetWeight) / 0.0714286).toFixed(2);
-     // targetST = parseFloat(userData.targetWeight);               
+      targetKG = (parseFloat(userData.targetWeight)).toFixed(2);
+      targetLB = (parseFloat(userData.targetWeight)/ 0.4536).toFixed(2);
     }
 
+    
     // Różnica
+    // if(userData.weightUnit === 'kg'){
+    //   diffKG = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
+    //   diffLB = ((parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536)).toFixed(2);
+    //   //diffST = (parseFloat(userData.weightName) / 6.35) - (parseFloat(userData.targetWeight) / 6.35);        
+    // }else if(userData.weightUnit === 'lb'){
+    //   diffKG = ((parseFloat(userData.weightName) * 0.45359237) - (parseFloat(userData.targetWeight) * 0.45359237)).toFixed(2);
+    //   diffLB = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
+    //  // diffST = (parseFloat(userData.weightName) / 14) - (parseFloat(userData.targetWeight) / 14);          
+    // }else{
+    //   diffKG = ((parseFloat(userData.weightName) / 0.15747) - (parseFloat(userData.targetWeight) / 0.15747)).toFixed(2);
+    //   diffLB = ((parseFloat(userData.weightName) / 0.0714286) - (parseFloat(userData.targetWeight) / 0.0714286)).toFixed(2);   
+    //   //diffST = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
+    // }
     if(userData.weightUnit === 'kg'){
       diffKG = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
       diffLB = ((parseFloat(userData.weightName) / 0.4536) - (parseFloat(userData.targetWeight) / 0.4536)).toFixed(2);
-      //diffST = (parseFloat(userData.weightName) / 6.35) - (parseFloat(userData.targetWeight) / 6.35);        
-    }else if(userData.weightUnit === 'lb'){
-      diffKG = ((parseFloat(userData.weightName) * 0.45359237) - (parseFloat(userData.targetWeight) * 0.45359237)).toFixed(2);
-      diffLB = (parseFloat(userData.weightName) - parseFloat(userData.targetWeight)).toFixed(2);
-     // diffST = (parseFloat(userData.weightName) / 14) - (parseFloat(userData.targetWeight) / 14);          
     }else{
-      diffKG = ((parseFloat(userData.weightName) / 0.15747) - (parseFloat(userData.targetWeight) / 0.15747)).toFixed(2);
-      diffLB = ((parseFloat(userData.weightName) / 0.0714286) - (parseFloat(userData.targetWeight) / 0.0714286)).toFixed(2);   
-      //diffST = parseFloat(userData.weightName) - parseFloat(userData.targetWeight);               
+      diffKG = (parseFloat(userData.weightName)) - (parseFloat(userData.targetWeight)).toFixed(2);
+      diffLB = (parseFloat(userData.weightName / 0.4536) - parseFloat(userData.targetWeight / 0.4536)).toFixed(2);
     }
 
+    console.log('KG: ' + parseFloat(diffKG))
+    console.log('LB: ' + parseFloat(diffLB))
+
     // Wzrost
+    // if(userData.growthUnit === 'cm'){
+    //   heightCM = (parseFloat(userData.heightName)).toFixed(2);
+    //   heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
+    //   //heightFT = parseFloat(userData.heightName) / 30.48;
+    // }else if(userData.growthUnit === 'in'){
+    //   heightCM = (parseFloat(userData.heightName) * 2.54).toFixed(2);
+    //   heightIN = (parseFloat(userData.heightName)).toFixed(2);               
+    //  // heightFT = parseFloat(userData.heightName) / 12;
+    // }else{
+    //   heightCM = (parseFloat(userData.heightName) * 30.48).toFixed(2);
+    //   heightIN = (parseFloat(userData.heightName) * 12).toFixed(2);   
+    //  // heightFT = parseFloat(userData.heightName);               
+    // }
+
     if(userData.growthUnit === 'cm'){
       heightCM = (parseFloat(userData.heightName)).toFixed(2);
       heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
-      //heightFT = parseFloat(userData.heightName) / 30.48;
-    }else if(userData.growthUnit === 'in'){
-      heightCM = (parseFloat(userData.heightName) * 2.54).toFixed(2);
-      heightIN = (parseFloat(userData.heightName)).toFixed(2);               
-     // heightFT = parseFloat(userData.heightName) / 12;
     }else{
-      heightCM = (parseFloat(userData.heightName) * 30.48).toFixed(2);
-      heightIN = (parseFloat(userData.heightName) * 12).toFixed(2);   
-     // heightFT = parseFloat(userData.heightName);               
+      heightCM = (parseFloat(userData.heightName)).toFixed(2);
+      heightIN = (parseFloat(userData.heightName) / 2.54).toFixed(2);
     }
+    // console.log('CM: ' + parseFloat(heightCM))
+    // console.log('IN: ' + parseFloat(heightIN))
 
-    //console.log('image: ' + image);
+    console.log('image: ' + image);
     await firestore()
     .collection('users')
     .doc(user.uid)
@@ -476,9 +512,11 @@ const EditProfileScreen = ({ navigation }) => {
             <TextInput
               underlineColor={colors.COLORS.LIGHT_GREY}
               activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-              label={t('editProfileScreen.height') + ' [cm]'}
-              value={userData ? String(userData.heightName) : String('0')}
-              onChangeText={(txt) => setUserData({...userData, heightName: txt})}
+              label={t('editProfileScreen.height') + ' (' + userData.growthUnit + ')'}
+              //value={userData ? String(userData.heightName) : String('0')}
+              value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
+              onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
+              //onChangeText={(txt) => setUserData({...userData, heightName: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
             />
@@ -488,9 +526,11 @@ const EditProfileScreen = ({ navigation }) => {
             <TextInput
              underlineColor={colors.COLORS.LIGHT_GREY}
              activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-              label={t('editProfileScreen.current-weight') + ' [kg]'}
-              value={userData ? String(userData.weightName) : ''}
-              onChangeText={(txt) => setUserData({...userData, weightName: txt})}
+              label={t('editProfileScreen.current-weight') + ' (' + userData.weightUnit + ')'}
+              //value={userData ? String(userData.weightName) : ''}
+              value={userData ? (userData.weightUnit === 'kg' ? ( userData.weightName).toString() : (userData.weightNameLB).toString() ) : ''}
+              onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
+              //onChangeText={(txt) => setUserData({...userData, weightName: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
             />
@@ -501,9 +541,11 @@ const EditProfileScreen = ({ navigation }) => {
           <TextInput
               underlineColor={colors.COLORS.LIGHT_GREY}
               activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-              label={t('editProfileScreen.target-weight') + ' [kg]'}
-              value={userData ? String(userData.targetWeight) : ''}
-              onChangeText={(txt) => setUserData({...userData, targetWeight: txt})}
+              label={t('editProfileScreen.target-weight') + ' (' + userData.weightUnit + ')'}
+              //value={userData ? String(userData.targetWeight) : ''}
+              value={userData ? (userData.weightUnit === 'kg' ? (userData.targetWeight).toString() : (userData.targetWeightLB).toString()) : ''}
+              onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, targetWeight: txt})) : (setUserData({...userData, targetWeightLB: txt}))}
+              //onChangeText={(txt) => setUserData({...userData, targetWeight: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
             />

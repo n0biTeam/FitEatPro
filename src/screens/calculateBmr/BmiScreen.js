@@ -15,8 +15,6 @@ const BmiScreen = ({ navigation }) => {
     const {user} = useContext(AuthContext); 
     const [sumBMI, setSumBMI] = useState(0.00);
     const [userData, setUserData] = useState('');
-    const [weightName, setWeightName] = useState('');
-    const [heightName, setHeightName] = useState('');
 
     const getUser = async () => {
         await firestore()
@@ -47,7 +45,7 @@ const BmiScreen = ({ navigation }) => {
           const result = parseFloat(userData.weightName) / ((parseFloat(userData.heightName)*parseFloat(userData.heightName))/10000);
           setSumBMI(result);
         }else{
-          const result = parseFloat(userData.weightNameLB * 0.45359237) / ((parseFloat(userData.heightNameIN*2.54)*parseFloat(userData.heightNameIN*2.54))/10000);
+          const result = parseFloat(userData.weightNameLB * 0.45359237) / ((parseFloat(userData.heightNameIN * 2.54) * parseFloat(userData.heightNameIN * 2.54))/10000);
           setSumBMI(result);
         }
         

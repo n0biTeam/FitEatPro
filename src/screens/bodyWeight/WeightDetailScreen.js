@@ -503,8 +503,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
       //   diffKG = parseFloat(weight - difference);
       //   diffLB = parseFloat(weightLB - differenceLB);
       // }
-      console.log('KG: ' + weightKG)
-      console.log('LB: ' + weightLB2)
+      // console.log('KG: ' + weightKG)
+      // console.log('LB: ' + weightLB2)
       await firestore()
       .collection('users')
       .doc(user.uid)
@@ -518,8 +518,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
       .collection('profile')
       .doc('profil')
       .update({
-        weightName: weightKG,
-        weightNameLB: weightLB2,
+        weightName: parseFloat(weightKG.toFixed(2)),
+        weightNameLB: parseFloat(weightLB2.toFixed(2)),
     })
       .then(() => {
          ToastAndroid.show(t('weightDetalScreen.toast.delete-text'), ToastAndroid.LONG, ToastAndroid.BOTTOM);

@@ -56,17 +56,27 @@ const WhtrScreen = ({ navigation }) => {
 
 
   const calcWHtR = () => {
-    // console.log('Obwod talii: ' + waistSize);
-    // console.log('Wzrost: ' + userData.heightName);
+    //  console.log('Obwod talii: ' + waistSize);
+    //  console.log('Wzrost: ' + userData.heightName);
     // console.log('Plec: ' + male);
-
-    if(female === true){
+    if(userData.growthUnit === 'cm'){
+      if(female === true){
         const whtr = (waistSize / userData.heightName) * 100;
         setSumWHtR(whtr);        
-    }else{
+      }else{
         const whtr = (waistSize / userData.heightName) * 100;
         setSumWHtR(whtr);
+      }
+    }else{
+      if(female === true){
+        const whtr = ((waistSize * 2.54) / (userData.heightNameIN * 2.54)) * 100;
+        setSumWHtR(whtr);        
+      }else{
+          const whtr = ((waistSize * 2.54) / (userData.heightNameIN * 2.54)) * 100;
+          setSumWHtR(whtr);
+      }
     }
+    
   }
 
   const textWHtR = (sumWHtR) => {
@@ -207,7 +217,7 @@ const WhtrScreen = ({ navigation }) => {
         <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('whtrScreen.waist-circumference') + ' (cm)'}
+                label={t('whtrScreen.waist-circumference') + ' (' + userData.growthUnit + ')'}
                 value={waistSize.toString()}
                 style={{backgroundColor: colors.COLORS.WHITE}}
                 onChangeText={setWaistSize}
@@ -219,10 +229,10 @@ const WhtrScreen = ({ navigation }) => {
         <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('whtrScreen.height') + ' (cm)'}
-                value={userData ? userData.heightName.toString() : ''}
+                label={t('whtrScreen.height') + ' (' + userData.growthUnit + ')'}
+                value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, heightName: txt})}
+                onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
                 keyboardType="numeric"
             />
         </View>

@@ -60,8 +60,14 @@ const WhrScreen = ({ navigation }) => {
   const calcWHR = () => {
 
     if(userData.gender === 1){
+      if(userData.growthUnit === 'cm'){
         const whr = waistSize / hipGirth;
         setSumWHR(whr);
+      }else{
+        const whr = (waistSize / 2,54) / (hipGirth / 2,54);
+        setSumWHR(whr);
+      }
+        
 
         if(sumWHR > 0.8){
             setType(
@@ -146,7 +152,7 @@ const WhrScreen = ({ navigation }) => {
         <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('whrScreen.waist-circumference') + ' (cm)'}
+                label={t('whrScreen.waist-circumference') + ' (' + userData.growthUnit + ')'}
                 value={waistSize.toString()}
                 style={{backgroundColor: colors.COLORS.WHITE}}
                 onChangeText={setWaistSize}
@@ -158,7 +164,7 @@ const WhrScreen = ({ navigation }) => {
             <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('whrScreen.hip-circumference') + ' (cm)'}
+                label={t('whrScreen.hip-circumference') + ' (' + userData.growthUnit + ')'}
                 value={hipGirth.toString()}
                 style={{backgroundColor: colors.COLORS.WHITE}}
                 onChangeText={setHipGirth}

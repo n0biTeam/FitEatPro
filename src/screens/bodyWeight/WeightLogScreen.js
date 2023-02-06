@@ -402,8 +402,8 @@ const [isExtended, setIsExtended] = useState(true);
     .doc('profil')
     .update({
      // weightName: parseFloat(currentWeightInput),
-      weightName: weightKG,
-      weightNameLB: weightLB,
+      weightName: parseFloat(weightKG.toFixed(2)),
+      weightNameLB: parseFloat(weightLB.toFixed(2)),
      // weightNameST: weightST,
     });
 

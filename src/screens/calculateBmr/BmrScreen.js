@@ -85,6 +85,7 @@ const BmrScreen = ({ navigation }) => {
 
     const bmrCalc = () => {
     //console.log(userData.weightName);
+    if(userData.weightUnit === 'kg'){
       if(userData.gender === 1){
         //console.log('Kobieta');
         const ppm = 665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age);
@@ -94,9 +95,21 @@ const BmrScreen = ({ navigation }) => {
         const ppm = 66 + (13.7 * userData.weightName) + (5 * userData.heightName) - (6.8 * age);
         setSumBMR(ppm);
       }
+    }else{
+      if(userData.gender === 1){
+        //console.log('Kobieta');
+        const ppm = 665 + (9.6 * (userData.weightNameLB * 0.45359237)) + (1.7 * (userData.heightNameIN) * 2.54) - (4.7 * age);
+        setSumBMR(ppm);
+      }else{
+        //console.log('Mężczyzna');
+        const ppm = 66 + (13.7 * (userData.weightNameLB * 0.45359237)) + (5 * (userData.heightNameIN) * 2.54) - (6.8 * age);
+        setSumBMR(ppm);
+      }
+    }
   }
 
   const cpmCalc = () => {
+    if(userData.weightUnit === 'kg'){
       if(female === true){
         //console.log('Kobieta');
         const ppm = (665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age))*selected;
@@ -106,6 +119,17 @@ const BmrScreen = ({ navigation }) => {
         const ppm = (66 + (13.7 * userData.weightName) + (5 * userData.heightName) - (6.8 * age))*selected;
         setSumCPM(ppm);
       }
+    }else{
+      if(female === true){
+        //console.log('Kobieta');
+        const ppm = (665 + (9.6 * (userData.weightName) * 0.45359237) + (1.7 * (userData.heightName) * 2.54) - (4.7 * age)) * selected;
+        setSumCPM(ppm);
+      }else{
+        //console.log('Mężczyzna');
+        const ppm = (66 + (13.7 * (userData.weightName) * 0.45359237) + (5 * (userData.heightName) * 2.54) - (6.8 * age)) * selected;
+        setSumCPM(ppm);
+      }
+    }
   }
 
   const image = require('../../assets/images/owoce6.jpg');
@@ -140,13 +164,13 @@ const BmrScreen = ({ navigation }) => {
       <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.WHITE}}>{t('bmrScreen.enter-values')}</Text>
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 1, marginRight: spacing.SCALE_3, elevation: 5}}>
-            <TextInput
+          <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('bmrScreen.height') + ' (cm)'}
-                value={userData ? userData.heightName.toString() : ''}
+                label={t('bmrScreen.body-weight') + ' (' + userData.weightUnit + ')'}
+                value={userData ? (userData.weightUnit === 'kg' ? (userData.weightName).toString() : (userData.weightNameLB).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, heightName: txt})}
+                onChangeText={(txt) => userData.weightUnit === 'kg' ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
                 keyboardType="numeric"
             />
         </View>
@@ -155,10 +179,10 @@ const BmrScreen = ({ navigation }) => {
             <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('bmrScreen.body-weight') + ' (kg)'}
-                value={userData ? userData.weightName.toString() : ''}
+                label={t('bmrScreen.height') + ' (' + userData.growthUnit + ')'}
+                value={userData ? (userData.growthUnit === 'cm' ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
                 style={{backgroundColor: colors.COLORS.WHITE}}
-                onChangeText={(txt) => setUserData({...userData, weightName: txt})}
+                onChangeText={(txt) => userData.growthUnit === 'cm' ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
                 keyboardType="numeric"
             />
         </View>
@@ -228,26 +252,26 @@ const BmrScreen = ({ navigation }) => {
             }}
           /> */}
           <SelectList 
-        setSelected={(val) => setSelected(val)} 
-        data={data} 
-        save="key"
-        boxStyles={{
-          backgroundColor: colors.COLORS.WHITE,
-          borderTopStartRadius: 5,
-          borderTopEnfRadius: 5,
-          borderBottomEndRadius: 0,
-          borderBottomStartRadius: 0
-         }}
-        dropdownStyles={{
-          backgroundColor: colors.COLORS.WHITE,
-          borderTopStartRadius: 5,
-          borderTopEnfRadius: 5,
-          borderBottomEndRadius: 5,
-          borderBottomStartRadius: 5
-        }}
-        search={false}
-        placeholder={t('whrScreen.select-option')}
-    />
+                setSelected={(val) => setSelected(val)} 
+                data={data} 
+                save="key"
+                boxStyles={{
+                  backgroundColor: colors.COLORS.WHITE,
+                  borderTopStartRadius: 5,
+                  borderTopEnfRadius: 5,
+                  borderBottomEndRadius: 0,
+                  borderBottomStartRadius: 0
+                }}
+                dropdownStyles={{
+                  backgroundColor: colors.COLORS.WHITE,
+                  borderTopStartRadius: 5,
+                  borderTopEnfRadius: 5,
+                  borderBottomEndRadius: 5,
+                  borderBottomStartRadius: 5
+                }}
+                search={false}
+                placeholder={t('whrScreen.select-option')}
+          />
       </View>
 
       <View style={{marginTop: 10}}>
@@ -265,7 +289,7 @@ const BmrScreen = ({ navigation }) => {
         <CircularProgress
             value={bmrCalc === NaN ? 0.00 : sumBMR}
             radius={60}
-            maxValue={3000}
+            maxValue={4000}
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}
@@ -293,7 +317,7 @@ const BmrScreen = ({ navigation }) => {
         <CircularProgress
             value={cpmCalc === NaN ? 0.00 : sumCPM}
             radius={60}
-            maxValue={4000}
+            maxValue={5000}
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}

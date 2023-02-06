@@ -206,7 +206,7 @@ const _differenceWeight = () => {
   }
 }
 
-console.log(_differenceWeight())
+//console.log(_differenceWeight())
 
 //console.log(_chartWeight())
  
