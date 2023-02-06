@@ -345,11 +345,6 @@ const EditProfileScreen = ({ navigation }) => {
       <TouchableOpacity onPress={() => refRBSheet.current.open()}>
         <View style={{height: spacing.SCALE_80, width: spacing.SCALE_80, borderRadius: 25, justifyContent: 'center', alignItems: 'center'}}>
          
-        
-          {/* <Image
-            source={{uri: image}}
-            style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
-          /> */}
           <ImageBackground
             source={{
               uri: image
