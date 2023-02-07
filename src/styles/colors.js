@@ -26,6 +26,7 @@ export const TEXT = {
     BLACK: '#000000',
     LIGHT_BLUE: '#4f8ac9',
     GREY_AAA: '#AAAAAA',
+    GREY_777: '#777777',
     YELLOW: '#FFCC00',
 }
 

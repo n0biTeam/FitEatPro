@@ -17,7 +17,7 @@ const SettingsScreen = ({ navigation }) => {
   const {user} = useContext(AuthContext);
   const [weightUnit, setWeightUnit] = useState('');
   const [growthUnit, setGrowthUnit] = useState('');
-  const [diaryUnit, setDiaryUnit] = useState('');
+  //const [diaryUnit, setDiaryUnit] = useState('');
 
 
   const getUser = async () => {
@@ -32,7 +32,7 @@ const SettingsScreen = ({ navigation }) => {
        
         setWeightUnit(documentSnapshot.data().weightUnit);
         setGrowthUnit(documentSnapshot.data().growthUnit);
-        setDiaryUnit(documentSnapshot.data().diaryUnit);
+        //setDiaryUnit(documentSnapshot.data().diaryUnit);
       }
     })
   }
@@ -58,18 +58,18 @@ const SettingsScreen = ({ navigation }) => {
     }
   }
 
-  const _getDiaryUnit = (diaryUnit) => {
-    if(diaryUnit === UNIT.GR){
-        return 'Gram'
-    }else{
-        return 'Uncja'
-    }
-  }
+  // const _getDiaryUnit = (diaryUnit) => {
+  //   if(diaryUnit === UNIT.GR){
+  //       return 'Gram'
+  //   }else{
+  //       return 'Uncja'
+  //   }
+  // }
   
     
   const [selected, setSelected] = useState("");
   const [selectedH, setSelectedH] = useState("");
-  const [selectedD, setSelectedD] = useState("");
+  //const [selectedD, setSelectedD] = useState("");
   //console.log(selected)
   //console.log(growthUnit)
   const dataWeidth = [
@@ -84,10 +84,10 @@ const SettingsScreen = ({ navigation }) => {
     // {key:'ft', value: 'Stopa'},
 ];
 
-const dataDiary = [
-  {key: UNIT.GR, value: 'Gram'},
-  {key: UNIT.OZ, value: 'Uncja'}, 
-];
+// const dataDiary = [
+//   {key: UNIT.GR, value: 'Gram'},
+//   {key: UNIT.OZ, value: 'Uncja'}, 
+// ];
 
 
 
@@ -100,7 +100,7 @@ const dataDiary = [
     .update({
         weightUnit: selected,
         growthUnit: selectedH,
-        diaryUnit: selectedD
+        //diaryUnit: selectedD
     })
     .then(() => {
       console.log('User Update');
@@ -228,7 +228,7 @@ const dataDiary = [
                    
                 </View>
 
-                <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
+                {/* <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
                     <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta wagi w dzienniku posiłów:</Text>
                 </View>
                 <View style={{marginHorizontal: spacing.SCALE_6}}>
@@ -267,7 +267,7 @@ const dataDiary = [
                         defaultOption={{ key: diaryUnit, value: _getDiaryUnit(diaryUnit) }}
                     />
                    
-                </View>
+                </View> */}
 
                 <View style={{marginHorizontal: spacing.SCALE_6, marginTop: spacing.SCALE_10}}>
                 <Button mode="contained" color={colors.COLORS.DEEP_BLUE} onPress={_updateUnit}>
