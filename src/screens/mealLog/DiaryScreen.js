@@ -9,6 +9,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { Appbar, Searchbar } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const DiaryScreen = ({ navigation }) => {
 
@@ -137,7 +138,7 @@ const DiaryScreen = ({ navigation }) => {
       <BigList 
         data={filteredDataSource}
         onEndReachedThreshold={1}
-        itemHeight={200}
+        itemHeight={210}
         renderItem={({item, index}) => (
               <TouchableOpacity 
                 style={{}}
@@ -156,7 +157,7 @@ const DiaryScreen = ({ navigation }) => {
                   height: Dimensions.get('window').height,
                   //width: Dimensions.get('window').width,
                  
-                  height: 194,
+                  height: 205,
                 }}
                 imageStyle={{
                   opacity: 0.6,
@@ -175,7 +176,8 @@ const DiaryScreen = ({ navigation }) => {
                         
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_5, borderRadius: 5, marginLeft: spacing.SCALE_3}}>
                            <Text style={{ fontSize: typography.FONT_SIZE_10}}>{t('diaryScreen.meal-weight')}</Text>
-                           <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_15, fontWeight: 'bold'}}>{item.gramme} g</Text>
+                           <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_15, fontWeight: 'bold'}}>{item.gramme} {UNIT.GR}</Text>
+                           <Text style={{ fontSize: typography.FONT_SIZE_10, fontWeight: 'bold'}}>{(item.gramme / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
                         </View>
                     </View>
 
