@@ -6,6 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { TextInput } from 'react-native-paper';
 import { colors, spacing } from '../../styles';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const AddGlycemicIndex = ({ navigation }) => {
   
@@ -15,14 +16,14 @@ const AddGlycemicIndex = ({ navigation }) => {
    
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
-  const [glycemicIndex, setGlycemicIndex] = useState(0);
-  const [kcal, setKcal] = useState(0);
-  const [protein, setProtein] = useState(0);
-  const [fat, setFat] = useState(0);
-  const [carbs, setCarbs] = useState(0);
-  const [fiber, setFiber] = useState(0);
-  const [sugar, setSugar] = useState(0);
-  const [cholesterol, setCholesterol] = useState(0);
+  const [glycemicIndex, setGlycemicIndex] = useState('');
+  const [kcal, setKcal] = useState('');
+  const [protein, setProtein] = useState('');
+  const [fat, setFat] = useState('');
+  const [carbs, setCarbs] = useState('');
+  const [fiber, setFiber] = useState('');
+  const [sugar, setSugar] = useState('');
+  const [cholesterol, setCholesterol] = useState('');
   
   const handleAdd = async () => {
     await firestore()
@@ -32,14 +33,15 @@ const AddGlycemicIndex = ({ navigation }) => {
     .add({
       name: name,
       category: category,
-      index_glycemic: parseInt(glycemicIndex),
-      kcal: parseInt(kcal),
-      protein: parseFloat(protein),
-      fat: parseFloat(fat),
-      carbs: parseFloat(carbs),
-      fiber: parseFloat(fiber),
-      Sugars: parseFloat(sugar),
-      choresterol: parseFloat(cholesterol)
+      index_glycemic: !glycemicIndex ? 0 : parseInt(glycemicIndex),
+      kcal: !kcal ? 0 : parseInt(kcal),
+      protein: !protein ? 0 : parseFloat(protein),
+      fat: !fat ? 0 : parseFloat(fat),
+      carbs: !carbs ? 0 : parseFloat(carbs),
+      fiber: !fiber ? 0: parseFloat(fiber),
+      Sugars: !sugar ? 0 : parseFloat(sugar),
+      choresterol: !cholesterol ? 0 : parseFloat(cholesterol),
+      grammage: 100
     })
     .then(() => {
       console.log('Product Added');
@@ -114,7 +116,7 @@ const AddGlycemicIndex = ({ navigation }) => {
         >
                  
         <SafeAreaProvider style={styles.rootContainer}>
-
+        <ScrollView>
           <TextInput
             underlineColor={colors.COLORS.LIGHT_GREY}
             activeUnderlineColor={colors.COLORS.DEEP_BLUE}
@@ -255,6 +257,7 @@ const AddGlycemicIndex = ({ navigation }) => {
 
             </View>
 
+            </ScrollView>
         </SafeAreaProvider>
 
       </ImageBackground>
