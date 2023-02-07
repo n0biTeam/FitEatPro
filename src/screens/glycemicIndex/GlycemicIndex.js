@@ -477,7 +477,7 @@ setMasterDataSource([...listData]);
   
     useEffect(() => {
       Animated.timing(height, {
-        toValue: expanded ? 200 : 0,
+        toValue: expanded ? 300 : 0,
         duration: 100,
         useNativeDriver: false
       }).start();
@@ -490,20 +490,20 @@ setMasterDataSource([...listData]);
         style={{ height, backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
       >
         { initialItem.witA !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
           <View style={{flex: 1}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, textTransform: 'uppercase'}}>WITAMINA A</Text>
+            <Text style={styles.textBox1}>WITAMINA A</Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.witA} {UNIT.IU}</Text>
+            <Text style={styles.textBox3}>{initialItem.witA} {UNIT.IU}</Text>
           </View>
         </View>
       }
 
       { initialItem.betaCarotene !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
           <View style={{flex: 1, marginLeft: 10}}>
-            <Text style={{fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>BETA-CAROTEN</Text>
+            <Text style={styles.textBox2}>BETA-CAROTEN</Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>
             <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
@@ -512,9 +512,9 @@ setMasterDataSource([...listData]);
       } 
 
       { initialItem.luteinaZeaksantyna !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
           <View style={{flex: 1, marginLeft: 10}}>
-            <Text style={{fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>BETA-CAROTEN</Text>
+            <Text style={styles.textBox2}>LUTEINA-ZEAKSANTYNA</Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>
             <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
@@ -523,12 +523,122 @@ setMasterDataSource([...listData]);
       }
 
       { initialItem.WitB1Tiamina !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
           <View style={{flex: 1}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, textTransform: 'uppercase'}}>WITAMINA A</Text>
+            <Text style={styles.textBox1}>WITAMINA B1 - TIAMINA</Text>
           </View>
           <View style={{alignItems: 'flex-end'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.WitB1Tiamina} {UNIT.MG}</Text>
+            <Text style={styles.textBox3}>{initialItem.WitB1Tiamina} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB2Ryboflawina !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B2 - RYBOFLAWINA</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB2Ryboflawina} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB3Niacyna !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B3 - NIACYNA</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB3Niacyna} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB4Cholina !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B4 - CHOLINA</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB4Cholina} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB5KwasPantotenowy !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B5 - KWAS PANTOTENOWY</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB5KwasPantotenowy} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB6 !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B6</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB6} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB9KwasFoliowy !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B9 - KWAS FOLIOWY</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB9KwasFoliowy} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB12 !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA B12</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitB12} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitC !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA C</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitC} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitE !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA E</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitE} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitK !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={styles.textBox1}>WITAMINA K</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={styles.textBox3}>{initialItem.WitK} {UNIT.MG}</Text>
           </View>
         </View>
       }
@@ -1143,4 +1253,17 @@ const styles = StyleSheet.create({
       position: 'absolute',
       marginBottom: spacing.SCALE_35,
     },
+    textBox1: {
+      fontSize: typography.FONT_SIZE_12,
+      textTransform: 'uppercase'
+    },
+    textBox2: {
+      fontSize: typography.FONT_SIZE_10,
+      textTransform: 'uppercase'
+    },
+    textBox3: {
+      fontSize: typography.FONT_SIZE_12,
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold'
+    }
 })
