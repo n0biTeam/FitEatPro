@@ -7,6 +7,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import { TextInput } from 'react-native-paper';
 import { colors, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
+import { UNIT } from '../../styles/units';
 
 const AddGlycemicIndex = ({ navigation }) => {
   
@@ -24,6 +25,10 @@ const AddGlycemicIndex = ({ navigation }) => {
   const [fiber, setFiber] = useState('');
   const [sugar, setSugar] = useState('');
   const [cholesterol, setCholesterol] = useState('');
+  const [witA, setWitA] = useState('');
+  const [betaCarotene, setBetaCarotene] = useState('');
+  const [luteinaZeaksantyna, setLuteinaZeaksantyna] = useState('');
+  const [witB1Tiamina, setWitB1Tiamina] = useState('');
   
   const handleAdd = async () => {
     await firestore()
@@ -41,7 +46,11 @@ const AddGlycemicIndex = ({ navigation }) => {
       fiber: !fiber ? 0: parseFloat(fiber),
       Sugars: !sugar ? 0 : parseFloat(sugar),
       choresterol: !cholesterol ? 0 : parseFloat(cholesterol),
-      grammage: 100
+      grammage: 100,
+      witA: !witA ? 0 : parseFloat(witA),
+      betaCarotene: !betaCarotene ? 0 : parseFloat(betaCarotene),
+      luteinaZeaksantyna: !luteinaZeaksantyna ? 0 : parseFloat(luteinaZeaksantyna),
+      WitB1Tiamina: !witB1Tiamina ? 0 : parseFloat(witB1Tiamina),
     })
     .then(() => {
       console.log('Product Added');
@@ -240,6 +249,63 @@ const AddGlycemicIndex = ({ navigation }) => {
               />
               </View>
             </View>
+
+            <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>WITAMINY</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina A [' + UNIT.IU + ']'} 
+                value={witA}
+                onChangeText={(txt) => setWitA(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Beta-caroten [' + UNIT.UG + ']'} 
+                value={betaCarotene}
+                onChangeText={(txt) => setBetaCarotene(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Luteina+zaks. [' + UNIT.UG + ']'} 
+                value={luteinaZeaksantyna}
+                onChangeText={(txt) => setLuteinaZeaksantyna(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B1 [' + UNIT.MG + ']'} 
+                value={witB1Tiamina}
+                onChangeText={(txt) => setWitB1Tiamina(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
 
             <View style={{alignItems: 'center', marginTop: spacing.SCALE_6}}>
             <TouchableOpacity onPress={() => {handleAdd(); toggleLoading(true)}} style={[styles.btnModal, {backgroundColor: getBackGroundColor()}]} disabled={!emptyBtn}>
