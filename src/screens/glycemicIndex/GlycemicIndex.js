@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated,ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
 import React, {useContext, useState, useEffect, useRef} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -468,231 +468,58 @@ setMasterDataSource([...listData]);
     return color;
   }
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isExpanded2, setIsExpanded2] = useState(false);
-  const [isExpanded3, setIsExpanded3] = useState(false);
+ 
+  const [showContent1, setShowContent1] = useState(false);
+  const [showContent2, setShowContent2] = useState(false);
+  const [showContent3, setShowContent3] = useState(false);
+  const animationControler1 = useRef(new Animated.Value(0)).current;
+  const animationControler2 = useRef(new Animated.Value(0)).current;
+  const animationControler3 = useRef(new Animated.Value(0)).current;
 
-  const ExpandableView = ({ expanded = false }) => {
-    const [height] = useState(new Animated.Value(0));
-  
-    useEffect(() => {
-      Animated.timing(height, {
-        toValue: expanded ? 300 : 0,
-        duration: 100,
-        useNativeDriver: false
-      }).start();
-    }, [expanded, height]);
-  
-    // console.log('rerendered');
-  
-    return (
-      <Animated.View
-        style={{ height, backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
-      >
-        { initialItem.witA !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA A</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.witA} {UNIT.IU}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.betaCarotene !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1, marginLeft: 10}}>
-            <Text style={styles.textBox2}>BETA-CAROTEN</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
-          </View>
-        </View>
-      } 
-
-      { initialItem.luteinaZeaksantyna !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1, marginLeft: 10}}>
-            <Text style={styles.textBox2}>LUTEINA-ZEAKSANTYNA</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB1Tiamina !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B1 - TIAMINA</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB1Tiamina} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB2Ryboflawina !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B2 - RYBOFLAWINA</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB2Ryboflawina} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB3Niacyna !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B3 - NIACYNA</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB3Niacyna} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB4Cholina !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B4 - CHOLINA</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB4Cholina} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB5KwasPantotenowy !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B5 - KWAS PANTOTENOWY</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB5KwasPantotenowy} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB6 !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B6</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB6} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB9KwasFoliowy !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B9 - KWAS FOLIOWY</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB9KwasFoliowy} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitB12 !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA B12</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitB12} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitC !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA C</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitC} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitE !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA E</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitE} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-
-      { initialItem.WitK !== 0 &&
-        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-          <View style={{flex: 1}}>
-            <Text style={styles.textBox1}>WITAMINA K</Text>
-          </View>
-          <View style={{alignItems: 'flex-end'}}>
-            <Text style={styles.textBox3}>{initialItem.WitK} {UNIT.MG}</Text>
-          </View>
-        </View>
-      }
-      </Animated.View>
-    );
+  const toggleBox1 = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent1 ? 0 : 1,
+      useNativeDriver: true
+    };
+    Animated.timing(animationControler1, config).start();
+    setShowContent1(!showContent1);
   };
 
-  const ExpandableView2 = ({ expanded = false }) => {
-    const [height] = useState(new Animated.Value(0));
-  
-    useEffect(() => {
-      Animated.timing(height, {
-        toValue: expanded ? 40 : 0,
-        duration: 150,
-        useNativeDriver: false
-      }).start();
-    }, [expanded, height]);
-  
-    // console.log('rerendered');
-  
-    return (
-      <Animated.View
-        style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
-      >
-        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
-          {t('weightLogScreen.text-bai')}
-        </Text>
-      </Animated.View>
-    );
+  const arrowTransform = animationControler1.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const toggleBox2 = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent2 ? 0 : 1,
+      useNativeDriver: true
+    };
+    Animated.timing(animationControler2, config).start();
+    setShowContent2(!showContent2);
   };
 
-  const ExpandableView3 = ({ expanded = false }) => {
-    const [height] = useState(new Animated.Value(0));
-  
-    useEffect(() => {
-      Animated.timing(height, {
-        toValue: expanded ? 76 : 0,
-        duration: 150,
-        useNativeDriver: false
-      }).start();
-    }, [expanded, height]);
-  
-    // console.log('rerendered');
-  
-    return (
-      <Animated.View
-        style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
-      >
-        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
-          {t('weightLogScreen.text-bmi')}
-        </Text>
-      </Animated.View>
-    );
+  const arrowTransform2 = animationControler2.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const toggleBox3 = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent3 ? 0 : 1,
+      useNativeDriver: true
+    };
+    Animated.timing(animationControler3, config).start();
+    setShowContent3(!showContent3);
   };
+
+  const arrowTransform3 = animationControler3.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
 
   return (
     <PaperProvider theme={theme}>
@@ -797,8 +624,8 @@ setMasterDataSource([...listData]);
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={110}
-                    activeStrokeWidth={10}
-                    inActiveStrokeWidth={10}
+                    activeStrokeWidth={8}
+                    inActiveStrokeWidth={8}
                     activeStrokeColor={colorIG(initialItem.index_glycemic)}
                     progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                     dashedStrokeConfig={{
@@ -816,8 +643,8 @@ setMasterDataSource([...listData]);
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
                       maxValue={obliczLG(number) >= 100 ? obliczLG(number) : 100}
-                      activeStrokeWidth={10}
-                      inActiveStrokeWidth={10}
+                      activeStrokeWidth={8}
+                      inActiveStrokeWidth={8}
                       activeStrokeColor={colorLG(obliczLG(number))}
                       progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                       progressFormatter={(value, number) => {
@@ -841,8 +668,8 @@ setMasterDataSource([...listData]);
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
-                    activeStrokeWidth={10}
-                    inActiveStrokeWidth={10}
+                    activeStrokeWidth={8}
+                    inActiveStrokeWidth={8}
                     activeStrokeColor={colors.COLORS.DEEP_BLUE}
                     progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                     progressFormatter={(value, number) => {
@@ -885,6 +712,8 @@ setMasterDataSource([...listData]);
         
         <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
           
+          
+          { initialItem.protein !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -904,7 +733,9 @@ setMasterDataSource([...listData]);
               </View>
 
           </View>
+          }
 
+          { initialItem.fat !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -924,7 +755,9 @@ setMasterDataSource([...listData]);
               </View>
 
           </View>
+          }
 
+          { initialItem.carbs !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -944,7 +777,9 @@ setMasterDataSource([...listData]);
               </View>
 
           </View>
+          }
 
+          { initialItem.fiber !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -964,7 +799,9 @@ setMasterDataSource([...listData]);
               </View>
 
           </View>
+          }
 
+          { initialItem.Sugars !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -984,7 +821,9 @@ setMasterDataSource([...listData]);
               </View>
 
           </View>
+          }
 
+          { initialItem.choresterol !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1004,6 +843,7 @@ setMasterDataSource([...listData]);
               </View>
 
           </View>
+          }
 
         </View>
 
@@ -1012,70 +852,350 @@ setMasterDataSource([...listData]);
             <Text style={styles.textBtn}>{t('glycemicIndex.add-to-meal')}</Text>
           </TouchableOpacity>       
         </View>
-        <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-          <TouchableOpacity style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}
-                  onPress={() => {setIsExpanded(!isExpanded);}}
-                >
-                  <View style={{flexDirection: 'row', flex: 1}}>
-                    <View style={{flex: 1}}>
-                       <Text style={{color: colors.TEXT.DEEP_BLUE}}>WITAMINY</Text>
-                    </View>
-                    <View>
-                      <Text>
-                      {isExpanded ? <MaterialIcons name='keyboard-arrow-up' size={20} /> : <MaterialIcons name='keyboard-arrow-down' size={20} />}
-                      </Text>
-                    </View>
 
+        {initialItem.Status === 0 &&
+        <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
+            <TouchableOpacity onPress={() => toggleBox1()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
+              <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+                <Text style={{color: colors.TEXT.DEEP_BLUE}}>WITAMINY</Text>
+                <Animated.View style={{transform: [{rotateZ: arrowTransform}]}}>
+                  <MaterialIcons name='keyboard-arrow-down' size={20} />
+                </Animated.View>
+              </View>
+            </TouchableOpacity>
+            { showContent1  &&  
+            <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
+              { initialItem.witA !== 0 &&
+              
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>WITAMINA A</Text>
+                    
                   </View>
-                 
-          </TouchableOpacity>
-          <ExpandableView expanded={isExpanded} />
-         </View>
-
-         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-          <TouchableOpacity style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}
-                  onPress={() => {setIsExpanded2(!isExpanded2);}}
-                >
-                  <View style={{flexDirection: 'row', flex: 1}}>
-                    <View style={{flex: 1}}>
-                       <Text style={{color: colors.TEXT.DEEP_BLUE}}>MAKROELEMENTY</Text>
-                    </View>
-                    <View>
-                      <Text>
-                      {isExpanded2 ? <MaterialIcons name='keyboard-arrow-up' size={20} /> : <MaterialIcons name='keyboard-arrow-down' size={20} />}
-                      </Text>
-                    </View>
-
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{initialItem.witA} {UNIT.IU}</Text>
                   </View>
-                 
-          </TouchableOpacity>
-          <ExpandableView2 expanded={isExpanded2} />
-         </View>
+                </View>
+                }
 
-         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-          <TouchableOpacity style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}
-                  onPress={() => {setIsExpanded3(!isExpanded3);}}
-                >
-                  <View style={{flexDirection: 'row', flex: 1}}>
-                    <View style={{flex: 1}}>
-                       <Text style={{color: colors.TEXT.DEEP_BLUE}}>MIKROELEMENTY</Text>
+                { initialItem.betaCarotene !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1, marginLeft: 10}}>
+                      <Text style={styles.textBox2}>BETA-CAROTEN</Text>
                     </View>
-                    <View>
-                      <Text>
-                      {isExpanded3 ? <MaterialIcons name='keyboard-arrow-up' size={20} /> : <MaterialIcons name='keyboard-arrow-down' size={20} />}
-                      </Text>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
                     </View>
-
                   </View>
-                 
+                } 
+
+                { initialItem.luteinaZeaksantyna !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1, marginLeft: 10}}>
+                      <Text style={styles.textBox2}>LUTEINA-ZEAKSANTYNA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB1Tiamina !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B1 - TIAMINA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB1Tiamina).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB2Ryboflawina !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B2 - RYBOFLAWINA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB2Ryboflawina).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB3Niacyna !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B3 - NIACYNA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB3Niacyna).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB4Cholina !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B4 - CHOLINA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB4Cholina).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB5KwasPantotenowy !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B5 - KWAS PANTOTENOWY</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB5KwasPantotenowy).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB6 !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B6</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB6).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB9KwasFoliowy !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B9 - KWAS FOLIOWY</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB9KwasFoliowy).toFixed(3)} {UNIT.UG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB12 !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B12</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitC !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA C</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitC).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitE !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA E</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitE).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitK !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA K</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitK).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+              </View>
+               
+            }
+        </View>
+        }
+
+        { initialItem.Status === 0 &&
+          <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
+          <TouchableOpacity onPress={() => toggleBox2()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MAKROELEMENTY</Text>
+                <Animated.View style={{transform: [{rotateZ: arrowTransform2}]}}>
+                  <MaterialIcons name='keyboard-arrow-down' size={20} />
+                </Animated.View>
+              </View>
           </TouchableOpacity>
-          <ExpandableView3 expanded={isExpanded3} />
-         </View>
+          
+          { showContent2  &&  
+              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
+                { initialItem.Wapn !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WAPŃ</Text>
+                      
+                    </View>
+                    
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.Wapn).toFixed(1)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.Magnez !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>MAGNEZ</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Magnez).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Fosfor !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>FOSFOR</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Fosfor).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Potas !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>POTAS</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Potas).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Sod !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>SÓD</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Sod).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+              </View>
+          }
+        </View>
+      }
+
+      { initialItem.Status === 0 &&
+          <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
+          <TouchableOpacity onPress={() => toggleBox3()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MIKROELEMENTY</Text>
+                <Animated.View style={{transform: [{rotateZ: arrowTransform3}]}}>
+                  <MaterialIcons name='keyboard-arrow-down' size={20} />
+                </Animated.View>
+              </View>
+          </TouchableOpacity>
+          
+          { showContent3  &&  
+              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
+                { initialItem.Miedz !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>MIEDŹ</Text>
+                      
+                    </View>
+                    
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.Miedz).toFixed(1)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.Zelazo !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>ŻELAZO</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Zelazo).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Mangan !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>MANGAN</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Mangan).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Selen !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>SELEN</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Selen).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Cynk !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>CYNK</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Cynk).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+              </View>
+          }
+        </View>
+      }
+
 
       </View>
-
-
-      
+       
 
       
 
