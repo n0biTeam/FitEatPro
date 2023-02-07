@@ -151,7 +151,7 @@ const FindingScreen = ({
             />
             ) : (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{fontSize: typography.FONT_SIZE_18, color: colors.TEXT.DEEP_BLUE}}>Brak wyników badań</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>Brak wyników badań</Text>
             </View>
             )
            

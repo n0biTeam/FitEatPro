@@ -604,9 +604,7 @@ const colorLG = (ladunek) => {
                                 </Text>
                               </View>
                             </View>
-                            {/* <View style={{justifyContent: 'center', marginRight: spacing.SCALE_6}}>
-                              <Text style={{fontSize: typography.FONT_SIZE_14}}>{item.quantity} {UNIT.GR} <Text style={{fontSize: typography.FONT_SIZE_10}}> ({(item.quantity / 28.34952).toFixed(2)} {UNIT.OZ})</Text></Text>
-                            </View> */}
+                          
                             <View style={{justifyContent: 'center'}}>
                               <MaterialCommunityIcons name="square-edit-outline" size={spacing.SCALE_24} color={colors.COLORS.DEEP_BLUE} />
                             </View>
@@ -626,7 +624,7 @@ const colorLG = (ladunek) => {
                 />
                 ) : ( 
                   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_18, fontWeight: 'bold'}}>{t('mealScreen.empty-list')}</Text>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>{t('mealScreen.empty-list')}</Text>
                   </View>
                 )}
                 <View style={{marginBottom: spacing.SCALE_6}}></View>

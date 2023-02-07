@@ -9,6 +9,7 @@ import BigList from "react-native-big-list";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
 
 const theme = {
   ...DefaultTheme,
@@ -541,55 +542,99 @@ const imageBG = require('../../assets/images/talerz.jpg');
         </View>
 
         <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3, flexDirection: 'row', marginRight: spacing.SCALE_3}}>
+            <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_3, elevation: 3, flexDirection: 'row', marginRight: spacing.SCALE_3}}>
               <View style={{justifyContent: 'center'}}>
                 <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('diaryItemScreen.meal-weight')} </Text>
               </View>
               <View>
-                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>{sumGramma} g</Text>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>
+                  {sumGramma} <Text>{UNIT.GR}</Text></Text>
+                  <Text style={{fontSize: typography.FONT_SIZE_10}}>{(sumGramma / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
               </View>
             </View>
 
-            <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3, marginLeft: spacing.SCALE_3}}>
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3, marginLeft: spacing.SCALE_3, justifyContent: 'center'}}>
+              <View style={{alignItems: 'center'}}>
                 <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>{sumKcal} kcal / {(sumKcal*4.184).toFixed(0)} kJ</Text>
               </View>
             </View>
           </View>
 
-          <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3}}>
+          <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, elevation: 3, paddingVertical: spacing.SCALE_5}}>
            
               <View style={{flexDirection: 'row', flex: 1}}>
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, marginLeft: spacing.SCALE_5}}>
                     <Text style={styles.textContainer}>{t('value.carbohydrates')}</Text>
                     <Text style={styles.textContainer}>{t('value.protein')}</Text>
                     <Text style={styles.textContainer}>{t('value.fat')}</Text>
                     
                 </View>
 
-                <View style={{alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginLeft: spacing.SCALE_10}}>
-                    <Text style={styles.textContainer}>{(sumCarbs).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumProtein).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumFat).toFixed(1)}</Text>
+                <View style={{alignItems: 'flex-end', marginRight: spacing.SCALE_5}}>
+                    <Text style={styles.textContainer}>
+                      <Text style={{fontWeight: 'bold'}}>{(sumCarbs).toFixed(1)}</Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumCarbs / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                      </Text>
+                    </Text>
+
+                    <Text style={styles.textContainer}>
+                    <Text style={{fontWeight: 'bold'}}>{(sumProtein).toFixed(1)}</Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumProtein / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                      </Text>
+                    </Text>
+
+                    <Text style={styles.textContainer}>
+                    <Text style={{fontWeight: 'bold'}}>{(sumFat).toFixed(1)}</Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumFat / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                      </Text>
+                    </Text>
+
+                    {/* <Text style={styles.textContainer}>{(sumProtein).toFixed(1)}</Text> */}
+                    {/* <Text style={styles.textContainer}>{(sumFat).toFixed(1)}</Text> */}
                     
                 </View>
               </View>
 
-              <View style={{flexDirection: 'row', flex: 1,  marginLeft: spacing.SCALE_10}}>
-                <View style={{flex: 1, marginLeft: spacing.SCALE_10}}>
+              <View style={{flexDirection: 'row', flex: 1, marginLeft: spacing.SCALE_5}}>
+                
+                <View style={{flex: 1, marginLeft: spacing.SCALE_5}}>
                     <Text style={styles.textContainer}>{t('value.fiber')}</Text>
                     <Text style={styles.textContainer}>{t('value.cholesterol')}</Text>
                     <Text style={styles.textContainer}>{t('value.sugar')}</Text>
                 </View>
 
-                <View style={{alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
-                    <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumCholesterol).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumSugar).toFixed(1)}</Text>
-                </View>
-              </View>
+                <View style={{alignItems: 'flex-end', paddingRight: spacing.SCALE_5}}>
+                    <Text style={styles.textContainer}>
+                      <Text style={{fontWeight: 'bold'}}>{(sumFiber).toFixed(1)}</Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumFiber / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                      </Text>
+                    </Text>
 
-          </View>
+                    <Text style={styles.textContainer}>
+                      <Text style={{fontWeight: 'bold'}}>{(sumCholesterol).toFixed(1)}</Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumCholesterol / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                      </Text>
+                    </Text>
+
+                    <Text style={styles.textContainer}>
+                      <Text style={{fontWeight: 'bold'}}>{(sumSugar).toFixed(1)}</Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumSugar / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                      </Text>
+                    </Text>
+
+                    {/* <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text> */}
+                    {/* <Text style={styles.textContainer}>{(sumCholesterol).toFixed(1)}</Text>
+                    <Text style={styles.textContainer}>{(sumSugar).toFixed(1)}</Text> */}
+                </View>
+               
+              </View>
+              </View>
 
         <View style={{flex: 1}}>
             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center', backgroundColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_8, marginBottom: spacing.SCALE_6, borderRadius: 5, elevation: spacing.SCALE_3}}>
@@ -605,10 +650,10 @@ const imageBG = require('../../assets/images/talerz.jpg');
                     itemHeight={50}
                     renderItem={({item, index}) => (
                       
-                      <View style={{flex: 1,flexDirection: 'row', padding: spacing.SCALE_8, backgroundColor: colors.COLORS.WHITE, marginBottom: spacing.SCALE_4, borderRadius: 5, elevation: 3 }}>
+                      <View style={{flex: 1, flexDirection: 'row', padding: spacing.SCALE_5, backgroundColor: colors.COLORS.WHITE, marginBottom: spacing.SCALE_4, borderRadius: 5, elevation: 3 }}>
                         <View style={{flex: 1, justifyContent: 'center'}}>
-                          <Text numberOfLines={1} style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, textTransform: 'uppercase', fontWeight: 'bold'}}>{item.name}</Text>
-                          
+                          <Text numberOfLines={1} style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14, textTransform: 'uppercase', fontWeight: 'bold'}}>{item.name}</Text>
+
                       </View>
                      
                   
@@ -623,17 +668,27 @@ const imageBG = require('../../assets/images/talerz.jpg');
                           //onChangeNumber(null);
                          }}
                         >
-                            <View style={{justifyContent: 'center', marginRight: spacing.SCALE_6}}>
-                              <Text>{item.quantity} g</Text>
+                            <View style={{flexDirection: 'column', justifyContent: 'center', marginRight: spacing.SCALE_6}}>
+                              <View style={{marginRight: spacing.SCALE_10, alignItems: 'center'}}> 
+                                <Text style={{fontSize: typography.FONT_SIZE_14, color: colors.TEXT.DEEP_BLUE}}>{item.quantity} {UNIT.GR}</Text>
+                              </View>
+                              <View style={{marginRight: spacing.SCALE_10, alignItems: 'center'}}>
+                                <Text style={{fontSize: typography.FONT_SIZE_9}}>
+                                  {(item.quantity / 28.34952).toFixed(3)} {UNIT.OZ}
+                                </Text>
+                              </View>
                             </View>
-                            <MaterialCommunityIcons name="square-edit-outline" size={spacing.SCALE_24} color={colors.COLORS.DEEP_BLUE}/>
+                          
+                            <View style={{justifyContent: 'center'}}>
+                              <MaterialCommunityIcons name="square-edit-outline" size={spacing.SCALE_24} color={colors.COLORS.DEEP_BLUE} />
+                            </View>
                         </Pressable>
                       </View>
                         
                       { 
                       mealData.length !== 1 ?
                         (
-                        <View style={{alignItems: 'flex-end', justifyContent: 'center', marginRight: spacing.SCALE_10, marginLeft: spacing.SCALE_10}}>
+                        <View style={{alignItems: 'flex-end', justifyContent: 'center', marginRight: spacing.SCALE_5, marginLeft: spacing.SCALE_10}}>
                           <Pressable style={{marginLeft: spacing.SCALE_10}} onPress={() => handleDeleteItem(item.id)}>
                               <MaterialCommunityIcons name="trash-can" size={spacing.SCALE_24} color={colors.COLORS.RED}/>
                           </Pressable>

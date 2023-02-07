@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
 
   const [dataCharts, setDataCharts] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
-  const [dataDate, setDataDate] = useState([0]);
+  const [dataDate7, setDataDate7] = useState([]);
   
   const [dataChartsLB, setDataChartsLB] = useState([0]);
   const [dataChartsLB2, setDataChartsLB2] = useState([0]);
@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
   
   const [weight, setWeight] = useState(0);
   const [targetWeight, setTargetWeight] = useState(0);
-  const [net, setNet] = useState(null);
+  //const [net, setNet] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false); //button
     const toggleLoading = () => {
@@ -94,10 +94,7 @@ const HomeScreen = ({ navigation }) => {
           const dataChartsLB = [];
           const dataChartsLB2 = [];
 
-          // const dataChartsST = [];
-          // const dataChartsST2 = [];
-
-          const dataDate = [];
+          const dataDate7 = [];
             querySnapshot.forEach(doc => {
             if( doc.exists ) {
             //console.log('User data: ', doc.data());
@@ -107,15 +104,12 @@ const HomeScreen = ({ navigation }) => {
               dataChartsLB.push(doc.data().currentWeightLB); 
               dataChartsLB2.push(doc.data().targetWeightLB); 
 
-              // dataChartsST.push(doc.data().currentWeightST); 
-              // dataChartsST2.push(doc.data().targetWeightST); 
-              
               //const year = format((doc.data().createdAt).toDate(), 'yyyy');
               const month = format((doc.data().createdAt).toDate(), 'MM');
               const day = format((doc.data().createdAt).toDate(), 'dd');
               //const fullDate = day + '/' + month + '/'+ year;
               const fullDate = day + '/' + month;
-              dataDate.push(fullDate);
+              dataDate7.push(fullDate);
 
             }
              
@@ -155,9 +149,9 @@ const HomeScreen = ({ navigation }) => {
             // arrayDataST2.reverse();
             // setDataChartsST2(arrayDataST2);
 
-            const arrayDate = dataDate;
+            const arrayDate = dataDate7;
             arrayDate.reverse();
-            setDataDate(arrayDate);
+            setDataDate7(arrayDate);
               
             },
               error => {
@@ -167,6 +161,7 @@ const HomeScreen = ({ navigation }) => {
       )
   };
 
+ 
 const _chartWeight = () => {
   try{
   if(userData.weightUnit === UNIT.KG){
@@ -259,8 +254,8 @@ const _differenceWeight = () => {
 
   let [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0, visible: false, value: 0 });
 
-  
-  const charts = (dataCharts, dataDate) => {
+   
+  const charts = (dataCharts,dataDate7) => {
    
     if (dataCharts.length === 0) {
       return (
@@ -318,7 +313,7 @@ const _differenceWeight = () => {
               <LineChart
 
                 data={{
-                  labels: dataDate,
+                  labels: dataDate7,
                   datasets: [
                     {
                       data: _chartWeight2(),
@@ -372,7 +367,8 @@ const _differenceWeight = () => {
         <View style={{elevation: 5}}>
         <LineChart
         data={{
-          labels: dataDate,
+          labels: dataDate7,
+          //labels: ["06/02", "06/02", "06/02", "06/02", "06/02", "06/02", "07/02"],
           datasets: [
             { data: _chartWeight(),
              strokeWidth: 3,
@@ -690,7 +686,7 @@ const _differenceWeight = () => {
       </View>
 
       {
-       charts(dataCharts, dataCharts2, dataDate)
+       charts(dataCharts, dataDate7)
       }  
   
     </View>

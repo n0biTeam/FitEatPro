@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated,ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
 import React, {useContext, useState, useEffect, useRef} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -13,6 +14,7 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
+import { UNIT } from '../../styles/units';
 
 const theme = {
   ...DefaultTheme,
@@ -254,6 +256,23 @@ setMasterDataSource([...listData]);
           return result;
       }
    }
+
+   /**
+  * 
+  * @param {integer} numer 
+  * @returns 
+  */
+   function obliczBialkoOZ(numer)
+   {
+      if(number === null){
+          const result = initialItem.protein / 28.34952 ;
+          return result;
+      }else{
+          const wartosc = (number/100) / 28.34952;
+          const result = initialItem.protein*wartosc;
+          return result;
+      }
+   }
   
     /**
     * 
@@ -267,6 +286,23 @@ setMasterDataSource([...listData]);
             return result;
         }else{
             const wartosc = number/100;
+            const result = initialItem.fat*wartosc;
+            return result;
+        }
+     }
+
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczTluszczOZ(numer)
+     {
+        if(number === null){
+            const result = initialItem.fat / 28.34952;
+            return result;
+        }else{
+            const wartosc = (number/100) / 28.34952;
             const result = initialItem.fat*wartosc;
             return result;
         }
@@ -288,6 +324,22 @@ setMasterDataSource([...listData]);
              return result;
          }
       }
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczWeglowodanyOZ(numer)
+     {
+        if(number === null){
+            const result = initialItem.carbs / 28.34952;
+            return result;
+        }else{
+            const wartosc = (number/100) / 28.34952;
+            const result = initialItem.carbs*wartosc;
+            return result;
+        }
+     }
    
     /**
     * 
@@ -301,6 +353,23 @@ setMasterDataSource([...listData]);
             return result;
         }else{
             const wartosc = number/100;
+            const result = initialItem.fiber*wartosc;
+            return result;
+        }
+     }
+
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczBlonnikOZ(numer)
+     {
+        if(number === null){
+            const result = initialItem.fiber / 28.34952;
+            return result;
+        }else{
+            const wartosc = (number/100) / 28.34952;
             const result = initialItem.fiber*wartosc;
             return result;
         }
@@ -328,17 +397,51 @@ setMasterDataSource([...listData]);
     * @param {integer} numer 
     * @returns 
     */
-            function obliczCholesterol(numer)
-            {
-               if(number === null){
-                   const result = initialItem.choresterol;
-                   return result;
-               }else{
-                   const wartosc = number/100;
-                   const result = initialItem.choresterol*wartosc;
-                   return result;
-               }
-            }
+    function obliczCukierOZ(numer)
+    {
+       if(number === null){
+           const result = initialItem.Sugars / 28.34952;
+           return result;
+       }else{
+           const wartosc = (number/100) / 28.34952;
+           const result = initialItem.Sugars*wartosc;
+           return result;
+       }
+    }
+
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+      function obliczCholesterol(numer)
+      {
+        if(number === null){
+          const result = initialItem.choresterol;
+          return result;
+        }else{
+          const wartosc = number/100;
+          const result = initialItem.choresterol*wartosc;
+          return result;
+        }
+      }
+
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+    function obliczCholesterolOZ(numer)
+    {
+      if(number === null){
+        const result = initialItem.choresterol / 28.34952;
+        return result;
+      }else{
+        const wartosc = (number/100) / 28.34952;
+        const result = initialItem.choresterol*wartosc;
+        return result;
+      }
+    }
  
 
     const colorIG = () => {
@@ -364,6 +467,122 @@ setMasterDataSource([...listData]);
     }
     return color;
   }
+
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded2, setIsExpanded2] = useState(false);
+  const [isExpanded3, setIsExpanded3] = useState(false);
+
+  const ExpandableView = ({ expanded = false }) => {
+    const [height] = useState(new Animated.Value(0));
+  
+    useEffect(() => {
+      Animated.timing(height, {
+        toValue: expanded ? 200 : 0,
+        duration: 100,
+        useNativeDriver: false
+      }).start();
+    }, [expanded, height]);
+  
+    // console.log('rerendered');
+  
+    return (
+      <Animated.View
+        style={{ height, backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
+      >
+        { initialItem.witA !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={{fontSize: typography.FONT_SIZE_12, textTransform: 'uppercase'}}>WITAMINA A</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.witA} {UNIT.IU}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.betaCarotene !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1, marginLeft: 10}}>
+            <Text style={{fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>BETA-CAROTEN</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
+          </View>
+        </View>
+      } 
+
+      { initialItem.luteinaZeaksantyna !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1, marginLeft: 10}}>
+            <Text style={{fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>BETA-CAROTEN</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
+          </View>
+        </View>
+      }
+
+      { initialItem.WitB1Tiamina !== 0 &&
+        <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_30, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+          <View style={{flex: 1}}>
+            <Text style={{fontSize: typography.FONT_SIZE_12, textTransform: 'uppercase'}}>WITAMINA A</Text>
+          </View>
+          <View style={{alignItems: 'flex-end'}}>
+            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.WitB1Tiamina} {UNIT.MG}</Text>
+          </View>
+        </View>
+      }
+      </Animated.View>
+    );
+  };
+
+  const ExpandableView2 = ({ expanded = false }) => {
+    const [height] = useState(new Animated.Value(0));
+  
+    useEffect(() => {
+      Animated.timing(height, {
+        toValue: expanded ? 40 : 0,
+        duration: 150,
+        useNativeDriver: false
+      }).start();
+    }, [expanded, height]);
+  
+    // console.log('rerendered');
+  
+    return (
+      <Animated.View
+        style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
+      >
+        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
+          {t('weightLogScreen.text-bai')}
+        </Text>
+      </Animated.View>
+    );
+  };
+
+  const ExpandableView3 = ({ expanded = false }) => {
+    const [height] = useState(new Animated.Value(0));
+  
+    useEffect(() => {
+      Animated.timing(height, {
+        toValue: expanded ? 76 : 0,
+        duration: 150,
+        useNativeDriver: false
+      }).start();
+    }, [expanded, height]);
+  
+    // console.log('rerendered');
+  
+    return (
+      <Animated.View
+        style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
+      >
+        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
+          {t('weightLogScreen.text-bmi')}
+        </Text>
+      </Animated.View>
+    );
+  };
 
   return (
     <PaperProvider theme={theme}>
@@ -464,16 +683,16 @@ setMasterDataSource([...listData]);
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 3}}>
             <CircularProgress
                     value={initialItem.index_glycemic}
-                    radius={spacing.SCALE_30}
+                    radius={spacing.SCALE_25}
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={110}
                     activeStrokeWidth={10}
                     inActiveStrokeWidth={10}
                     activeStrokeColor={colorIG(initialItem.index_glycemic)}
-                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_18 }}
+                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                     dashedStrokeConfig={{
-                      count: 35,
+                      count: 25,
                       width: 5,
                     }}
                   />
@@ -483,20 +702,20 @@ setMasterDataSource([...listData]);
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
             <CircularProgress
                       value={obliczLG(number)}
-                      radius={spacing.SCALE_30}
+                      radius={spacing.SCALE_25}
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
                       maxValue={obliczLG(number) >= 100 ? obliczLG(number) : 100}
                       activeStrokeWidth={10}
                       inActiveStrokeWidth={10}
                       activeStrokeColor={colorLG(obliczLG(number))}
-                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_18 }}
+                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                       progressFormatter={(value, number) => {
                         'worklet';   
                         return value.toFixed(1);
                       }}
                       dashedStrokeConfig={{
-                        count: 35,
+                        count: 25,
                         width: 5,
                       }}
                     />
@@ -508,20 +727,20 @@ setMasterDataSource([...listData]);
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 5}}>
           <CircularProgress
                     value={obliczWW(number)}
-                    radius={spacing.SCALE_30}
+                    radius={spacing.SCALE_25}
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
                     activeStrokeWidth={10}
                     inActiveStrokeWidth={10}
                     activeStrokeColor={colors.COLORS.DEEP_BLUE}
-                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_18 }}
+                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                     progressFormatter={(value, number) => {
                         'worklet';
                         return value.toFixed(1);
                       }}
                       dashedStrokeConfig={{
-                        count: 35,
+                        count: 25,
                         width: 5,
                       }}
                   />
@@ -531,21 +750,21 @@ setMasterDataSource([...listData]);
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
           <CircularProgress
                       value={obliczWBT(number)}
-                      radius={spacing.SCALE_30}
+                      radius={spacing.SCALE_25}
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
                       maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
                       activeStrokeWidth={10}
                       inActiveStrokeWidth={10}
                       activeStrokeColor={colors.COLORS.DEEP_BLUE}
-                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_18 }}
+                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                       progressFormatter={(value, number) => {
                         'worklet';
                           
                         return value.toFixed(1);
                       }}
                       dashedStrokeConfig={{
-                        count: 35,
+                        count: 25,
                         width: 5,
                       }}
                     />
@@ -554,72 +773,202 @@ setMasterDataSource([...listData]);
           </View>
         </View>
         
-        <View style={{paddingHorizontal: spacing.SCALE_16, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
-
-        <View style={{flexDirection:"row", marginTop: spacing.SCALE_10, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC}}>
-         
-          <View style={{flex: 1}}>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>{t('value.protein')}</Text>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_15}}>{initialItem.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} g</Text>
-            </View>
-          </View>
+        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
           
-          <View style={{flex: 1}}>
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, marginLeft: spacing.SCALE_10, fontSize: typography.FONT_SIZE_14}}>{t('value.fat')}</Text>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} g</Text>
-            </View>
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.protein')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fat')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.carbohydrates')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fiber')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.sugar')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.cholesterol')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
           </View>
 
         </View>
 
-        <View style={{flexDirection:"row", marginTop: spacing.SCALE_10, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC}}>
-         
-         <View style={{flex: 1}}>
-           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>{t('value.carbohydrates')}</Text>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_15}}>{initialItem.fat  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} g</Text>
-           </View>
-         </View>
-         
-         <View style={{flex: 1}}>
-           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, marginLeft: spacing.SCALE_10, fontSize: typography.FONT_SIZE_14}}>{t('value.fiber')}</Text>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} g</Text>
-           </View>
+        <View style={{flex: 1,alignItems: 'center', marginTop: spacing.SCALE_6}}>
+          <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
+            <Text style={styles.textBtn}>{t('glycemicIndex.add-to-meal')}</Text>
+          </TouchableOpacity>       
+        </View>
+        <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+          <TouchableOpacity style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}
+                  onPress={() => {setIsExpanded(!isExpanded);}}
+                >
+                  <View style={{flexDirection: 'row', flex: 1}}>
+                    <View style={{flex: 1}}>
+                       <Text style={{color: colors.TEXT.DEEP_BLUE}}>WITAMINY</Text>
+                    </View>
+                    <View>
+                      <Text>
+                      {isExpanded ? <MaterialIcons name='keyboard-arrow-up' size={20} /> : <MaterialIcons name='keyboard-arrow-down' size={20} />}
+                      </Text>
+                    </View>
+
+                  </View>
+                 
+          </TouchableOpacity>
+          <ExpandableView expanded={isExpanded} />
          </View>
 
-       </View>
+         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+          <TouchableOpacity style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}
+                  onPress={() => {setIsExpanded2(!isExpanded2);}}
+                >
+                  <View style={{flexDirection: 'row', flex: 1}}>
+                    <View style={{flex: 1}}>
+                       <Text style={{color: colors.TEXT.DEEP_BLUE}}>MAKROELEMENTY</Text>
+                    </View>
+                    <View>
+                      <Text>
+                      {isExpanded2 ? <MaterialIcons name='keyboard-arrow-up' size={20} /> : <MaterialIcons name='keyboard-arrow-down' size={20} />}
+                      </Text>
+                    </View>
 
-       <View style={{flexDirection:"row", marginTop: spacing.SCALE_10, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginBottom: spacing.SCALE_10}}>
-         
-         <View style={{flex: 1}}>
-           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>{t('value.sugar')}</Text>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_15}}>{initialItem.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} g</Text>
-           </View>
-         </View>
-         
-         <View style={{flex: 1}}>
-           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, marginLeft: spacing.SCALE_10, fontSize: typography.FONT_SIZE_14}}>{t('value.cholesterol')}</Text>
-             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{initialItem.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} g</Text>
-           </View>
+                  </View>
+                 
+          </TouchableOpacity>
+          <ExpandableView2 expanded={isExpanded2} />
          </View>
 
-       </View>
+         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+          <TouchableOpacity style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}
+                  onPress={() => {setIsExpanded3(!isExpanded3);}}
+                >
+                  <View style={{flexDirection: 'row', flex: 1}}>
+                    <View style={{flex: 1}}>
+                       <Text style={{color: colors.TEXT.DEEP_BLUE}}>MIKROELEMENTY</Text>
+                    </View>
+                    <View>
+                      <Text>
+                      {isExpanded3 ? <MaterialIcons name='keyboard-arrow-up' size={20} /> : <MaterialIcons name='keyboard-arrow-down' size={20} />}
+                      </Text>
+                    </View>
+
+                  </View>
+                 
+          </TouchableOpacity>
+          <ExpandableView3 expanded={isExpanded3} />
+         </View>
 
       </View>
-      </View>
 
 
-      <View style={{flex: 1,alignItems: 'center', marginTop: spacing.SCALE_6}}>
-        <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
-          <Text style={styles.textBtn}>{t('glycemicIndex.add-to-meal')}</Text>
-        </TouchableOpacity>
-       
-      </View>
+      
+
+      
+
       </ScrollView>
     </View>
     </ImageBackground>
@@ -741,7 +1090,7 @@ const styles = StyleSheet.create({
       borderWidth: 0,
       padding: spacing.SCALE_10,
       width: Dimensions.get('window').width-12,
-      borderRadius: 10,
+      borderRadius: spacing.SCALE_5,
       alignItems: 'center',
       backgroundColor: colors.COLORS.DEEP_BLUE,
       elevation: 3,

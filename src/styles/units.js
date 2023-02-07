@@ -4,5 +4,8 @@ export const UNIT = {
     CM: 'cm',
     IN: 'in',
     GR: 'g',
-    OZ: 'oz'
+    OZ: 'oz',
+    IU: 'IU',
+    MG: 'mg',
+    UG: 'µg'
 }
