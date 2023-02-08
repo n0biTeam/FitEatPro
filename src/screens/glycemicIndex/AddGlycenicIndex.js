@@ -29,7 +29,27 @@ const AddGlycemicIndex = ({ navigation }) => {
   const [betaCarotene, setBetaCarotene] = useState('');
   const [luteinaZeaksantyna, setLuteinaZeaksantyna] = useState('');
   const [witB1Tiamina, setWitB1Tiamina] = useState('');
+  const [witB2Ryboflawina, setWitB2Ryboflawina] = useState('');
+  const [witB3Niacyna, setWitB3Niacyna] = useState('');
+  const [witB5KwasPantotenowy, setWitB5KwasPantotenowy] = useState('');
+  const [witB6, setWitB6] = useState('');
+  const [witB9KwasFoliowy, setWitB9KwasFoliowy] = useState('');
+  const [witB12, setWitB12] = useState('');
+  const [witC, setWitC] = useState('');
+  const [witE, setWitE] = useState('');
+  const [witK, setWitK] = useState('');
+  const [wapn, setWapn] = useState('');
+  const [magnez, setMagnez] = useState('');
+  const [fosfor, setFosfor] = useState('');
+  const [potas, setPotas] = useState('');
+  const [sod, setSod] = useState('');
+  const [miedz, setMiedz] = useState('');
+  const [zelazo, setZelazo] = useState('');
+  const [mangan, setMangan] = useState('');
+  const [selen, setSelen] = useState('');
+  const [cynk, setCynk] = useState('');
   
+
   const handleAdd = async () => {
     await firestore()
     .collection('users')
@@ -51,6 +71,25 @@ const AddGlycemicIndex = ({ navigation }) => {
       betaCarotene: !betaCarotene ? 0 : parseFloat(betaCarotene),
       luteinaZeaksantyna: !luteinaZeaksantyna ? 0 : parseFloat(luteinaZeaksantyna),
       WitB1Tiamina: !witB1Tiamina ? 0 : parseFloat(witB1Tiamina),
+      WitB2Ryboflawina: !witB2Ryboflawina ? 0 : parseFloat(witB2Ryboflawina),
+      WitB3Niacyna: !witB3Niacyna ? 0 : parseFloat(witB3Niacyna),
+      WitB5KwasPantotenowy: !witB5KwasPantotenowy ? 0 : parseFloat(witB5KwasPantotenowy),
+      WitB6: !witB6 ? 0 : parseFloat(witB6),
+      WitB9KwasFoliowy: !witB9KwasFoliowy ? 0 : parseFloat(witB9KwasFoliowy),
+      WitB12: !witB12 ? 0 : parseFloat(witB12),
+      WitC: !witC ? 0 : parseFloat(witC),
+      WitE: !witE ? 0 : parseFloat(witE),
+      WitK: !witK ? 0 : parseFloat(witK),
+      Wapn: !wapn ? 0 : parseFloat(wapn),
+      Magnez: !magnez ? 0 : parseFloat(magnez),
+      Fosfor: !fosfor ? 0 : parseFloat(fosfor),
+      Potas: !potas ? 0 : parseFloat(potas),
+      Sod: !sod ? 0 : parseFloat(sod),
+      Miedz: !miedz ? 0 : parseFloat(miedz),
+      Zelazo: !zelazo ? 0 : parseFloat(zelazo),
+      Mangan: !mangan ? 0 : parseFloat(mangan),
+      Selen: !selen ? 0 : parseFloat(selen),
+      Cynk: !cynk ? 0 : parseFloat(cynk)
     })
     .then(() => {
       console.log('Product Added');
@@ -306,8 +345,278 @@ const AddGlycemicIndex = ({ navigation }) => {
               </View>
             </View>
 
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B2 [' + UNIT.MG + ']'} 
+                value={witB2Ryboflawina}
+                onChangeText={(txt) => setWitB2Ryboflawina(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
 
-            <View style={{alignItems: 'center', marginTop: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B3 [' + UNIT.MG + ']'} 
+                value={witB3Niacyna}
+                onChangeText={(txt) => setWitB3Niacyna(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B5 [' + UNIT.MG + ']'} 
+                value={witB5KwasPantotenowy}
+                onChangeText={(txt) => setWitB5KwasPantotenowy(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B6 [' + UNIT.MG + ']'} 
+                value={witB6}
+                onChangeText={(txt) => setWitB6(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B9 [' + UNIT.MG + ']'} 
+                value={witB9KwasFoliowy}
+                onChangeText={(txt) => setWitB9KwasFoliowy(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina B12 [' + UNIT.MG + ']'} 
+                value={witB12}
+                onChangeText={(txt) => setWitB12(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina C [' + UNIT.MG + ']'} 
+                value={witC}
+                onChangeText={(txt) => setWitC(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina E [' + UNIT.MG + ']'} 
+                value={witE}
+                onChangeText={(txt) => setWitE(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Witamina K [' + UNIT.MG + ']'} 
+                value={witK}
+                onChangeText={(txt) => setWitK(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              
+              </View>
+            </View>
+
+            <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>MAKROELEMENTY</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Wapń [' + UNIT.MG + ']'} 
+                value={wapn}
+                onChangeText={(txt) => setWapn(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Magnez [' + UNIT.MG + ']'} 
+                value={magnez}
+                onChangeText={(txt) => setMagnez(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Fosfor [' + UNIT.MG + ']'} 
+                value={fosfor}
+                onChangeText={(txt) => setFosfor(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Potas [' + UNIT.MG + ']'} 
+                value={potas}
+                onChangeText={(txt) => setPotas(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Sód [' + UNIT.MG + ']'} 
+                value={sod}
+                onChangeText={(txt) => setSod(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              
+              </View>
+            </View>
+
+            <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>MIKROELEMENTY</Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Miedź [' + UNIT.MG + ']'} 
+                value={miedz}
+                onChangeText={(txt) => setMiedz(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Żelazo [' + UNIT.MG + ']'} 
+                value={zelazo}
+                onChangeText={(txt) => setZelazo(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Mangan [' + UNIT.MG + ']'} 
+                value={mangan}
+                onChangeText={(txt) => setMangan(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Selen [' + UNIT.UG + ']'} 
+                value={selen}
+                onChangeText={(txt) => setSelen(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={'Cynk [' + UNIT.MG + ']'} 
+                value={cynk}
+                onChangeText={(txt) => setCynk(txt)}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              
+              </View>
+            </View>
+
+
+            <View style={{alignItems: 'center', marginTop: spacing.SCALE_6, marginBottom: spacing.SCALE_10}}>
             <TouchableOpacity onPress={() => {handleAdd(); toggleLoading(true)}} style={[styles.btnModal, {backgroundColor: getBackGroundColor()}]} disabled={!emptyBtn}>
 
               <View style={{flexDirection: 'row'}}>
