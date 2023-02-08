@@ -429,6 +429,24 @@
         "addGlycemicIndex.value.witB5": "Witamina B5",
         "addGlycemicIndex.value.witB6": "Witamina B6",
         "addGlycemicIndex.value.witB9": "Witamina B9",
-        "addGlycemicIndex.value.witB12": "Witamina B12"
+        "addGlycemicIndex.value.witB12": "Witamina B12",
+        "addGlycemicIndex.value.witC": "Witamina C",
+        "addGlycemicIndex.value.witE": "Witamina E",
+        "addGlycemicIndex.value.witK": "Witamina K",
+        "addGlycemicIndex.value.wapn": "Wapń",
+        "addGlycemicIndex.value.magnez": "Magnez",
+        "addGlycemicIndex.value.fosfor": "Fosfor",
+        "addGlycemicIndex.value.potas": "Potas",
+        "addGlycemicIndex.value.sod": "Sód",
+        "addGlycemicIndex.value.miedz": "Miedź",
+        "addGlycemicIndex.value.zelazo": "Żelazo",
+        "addGlycemicIndex.value.mangan": "Mangan",
+        "addGlycemicIndex.value.selen": "Selen",
+        "addGlycemicIndex.value.cynk": "Cynk",
+        "addGlycemicIndex.text.title": "* Pole 'Status'",
+        "addGlycemicIndex.text-1": "Wpisz 1 jeżeli nie posiadasz informacji na temat witamin, makroelementów i mikroelementów (Brak przycików). Domyśnie pole jest włączone: 0",
+        "addGlycemicIndex.btn.add": "DODAJ",
+        "addGlycemicIndex.modal.information": "Informacja",
+        "addGlycemicIndex.modal.text": "Wszystkie dane należy podać na 100 gram produktu."
     }
 }

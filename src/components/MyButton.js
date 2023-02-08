@@ -4,7 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //import { COLORS } from "../constants/colors";
 
-const widthDimensions = (Dimensions.get('window').width - 20) /5;
+const widthDimensions = (Dimensions.get('window').width - 20) /6;
 
 export const MyButton = ({icons, onPress, fontSize, borderColor, backgroundColor}) => (
     <TouchableOpacity onPress={onPress} style={styles.container}>

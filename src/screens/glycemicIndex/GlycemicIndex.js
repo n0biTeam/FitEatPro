@@ -160,7 +160,40 @@ const sortListAlfaDES = () => {
 });
 setMasterDataSource([...listData]);
 };
+//(a, b) => !a - !b || a - b
+const [modalX, setModalX] = useState('');
 
+const sortListFiberASC = () => {
+  filteredDataSource.sort((obj1, obj2) => {
+    return !obj1.fiber - !obj2.fiber || obj1.fiber - obj2.fiber;
+  });
+  setModalX('fiber')
+  setMasterDataSource([...listData]);
+};
+
+const sortListPotasASC = () => {
+  filteredDataSource.sort((obj1, obj2) => {
+    return !obj1.Potas - !obj2.Potas || obj1.Potas - obj2.Potas;
+  });
+  setModalX('potas')
+  setMasterDataSource([...listData]);
+};
+
+const xxx = (item) => {
+  if(modalX === 'fiber'){
+    return(
+    <MyCircle percentage={item.fiber} /> 
+    )
+
+  }else if(modalX === 'potas'){
+    return(
+      <MyCircle percentage={item.Potas} /> )
+  }else{
+    return(
+    <MyCircle percentage={item.index_glycemic} /> 
+    )
+  }
+}
     
     const _goBack = () => navigation.goBack();
     const refRBSheet = useRef();
@@ -1243,9 +1276,15 @@ setMasterDataSource([...listData]);
                       <View style={{flex: 5}}>
                         <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
                       </View>
-                  
                       <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
-                        <MyCircle percentage={item.index_glycemic} /> 
+                      
+                      {
+                        xxx(item)
+                        
+                      }
+
+                        {/* <MyCircle percentage={item.index_glycemic} />  */}
+                     
                     </View>
                   </View>
             
@@ -1270,6 +1309,7 @@ setMasterDataSource([...listData]);
               <MyButton icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
               <MyButton icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
               <MyButton icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
+              <MyButton icons="sort" borderColor={colors.COLORS.LIGHT_BLUE} backgroundColor={colors.COLORS.LIGHT_BLUE} onPress={sortListFiberASC}/>
               <MyButton icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
         
       </View>

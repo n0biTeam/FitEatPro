@@ -439,7 +439,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina C [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witC') + ' [' + UNIT.MG + ']'}
                 value={witC}
                 onChangeText={(txt) => setWitC(txt)}
                 keyboardType="numeric"
@@ -451,7 +451,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina E [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witE') + ' [' + UNIT.MG + ']'}
                 value={witE}
                 onChangeText={(txt) => setWitE(txt)}
                 keyboardType="numeric"
@@ -465,7 +465,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina K [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witK') + ' [' + UNIT.MG + ']'}
                 value={witK}
                 onChangeText={(txt) => setWitK(txt)}
                 keyboardType="numeric"
@@ -487,7 +487,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Wapń [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.wapn') + ' [' + UNIT.MG + ']'}
                 value={wapn}
                 onChangeText={(txt) => setWapn(txt)}
                 keyboardType="numeric"
@@ -499,7 +499,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Magnez [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.magnez') + ' [' + UNIT.MG + ']'}
                 value={magnez}
                 onChangeText={(txt) => setMagnez(txt)}
                 keyboardType="numeric"
@@ -513,7 +513,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Fosfor [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.fosfor') + ' [' + UNIT.MG + ']'}
                 value={fosfor}
                 onChangeText={(txt) => setFosfor(txt)}
                 keyboardType="numeric"
@@ -525,7 +525,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Potas [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.potas') + ' [' + UNIT.MG + ']'}
                 value={potas}
                 onChangeText={(txt) => setPotas(txt)}
                 keyboardType="numeric"
@@ -539,7 +539,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Sód [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.sod') + ' [' + UNIT.MG + ']'}
                 value={sod}
                 onChangeText={(txt) => setSod(txt)}
                 keyboardType="numeric"
@@ -561,7 +561,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Miedź [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.miedz') + ' [' + UNIT.MG + ']'}
                 value={miedz}
                 onChangeText={(txt) => setMiedz(txt)}
                 keyboardType="numeric"
@@ -573,7 +573,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Żelazo [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.zelazo') + ' [' + UNIT.MG + ']'}
                 value={zelazo}
                 onChangeText={(txt) => setZelazo(txt)}
                 keyboardType="numeric"
@@ -587,7 +587,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Mangan [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.mangan') + ' [' + UNIT.MG + ']'}
                 value={mangan}
                 onChangeText={(txt) => setMangan(txt)}
                 keyboardType="numeric"
@@ -599,7 +599,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Selen [' + UNIT.UG + ']'} 
+                label={t('addGlycemicIndex.value.selen') + ' [' + UNIT.UG + ']'}
                 value={selen}
                 onChangeText={(txt) => setSelen(txt)}
                 keyboardType="numeric"
@@ -613,7 +613,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Cynk [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.cynk') + ' [' + UNIT.MG + ']'}
                 value={cynk}
                 onChangeText={(txt) => setCynk(txt)}
                 keyboardType="numeric"
@@ -627,8 +627,8 @@ const AddGlycemicIndex = ({ navigation }) => {
             </View>
 
             <View style={{backgroundColor: colors.COLORS.LIGHT_GREY, padding: spacing.SCALE_5, alignItems: 'flex-start', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>* Pole "Status"</Text>
-              <Text style={{color: colors.TEXT.DEEP_BLUE}}>Wpisz 1 jeżeli nie posiadasz informacji na temat witamin, makroelementów i mikroelementów. Domyśnie pole jest włączone: 0</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('addGlycemicIndex.text.title')}</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('addGlycemicIndex.text-1')}</Text>
             </View>
 
             <TextInput
@@ -649,7 +649,7 @@ const AddGlycemicIndex = ({ navigation }) => {
                   { isLoading && <ActivityIndicator size="small" color={colors.TEXT.WHITE} /> }
                 </View>
                 <View>
-                  <Text style={{color: getColor()}}>DODAJ</Text>
+                  <Text style={{color: getColor()}}>{t('addGlycemicIndex.btn.add')}</Text>
                 </View>
               </View>
                 
@@ -665,8 +665,8 @@ const AddGlycemicIndex = ({ navigation }) => {
     </ImageBackground>
     <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text style={{fontWeight: 'bold'}}>Informacja</Text>
-          <Text>Wszystkie dane należy podawać na 100 gram produktu.</Text>
+          <Text style={{fontWeight: 'bold'}}>{t('addGlycemicIndex.modal.information')}</Text>
+          <Text>{t('addGlycemicIndex.modal.text')}</Text>
         </Modal>
       </Portal>
     </SafeAreaProvider>
