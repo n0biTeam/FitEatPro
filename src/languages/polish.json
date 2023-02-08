@@ -414,6 +414,21 @@
         "addGlycemicIndex.value.category": "Kategoria",
         "addGlycemicIndex.value.glycemic-index": "Indeks glikemiczny",
         "addGlycemicIndex.value.kcal": "Kcal",
-        "addGlycemicIndex.value.protein": "Białko"
+        "addGlycemicIndex.value.protein": "Białko",
+        "addGlycemicIndex.value.fat": "Tłuszcz",
+        "addGlycemicIndex.value.carbs": "Węglowodany",
+        "addGlycemicIndex.value.fiber": "Błonnik",
+        "addGlycemicIndex.value.sugar": "Cukier",
+        "addGlycemicIndex.value.cholesterol": "Cholesterol",
+        "addGlycemicIndex.value.witA": "Witamina A",
+        "addGlycemicIndex.value.beta-caroten": "Beta-caroten",
+        "addGlycemicIndex.value.luteina": "Luteina+zaks.",
+        "addGlycemicIndex.value.witB1": "Witamina B1",
+        "addGlycemicIndex.value.witB2": "Witamina B2",
+        "addGlycemicIndex.value.witB3": "Witamina B3",
+        "addGlycemicIndex.value.witB5": "Witamina B5",
+        "addGlycemicIndex.value.witB6": "Witamina B6",
+        "addGlycemicIndex.value.witB9": "Witamina B9",
+        "addGlycemicIndex.value.witB12": "Witamina B12"
     }
 }

@@ -239,7 +239,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Tłuszcz"
+                label={t('addGlycemicIndex.value.fat') + ' [' + UNIT.GR + ']'}
                 value={fat}
                 onChangeText={(txt) => setFat(txt)}
                 keyboardType="numeric"
@@ -253,7 +253,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Węglowodany"
+                label={t('addGlycemicIndex.value.carbs') + ' [' + UNIT.GR + ']'}
                 value={carbs}
                 onChangeText={(txt) => setCarbs(txt)}
                 keyboardType="numeric"
@@ -265,7 +265,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Błonnik"
+                label={t('addGlycemicIndex.value.fiber') + ' [' + UNIT.GR + ']'}
                 value={fiber}
                 onChangeText={(txt) => setFiber(txt)}
                 keyboardType="numeric"
@@ -279,7 +279,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Cukier"
+                label={t('addGlycemicIndex.value.sugar') + ' [' + UNIT.GR + ']'}
                 value={sugar}
                 onChangeText={(txt) => setSugar(txt)}
                 keyboardType="numeric"
@@ -291,7 +291,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Cholesterol"
+                label={t('addGlycemicIndex.value.cholesterol') + ' [' + UNIT.GR + ']'}
                 value={cholesterol}
                 onChangeText={(txt) => setCholesterol(txt)}
                 keyboardType="numeric"
@@ -309,7 +309,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina A [' + UNIT.IU + ']'} 
+                label={t('addGlycemicIndex.value.witA') + ' [' + UNIT.IU + ']'} 
                 value={witA}
                 onChangeText={(txt) => setWitA(txt)}
                 keyboardType="numeric"
@@ -321,7 +321,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Beta-caroten [' + UNIT.UG + ']'} 
+                label={t('addGlycemicIndex.value.beta-caroten') + ' [' + UNIT.UG + ']'}
                 value={betaCarotene}
                 onChangeText={(txt) => setBetaCarotene(txt)}
                 keyboardType="numeric"
@@ -335,7 +335,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Luteina+zaks. [' + UNIT.UG + ']'} 
+                label={t('addGlycemicIndex.value.luteina') + ' [' + UNIT.UG + ']'}
                 value={luteinaZeaksantyna}
                 onChangeText={(txt) => setLuteinaZeaksantyna(txt)}
                 keyboardType="numeric"
@@ -347,7 +347,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B1 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB1') + ' [' + UNIT.MG + ']'}
                 value={witB1Tiamina}
                 onChangeText={(txt) => setWitB1Tiamina(txt)}
                 keyboardType="numeric"
@@ -361,7 +361,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B2 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB2') + ' [' + UNIT.MG + ']'}
                 value={witB2Ryboflawina}
                 onChangeText={(txt) => setWitB2Ryboflawina(txt)}
                 keyboardType="numeric"
@@ -373,7 +373,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B3 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB3') + ' [' + UNIT.MG + ']'}
                 value={witB3Niacyna}
                 onChangeText={(txt) => setWitB3Niacyna(txt)}
                 keyboardType="numeric"
@@ -387,7 +387,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B5 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB5') + ' [' + UNIT.MG + ']'}
                 value={witB5KwasPantotenowy}
                 onChangeText={(txt) => setWitB5KwasPantotenowy(txt)}
                 keyboardType="numeric"
@@ -399,7 +399,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B6 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB6') + ' [' + UNIT.MG + ']'}
                 value={witB6}
                 onChangeText={(txt) => setWitB6(txt)}
                 keyboardType="numeric"
@@ -413,7 +413,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B9 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB9') + ' [' + UNIT.MG + ']'}
                 value={witB9KwasFoliowy}
                 onChangeText={(txt) => setWitB9KwasFoliowy(txt)}
                 keyboardType="numeric"
@@ -425,7 +425,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={'Witamina B12 [' + UNIT.MG + ']'} 
+                label={t('addGlycemicIndex.value.witB12') + ' [' + UNIT.MG + ']'}
                 value={witB12}
                 onChangeText={(txt) => setWitB12(txt)}
                 keyboardType="numeric"
