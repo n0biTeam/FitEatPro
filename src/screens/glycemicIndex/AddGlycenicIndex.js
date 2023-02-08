@@ -4,10 +4,11 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Modal, Portal, Provider } from 'react-native-paper';
 import { colors, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { UNIT } from '../../styles/units';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const AddGlycemicIndex = ({ navigation }) => {
   
@@ -48,6 +49,7 @@ const AddGlycemicIndex = ({ navigation }) => {
   const [mangan, setMangan] = useState('');
   const [selen, setSelen] = useState('');
   const [cynk, setCynk] = useState('');
+  const [status, setStatus] = useState('');
   
 
   const handleAdd = async () => {
@@ -89,7 +91,8 @@ const AddGlycemicIndex = ({ navigation }) => {
       Zelazo: !zelazo ? 0 : parseFloat(zelazo),
       Mangan: !mangan ? 0 : parseFloat(mangan),
       Selen: !selen ? 0 : parseFloat(selen),
-      Cynk: !cynk ? 0 : parseFloat(cynk)
+      Cynk: !cynk ? 0 : parseFloat(cynk),
+      Status: !status ? 0 : parseInt(status)
     })
     .then(() => {
       console.log('Product Added');
@@ -128,12 +131,20 @@ const AddGlycemicIndex = ({ navigation }) => {
 
   const emptyBtn = (name != null && name != '') 
                     && (category != null && category != '');
+
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = { backgroundColor: 'white', padding: 20, height: 200, margin: 20, justifyContent: 'flex-start' };
   
   return (
+    <Provider>
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title="Dodaj produkt" />
+       <Appbar.Action icon="information" onPress={showModal}  />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -615,6 +626,20 @@ const AddGlycemicIndex = ({ navigation }) => {
               </View>
             </View>
 
+            <View style={{backgroundColor: colors.COLORS.LIGHT_GREY, padding: spacing.SCALE_5, alignItems: 'flex-start', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>* Pole "Status"</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>Wpisz 1 jeżeli nie posiadasz informacji na temat witamin, makroelementów i mikroelementów. Domyśnie pole jest włączone: 0</Text>
+            </View>
+
+            <TextInput
+            underlineColor={colors.COLORS.LIGHT_GREY}
+            activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+            label="Status"
+            value={status}
+            onChangeText={(txt) => setStatus(txt)}
+            style={styles.textInput}
+          />
+
 
             <View style={{alignItems: 'center', marginTop: spacing.SCALE_6, marginBottom: spacing.SCALE_10}}>
             <TouchableOpacity onPress={() => {handleAdd(); toggleLoading(true)}} style={[styles.btnModal, {backgroundColor: getBackGroundColor()}]} disabled={!emptyBtn}>
@@ -638,7 +663,14 @@ const AddGlycemicIndex = ({ navigation }) => {
       </ImageBackground>
       
     </ImageBackground>
+    <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <Text style={{fontWeight: 'bold'}}>Informacja</Text>
+          <Text>Wszystkie dane należy podawać na 100 gram produktu.</Text>
+        </Modal>
+      </Portal>
     </SafeAreaProvider>
+    </Provider>
   )
 }
 
