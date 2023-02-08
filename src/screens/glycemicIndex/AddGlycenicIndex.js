@@ -8,12 +8,12 @@ import { TextInput, Modal, Portal, Provider } from 'react-native-paper';
 import { colors, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { UNIT } from '../../styles/units';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 
 const AddGlycemicIndex = ({ navigation }) => {
   
   const _goBack = () => navigation.navigate('GlycemicIndex');
-  
+  const {t, i18n} = useTranslation();
   const {user} = useContext(AuthContext); 
    
   const [name, setName] = useState('');
@@ -96,7 +96,7 @@ const AddGlycemicIndex = ({ navigation }) => {
     })
     .then(() => {
       console.log('Product Added');
-      ToastAndroid.show('Dodano produkt', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+      ToastAndroid.show(t('addGlycemicIndex.modal.add-product'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
       navigation.navigate('GlycemicIndex')
 
     })
@@ -143,7 +143,7 @@ const AddGlycemicIndex = ({ navigation }) => {
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Dodaj produkt" />
+       <Appbar.Content title={t('addGlycemicIndex.title')} />
        <Appbar.Action icon="information" onPress={showModal}  />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
@@ -179,7 +179,7 @@ const AddGlycemicIndex = ({ navigation }) => {
           <TextInput
             underlineColor={colors.COLORS.LIGHT_GREY}
             activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-            label="Nazwa"
+            label={t('addGlycemicIndex.value.name')}
             value={name}
             onChangeText={(txt) => setName(txt)}
             style={styles.textInput}
@@ -189,7 +189,7 @@ const AddGlycemicIndex = ({ navigation }) => {
           <TextInput
            underlineColor={colors.COLORS.LIGHT_GREY}
            activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-            label="Kategoria"
+            label={t('addGlycemicIndex.value.category')}
             value={category}
             onChangeText={(txt) => setCategory(txt)}
             style={styles.textInput}
@@ -200,7 +200,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                underlineColor={colors.COLORS.LIGHT_GREY}
                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Indeks glikemiczny"
+                label={t('addGlycemicIndex.value.glycemic-index')}
                 value={glycemicIndex}
                 onChangeText={(txt) => setGlycemicIndex(txt)}
                 keyboardType="numeric"
@@ -213,7 +213,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Kcal"
+                label={t('addGlycemicIndex.value.kcal')}
                 value={kcal}
                 onChangeText={(txt) => setKcal(txt)}
                 keyboardType="numeric"
@@ -227,7 +227,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Białko"
+                label={t('addGlycemicIndex.value.protein') + ' [' + UNIT.GR + ']'}
                 value={protein}
                 onChangeText={(txt) => setProtein(txt)}
                 keyboardType="numeric"

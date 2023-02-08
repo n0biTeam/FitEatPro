@@ -32,14 +32,8 @@ const EditProfileScreen = ({ navigation }) => {
 
   const [gender, setGender] = useState('');
   const [genderV, setGenderV] = useState('');
-    
-  //const {uid} = auth().currentUser;
 
-
-//console.log(user.uid)
-
-
-
+  
   const getUser = async () => {
     await firestore()
     .collection('users')
@@ -136,7 +130,6 @@ const EditProfileScreen = ({ navigation }) => {
       userImg: imgUrl,
       difference: parseFloat(diffKG),
       differenceLB: parseFloat(diffLB),
-      differenceST: diffST,
 
     })
     .then(() => {

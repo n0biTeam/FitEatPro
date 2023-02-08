@@ -406,6 +406,14 @@
         "purineEditScreen.category": "Kategoria",
         "purineEditScreen.purine": "Puryny",
         "purineEditScreen.uric-acid": "Kwas moczowy",
-        "purineEditScreen.update": "ZAKTUALIZUJ"
+        "purineEditScreen.update": "ZAKTUALIZUJ",
+
+        "addGlycemicIndex.modal.add-product": "Dodano produkt",
+        "addGlycemicIndex.title": "Dodaj produkt",
+        "addGlycemicIndex.value.name": "Nazwa",
+        "addGlycemicIndex.value.category": "Kategoria",
+        "addGlycemicIndex.value.glycemic-index": "Indeks glikemiczny",
+        "addGlycemicIndex.value.kcal": "Kcal",
+        "addGlycemicIndex.value.protein": "Białko"
     }
 }
