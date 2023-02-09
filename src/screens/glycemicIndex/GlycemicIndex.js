@@ -31,7 +31,7 @@ const GlycemicIndex = ({
       route,
       navigation,
       animatedValue,
-      //visible,
+      visible2,
       extended,
       label,
       animateFrom,
@@ -234,18 +234,63 @@ const sortListCholesterolASC = () => {
   setVisible(false);
 };
 
+const sortListWitAASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.witA - !b.witA || b.witA - a.witA;
+  });
+  setModalX('witA')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListBetaCarotenASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.betaCarotene - !b.betaCarotene || b.betaCarotene - a.betaCarotene;
+  });
+  setModalX('betaCaroten')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListLuteinaASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || b.luteinaZeaksantyna - a.luteinaZeaksantyna;
+  });
+  setModalX('luteina')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListWitBASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.WitB1Tiamina - !b.WitB1Tiamina || b.WitB1Tiamina - a.WitB1Tiamina;
+  });
+  setModalX('witB')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListIronASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.Zelazo - !b.Zelazo || b.Zelazo - a.Zelazo;
+  });
+  setModalX('iron')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
 const xxx = (item) => {
   if(modalX === 'protein'){
      return (
-    <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.protein).toFixed(1)}</Text>
+    <View style={{paddingVertical: 3, backgroundColor: colors.WHtR.WHtR_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.protein).toFixed(1)} {UNIT.GR}</Text>
       </View>
      )
   }else if(modalX === 'fat'){
     return (
       // <MyCircleX percentage={item.Potas} /> 
-      <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fat).toFixed(1)}</Text>
+      <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fat).toFixed(1)} {UNIT.GR}</Text>
       </View>
       )
     }else if(modalX === 'index'){
@@ -255,26 +300,56 @@ const xxx = (item) => {
           )
     }else if(modalX === 'carbs'){
         return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.carbs).toFixed(1)}</Text>
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.carbs).toFixed(1)} {UNIT.UG}</Text>
           </View>
         )
     }else if(modalX === 'fiber'){
         return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fiber).toFixed(1)}</Text>
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fiber).toFixed(1)} {UNIT.GR}</Text>
           </View>
         )
     }else if(modalX === 'sugar'){
         return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.Sugars).toFixed(1)}</Text>
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.Sugars).toFixed(1)} {UNIT.GR}</Text>
           </View>
         )
     }else if(modalX === 'cholesterol'){
         return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.choresterol).toFixed(1)}</Text>
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.choresterol).toFixed(1)} {UNIT.GR}</Text>
+          </View>
+        )
+    }else if(modalX === 'witA'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.witA).toFixed(0)} {UNIT.IU}</Text>
+          </View>
+        )
+    }else if(modalX === 'betaCaroten'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.betaCarotene).toFixed(2)} {UNIT.UG}</Text>
+          </View>
+        )
+    }else if(modalX === 'luteina'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.luteinaZeaksantyna).toFixed(2)} {UNIT.UG}</Text>
+          </View>
+        )
+    }else if(modalX === 'witB'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.WitB1Tiamina).toFixed(2)} {UNIT.MG}</Text>
+          </View>
+        )
+      }else if(modalX === 'iron'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.Zelazo).toFixed(2)} {UNIT.MG}</Text>
           </View>
         )
   }else{
@@ -646,7 +721,7 @@ const xxx = (item) => {
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20, marginHorizontal: spacing.SCALE_10};
+  const containerStyle = {backgroundColor: 'white', padding: 20, marginHorizontal: spacing.SCALE_10, borderRadius: spacing.SCALE_5, height: 540};
 
   return (
     <Provider>
@@ -1368,7 +1443,7 @@ const xxx = (item) => {
                 >
                  
                   <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
-                      <View style={{flex: 5}}>
+                      <View style={{flex: 5, marginRight: 20}}>
                         <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
                       </View>
                       <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
@@ -1419,7 +1494,7 @@ const xxx = (item) => {
         onPress={() => {
           navigation.navigate('AddGlycemicIndex');
         }}
-        visible={visible}
+        visible2={visible2}
         theme={'tertiary'}
         animateFrom={'right'}
         iconMode={'static'}
@@ -1432,10 +1507,11 @@ const xxx = (item) => {
     </SafeAreaProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <View>
+          
+          <View style={{marginBottom: spacing.SCALE_3}}>
             <Text style={{color: colors.TEXT.DEEP_BLUE}}>Sortuj wg:</Text>
           </View>
-
+         
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1}}>
               <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndexASC} >
@@ -1443,16 +1519,16 @@ const xxx = (item) => {
               </TouchableOpacity>
             </View>
           </View>
-
+          <ScrollView>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListProteinASC} >
-                <Text>Białko</Text>
+              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListProteinASC} >
+                <Text style={styles.modalBtnText}>Białko</Text>
               </TouchableOpacity>
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFatASC} >
-              <Text>Tłuszcz</Text>
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFatASC} >
+              <Text style={styles.modalBtnText}>Tłuszcz</Text>
             </TouchableOpacity>
             </View>
           </View>
@@ -1460,12 +1536,12 @@ const xxx = (item) => {
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
               <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListCarbsASC} >
-                <Text>Węglowodany</Text>
+                <Text style={styles.modalBtnText}>Węglowodany</Text>
               </TouchableOpacity>
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
             <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFiberASC} >
-              <Text>Błonnik</Text>
+              <Text style={styles.modalBtnText}>Błonnik</Text>
             </TouchableOpacity>
             </View>
           </View>
@@ -1473,15 +1549,198 @@ const xxx = (item) => {
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
               <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListSugarASC} >
-                <Text>Cukier</Text>
+                <Text style={styles.modalBtnText}>Cukier</Text>
               </TouchableOpacity>
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
             <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListCholesterolASC} >
-              <Text>Cholesterol</Text>
+              <Text style={styles.modalBtnText}>Cholesterol</Text>
             </TouchableOpacity>
             </View>
           </View>
+
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+            <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>WITAMINY:</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>Witamina A</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+              <Text style={styles.modalBtnText}>Beta-caroten</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
+                <Text style={styles.modalBtnText}>Luteina </Text>
+                <Text style={styles.modalBtnText}>+ Zeaksantyna</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+              <Text style={styles.modalBtnText}>Witamina B1</Text>
+              <Text style={styles.modalBtnText}>- Tiamina</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
+                <Text style={styles.modalBtnText}>Witamina B2</Text>
+                <Text style={styles.modalBtnText}>- Ryboflawina</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+              <Text style={styles.modalBtnText}>Witamina B3</Text>
+              <Text style={styles.modalBtnText}>- Niacyna</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
+                <Text style={styles.modalBtnText}>Witamina B4</Text>
+                <Text style={styles.modalBtnText}>- Cholina</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+              <Text style={styles.modalBtnText}>Witamina B5</Text>
+              <Text style={styles.modalBtnText}>- Kwas Pantotenowy</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_14, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
+                <Text style={styles.modalBtnText}>Witamina B5</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+              <Text style={styles.modalBtnText}>Witamina B9</Text>
+              <Text style={styles.modalBtnText}>- Kwas Foliowy</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>Witamina B12</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+              <Text style={styles.modalBtnText}>Witamina C</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>Witamina E</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+              <Text style={styles.modalBtnText}>Witamina K</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+            <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>WAPŃ</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+              <Text style={styles.modalBtnText}>MAGNEZ</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>FOSFOR</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+              <Text style={styles.modalBtnText}>POTAS</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>SÓD</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            
+            </View>
+          </View>
+
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+            <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>Miedź</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListIronASC} >
+              <Text style={styles.modalBtnText}>Żelazo</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>Mangan</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+              <Text style={styles.modalBtnText}>Selen</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+                <Text style={styles.modalBtnText}>Cynk</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            
+            </View>
+          </View>
+
+          </ScrollView>
         </Modal>
       </Portal>
     </PaperProvider>
@@ -1561,7 +1820,7 @@ const styles = StyleSheet.create({
       //elevation: 3
     },
     fabStyle: {
-      bottom: spacing.SCALE_16,
+      bottom: spacing.SCALE_25,
       right: spacing.SCALE_16,
       position: 'absolute',
       marginBottom: spacing.SCALE_35,
@@ -1576,6 +1835,12 @@ const styles = StyleSheet.create({
     },
     textBox3: {
       fontSize: typography.FONT_SIZE_12,
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold'
+    },
+    modalBtnText: {
+      fontSize: typography.FONT_SIZE_10,
+      textTransform: 'uppercase',
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold'
     }
