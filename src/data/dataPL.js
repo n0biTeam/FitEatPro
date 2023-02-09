@@ -9162,7 +9162,7 @@ export default data = [
     "grammage": 100,
     "kcal": 657,
     "protein": 16,
-    "fat": 603,
+    "fat": 65.21,
     "saturatedFat": 0,
     "carbs": 18,
     "fiber": 6.5,

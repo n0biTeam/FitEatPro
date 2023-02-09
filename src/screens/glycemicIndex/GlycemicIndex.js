@@ -17,6 +17,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { UNIT } from '../../styles/units';
+import MySwitch2 from '../../components/MySwitch';
 
 const theme = {
   ...DefaultTheme,
@@ -60,7 +61,7 @@ const GlycemicIndex = ({
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState(listData);
     const [masterDataSource, setMasterDataSource] = useState(listData);
-    
+    const [switchSort, setSwitchSort] = useState('1');
 
     const getList = () => {
         firestore().collection('users').doc(user.uid).collection('products')
@@ -178,95 +179,193 @@ const sortListIndexASC = () => {
   setVisible(false);
 };
 
+//Białko
 const sortListProteinASC = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.protein - !b.protein || b.protein - a.protein;
+    });
   
-  filteredDataSource.sort((a, b) => {
-    return !a.protein - !b.protein || b.protein - a.protein;
-  });
-
-  
-  setModalX('protein');
-  setMasterDataSource([...listData]);
-  setVisible(false);
+    setModalX('protein');
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.protein - !b.protein || a.protein - b.protein;
+    });
+    
+    setModalX('protein');
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
+//Tłuszcze
 const sortListFatASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.fat - !b.fat || b.fat - a.fat;
-  });
-  setModalX('fat')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.fat - !b.fat || b.fat - a.fat;
+    });
+    setModalX('fat')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.fat - !b.fat || a.fat - b.fat;
+    });
+    setModalX('fat')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
+//Węglowodany
 const sortListCarbsASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.carbs - !b.carbs || b.carbs - a.carbs;
-  });
-  setModalX('carbs')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+    if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.carbs - !b.carbs || b.carbs - a.carbs;
+    });
+    setModalX('carbs')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+      filteredDataSource.sort((a, b) => {
+        return !a.carbs - !b.carbs || a.carbs - b.carbs;
+      });
+      setModalX('carbs')
+      setMasterDataSource([...listData]);
+      setVisible(false);
+  }
 };
 
+//Błonnik
 const sortListFiberASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.fiber - !b.fiber || b.fiber - a.fiber;
-  });
-  setModalX('fiber')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.fiber - !b.fiber || b.fiber - a.fiber;
+    });
+    setModalX('fiber')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.fiber - !b.fiber || a.fiber - b.fiber;
+    });
+    setModalX('fiber')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
+//Cukier
 const sortListSugarASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.Sugars - !b.Sugars || b.Sugars - a.Sugars;
-  });
-  setModalX('sugar')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Sugars - !b.Sugars || b.Sugars - a.Sugars;
+    });
+    setModalX('sugar')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Sugars - !b.Sugars || a.Sugars - b.Sugars;
+    });
+    setModalX('sugar')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
+//Cholesterol
 const sortListCholesterolASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.choresterol - !b.choresterol || b.choresterol - a.choresterol;
-  });
-  setModalX('cholesterol')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.choresterol - !b.choresterol || b.choresterol - a.choresterol;
+    });
+    setModalX('cholesterol')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.choresterol - !b.choresterol || a.choresterol - b.choresterol;
+    });
+    setModalX('cholesterol')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
+//Witamina A
 const sortListWitAASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.witA - !b.witA || b.witA - a.witA;
-  });
-  setModalX('witA')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.witA - !b.witA || b.witA - a.witA;
+    });
+    setModalX('witA')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.witA - !b.witA || a.witA - b.witA;
+    });
+    setModalX('witA')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
+//Beat-caroten
 const sortListBetaCarotenASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.betaCarotene - !b.betaCarotene || b.betaCarotene - a.betaCarotene;
-  });
-  setModalX('betaCaroten')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.betaCarotene - !b.betaCarotene || b.betaCarotene - a.betaCarotene;
+    });
+    setModalX('betaCaroten')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.betaCarotene - !b.betaCarotene || a.betaCarotene - b.betaCarotene;
+    });
+    setModalX('betaCaroten')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+}
 };
 
+//Luteina
 const sortListLuteinaASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || b.luteinaZeaksantyna - a.luteinaZeaksantyna;
-  });
-  setModalX('luteina')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || b.luteinaZeaksantyna - a.luteinaZeaksantyna;
+    });
+    setModalX('luteina')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || a.luteinaZeaksantyna - b.luteinaZeaksantyna;
+    });
+    setModalX('luteina')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
-const sortListWitBASC = () => {
+const sortListWitB1ASC = () => {
   filteredDataSource.sort((a, b) => {
     return !a.WitB1Tiamina - !b.WitB1Tiamina || b.WitB1Tiamina - a.WitB1Tiamina;
   });
-  setModalX('witB')
+  setModalX('witB1')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListWitB2ASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || b.WitB2Ryboflawina - a.WitB2Ryboflawina;
+  });
+  setModalX('witB2')
   setMasterDataSource([...listData]);
   setVisible(false);
 };
@@ -283,11 +382,11 @@ const sortListIronASC = () => {
 const xxx = (item) => {
   if(modalX === 'protein'){
      return (
-      <ItemBigList value={(item.protein).toFixed(1)} unit={UNIT.GR} />
+      <ItemBigList value={(item.protein).toFixed(2)} unit={UNIT.GR} />
      )
   }else if(modalX === 'fat'){
     return (
-      <ItemBigList value={(item.fat).toFixed(1)} unit={UNIT.GR} />
+      <ItemBigList value={(item.fat).toFixed(2)} unit={UNIT.GR} />
     )
   }else if(modalX === 'index'){
     return(
@@ -295,59 +394,47 @@ const xxx = (item) => {
     )
   }else if(modalX === 'carbs'){
      return (
-      <ItemBigList value={(item.carbs).toFixed(1)} unit={UNIT.UG} />
+      <ItemBigList value={(item.carbs).toFixed(2)} unit={UNIT.GR} />
     )
-    }else if(modalX === 'fiber'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fiber).toFixed(1)} {UNIT.GR}</Text>
-          </View>
-        )
-    }else if(modalX === 'sugar'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.Sugars).toFixed(1)} {UNIT.GR}</Text>
-          </View>
-        )
-    }else if(modalX === 'cholesterol'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.choresterol).toFixed(1)} {UNIT.GR}</Text>
-          </View>
-        )
-    }else if(modalX === 'witA'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.witA).toFixed(0)} {UNIT.IU}</Text>
-          </View>
-        )
-    }else if(modalX === 'betaCaroten'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.betaCarotene).toFixed(2)} {UNIT.UG}</Text>
-          </View>
-        )
-    }else if(modalX === 'luteina'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.luteinaZeaksantyna).toFixed(2)} {UNIT.UG}</Text>
-          </View>
-        )
-    }else if(modalX === 'witB'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.WitB1Tiamina).toFixed(2)} {UNIT.MG}</Text>
-          </View>
-        )
-      }else if(modalX === 'iron'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.Zelazo).toFixed(2)} {UNIT.MG}</Text>
-          </View>
-        )
+  }else if(modalX === 'fiber'){
+    return (
+      <ItemBigList value={(item.fiber).toFixed(2)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'sugar'){
+    return (
+      <ItemBigList value={(item.Sugars).toFixed(2)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'cholesterol'){
+    return (
+      <ItemBigList value={(item.choresterol).toFixed(0)} unit={UNIT.MG} />
+    )
+  }else if(modalX === 'witA'){
+    return (
+      <ItemBigList value={(item.witA).toFixed(0)} unit={UNIT.IU} width={70}/>
+    )
+  }else if(modalX === 'betaCaroten'){
+    return (
+      <ItemBigList value={(item.betaCarotene).toFixed(3)} unit={UNIT.UG} width={75}/>
+    )
+  }else if(modalX === 'luteina'){
+    return (
+      <ItemBigList value={(item.luteinaZeaksantyna).toFixed(3)} unit={UNIT.UG} width={75} />
+    )
+  }else if(modalX === 'witB1'){
+    return (
+      <ItemBigList value={(item.WitB1Tiamina).toFixed(1)} unit={UNIT.MG} />
+    )
+  }else if(modalX === 'witB2'){
+    return (
+      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(1)} unit={UNIT.MG} />
+    )
+  }else if(modalX === 'iron'){
+    return (
+      <ItemBigList value={(item.Zelazo).toFixed(1)} unit={UNIT.MG} />
+    )
   }else{
     return(
-    <MyCircle percentage={item.index_glycemic} /> 
+      <MyCircle percentage={item.index_glycemic} /> 
     )
   }
 }
@@ -714,7 +801,12 @@ const xxx = (item) => {
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 20, marginHorizontal: spacing.SCALE_10, borderRadius: spacing.SCALE_5, height: 540};
+  const containerStyle = {backgroundColor: 'white', padding: 6, marginHorizontal: spacing.SCALE_10, borderRadius: spacing.SCALE_5, height: 540};
+
+
+  const onSelectSwitch = (index) => {
+    setSwitchSort(index);
+  };
 
   return (
     <Provider>
@@ -1504,8 +1596,21 @@ const xxx = (item) => {
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
           
-          <View style={{marginBottom: spacing.SCALE_3}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE}}>Sortuj wg:</Text>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_3}}>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Sortuj wg:</Text>
+            </View>
+            <View style={{flex: 1}}>
+              
+              <MySwitch2
+                selectionMode={switchSort}
+                roundCorner={true}
+                option1='Rosnąco'
+                option2='Malejąco'
+                onSelectSwitch={onSelectSwitch}
+                selectionColor={colors.COLORS.DEEP_BLUE}
+              /> 
+            </View>
           </View>
          
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
@@ -1516,76 +1621,62 @@ const xxx = (item) => {
             </View>
           </View>
           <ScrollView>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Białko' onPress={sortListProteinASC} />
+          <View style={{flex: 1, flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Białko' onPress={sortListProteinASC} backgroundColor={colors.WHtR.WHtR_1}/>
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <View style={{marginLeft: spacing.SCALE_3}}>
               <BtnModal title='Tłuszcz' onPress={sortListFatASC} />
             </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+          
+            <View style={{marginLeft: spacing.SCALE_6, marginRight: spacing.SCALE_3 }}>
               <BtnModal title='Węglowodany' onPress={sortListCarbsASC} />
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <View style={{marginLeft: spacing.SCALE_3}}>
               <BtnModal title='Błonnik' onPress={sortListFiberASC} />
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
               <BtnModal title='Cukier' onPress={sortListSugarASC} />
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <View style={{marginLeft: spacing.SCALE_3}}>
               <BtnModal title='Cholesterol' onPress={sortListCholesterolASC} />
             </View>
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>WITAMINY:</Text>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>WITAMINY:</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>Witamina A</Text>
-              </TouchableOpacity>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Witamina A' onPress={sortListWitAASC} backgroundColor={colors.WHtR.WHtR_2}/>
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
-              <Text style={styles.modalBtnText}>Beta-caroten</Text>
-            </TouchableOpacity>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Beta-caroten' onPress={sortListBetaCarotenASC} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
-                <Text style={styles.modalBtnText}>Luteina </Text>
-                <Text style={styles.modalBtnText}>+ Zeaksantyna</Text>
-              </TouchableOpacity>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Luteina + Zeaksantyna' onPress={sortListLuteinaASC} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
-              <Text style={styles.modalBtnText}>Witamina B1</Text>
-              <Text style={styles.modalBtnText}>- Tiamina</Text>
-            </TouchableOpacity>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Witamina B1 - Tiamina' onPress={sortListWitB1ASC} backgroundColor={colors.WHtR.WHtR_2}/>
             </View>
           </View>
-
+          {/* sortListWitB2ASC */}
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
-                <Text style={styles.modalBtnText}>Witamina B2</Text>
-                <Text style={styles.modalBtnText}>- Ryboflawina</Text>
-              </TouchableOpacity>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Witamina B2 - Ryboflawina' onPress={sortListWitB2ASC} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+            <View style={{marginLeft: spacing.SCALE_3}}>
+            {/* <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitB1ASC} >
               <Text style={styles.modalBtnText}>Witamina B3</Text>
               <Text style={styles.modalBtnText}>- Niacyna</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <BtnModal title='Witamina B3 - Niacyna' onPress={sortListWitB1ASC} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
@@ -1597,7 +1688,7 @@ const xxx = (item) => {
               </TouchableOpacity>
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitB1ASC} >
               <Text style={styles.modalBtnText}>Witamina B5</Text>
               <Text style={styles.modalBtnText}>- Kwas Pantotenowy</Text>
             </TouchableOpacity>
@@ -1611,7 +1702,7 @@ const xxx = (item) => {
               </TouchableOpacity>
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitBASC} >
+            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitB1ASC} >
               <Text style={styles.modalBtnText}>Witamina B9</Text>
               <Text style={styles.modalBtnText}>- Kwas Foliowy</Text>
             </TouchableOpacity>
@@ -1645,7 +1736,7 @@ const xxx = (item) => {
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
@@ -1685,7 +1776,7 @@ const xxx = (item) => {
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
