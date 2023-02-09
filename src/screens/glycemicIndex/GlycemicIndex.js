@@ -776,7 +776,9 @@ const xxx = (item) => {
                 onPress={() => {
                   refRBSheet.current.close(),
                   navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
-                }} />
+                }} 
+                //disabled
+                />
           </View>
         </View>
         <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
@@ -1498,7 +1500,8 @@ const xxx = (item) => {
         theme={'tertiary'}
         animateFrom={'right'}
         iconMode={'static'}
-        //color={COLORS.ORANGE}
+        //color={colors.COLORS.ORANGE}
+        //disabled
 
         style={[styles.fabStyle, style, fabStyle]}
       />
@@ -1758,10 +1761,9 @@ const styles = StyleSheet.create({
         paddingLeft: spacing.SCALE_10,
         paddingTop: spacing.SCALE_10,
         paddingBottom: spacing.SCALE_15,
-        flexDirection: 'row'
+        flexDirection: 'row',
         //marginHorizontal: 3,
         //opacity: 0.7
-        
     },
     itemText: {
       color: colors.TEXT.DEEP_BLUE,
