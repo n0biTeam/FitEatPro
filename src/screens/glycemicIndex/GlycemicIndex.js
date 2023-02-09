@@ -9,7 +9,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import BigList from "react-native-big-list";
 import MyCircle from '../../components/MyCircle';
-import MyCircleX from '../../components/MyCircleX';
+import BtnModal from '../../components/BtnModal';
 import { MyButton } from '../../components/MyButton';
 import RBSheet from "react-native-raw-bottom-sheet";
 import CircularProgress from 'react-native-circular-progress-indicator';
@@ -1525,40 +1525,28 @@ const xxx = (item) => {
           <ScrollView>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListProteinASC} >
-                <Text style={styles.modalBtnText}>Białko</Text>
-              </TouchableOpacity>
+              <BtnModal title='Białko' onPress={sortListProteinASC} />
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFatASC} >
-              <Text style={styles.modalBtnText}>Tłuszcz</Text>
-            </TouchableOpacity>
+              <BtnModal title='Tłuszcz' onPress={sortListFatASC} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListCarbsASC} >
-                <Text style={styles.modalBtnText}>Węglowodany</Text>
-              </TouchableOpacity>
+              <BtnModal title='Węglowodany' onPress={sortListCarbsASC} />
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFiberASC} >
-              <Text style={styles.modalBtnText}>Błonnik</Text>
-            </TouchableOpacity>
+              <BtnModal title='Błonnik' onPress={sortListFiberASC} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListSugarASC} >
-                <Text style={styles.modalBtnText}>Cukier</Text>
-              </TouchableOpacity>
+              <BtnModal title='Cukier' onPress={sortListSugarASC} />
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListCholesterolASC} >
-              <Text style={styles.modalBtnText}>Cholesterol</Text>
-            </TouchableOpacity>
+              <BtnModal title='Cholesterol' onPress={sortListCholesterolASC} />
             </View>
           </View>
 
