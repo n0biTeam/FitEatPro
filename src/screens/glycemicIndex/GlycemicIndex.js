@@ -410,23 +410,23 @@ const xxx = (item) => {
     )
   }else if(modalX === 'witA'){
     return (
-      <ItemBigList value={(item.witA).toFixed(0)} unit={UNIT.IU} width={70}/>
+      <ItemBigList value={(item.witA).toFixed(0)} unit={UNIT.IU} width={70} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'betaCaroten'){
     return (
-      <ItemBigList value={(item.betaCarotene).toFixed(3)} unit={UNIT.UG} width={75}/>
+      <ItemBigList value={(item.betaCarotene).toFixed(3)} unit={UNIT.UG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'luteina'){
     return (
-      <ItemBigList value={(item.luteinaZeaksantyna).toFixed(3)} unit={UNIT.UG} width={75} />
+      <ItemBigList value={(item.luteinaZeaksantyna).toFixed(3)} unit={UNIT.UG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witB1'){
     return (
-      <ItemBigList value={(item.WitB1Tiamina).toFixed(1)} unit={UNIT.MG} />
+      <ItemBigList value={(item.WitB1Tiamina).toFixed(1)} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witB2'){
     return (
-      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(1)} unit={UNIT.MG} />
+      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(1)} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'iron'){
     return (
