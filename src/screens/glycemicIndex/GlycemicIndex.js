@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, Pressable } from 'react-native';
 import React, {useContext, useState, useEffect, useRef} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -9,6 +9,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import BigList from "react-native-big-list";
 import MyCircle from '../../components/MyCircle';
+import MyCircleX from '../../components/MyCircleX';
 import { MyButton } from '../../components/MyButton';
 import RBSheet from "react-native-raw-bottom-sheet";
 import CircularProgress from 'react-native-circular-progress-indicator';
@@ -30,7 +31,7 @@ const GlycemicIndex = ({
       route,
       navigation,
       animatedValue,
-      visible,
+      //visible,
       extended,
       label,
       animateFrom,
@@ -145,6 +146,8 @@ const sortListDES = () => {
     return obj2.index_glycemic - obj1.index_glycemic;
   });
   setMasterDataSource([...listData]);
+  setModalX('index');
+  setVisible(false);
 };
 
 const sortListAlfaASC = () => {
@@ -155,39 +158,125 @@ const sortListAlfaASC = () => {
 };
 
 const sortListAlfaDES = () => {
+  
   filteredDataSource.sort((obj1, obj2) => {
   return obj2.name.localeCompare(obj1.name)
 });
 setMasterDataSource([...listData]);
 };
+
 //(a, b) => !a - !b || a - b
 const [modalX, setModalX] = useState('');
 
-const sortListFiberASC = () => {
+const sortListIndexASC = () => {
   filteredDataSource.sort((obj1, obj2) => {
-    return !obj1.fiber - !obj2.fiber || obj1.fiber - obj2.fiber;
+    return obj1.name.localeCompare(obj2.name)
+  });
+  setModalX('index')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListProteinASC = () => {
+  
+  filteredDataSource.sort((a, b) => {
+    return !a.protein - !b.protein || b.protein - a.protein;
+  });
+
+  
+  setModalX('protein');
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListFatASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.fat - !b.fat || b.fat - a.fat;
+  });
+  setModalX('fat')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListCarbsASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.carbs - !b.carbs || b.carbs - a.carbs;
+  });
+  setModalX('carbs')
+  setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListFiberASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.fiber - !b.fiber || b.fiber - a.fiber;
   });
   setModalX('fiber')
   setMasterDataSource([...listData]);
+  setVisible(false);
 };
 
-const sortListPotasASC = () => {
-  filteredDataSource.sort((obj1, obj2) => {
-    return !obj1.Potas - !obj2.Potas || obj1.Potas - obj2.Potas;
+const sortListSugarASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.Sugars - !b.Sugars || b.Sugars - a.Sugars;
   });
-  setModalX('potas')
+  setModalX('sugar')
   setMasterDataSource([...listData]);
+  setVisible(false);
+};
+
+const sortListCholesterolASC = () => {
+  filteredDataSource.sort((a, b) => {
+    return !a.choresterol - !b.choresterol || b.choresterol - a.choresterol;
+  });
+  setModalX('cholesterol')
+  setMasterDataSource([...listData]);
+  setVisible(false);
 };
 
 const xxx = (item) => {
-  if(modalX === 'fiber'){
-    return(
-    <MyCircle percentage={item.fiber} /> 
-    )
-
-  }else if(modalX === 'potas'){
-    return(
-      <MyCircle percentage={item.Potas} /> )
+  if(modalX === 'protein'){
+     return (
+    <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.protein).toFixed(1)}</Text>
+      </View>
+     )
+  }else if(modalX === 'fat'){
+    return (
+      // <MyCircleX percentage={item.Potas} /> 
+      <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fat).toFixed(1)}</Text>
+      </View>
+      )
+    }else if(modalX === 'index'){
+        return(
+          <MyCircle percentage={item.index_glycemic} /> 
+          
+          )
+    }else if(modalX === 'carbs'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.carbs).toFixed(1)}</Text>
+          </View>
+        )
+    }else if(modalX === 'fiber'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fiber).toFixed(1)}</Text>
+          </View>
+        )
+    }else if(modalX === 'sugar'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.Sugars).toFixed(1)}</Text>
+          </View>
+        )
+    }else if(modalX === 'cholesterol'){
+        return (
+          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 60, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
+            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.choresterol).toFixed(1)}</Text>
+          </View>
+        )
   }else{
     return(
     <MyCircle percentage={item.index_glycemic} /> 
@@ -554,7 +643,13 @@ const xxx = (item) => {
     outputRange: ['0deg', '180deg'],
   });
 
+  const [visible, setVisible] = useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 20, marginHorizontal: spacing.SCALE_10};
+
   return (
+    <Provider>
     <PaperProvider theme={theme}>
        <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
     <SafeAreaProvider style={{flexGrow: 1, backgroundColor: colors.COLORS.WHITE}}>
@@ -1309,7 +1404,10 @@ const xxx = (item) => {
               <MyButton icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
               <MyButton icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
               <MyButton icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
-              <MyButton icons="sort" borderColor={colors.COLORS.LIGHT_BLUE} backgroundColor={colors.COLORS.LIGHT_BLUE} onPress={sortListFiberASC}/>
+              <MyButton icons="sort" borderColor={colors.COLORS.LIGHT_BLUE} backgroundColor={colors.COLORS.LIGHT_BLUE} 
+              onPress={showModal}
+              //onPress={sortListFiberASC}
+              />
               <MyButton icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
         
       </View>
@@ -1332,7 +1430,62 @@ const xxx = (item) => {
     
     {/* </ImageBackground> */}
     </SafeAreaProvider>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <View>
+            <Text style={{color: colors.TEXT.DEEP_BLUE}}>Sortuj wg:</Text>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1}}>
+              <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndexASC} >
+                <Text style={{color: colors.TEXT.WHITE}}>RESET</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListProteinASC} >
+                <Text>Białko</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFatASC} >
+              <Text>Tłuszcz</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListCarbsASC} >
+                <Text>Węglowodany</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListFiberASC} >
+              <Text>Błonnik</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListSugarASC} >
+                <Text>Cukier</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListCholesterolASC} >
+              <Text>Cholesterol</Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </Portal>
     </PaperProvider>
+    </Provider>
   )
 }
 
