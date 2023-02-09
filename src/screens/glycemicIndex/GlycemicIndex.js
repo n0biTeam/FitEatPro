@@ -10,6 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 import BigList from "react-native-big-list";
 import MyCircle from '../../components/MyCircle';
 import BtnModal from '../../components/BtnModal';
+import ItemBigList from '../../components/ItemBigList';
 import { MyButton } from '../../components/MyButton';
 import RBSheet from "react-native-raw-bottom-sheet";
 import CircularProgress from 'react-native-circular-progress-indicator';
@@ -282,28 +283,20 @@ const sortListIronASC = () => {
 const xxx = (item) => {
   if(modalX === 'protein'){
      return (
-    <View style={{paddingVertical: 3, backgroundColor: colors.WHtR.WHtR_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.protein).toFixed(1)} {UNIT.GR}</Text>
-      </View>
+      <ItemBigList value={(item.protein).toFixed(1)} unit={UNIT.GR} />
      )
   }else if(modalX === 'fat'){
     return (
-      // <MyCircleX percentage={item.Potas} /> 
-      <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-        <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.fat).toFixed(1)} {UNIT.GR}</Text>
-      </View>
-      )
-    }else if(modalX === 'index'){
-        return(
-          <MyCircle percentage={item.index_glycemic} /> 
-          
-          )
-    }else if(modalX === 'carbs'){
-        return (
-          <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
-            <Text style={{color: colors.COLORS.GREY_333, fontWeight: 'bold'}}>{(item.carbs).toFixed(1)} {UNIT.UG}</Text>
-          </View>
-        )
+      <ItemBigList value={(item.fat).toFixed(1)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'index'){
+    return(
+      <MyCircle percentage={item.index_glycemic} /> 
+    )
+  }else if(modalX === 'carbs'){
+     return (
+      <ItemBigList value={(item.carbs).toFixed(1)} unit={UNIT.UG} />
+    )
     }else if(modalX === 'fiber'){
         return (
           <View style={{paddingVertical: 3, backgroundColor: colors.BMI.BMI_1, width: 70, borderRadius: spacing.SCALE_5, alignItems: 'flex-end', paddingRight: spacing.SCALE_6}}>
