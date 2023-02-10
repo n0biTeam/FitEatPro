@@ -18,6 +18,7 @@ import { BloodPressureScreen, BloodPressureViewItemScreen, BloodPressureEditItem
 import { NotesScreen, NotesAddScreen, NotesEditScreen } from '../screens/notes';
 import { PurineListScreen, PurineAddScreen, PurineEditScreen } from '../screens/purine';
 import { FindingScreen, FindingAddScreen, FindingEditScreen, FindingViewScreen } from '../screens/findings';
+import { SettingScreen } from '../screens/settings';
 import { t } from 'i18next';
 
 
@@ -41,6 +42,7 @@ function HomeTabs() {
               MealScreen: 'clipboard-edit',
               DiaryScreen: 'format-list-bulleted',
               Profile: 'account',
+              SettingScreen: 'cog'
             };
             
             return (
@@ -87,6 +89,14 @@ function HomeTabs() {
         component={ProfileScreen}
           options={{
             title: t('menu-profile'),      
+          }}
+      />
+
+      <Tab.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+          options={{
+            title: t('menu-settings'),      
           }}
       />
 

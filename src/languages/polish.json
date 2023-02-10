@@ -1,9 +1,10 @@
 {
     "translation": {
         "menu-start": "Start",
-        "menu-meal-creator": "Kreator posiłku",
+        "menu-meal-creator": "Kreator",
         "menu-diary": "Dziennik",
         "menu-profile": "Profil",
+        "menu-settings": "Ustawienia",
 
         "login-screen-welcome": "Witamy",
         "login-screen-text-1": "Nie masz jeszcze konta?",
