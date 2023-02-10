@@ -9480,7 +9480,7 @@ export default data = [
     "WitK": 0.0074,
     "Wapn": 10,
     "Miedz": 0.066,
-    "Zelazo": 34,
+    "Zelazo": 0.34,
     "Magnez": 10,
     "Mangan": 0.122,
     "Fosfor": 20,

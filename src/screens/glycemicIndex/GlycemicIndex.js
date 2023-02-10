@@ -675,13 +675,80 @@ const sortListMiedz = () => {
   }
 };
 
+//Żelazo
 const sortListIron = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.Zelazo - !b.Zelazo || b.Zelazo - a.Zelazo;
-  });
-  setModalX('iron')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Zelazo - !b.Zelazo || b.Zelazo - a.Zelazo;
+    });
+    setModalX('iron')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Zelazo - !b.Zelazo || a.Zelazo - b.Zelazo;
+    });
+    setModalX('iron')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Mangan
+const sortListMangan = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Mangan - !b.Mangan || b.Mangan - a.Mangan;
+    });
+    setModalX('mangan')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Mangan - !b.Mangan || a.Mangan - b.Mangan;
+    });
+    setModalX('mangan')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Selen
+const sortListSelen = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Selen - !b.Selen || b.Selen - a.Selen;
+    });
+    setModalX('selen')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Selen - !b.Selen || a.Selen - b.Selen;
+    });
+    setModalX('selen')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Cynk
+const sortListCynk = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Cynk - !b.Cynk || b.Cynk - a.Cynk;
+    });
+    setModalX('cynk')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Cynk - !b.Cynk || a.Cynk - b.Cynk;
+    });
+    setModalX('cynk')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
 const xxx = (item) => {
@@ -795,7 +862,19 @@ const xxx = (item) => {
     )
   }else if(modalX === 'iron'){
     return (
-      <ItemBigList value={(item.Zelazo).toFixed(1)} unit={UNIT.MG} />
+      <ItemBigList value={(item.Zelazo).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'mangan'){
+    return (
+      <ItemBigList value={(item.Mangan).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'selen'){
+    return (
+      <ItemBigList value={(item.Selen).toFixed(4)} width={85} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'cynk'){
+    return (
+      <ItemBigList value={(item.Cynk).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
     )
   }else{
     return(
@@ -2011,6 +2090,52 @@ const xxx = (item) => {
             </View>
           </View>
 
+          <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Wapń' onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Magnez' onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Fosfor' onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Potas' onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Sód' onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+          </View>
+
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Miedź' onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+            
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Żelazo' onPress={sortListIron} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Mangan' onPress={sortListMangan} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Selen' onPress={sortListSelen} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Cynk' onPress={sortListCynk} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+          </View>
+
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>WITAMINY:</Text>
           </View>
@@ -2078,65 +2203,6 @@ const xxx = (item) => {
             
             <View style={{}}>
               <BtnModal title='Witamina K' onPress={sortListWitK} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Wapn' onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Magnez' onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Fosfor' onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Potas' onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='SÓD' onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Miedz' onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListIron} >
-              <Text style={styles.modalBtnText}>Żelazo</Text>
-            </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitA} >
-                <Text style={styles.modalBtnText}>Mangan</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCaroten} >
-              <Text style={styles.modalBtnText}>Selen</Text>
-            </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitA} >
-                <Text style={styles.modalBtnText}>Cynk</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            
             </View>
           </View>
 
