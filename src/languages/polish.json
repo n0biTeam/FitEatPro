@@ -479,6 +479,11 @@
         "addGlycemicIndex.btn.add": "DODAJ",
         "addGlycemicIndex.modal.information": "Informacja",
         "addGlycemicIndex.modal.text": "Wszystkie dane należy podać na 100 gram produktu.",
-        "addGlycemicIndex.title-vitamin": "Witaminy"
+        "addGlycemicIndex.title-vitamin": "Witaminy",
+        "addGlycemicIndex.title-macronutrients": "Makroelementy",
+        "addGlycemicIndex.title-micronutrients": "Mikroelementy",
+
+        "editItemGlycemicIndex.toast.product-update": "Produkt zaktualizowany",
+        "editItemGlycemicIndex.btn.update": "ZAKTUALIZUJ"
     }
 }

@@ -149,7 +149,7 @@ const AddGlycemicIndex = ({ navigation }) => {
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
     source={require('../../assets/images/bg5.jpg')}
-    blurRadius={5}
+    blurRadius={30}
     style={{ 
       //height: getHeight(), 
       flex: 1, 
@@ -479,7 +479,7 @@ const AddGlycemicIndex = ({ navigation }) => {
             </View>
 
             <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>MAKROELEMENTY</Text>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>{t('addGlycemicIndex.title-macronutrients')}</Text>
             </View>
 
             <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
@@ -553,7 +553,7 @@ const AddGlycemicIndex = ({ navigation }) => {
             </View>
 
             <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>MIKROELEMENTY</Text>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>{t('addGlycemicIndex.title-micronutrients')}</Text>
             </View>
 
             <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>

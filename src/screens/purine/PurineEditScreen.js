@@ -151,7 +151,7 @@ const PurineEditScreen = ({ route, navigation }) => {
                underlineColor={colors.COLORS.LIGHT_GREY}
                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                 label={t('purineEditScreen.uric-acid') + ' [mg]'}
-                value={productData ? productData.uricAcid.toString() : 0}
+                value={productData ? productData.uricAcid.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, uricAcid: txt})}
                 keyboardType="numeric"
                 style={{backgroundColor: colors.COLORS.WHITE, marginBottom: spacing.SCALE_10}}

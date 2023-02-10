@@ -17,8 +17,8 @@ const PurineAddScreen = ({ navigation }) => {
    
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
-  const [purine, setPurine] = useState(0);
-  const [uricAcid, setUricAcid] = useState(0);
+  const [purine, setPurine] = useState('');
+  const [uricAcid, setUricAcid] = useState('');
 
 
   
