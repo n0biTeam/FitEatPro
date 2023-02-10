@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     btn: {
         padding: spacing.SCALE_10, 
         //backgroundColor: colors.COLORS.GREY_DDD,
-        borderRadius: spacing.SCALE_5
+        borderRadius: spacing.SCALE_5,
+        //alignItems: 'center'
     },
     modalBtnText: {
         fontSize: typography.FONT_SIZE_11,

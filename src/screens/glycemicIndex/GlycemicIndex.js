@@ -170,7 +170,7 @@ setMasterDataSource([...listData]);
 //(a, b) => !a - !b || a - b
 const [modalX, setModalX] = useState('');
 
-const sortListIndexASC = () => {
+const sortListIndex = () => {
   filteredDataSource.sort((obj1, obj2) => {
     return obj1.name.localeCompare(obj2.name)
   });
@@ -180,7 +180,7 @@ const sortListIndexASC = () => {
 };
 
 //Białko
-const sortListProteinASC = () => {
+const sortListProtein = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.protein - !b.protein || b.protein - a.protein;
@@ -201,7 +201,7 @@ const sortListProteinASC = () => {
 };
 
 //Tłuszcze
-const sortListFatASC = () => {
+const sortListFat = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.fat - !b.fat || b.fat - a.fat;
@@ -220,7 +220,7 @@ const sortListFatASC = () => {
 };
 
 //Węglowodany
-const sortListCarbsASC = () => {
+const sortListCarbs = () => {
     if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.carbs - !b.carbs || b.carbs - a.carbs;
@@ -239,7 +239,7 @@ const sortListCarbsASC = () => {
 };
 
 //Błonnik
-const sortListFiberASC = () => {
+const sortListFiber = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.fiber - !b.fiber || b.fiber - a.fiber;
@@ -258,7 +258,7 @@ const sortListFiberASC = () => {
 };
 
 //Cukier
-const sortListSugarASC = () => {
+const sortListSugar = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.Sugars - !b.Sugars || b.Sugars - a.Sugars;
@@ -277,7 +277,7 @@ const sortListSugarASC = () => {
 };
 
 //Cholesterol
-const sortListCholesterolASC = () => {
+const sortListCholesterol = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.choresterol - !b.choresterol || b.choresterol - a.choresterol;
@@ -296,7 +296,7 @@ const sortListCholesterolASC = () => {
 };
 
 //Witamina A
-const sortListWitAASC = () => {
+const sortListWitA = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.witA - !b.witA || b.witA - a.witA;
@@ -315,7 +315,7 @@ const sortListWitAASC = () => {
 };
 
 //Beat-caroten
-const sortListBetaCarotenASC = () => {
+const sortListBetaCaroten = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.betaCarotene - !b.betaCarotene || b.betaCarotene - a.betaCarotene;
@@ -334,7 +334,7 @@ const sortListBetaCarotenASC = () => {
 };
 
 //Luteina
-const sortListLuteinaASC = () => {
+const sortListLuteina = () => {
   if(switchSort === 1){
     filteredDataSource.sort((a, b) => {
       return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || b.luteinaZeaksantyna - a.luteinaZeaksantyna;
@@ -352,25 +352,330 @@ const sortListLuteinaASC = () => {
   }
 };
 
-const sortListWitB1ASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.WitB1Tiamina - !b.WitB1Tiamina || b.WitB1Tiamina - a.WitB1Tiamina;
-  });
-  setModalX('witB1')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+//Witamina B1 - Tiamina
+const sortListWitB1 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB1Tiamina - !b.WitB1Tiamina || b.WitB1Tiamina - a.WitB1Tiamina;
+    });
+    setModalX('witB1')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB1Tiamina - !b.WitB1Tiamina || a.WitB1Tiamina - b.WitB1Tiamina;
+    });
+    setModalX('witB1')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
 };
 
-const sortListWitB2ASC = () => {
-  filteredDataSource.sort((a, b) => {
-    return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || b.WitB2Ryboflawina - a.WitB2Ryboflawina;
-  });
-  setModalX('witB2')
-  setMasterDataSource([...listData]);
-  setVisible(false);
+//Witamina B2 - Ryboflawina
+const sortListWitB2 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || b.WitB2Ryboflawina - a.WitB2Ryboflawina;
+    });
+    setModalX('witB2')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || a.WitB2Ryboflawina - b.WitB2Ryboflawina;
+    });
+    setModalX('witB2')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+}
 };
 
-const sortListIronASC = () => {
+//Witamina B3 - niacyna
+const sortListWitB3 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB3Niacyna - !b.WitB3Niacyna || b.WitB3Niacyna - a.WitB3Niacyna;
+    });
+    setModalX('witB3')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB3Niacyna - !b.WitB3Niacyna || a.WitB3Niacyna - b.WitB3Niacyna;
+    });
+    setModalX('witB3')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+}
+};
+
+//Witamina B4 - cholina
+const sortListWitB4 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB4Cholina - !b.WitB4Cholina || b.WitB4Cholina - a.WitB4Cholina;
+    });
+    setModalX('witB4')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB4Cholina - !b.WitB4Cholina || a.WitB4Cholina - b.WitB4Cholina;
+    });
+    setModalX('witB4')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+}
+};
+
+//Witamina B5 - kwas pantotenowy
+const sortListWitB5 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB5KwasPantotenowy - !b.WitB5KwasPantotenowy || b.WitB5KwasPantotenowy - a.WitB5KwasPantotenowy;
+    });
+    setModalX('witB5')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB5KwasPantotenowy - !b.WitB5KwasPantotenowy || a.WitB5KwasPantotenowy - b.WitB5KwasPantotenowy;
+    });
+    setModalX('witB5')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Witamina B6
+const sortListWitB6 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB6 - !b.WitB6 || b.WitB6 - a.WitB6;
+    });
+    setModalX('witB6')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB6 - !b.WitB6 || a.WitB6 - b.WitB6;
+    });
+    setModalX('witB6')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Witamina B9 - kwas foliowy
+const sortListWitB9 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB9KwasFoliowy - !b.WitB9KwasFoliowy || b.WitB9KwasFoliowy - a.WitB9KwasFoliowy;
+    });
+    setModalX('witB9')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB9KwasFoliowy - !b.WitB9KwasFoliowy || a.WitB9KwasFoliowy - b.WitB9KwasFoliowy;
+    });
+    setModalX('witB9')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Witamina B12
+const sortListWitB12 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB12 - !b.WitB12 || b.WitB12 - a.WitB12;
+    });
+    setModalX('witB12')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB12 - !b.WitB12 || a.WitB12 - b.WitB12;
+    });
+    setModalX('witB12')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Witamina C
+const sortListWitC = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitC - !b.WitC || b.WitC - a.WitC;
+    });
+    setModalX('witC')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitC - !b.WitC || a.WitC - b.WitC;
+    });
+    setModalX('witC')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Witamina E
+const sortListWitE = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitE - !b.WitC || b.WitE - a.WitE;
+    });
+    setModalX('witE')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitE - !b.WitE || a.WitE - b.WitE;
+    });
+    setModalX('witE')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Witamina K
+const sortListWitK = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitK - !b.WitK || b.WitK - a.WitK;
+    });
+    setModalX('witK')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitK - !b.WitK || a.WitK - b.WitK;
+    });
+    setModalX('witK')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Wapn
+const sortListWapn = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Wapn - !b.Wapn || b.Wapn - a.Wapn;
+    });
+    setModalX('wapn')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Wapn - !b.Wapn || a.Wapn - b.Wapn;
+    });
+    setModalX('wapn')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Magnez
+const sortListMagnez = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Magnez - !b.Magnez || b.Magnez - a.Magnez;
+    });
+    setModalX('magnez')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Magnez - !b.Magnez || a.Magnez - b.Magnez;
+    });
+    setModalX('magnez')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Fosfor
+const sortListFosfor = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Fosfor - !b.Fosfor || b.Fosfor - a.Fosfor;
+    });
+    setModalX('fosfor')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Fosfor - !b.Fosfor || a.Fosfor - b.Fosfor;
+    });
+    setModalX('fosfor')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Potas
+const sortListPotas = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Potas - !b.Potas || b.Potas - a.Potas;
+    });
+    setModalX('potas')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Potas - !b.Potas || a.Potas - b.Potas;
+    });
+    setModalX('potas')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Sod
+const sortListSod = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Sod - !b.Sod || b.Sod - a.Sod;
+    });
+    setModalX('sod')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Sod - !b.Sod || a.Sod - b.Sod;
+    });
+    setModalX('sod')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+//Miedz
+const sortListMiedz = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Miedz - !b.Miedz || b.Miedz - a.Miedz;
+    });
+    setModalX('miedz')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Miedz - !b.Miedz || a.Miedz - b.Miedz;
+    });
+    setModalX('miedz')
+    setMasterDataSource([...listData]);
+    setVisible(false);
+  }
+};
+
+const sortListIron = () => {
   filteredDataSource.sort((a, b) => {
     return !a.Zelazo - !b.Zelazo || b.Zelazo - a.Zelazo;
   });
@@ -422,11 +727,71 @@ const xxx = (item) => {
     )
   }else if(modalX === 'witB1'){
     return (
-      <ItemBigList value={(item.WitB1Tiamina).toFixed(1)} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+      <ItemBigList value={(item.WitB1Tiamina).toFixed(3)} unit={UNIT.MG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witB2'){
     return (
-      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(1)} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB3'){
+    return (
+      <ItemBigList value={(item.WitB3Niacyna).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB4'){
+    return (
+      <ItemBigList value={(item.WitB4Cholina).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB5'){
+    return (
+      <ItemBigList value={(item.WitB5KwasPantotenowy).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB6'){
+    return (
+      <ItemBigList value={(item.WitB6).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB9'){
+    return (
+      <ItemBigList value={(item.WitB9KwasFoliowy).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB12'){
+    return (
+      <ItemBigList value={(item.WitB12).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witC'){
+    return (
+      <ItemBigList value={(item.WitC).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witE'){
+    return (
+      <ItemBigList value={(item.WitE).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witK'){
+    return (
+      <ItemBigList value={(item.WitK).toFixed(4)} width={85} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'wapn'){
+    return (
+      <ItemBigList value={(item.Wapn).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'magnez'){
+    return (
+      <ItemBigList value={(item.Magnez).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'fosfor'){
+    return (
+      <ItemBigList value={(item.Fosfor).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'potas'){
+    return (
+      <ItemBigList value={(item.Potas).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'sod'){
+    return (
+      <ItemBigList value={(item.Sod).toFixed(0)} width={70} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'miedz'){
+    return (
+      <ItemBigList value={(item.Sod).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
     )
   }else if(modalX === 'iron'){
     return (
@@ -1615,7 +1980,7 @@ const xxx = (item) => {
          
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1}}>
-              <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndexASC} >
+              <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndex} >
                 <Text style={{color: colors.TEXT.WHITE}}>RESET</Text>
               </TouchableOpacity>
             </View>
@@ -1623,169 +1988,129 @@ const xxx = (item) => {
           <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Białko' onPress={sortListProteinASC} backgroundColor={colors.WHtR.WHtR_1}/>
+              <BtnModal title='Białko' onPress={sortListProtein} backgroundColor={colors.WHtR.WHtR_1}/>
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Tłuszcz' onPress={sortListFatASC} />
+              <BtnModal title='Tłuszcz' onPress={sortListFat} />
             </View>
           
             <View style={{marginLeft: spacing.SCALE_6, marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Węglowodany' onPress={sortListCarbsASC} />
+              <BtnModal title='Węglowodany' onPress={sortListCarbs} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Błonnik' onPress={sortListFiberASC} />
+              <BtnModal title='Błonnik' onPress={sortListFiber} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Cukier' onPress={sortListSugarASC} />
+              <BtnModal title='Cukier' onPress={sortListSugar} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Cholesterol' onPress={sortListCholesterolASC} />
+              <BtnModal title='Cholesterol' onPress={sortListCholesterol} />
             </View>
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>WITAMINY:</Text>
           </View>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Witamina A' onPress={sortListWitAASC} backgroundColor={colors.WHtR.WHtR_2}/>
+              <BtnModal title='Witamina A' onPress={sortListWitA} backgroundColor={colors.WHtR.WHtR_2}/>
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Beta-caroten' onPress={sortListBetaCarotenASC} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title='Beta-caroten' onPress={sortListBetaCaroten} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Luteina + Zeaksantyna' onPress={sortListLuteinaASC} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title='Luteina + Zeaksantyna' onPress={sortListLuteina} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Witamina B1 - Tiamina' onPress={sortListWitB1ASC} backgroundColor={colors.WHtR.WHtR_2}/>
+              <BtnModal title='Witamina B1 - Tiamina' onPress={sortListWitB1} backgroundColor={colors.WHtR.WHtR_2}/>
             </View>
           </View>
-          {/* sortListWitB2ASC */}
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+        
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Witamina B2 - Ryboflawina' onPress={sortListWitB2ASC} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title='Witamina B2 - Ryboflawina' onPress={sortListWitB2} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-            {/* <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitB1ASC} >
-              <Text style={styles.modalBtnText}>Witamina B3</Text>
-              <Text style={styles.modalBtnText}>- Niacyna</Text>
-            </TouchableOpacity> */}
-            <BtnModal title='Witamina B3 - Niacyna' onPress={sortListWitB1ASC} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title='Witamina B3 - Niacyna' onPress={sortListWitB3} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1 }}>
+              <BtnModal title='Witamina B4 - Cholina' onPress={sortListWitB4} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1}}>
+              <BtnModal title='Witamina B5 - Kwas pantotenowy' onPress={sortListWitB5} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{ marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Witamina B6' onPress={sortListWitB6} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Witamina B9 - Kwas Foliowy' onPress={sortListWitB9} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Witamina 12' onPress={sortListWitB12} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Witamina C' onPress={sortListWitC} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6 }}>
+              <BtnModal title='Witamina E' onPress={sortListWitE} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
-                <Text style={styles.modalBtnText}>Witamina B4</Text>
-                <Text style={styles.modalBtnText}>- Cholina</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitB1ASC} >
-              <Text style={styles.modalBtnText}>Witamina B5</Text>
-              <Text style={styles.modalBtnText}>- Kwas Pantotenowy</Text>
-            </TouchableOpacity>
+            
+            <View style={{}}>
+              <BtnModal title='Witamina K' onPress={sortListWitK} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_14, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListLuteinaASC} >
-                <Text style={styles.modalBtnText}>Witamina B5</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_6, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitB1ASC} >
-              <Text style={styles.modalBtnText}>Witamina B9</Text>
-              <Text style={styles.modalBtnText}>- Kwas Foliowy</Text>
-            </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>Witamina B12</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
-              <Text style={styles.modalBtnText}>Witamina C</Text>
-            </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>Witamina E</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
-              <Text style={styles.modalBtnText}>Witamina K</Text>
-            </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+          <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>WAPŃ</Text>
-              </TouchableOpacity>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Wapn' onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
-              <Text style={styles.modalBtnText}>MAGNEZ</Text>
-            </TouchableOpacity>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title='Magnez' onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
             </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>FOSFOR</Text>
-              </TouchableOpacity>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Fosfor' onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
             </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
-              <Text style={styles.modalBtnText}>POTAS</Text>
-            </TouchableOpacity>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='Potas' onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title='SÓD' onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
             </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>SÓD</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
             <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
-                <Text style={styles.modalBtnText}>Miedź</Text>
-              </TouchableOpacity>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title='Miedz' onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListIronASC} >
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListIron} >
               <Text style={styles.modalBtnText}>Żelazo</Text>
             </TouchableOpacity>
             </View>
@@ -1793,12 +2118,12 @@ const xxx = (item) => {
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitA} >
                 <Text style={styles.modalBtnText}>Mangan</Text>
               </TouchableOpacity>
             </View>
             <View style={{flex: 1, marginLeft: spacing.SCALE_3}}>
-            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCarotenASC} >
+            <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListBetaCaroten} >
               <Text style={styles.modalBtnText}>Selen</Text>
             </TouchableOpacity>
             </View>
@@ -1806,7 +2131,7 @@ const xxx = (item) => {
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1, marginRight: spacing.SCALE_3 }}>
-              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitAASC} >
+              <TouchableOpacity style={{ padding: spacing.SCALE_10, backgroundColor: colors.COLORS.GREY_DDD, borderRadius: spacing.SCALE_5}} onPress={sortListWitA} >
                 <Text style={styles.modalBtnText}>Cynk</Text>
               </TouchableOpacity>
             </View>
