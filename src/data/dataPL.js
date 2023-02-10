@@ -6133,7 +6133,7 @@ export default data = [
   },
   {
     "idProd": 147,
-    "name": "Koncentrat pomidProdorowy 30%",
+    "name": "Koncentrat pomidorowy 30%",
     "index_glycemic": 50,
     "grammage": 100,
     "kcal": 92,
@@ -10417,7 +10417,7 @@ export default data = [
   },
   {
     "idProd": 249,
-    "name": "PomidProdor",
+    "name": "Pomidor",
     "index_glycemic": 30,
     "grammage": 100,
     "kcal": 18,
@@ -10459,7 +10459,7 @@ export default data = [
   },
   {
     "idProd": 250,
-    "name": "PomidProdor, suszony",
+    "name": "Pomidor, suszony",
     "index_glycemic": 35,
     "grammage": 100,
     "kcal": 258,
@@ -10753,7 +10753,7 @@ export default data = [
   },
   {
     "idProd": 257,
-    "name": "Przecier pomidProdorowy",
+    "name": "Przecier pomidorowy",
     "index_glycemic": 35,
     "grammage": 100,
     "kcal": 26,
@@ -12685,7 +12685,7 @@ export default data = [
   },
   {
     "idProd": 303,
-    "name": "Sok pomidProdorowy",
+    "name": "Sok pomidorowy",
     "index_glycemic": 38,
     "grammage": 100,
     "kcal": 17,
@@ -14827,7 +14827,7 @@ export default data = [
   },
   {
     "idProd": 354,
-    "name": "Zupa pomidProdorowa",
+    "name": "Zupa pomidorowa",
     "index_glycemic": 35,
     "grammage": 100,
     "kcal": 39,
