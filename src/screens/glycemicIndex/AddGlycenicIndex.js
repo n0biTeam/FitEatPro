@@ -301,7 +301,7 @@ const AddGlycemicIndex = ({ navigation }) => {
             </View>
 
             <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
-              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>WITAMINY</Text>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase'}}>{t('addGlycemicIndex.title-vitamin')}</Text>
             </View>
 
             <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
@@ -413,7 +413,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('addGlycemicIndex.value.witB9') + ' [' + UNIT.MG + ']'}
+                label={t('addGlycemicIndex.value.witB9') + ' [' + UNIT.UG + ']'}
                 value={witB9KwasFoliowy}
                 onChangeText={(txt) => setWitB9KwasFoliowy(txt)}
                 keyboardType="numeric"
@@ -425,7 +425,7 @@ const AddGlycemicIndex = ({ navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label={t('addGlycemicIndex.value.witB12') + ' [' + UNIT.MG + ']'}
+                label={t('addGlycemicIndex.value.witB12') + ' [' + UNIT.UG + ']'}
                 value={witB12}
                 onChangeText={(txt) => setWitB12(txt)}
                 keyboardType="numeric"

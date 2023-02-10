@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions, Alert, ToastAndroid } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions, Alert, ToastAndroid, ScrollView } from 'react-native'
 import React, { useEffect, useState, useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
@@ -6,12 +6,14 @@ import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { TextInput } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
-
+import { useTranslation } from 'react-i18next';
+import { UNIT } from '../../styles/units';
+//import { ScrollView } from 'react-native-gesture-handler';
 const EditItemGlycemicIndex = ({ route, navigation }) => {
   
   const _goBack = () => navigation.navigate('GlycemicIndex');
   const productId = route.params.itemId;
-
+  const {t, i18n} = useTranslation();
   const {user} = useContext(AuthContext); 
   const [productData, setProductData] = useState('');
   
@@ -51,7 +53,22 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
       carbs: parseFloat(productData.carbs),
       fiber: parseFloat(productData.fiber),
       Sugars: parseFloat(productData.Sugars),
-      choresterol: parseFloat(productData.choresterol)
+      choresterol: parseFloat(productData.choresterol),
+      witA: parseInt(productData.witA),
+      betaCarotene: parseFloat(productData.betaCarotene),
+      luteinaZeaksantyna: parseFloat(productData.luteinaZeaksantyna),
+      WitB1Tiamina: parseFloat(productData.WitB1Tiamina),
+      WitB2Ryboflawina: parseFloat(productData.WitB2Ryboflawina),
+      WitB3Niacyna: parseFloat(productData.WitB3Niacyna),
+      WitB4Cholina: parseFloat(productData.WitB4Cholina),
+      WitB5KwasPantotenowy: parseFloat(productData.WitB5KwasPantotenowy),
+      WitB6: parseFloat(productData.WitB6),
+      WitB9KwasFoliowy: parseFloat(productData.WitB9KwasFoliowy),
+      WitB12: parseFloat(productData.WitB12),
+      WitC: parseFloat(productData.WitC),
+      WitE: parseFloat(productData.WitE),
+      WitK: parseFloat(productData.WitK),
+      
     })
     .then(() => {
       console.log('Product Update');
@@ -86,7 +103,7 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
     source={require('../../assets/images/bg5.jpg')}
-    blurRadius={5}
+    blurRadius={30}
     style={{ 
       //height: getHeight(), 
       flex: 1, 
@@ -113,26 +130,26 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
                  
         <View style={{flex: 1, justifyContent: 'flex-start', marginHorizontal: spacing.SCALE_8}}>
           
-          <View>
+          <ScrollView>
 
           <View style={{marginBottom: spacing.SCALE_10}}></View>
           <TextInput
             underlineColor={colors.COLORS.LIGHT_GREY}
             activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-            label="Nazwa"
-            value={productData ? productData.name : ''}
+            label={t('addGlycemicIndex.value.name')}
+            value={productData ? productData.name.toString() : ''}
             onChangeText={(txt) => setProductData({...productData, name: txt})}
-            style={{backgroundColor: colors.COLORS.WHITE}}
+            style={styles.textInput}
           />
 
           <View style={{marginBottom: spacing.SCALE_8}}></View>
           <TextInput
             underlineColor={colors.COLORS.LIGHT_GREY}
             activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-            label="Kategoria"
-            value={productData ? productData.category : ''}
+            label={t('addGlycemicIndex.value.category')}
+            value={productData ? productData.category.toString() : ''}
             onChangeText={(txt) => setProductData({...productData, category: txt})}
-            style={{backgroundColor: colors.COLORS.WHITE}}
+            style={styles.textInput}
           />
 
           <View style={{flexDirection: 'row', marginTop: spacing.SCALE_8}}>
@@ -140,11 +157,11 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <TextInput
                underlineColor={colors.COLORS.LIGHT_GREY}
                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Indeks glikemiczny"
+                label={t('addGlycemicIndex.value.glycemic-index')}
                 value={productData ? productData.index_glycemic.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, index_glycemic: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
             </View>
 
@@ -152,11 +169,11 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Kcal"
-                value={productData ? productData.kcal.toString() : 0}
+                label={t('addGlycemicIndex.value.kcal')}
+                value={productData ? productData.kcal.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, kcal: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
               </View>
             </View>
@@ -166,11 +183,11 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Białko"
+                label={t('addGlycemicIndex.value.protein') + ' [' + UNIT.GR + ']'}
                 value={productData ? productData.protein.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, protein: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}                
+                style={styles.textInput}       
               />
             </View>
 
@@ -178,25 +195,25 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Tłuszcz"
-                value={productData ? productData.fat.toString() : 0}
+                label={t('addGlycemicIndex.value.fat') + ' [' + UNIT.GR + ']'}
+                value={productData ? productData.fat.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, fat: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
               </View>
             </View>
-
+ 
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_8, marginBottom: spacing.SCALE_8}}>
             <View style={{flex: 1, marginRight: 4}}>
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Węglowodany"
+                label={t('addGlycemicIndex.value.carbs') + ' [' + UNIT.GR + ']'}
                 value={productData ? productData.carbs.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, carbs: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
             </View>
 
@@ -204,11 +221,11 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <TextInput
                underlineColor={colors.COLORS.LIGHT_GREY}
                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Błonnik"
-                value={productData ? productData.fiber.toString() : 0}
+                label={t('addGlycemicIndex.value.fiber') + ' [' + UNIT.GR + ']'}
+                value={productData ? productData.fiber.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, fiber: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
               </View>
             </View>
@@ -218,24 +235,203 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Cukier"
+                label={t('addGlycemicIndex.value.sugar') + ' [' + UNIT.GR + ']'}
                 value={productData ? productData.Sugars.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, Sugars: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
             </View>
 
-            <View style={{flex: 1, marginLeft: spacing.SCALE_4, marginBottom: spacing.SCALE_10}}>
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
               <TextInput
                 underlineColor={colors.COLORS.LIGHT_GREY}
                 activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                label="Cholesterol"
-                value={productData ? productData.choresterol.toString() : 0}
+                label={t('addGlycemicIndex.value.cholesterol') + ' [' + UNIT.GR + ']'}
+                value={productData ? productData.choresterol.toString() : ''}
                 onChangeText={(txt) => setProductData({...productData, choresterol: txt})}
                 keyboardType="numeric"
-                style={{backgroundColor: colors.COLORS.WHITE}}
+                style={styles.textInput}
               />
+              </View>
+            </View>
+
+            <View style={{backgroundColor: colors.COLORS.LIGHT_BLUE, padding: spacing.SCALE_5, alignItems: 'center', borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6}}>
+              <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase'}}>{t('addGlycemicIndex.title-vitamin')}</Text>
+            </View>
+            
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witA') + ' [' + UNIT.IU + ']'} 
+                value={productData ? productData.witA.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, witA: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+  
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.beta-caroten') + ' [' + UNIT.UG + ']'}
+                value={productData ? productData.betaCarotene.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, betaCarotene: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.luteina') + ' [' + UNIT.UG + ']'}
+                value={productData ? productData.luteinaZeaksantyna.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, luteinaZeaksantyna: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB1') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitB1Tiamina.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitB1Tiamina: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB2') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitB2Ryboflawina.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitB2Ryboflawina: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB3') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitB3Niacyna.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, witB3Niacyna: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB5') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitB5KwasPantotenowy.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitB5KwasPantotenowy: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB6') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitB6.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitB6: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB9') + ' [' + UNIT.UG + ']'}
+                value={productData ? productData.WitB9KwasFoliowy.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitB9KwasFoliowy: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witB12') + ' [' + UNIT.UG + ']'}
+                value={productData ? productData.WitB12.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitB12: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witC') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitC.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitC: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witE') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitE.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitE: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_8}}>
+            <View style={{flex: 1, marginRight: spacing.SCALE_4}}>
+              <TextInput
+                underlineColor={colors.COLORS.LIGHT_GREY}
+                activeUnderlineColor={colors.COLORS.DEEP_BLUE}
+                label={t('addGlycemicIndex.value.witK') + ' [' + UNIT.MG + ']'}
+                value={productData ? productData.WitK.toString() : ''}
+                onChangeText={(txt) => setProductData({...productData, WitK: txt})}
+                keyboardType="numeric"
+                style={styles.textInput}
+              />
+            </View>
+
+            <View style={{flex: 1, marginLeft: spacing.SCALE_4}}>
+              
               </View>
             </View>
 
@@ -243,7 +439,7 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
               <Text style={styles.textBtn}>ZAPISZ</Text>
             </TouchableOpacity>
 
-          </View>
+          </ScrollView>
         
         
         
@@ -277,5 +473,8 @@ const styles = StyleSheet.create({
   },
   textBtn: {
     color: colors.TEXT.WHITE
+  },
+  textInput: {
+    backgroundColor: colors.COLORS.WHITE
   },
 })

@@ -822,7 +822,7 @@ const xxx = (item) => {
     )
   }else if(modalX === 'witB12'){
     return (
-      <ItemBigList value={(item.WitB12).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+      <ItemBigList value={(item.WitB12).toFixed(3)} width={75} unit={UNIT.UG} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witC'){
     return (
@@ -870,7 +870,7 @@ const xxx = (item) => {
     )
   }else if(modalX === 'selen'){
     return (
-      <ItemBigList value={(item.Selen).toFixed(4)} width={85} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+      <ItemBigList value={(item.Selen).toFixed(4)} width={85} unit={UNIT.UG} backgroundColor={colors.WHtR.WHtR_3} />
     )
   }else if(modalX === 'cynk'){
     return (
@@ -1719,7 +1719,7 @@ const xxx = (item) => {
                       <Text style={styles.textBox1}>WITAMINA B12</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.UG}</Text>
                     </View>
                   </View>
                 }
@@ -2092,7 +2092,7 @@ const xxx = (item) => {
           </View>
 
           <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={styles.textTitle}>{t('value.macronutrients')}</Text>
+            <Text style={styles.textTitleModal}>{t('value.macronutrients')}</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
@@ -2113,7 +2113,7 @@ const xxx = (item) => {
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-            <Text style={styles.textTitle}>{t('value.micronutrients')}</Text>
+            <Text style={styles.textTitleModal}>{t('value.micronutrients')}</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
@@ -2138,7 +2138,7 @@ const xxx = (item) => {
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={styles.textTitle}>{t('value.vitamins')}</Text>
+            <Text style={styles.textTitleModal}>{t('value.vitamins')}</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
@@ -2310,7 +2310,7 @@ const styles = StyleSheet.create({
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold'
     },
-    textTitle: {
+    textTitleModal: {
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
       textTransform: 'uppercase'

@@ -446,7 +446,7 @@
         "addGlycemicIndex.value.glycemic-index": "Indeks glikemiczny",
         "addGlycemicIndex.value.kcal": "Kcal",
         "addGlycemicIndex.value.protein": "Białko",
-        "addGlycemicIndex.value.fat": "Tłuszcz",
+        "addGlycemicIndex.value.fat": "Tłuszcze",
         "addGlycemicIndex.value.carbs": "Węglowodany",
         "addGlycemicIndex.value.fiber": "Błonnik",
         "addGlycemicIndex.value.sugar": "Cukier",
@@ -475,9 +475,10 @@
         "addGlycemicIndex.value.selen": "Selen",
         "addGlycemicIndex.value.cynk": "Cynk",
         "addGlycemicIndex.text.title": "* Pole 'Status'",
-        "addGlycemicIndex.text-1": "Wpisz 1 jeżeli nie posiadasz informacji na temat witamin, makroelementów i mikroelementów (Brak przycików). Domyśnie pole jest włączone: 0",
+        "addGlycemicIndex.text-1": "Wpisz 1 jeżeli nie posiadasz informacji na temat witamin, makroelementów i mikroelementów (Brak przycików na karcie produktu). Domyśnie pole jest włączone: 0",
         "addGlycemicIndex.btn.add": "DODAJ",
         "addGlycemicIndex.modal.information": "Informacja",
-        "addGlycemicIndex.modal.text": "Wszystkie dane należy podać na 100 gram produktu."
+        "addGlycemicIndex.modal.text": "Wszystkie dane należy podać na 100 gram produktu.",
+        "addGlycemicIndex.title-vitamin": "Witaminy"
     }
 }
