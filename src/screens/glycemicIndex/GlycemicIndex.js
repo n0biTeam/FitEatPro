@@ -1242,10 +1242,11 @@ const xxx = (item) => {
     outputRange: ['0deg', '180deg'],
   });
 
+  const heightDim = Dimensions.get('window').height - 160;
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = {backgroundColor: 'white', padding: 6, marginHorizontal: spacing.SCALE_10, borderRadius: spacing.SCALE_5, height: 540};
+  const containerStyle = {backgroundColor: 'white', padding: 6, marginHorizontal: spacing.SCALE_10, borderRadius: spacing.SCALE_5, height: heightDim};
 
 
   const onSelectSwitch = (index) => {
@@ -2042,15 +2043,15 @@ const xxx = (item) => {
           
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_3}}>
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Sortuj wg:</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('glycemicIndex.modal.sort-by')}</Text>
             </View>
             <View style={{flex: 1}}>
               
               <MySwitch2
                 selectionMode={switchSort}
                 roundCorner={true}
-                option1='Rosnąco'
-                option2='Malejąco'
+                option1={t('glycemicIndex.modal.ascending')}
+                option2={t('glycemicIndex.modal.descending')}
                 onSelectSwitch={onSelectSwitch}
                 selectionColor={colors.COLORS.DEEP_BLUE}
               /> 
@@ -2060,149 +2061,149 @@ const xxx = (item) => {
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1}}>
               <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndex} >
-                <Text style={{color: colors.TEXT.WHITE}}>RESET</Text>
+                <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>{t('glycemicIndex.modal.btn-reset')}</Text>
               </TouchableOpacity>
             </View>
           </View>
           <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Białko' onPress={sortListProtein} backgroundColor={colors.WHtR.WHtR_1}/>
+              <BtnModal title={t('value.protein')} onPress={sortListProtein} backgroundColor={colors.WHtR.WHtR_1}/>
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Tłuszcz' onPress={sortListFat} />
+              <BtnModal title={t('value.fat')} onPress={sortListFat} />
             </View>
           
             <View style={{marginLeft: spacing.SCALE_6, marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Węglowodany' onPress={sortListCarbs} />
+              <BtnModal title={t('value.carbohydrates')} onPress={sortListCarbs} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Błonnik' onPress={sortListFiber} />
+              <BtnModal title={t('value.fiber')} onPress={sortListFiber} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Cukier' onPress={sortListSugar} />
+              <BtnModal title={t('value.sugar')} onPress={sortListSugar} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Cholesterol' onPress={sortListCholesterol} />
+              <BtnModal title={t('value.cholesterol')} onPress={sortListCholesterol} />
             </View>
           </View>
 
           <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MAKROELEMENTY:</Text>
+            <Text style={styles.textTitle}>{t('value.macronutrients')}</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Wapń' onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
+              <BtnModal title={t('value.calcium')} onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Magnez' onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
+              <BtnModal title={t('value.magnesium')} onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Fosfor' onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
+              <BtnModal title={t('value.phosphorus')} onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Potas' onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
+              <BtnModal title={t('value.potassium')} onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Sód' onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
+              <BtnModal title={t('value.sodium')} onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
             </View>
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>MIKROELEMENTY:</Text>
+            <Text style={styles.textTitle}>{t('value.micronutrients')}</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Miedź' onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
+              <BtnModal title={t('value.copper')} onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
             
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Żelazo' onPress={sortListIron} backgroundColor={colors.WHtR.WHtR_3} />
+              <BtnModal title={t('value.iron')} onPress={sortListIron} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
 
             <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Mangan' onPress={sortListMangan} backgroundColor={colors.WHtR.WHtR_3} />
+              <BtnModal title={t('value.manganese')} onPress={sortListMangan} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
 
             <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Selen' onPress={sortListSelen} backgroundColor={colors.WHtR.WHtR_3} />
+              <BtnModal title={t('value.selenium')} onPress={sortListSelen} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
 
             <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title='Cynk' onPress={sortListCynk} backgroundColor={colors.WHtR.WHtR_3} />
+              <BtnModal title={t('value.zinc')} onPress={sortListCynk} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
           </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>WITAMINY:</Text>
+            <Text style={styles.textTitle}>{t('value.vitamins')}</Text>
           </View>
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Witamina A' onPress={sortListWitA} backgroundColor={colors.WHtR.WHtR_2}/>
+              <BtnModal title={t('value.Vitamin-A')} onPress={sortListWitA} backgroundColor={colors.WHtR.WHtR_2}/>
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Beta-caroten' onPress={sortListBetaCaroten} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.beta-carotene')} onPress={sortListBetaCaroten} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Luteina + Zeaksantyna' onPress={sortListLuteina} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Lutein-Zeaxanthin')} onPress={sortListLuteina} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Witamina B1 - Tiamina' onPress={sortListWitB1} backgroundColor={colors.WHtR.WHtR_2}/>
+              <BtnModal title={t('value.Vitamin-B1')} onPress={sortListWitB1} backgroundColor={colors.WHtR.WHtR_2}/>
             </View>
           </View>
         
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Witamina B2 - Ryboflawina' onPress={sortListWitB2} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B2')} onPress={sortListWitB2} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Witamina B3 - Niacyna' onPress={sortListWitB3} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B3')} onPress={sortListWitB3} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1 }}>
-              <BtnModal title='Witamina B4 - Cholina' onPress={sortListWitB4} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B4')} onPress={sortListWitB4} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
             <View style={{flex: 1}}>
-              <BtnModal title='Witamina B5 - Kwas pantotenowy' onPress={sortListWitB5} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B5')} onPress={sortListWitB5} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{ marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Witamina B6' onPress={sortListWitB6} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B6')} onPress={sortListWitB6} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Witamina B9 - Kwas Foliowy' onPress={sortListWitB9} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B9')} onPress={sortListWitB9} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
             <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title='Witamina 12' onPress={sortListWitB12} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-B12')} onPress={sortListWitB12} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title='Witamina C' onPress={sortListWitC} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-C')} onPress={sortListWitC} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_6 }}>
-              <BtnModal title='Witamina E' onPress={sortListWitE} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-E')} onPress={sortListWitE} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
             
             <View style={{}}>
-              <BtnModal title='Witamina K' onPress={sortListWitK} backgroundColor={colors.WHtR.WHtR_2} />
+              <BtnModal title={t('value.Vitamin-K')} onPress={sortListWitK} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
@@ -2308,5 +2309,10 @@ const styles = StyleSheet.create({
       textTransform: 'uppercase',
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold'
+    },
+    textTitle: {
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold',
+      textTransform: 'uppercase'
     }
 })
