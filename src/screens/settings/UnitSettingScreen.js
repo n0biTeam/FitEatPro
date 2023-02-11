@@ -9,9 +9,9 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { UNIT } from '../../styles/units';
 
-const SettingsScreen = ({ navigation }) => {
+const UnitSettingScreen = ({ navigation }) => {
   
-  const _goBack = () => navigation.navigate('Profile');
+  const _goBack = () => navigation.navigate('SettingScreen');
 
   const {t, i18n} = useTranslation();
   const {user} = useContext(AuthContext);
@@ -104,8 +104,8 @@ const SettingsScreen = ({ navigation }) => {
     })
     .then(() => {
       console.log('User Update');
-      ToastAndroid.show(t('editProfileScreen.profile-updated'), ToastAndroid.LONG, ToastAndroid.CENTER);
-      navigation.navigate('Profile');
+      ToastAndroid.show(t('unitSettingScreen.toast.edit-unit'), ToastAndroid.LONG, ToastAndroid.CENTER);
+      navigation.navigate('SettingScreen');
     })
   }
   
@@ -115,7 +115,7 @@ const SettingsScreen = ({ navigation }) => {
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: '#224870', marginTop: 30}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Ustawienia" />
+       <Appbar.Content title="Ustawienia jednostek" />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -286,7 +286,7 @@ const SettingsScreen = ({ navigation }) => {
   )
 }
 
-export default SettingsScreen;
+export default UnitSettingScreen;
 
 const styles = StyleSheet.create({
     rootContainer: {

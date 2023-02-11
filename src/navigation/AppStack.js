@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { HomeScreen } from '../screens/home';
 import { colors } from '../styles';
-import { ProfileScreen, EditProfileScreen, SettingsScreen } from '../screens/profile';
+import { ProfileScreen, EditProfileScreen } from '../screens/profile';
 import { GlycemicIndex, AddGlycemicIndex, EditItemGlycemicIndex } from '../screens/glycemicIndex';
 import { DiaryScreen, DiaryItemScreen, MealScreen } from '../screens/mealLog';
 import { BmiScreen, BmrScreen, WhrScreen, WhtrScreen } from '../screens/calculateBmr';
@@ -18,7 +18,7 @@ import { BloodPressureScreen, BloodPressureViewItemScreen, BloodPressureEditItem
 import { NotesScreen, NotesAddScreen, NotesEditScreen } from '../screens/notes';
 import { PurineListScreen, PurineAddScreen, PurineEditScreen } from '../screens/purine';
 import { FindingScreen, FindingAddScreen, FindingEditScreen, FindingViewScreen } from '../screens/findings';
-import { SettingScreen } from '../screens/settings';
+import { SettingScreen, UnitSettingScreen, ShopScreen, PrivacyPolicyScreen, AboutTheAppScreen } from '../screens/settings';
 import { t } from 'i18next';
 
 
@@ -416,14 +416,45 @@ const AppStack = () => {
     />
 
     <Stack.Screen
-      name="SettingsScreen"
-      component={SettingsScreen}
+      name="UnitSettingScreen"
+      component={UnitSettingScreen}
       options={{
         title: '',
         headerBackTitleVisible: false,
         headerShown: false,
       }}
     />
+
+    <Stack.Screen
+      name="PrivacyPolicyScreen"
+      component={PrivacyPolicyScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+
+    <Stack.Screen
+      name="AboutTheAppScreen"
+      component={AboutTheAppScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+
+    <Stack.Screen
+      name="ShopScreen"
+      component={ShopScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+
 
     <Stack.Screen
       name="GlycemicIndex"

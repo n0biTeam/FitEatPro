@@ -485,6 +485,8 @@
         "addGlycemicIndex.title-micronutrients": "Mikroelementy",
 
         "editItemGlycemicIndex.toast.product-update": "Produkt zaktualizowany",
-        "editItemGlycemicIndex.btn.update": "ZAKTUALIZUJ"
+        "editItemGlycemicIndex.btn.update": "ZAKTUALIZUJ",
+
+        "unitSettingScreen.toast.edit-unit": "Zaktualizowano jednostki"
     }
 }

@@ -7,8 +7,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const SettingScreen = ({ route, navigation }) => {
   
-  const _goBack = () => navigation.navigate('GlycemicIndex');
+  //const _goBack = () => navigation.navigate('GlycemicIndex');
  
+  const openPlayStore = () => {
+
+    const GOOGLE_PACKAGE_NAME = 'pl.it.impact.fiteatpro';
+
+    Linking.openURL(`market://details?id=${GOOGLE_PACKAGE_NAME}`);
+  };
   
   return (
     <SafeAreaProvider>
@@ -22,10 +28,10 @@ const SettingScreen = ({ route, navigation }) => {
     <ScrollView>
     <View style={styles.rootContainer}>
 
-        <TouchableOpacity style={styles.box}>
+        <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('UnitSettingScreen')}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='cog' size={25} />
+                    <MaterialCommunityIcons name='cog' size={25} color={colors.COLORS.GREEN} />
                 </View>
                 <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                     <Text style={styles.text}>Ustawienie jednostek</Text>
@@ -38,13 +44,13 @@ const SettingScreen = ({ route, navigation }) => {
 
         <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
 
-        <TouchableOpacity style={styles.box}>
+        <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ShopScreen')}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='cart-outline' size={25} />
+                    <MaterialCommunityIcons name='cart-outline' size={25} color={colors.COLORS.GREEN} />
                 </View>
                 <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                    <Text style={styles.text}>Zakupy / Subskrypcje</Text>
+                    <Text style={styles.text}>Kup / Subskrypcje</Text>
                 </View>
                 <View style={{justifyContent: 'center'}}>
                     <MaterialCommunityIcons name='chevron-right' size={25} />
@@ -54,10 +60,10 @@ const SettingScreen = ({ route, navigation }) => {
 
         <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
 
-       <TouchableOpacity style={styles.box}>
+       <TouchableOpacity style={styles.box} onPress={openPlayStore}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='star-outline' size={25} />
+                    <MaterialCommunityIcons name='star-outline' size={25} color={colors.COLORS.GREEN} />
                 </View>
                 <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                     <Text style={styles.text}>Oceń aplikację</Text>
@@ -67,11 +73,11 @@ const SettingScreen = ({ route, navigation }) => {
                 </View>
             </View>
        </TouchableOpacity>
-
-       <TouchableOpacity style={styles.box}>
+      
+       <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('PrivacyPolicyScreen')}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='eye-outline' size={25} />
+                    <MaterialCommunityIcons name='eye-outline' size={25} color={colors.COLORS.GREEN} />
                 </View>
                 <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                     <Text style={styles.text}>Polityka prywatności</Text>
@@ -81,11 +87,11 @@ const SettingScreen = ({ route, navigation }) => {
                 </View>
             </View>
        </TouchableOpacity>
-
-       <TouchableOpacity style={styles.box}>
+       
+       <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('AboutTheAppScreen')}>
             <View style={{flexDirection: 'row'}}>
                 <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='information-outline' size={25} />
+                    <MaterialCommunityIcons name='information-outline' size={25} color={colors.COLORS.GREEN} />
                 </View>
                 <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                     <Text style={styles.text}>O aplikacji</Text>

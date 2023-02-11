@@ -112,7 +112,7 @@ const ProfileScreen = ({ navigation }) => {
     <SafeAreaProvider>
     <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
       <Appbar.Content title={t('profileScreen.my-profile')} />
-        <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  />
+        {/* <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  /> */}
         <Appbar.Action icon="account-edit" onPress={() => navigation.navigate('EditProfile')}  />
         <Appbar.Action icon="logout" onPress={logout} style={{marginRight: spacing.SCALE_4}}/>
     </Appbar.Header>
