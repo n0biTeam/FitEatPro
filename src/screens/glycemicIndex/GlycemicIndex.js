@@ -61,7 +61,7 @@ const GlycemicIndex = ({
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState(listData);
     const [masterDataSource, setMasterDataSource] = useState(listData);
-    const [switchSort, setSwitchSort] = useState('1');
+    const [switchSort, setSwitchSort] = useState('2');
 
     const getList = () => {
         firestore().collection('users').doc(user.uid).collection('products')
@@ -1250,9 +1250,11 @@ const xxx = (item) => {
 
 
   const onSelectSwitch = (index) => {
+    console.log(index)
     setSwitchSort(index);
   };
 
+ // console.log(switchSort)
   return (
     <Provider>
     <PaperProvider theme={theme}>
@@ -2046,7 +2048,7 @@ const xxx = (item) => {
               <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('glycemicIndex.modal.sort-by')}</Text>
             </View>
             <View style={{flex: 1}}>
-              
+             
               <MySwitch2
                 selectionMode={switchSort}
                 roundCorner={true}

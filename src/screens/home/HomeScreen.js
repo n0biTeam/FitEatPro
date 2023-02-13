@@ -19,7 +19,7 @@ import { UNIT } from '../../styles/units';
 
 
 const heightScreen = Dimensions.get('screen').height;
-console.log(heightScreen)
+//console.log(heightScreen)
 
 const theme = {
   ...DefaultTheme,
