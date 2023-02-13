@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions, Pressable, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Linking, ScrollView } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
