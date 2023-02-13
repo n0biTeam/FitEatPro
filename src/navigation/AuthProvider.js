@@ -3,21 +3,38 @@ import { ToastAndroid } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore'
 import dataPL from '../data/dataPL';
+import dataEN from '../data/dataEN';
 import dataPurinePL from '../data/dataPurinePL';
+import dataPurineEN from '../data/dataPurineEN';
 import { UNIT } from '../styles/units';
+import * as RNLocalize from "react-native-localize";
+
+
+const lang = RNLocalize.getLocales()[0].languageCode;
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
    const [user, setUser] = useState();
-
-   const dataJsonPL = dataPL;
-   const dataPurineJsonPL = dataPurinePL;
    
-   const insertJson = async (dataJsonPL) => {
+   let dataJson = [];
+   if(lang === 'pl'){
+     dataJson = dataPL;
+   }else{
+     dataJson = dataEN;
+   }
+
+   let dataPurineJson = [];
+   if(lang === 'pl'){
+      dataPurineJson = dataPurinePL;
+   }else{
+      dataPurineJson = dataPurineEN;
+   }
+   
+   const insertJson = async (dataJson) => {
     try {
       const promises = [];
-      dataJsonPL.forEach((item) => {
+      dataJson.forEach((item) => {
         promises.push(
          firestore().collection('users')
         .doc(auth().currentUser.uid).collection('products')
@@ -31,10 +48,10 @@ export const AuthProvider = ({children}) => {
     }
 }
 
-const insertPurineJson = async (dataPurineJsonPL) => {
+const insertPurineJson = async (dataPurineJson) => {
   try {
     const promises = [];
-    dataPurineJsonPL.forEach((item) => {
+    dataPurineJson.forEach((item) => {
       promises.push(
        firestore().collection('users')
       .doc(auth().currentUser.uid).collection('purines')
@@ -127,13 +144,13 @@ const insertPurineJson = async (dataPurineJsonPL) => {
                     console.log('Error: 1' + error);
                  })
                  .then(async() => {
-                  await insertJson(dataJsonPL);
+                  await insertJson(dataJson);
                  })
                  .catch((error) => {
                   console.log('Error: 2' + error);
                  })
                  .then(async () => {
-                    await insertPurineJson(dataPurineJsonPL);
+                    await insertPurineJson(dataPurineJson);
                   })
                  .catch((error) => {
                     console.log('Error: 3' + error);

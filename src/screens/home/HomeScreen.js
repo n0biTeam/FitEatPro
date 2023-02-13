@@ -17,9 +17,7 @@ import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
 
-
 const heightScreen = Dimensions.get('screen').height;
-//console.log(heightScreen)
 
 const theme = {
   ...DefaultTheme,
