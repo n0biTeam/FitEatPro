@@ -138,7 +138,7 @@ const NotesScreen = ({
       height: Dimensions.get('window').height,
        }}
        imageStyle={{
-        opacity: 0.8
+        opacity: 0.7
       }}
     
   >
