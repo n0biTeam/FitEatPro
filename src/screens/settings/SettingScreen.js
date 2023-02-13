@@ -107,7 +107,7 @@ const SettingScreen = ({ route, navigation }) => {
             <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
             </View>
 
-            <View style={{flex:1, justifyContent: 'flex-end', marginBottom: spacing.SCALE_6, alignItems: 'center'}}>
+            <View style={{flex:1, justifyContent: 'flex-end', marginBottom: spacing.SCALE_10, alignItems: 'center'}}>
                 <Text style={{color: colors.TEXT.DEEP_BLUE}}>FitEat Pro v. {version.namber}</Text>
             </View>
 
