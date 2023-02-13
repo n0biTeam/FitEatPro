@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, spacing, typography } from '../../styles';
 import { version } from '../../styles/constants';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const AboutTheAppScreen = ({ navigation }) => {
@@ -45,102 +46,103 @@ const AboutTheAppScreen = ({ navigation }) => {
         //opacity: 0.8
       }}
       >
+
         <View style={styles.rootContainer}>
             <View style={styles.boxContainer}>
               <Text style={styles.title}>FitEat Pro v. {version.namber}</Text>
-           
-              <Text>Aplikacja powstała z myślą o osobach stosujących diety oparte o niski indeks glikemiczny. Przyda się w walce z otyłością oraz w zapobieganiu cukrzycy.</Text>
+              <ScrollView>
+              <Text style={styles.text}>Aplikacja powstała z myślą o osobach stosujących diety oparte o niski indeks glikemiczny. Przyda się w walce z otyłością oraz w zapobieganiu cukrzycy.</Text>
               <View style={{marginTop: spacing.SCALE_10}}>
                 <Text style={{color: colors.TEXT.GREEN}}>Podstawowe fukncje aplikacji:</Text>
                 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Tworzenie posiłków w oparciu o listę produktów.</Text>
-                    <Text>Po utworzeniu posiłku dostajemy informację o indeksie posiłku, ładunku posiłku, wymienniku węglowodanowym, wymienniku białkowo-tłuszczowym, ilości kalorii, wadze posiłku oraz ilości wartości takich jak: węglowodany, błonnik, białko, tłuszcze, cukier i cholesterol</Text>
+                    <Text style={styles.text}>Tworzenie posiłków w oparciu o listę produktów.</Text>
+                    <Text style={styles.text}>Po utworzeniu posiłku dostajemy informację o indeksie posiłku, ładunku posiłku, wymienniku węglowodanowym, wymienniku białkowo-tłuszczowym, ilości kalorii, wadze posiłku oraz ilości wartości takich jak: węglowodany, błonnik, białko, tłuszcze, cukier i cholesterol</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Wyszukiwarka produktów</Text>
+                    <Text style={styles.text}>Wyszukiwarka produktów</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Dostajemy listę produktów, którą możemy uzupełniać, modyfikować lub kasować</Text>
+                    <Text style={styles.text}>Dostajemy listę produktów, którą możemy uzupełniać, modyfikować lub kasować</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Lista produktów wyświetla informację o indeksie glikemicznym, po kliknięciu w dany produkt dostajemy informację o wartościach odżywczych danego produktu mi. witaminy, makroelemeny i mikroelemeny</Text>
+                    <Text style={styles.text}>Lista produktów wyświetla informację o indeksie glikemicznym, po kliknięciu w dany produkt dostajemy informację o wartościach odżywczych danego produktu mi. witaminy, makroelemeny i mikroelemeny</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Sortowanie listy produktów wg wybranej wartości</Text>
+                    <Text style={styles.text}>Sortowanie listy produktów wg wybranej wartości</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Prowadzenie dziennika wagi</Text>
+                    <Text style={styles.text}>Prowadzenie dziennika wagi</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Prowadzenie dziennika pomiarów ciśnienia krwi</Text>
+                    <Text style={styles.text}>Prowadzenie dziennika pomiarów ciśnienia krwi</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Prowadzenie dziennika pomiarów glukozy</Text>
+                    <Text style={styles.text}>Prowadzenie dziennika pomiarów glukozy</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Lista produktów - puryny.</Text>
+                    <Text style={styles.text}>Lista produktów - puryny.</Text>
                   </View>
                 </View>
 
@@ -150,45 +152,65 @@ const AboutTheAppScreen = ({ navigation }) => {
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Kalkulatory BMI, BMR, WHR i WtHR</Text>
+                    <Text style={styles.text}>Kalkulatory BMI, BMR, WHR i WtHR</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Insulinooporność: kalkulator HOMA-IR i QUICKI</Text>
+                    <Text style={styles.text}>Insulinooporność: kalkulator HOMA-IR i QUICKI</Text>
                   </View>
                 </View>
   
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Dokumentowanie wyników badań za pomocą zdjęć</Text>
+                    <Text style={styles.text}>Dokumentowanie wyników badań za pomocą zdjęć</Text>
                   </View>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
-                    <Text>{'\u2B24'}</Text>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Notatnik</Text>
+                    <Text style={styles.text}>Notatnik</Text>
                   </View>
                 </View>
 
               </View>
+
+              <View style={{marginTop: spacing.SCALE_10}}>
+                  <Text style={{color: colors.TEXT.GREEN}}>Pozostałe informacje:</Text>
+                </View>
+                <View style={{flex: 1}}>
+                    <Text style={styles.text}>Aplikacja wymaga połączenia z internetem, ponieważ wszystkie dane przetrzymywane są na zewnętrznym serwerze (firebase google).</Text>
+                </View>
+                <View style={{flex: 1}}>
+                    <Text style={styles.text}>W razie wymiany telefonu, wystarczy pobrać aplikację i ponownie się zalogować.</Text>
+                </View>
+
+              <View style={{marginTop: spacing.SCALE_15}}>
+                <Text style={{fontSize: typography.FONT_SIZE_12}}>Źródło:</Text>
+                <View>
+                  <Text style={{fontSize: typography.FONT_SIZE_12}}>The Univerity of Sydney, USDA U.A. Departamment Of Agriculture, Wikipedia, Low Crab Check i inne.</Text>
+                </View>
+              </View>
+
+            
+              </ScrollView>
             </View>
         </View>
     
@@ -203,7 +225,7 @@ export default AboutTheAppScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
-        marginHorizontal: spacing.SCALE_6,
+        //marginHorizontal: spacing.SCALE_6,
     },
     boxContainer: {
         flex: 1,
@@ -216,5 +238,12 @@ const styles = StyleSheet.create({
       fontSize: typography.FONT_SIZE_16,
       fontWeight: 'bold',
       color: colors.TEXT.DEEP_BLUE
+    },
+    text: {
+      fontSize: typography.FONT_SIZE_13,
+    },
+    dot: {
+      fontSize: typography.FONT_SIZE_13,
+      color: colors.TEXT.GREY_AAA
     }
 })
