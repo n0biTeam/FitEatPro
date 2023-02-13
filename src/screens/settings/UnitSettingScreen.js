@@ -290,14 +290,12 @@ export default UnitSettingScreen;
 
 const styles = StyleSheet.create({
     rootContainer: {
-        marginHorizontal: spacing.SCALE_6,
-        //marginVertical: spacing.SCALE_6,
-        marginBottom: spacing.SCALE_6,
         flex: 1,
     },
     container: {
         backgroundColor: colors.COLORS.WHITE,
         flex: 1,
-        borderRadius: 5
+        borderTopLeftRadius: spacing.SCALE_5,
+        borderTopRightRadius: spacing.SCALE_5,
     }
 })

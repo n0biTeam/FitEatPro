@@ -231,8 +231,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.COLORS.WHITE,
         padding: spacing.SCALE_10,
-        marginBottom: spacing.SCALE_6,
-        borderRadius: spacing.SCALE_5,
+        //marginBottom: spacing.SCALE_6,
+        borderTopLeftRadius: spacing.SCALE_5,
+        borderTopRightRadius: spacing.SCALE_5,
     },
     title:{
       fontSize: typography.FONT_SIZE_16,
