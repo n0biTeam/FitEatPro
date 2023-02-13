@@ -70,7 +70,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Dostajemy listę produktów, którą możemy uzupełniać, modyfikować lub kasować. Lista produktów wyświetla informację o indeksie glikemicznym, po kliknięciu w dany produkt dostajemy informację o wartościach odżywczych danego produktu mi. witaminy, makroelemeny i mikroelemeny</Text>
+                    <Text>Wyszukiwarka produktów</Text>
                   </View>
                 </View>
 
@@ -80,7 +80,27 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text>Sortowanie listy produktów wg wybranego składnika odżywczego</Text>
+                    <Text>Dostajemy listę produktów, którą możemy uzupełniać, modyfikować lub kasować</Text>
+                  </View>
+                </View>
+
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{marginRight: spacing.SCALE_6}}>
+                    <Text>{'\u2B24'}</Text>
+                  </View>
+      
+                  <View style={{flex: 1}}>
+                    <Text>Lista produktów wyświetla informację o indeksie glikemicznym, po kliknięciu w dany produkt dostajemy informację o wartościach odżywczych danego produktu mi. witaminy, makroelemeny i mikroelemeny</Text>
+                  </View>
+                </View>
+
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{marginRight: spacing.SCALE_6}}>
+                    <Text>{'\u2B24'}</Text>
+                  </View>
+      
+                  <View style={{flex: 1}}>
+                    <Text>Sortowanie listy produktów wg wybranej wartości</Text>
                   </View>
                 </View>
 
