@@ -104,14 +104,16 @@ const ProfileScreen = ({ navigation }) => {
     }
   }
   
- 
+  const _goBack = () => navigation.navigate('HomeScreen');
   const imageBG = require('../../assets/images/bg-abstract.jpg');
 
   return (
     
     <SafeAreaProvider>
     <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
+      <Appbar.BackAction onPress={_goBack} />
       <Appbar.Content title={t('profileScreen.my-profile')} />
+      
         {/* <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  /> */}
         <Appbar.Action icon="account-edit" onPress={() => navigation.navigate('EditProfile')}  />
         <Appbar.Action icon="logout" onPress={logout} style={{marginRight: spacing.SCALE_4}}/>

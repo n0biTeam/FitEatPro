@@ -555,8 +555,9 @@ const _differenceWeight = () => {
 <View style={{marginTop: spacing.SCALE_40, paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', alignContent: 'space-around', marginBottom: spacing.SCALE_35, zIndex: 0 }}>
 
        <View style={{paddingTop: spacing.SCALE_3, justifyContent: 'center', flex: 1, zIndex: 100}}>
-          <Avatar.Image size={spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} />
-        
+          <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
+            <Avatar.Image size={spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} />
+          </TouchableOpacity>
        </View>
        
        <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>

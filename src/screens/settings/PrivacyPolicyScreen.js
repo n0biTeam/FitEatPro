@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.COLORS.WHITE,
         padding: spacing.SCALE_6,
-        marginBottom: spacing.SCALE_6
+        marginBottom: spacing.SCALE_6,
+        borderRadius: spacing.SCALE_5
     }
 })

@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, spacing } from '../../styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { version } from '../../styles/constants';
 
 const SettingScreen = ({ route, navigation }) => {
   
@@ -18,97 +19,101 @@ const SettingScreen = ({ route, navigation }) => {
   
   return (
     <SafeAreaProvider>
-      <Appbar.Header style={{backgroundColor: '#224870'}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE}}>
    
        {/* <Appbar.Content title="Ustawienia" /> */}
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     
    
-    <ScrollView>
-    <View style={styles.rootContainer}>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <View style={styles.rootContainer}>
 
-        <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('UnitSettingScreen')}>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='cog' size={25} color={colors.COLORS.GREEN} />
-                </View>
-                <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                    <Text style={styles.text}>Ustawienie jednostek</Text>
-                </View>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='chevron-right' size={25} />
-                </View>
+            <View style={{flex: 1}}>
+                <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('UnitSettingScreen')}>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='cog' size={25} color={colors.COLORS.GREEN} />
+                        </View>
+                        <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
+                            <Text style={styles.text}>Ustawienie jednostek</Text>
+                        </View>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='chevron-right' size={25} />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+
+                <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
+
+                <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ShopScreen')}>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='cart-outline' size={25} color={colors.COLORS.GREEN} />
+                        </View>
+                        <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
+                            <Text style={styles.text}>Kup / Subskrypcje</Text>
+                        </View>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='chevron-right' size={25} />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+
+                <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
+
+            <TouchableOpacity style={styles.box} onPress={openPlayStore}>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='star-outline' size={25} color={colors.COLORS.GREEN} />
+                        </View>
+                        <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
+                            <Text style={styles.text}>Oceń aplikację</Text>
+                        </View>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='chevron-right' size={25} />
+                        </View>
+                    </View>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('PrivacyPolicyScreen')}>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='eye-outline' size={25} color={colors.COLORS.GREEN} />
+                        </View>
+                        <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
+                            <Text style={styles.text}>Polityka prywatności</Text>
+                        </View>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='chevron-right' size={25} />
+                        </View>
+                    </View>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('AboutTheAppScreen')}>
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='information-outline' size={25} color={colors.COLORS.GREEN} />
+                        </View>
+                        <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
+                            <Text style={styles.text}>O aplikacji</Text>
+                        </View>
+                        <View style={{justifyContent: 'center'}}>
+                            <MaterialCommunityIcons name='chevron-right' size={25} />
+                        </View>
+                    </View>
+            </TouchableOpacity>
+
+            <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
             </View>
-        </TouchableOpacity>
 
-        <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
-
-        <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ShopScreen')}>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='cart-outline' size={25} color={colors.COLORS.GREEN} />
-                </View>
-                <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                    <Text style={styles.text}>Kup / Subskrypcje</Text>
-                </View>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='chevron-right' size={25} />
-                </View>
+            <View style={{flex:1, justifyContent: 'flex-end', marginBottom: spacing.SCALE_6, alignItems: 'center'}}>
+                <Text style={{color: colors.TEXT.DEEP_BLUE}}>FitEat Pro v. {version.namber}</Text>
             </View>
-        </TouchableOpacity>
 
-        <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
-
-       <TouchableOpacity style={styles.box} onPress={openPlayStore}>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='star-outline' size={25} color={colors.COLORS.GREEN} />
-                </View>
-                <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                    <Text style={styles.text}>Oceń aplikację</Text>
-                </View>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='chevron-right' size={25} />
-                </View>
-            </View>
-       </TouchableOpacity>
-      
-       <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('PrivacyPolicyScreen')}>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='eye-outline' size={25} color={colors.COLORS.GREEN} />
-                </View>
-                <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                    <Text style={styles.text}>Polityka prywatności</Text>
-                </View>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='chevron-right' size={25} />
-                </View>
-            </View>
-       </TouchableOpacity>
-       
-       <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('AboutTheAppScreen')}>
-            <View style={{flexDirection: 'row'}}>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='information-outline' size={25} color={colors.COLORS.GREEN} />
-                </View>
-                <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                    <Text style={styles.text}>O aplikacji</Text>
-                </View>
-                <View style={{justifyContent: 'center'}}>
-                    <MaterialCommunityIcons name='chevron-right' size={25} />
-                </View>
-            </View>
-       </TouchableOpacity>
-
-        <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
-
-        
-
-    </View>
-
+        </View>
     </ScrollView>
+    
     
     
     </SafeAreaProvider>
@@ -122,7 +127,8 @@ const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
         marginHorizontal: spacing.SCALE_6,
-        marginTop: spacing.SCALE_6
+        marginTop: spacing.SCALE_6,
+        flexDirection: 'column',
     },
     box: {
         backgroundColor: colors.COLORS.WHITE,

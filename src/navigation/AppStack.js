@@ -85,14 +85,6 @@ function HomeTabs() {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-          options={{
-            title: t('menu-profile'),      
-          }}
-      />
-
-      <Tab.Screen
         name="SettingScreen"
         component={SettingScreen}
           options={{
@@ -424,6 +416,24 @@ const AppStack = () => {
         headerShown: false,
       }}
     />
+
+    <Stack.Screen
+      name="Profile"
+      component={ProfileScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+
+    {/* <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+          options={{
+            title: t('menu-profile'),      
+          }}
+      /> */}
 
     <Stack.Screen
       name="PrivacyPolicyScreen"

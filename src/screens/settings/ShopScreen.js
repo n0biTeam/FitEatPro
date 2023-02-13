@@ -61,12 +61,14 @@ export default ShopScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
-        marginHorizontal: spacing.SCALE_6
+        marginHorizontal: spacing.SCALE_6,
+        
     },
     boxContainer: {
         flex: 1,
         backgroundColor: colors.COLORS.WHITE,
         padding: spacing.SCALE_6,
-        marginBottom: spacing.SCALE_6
+        marginBottom: spacing.SCALE_6,
+        borderRadius: spacing.SCALE_5
     }
 })
