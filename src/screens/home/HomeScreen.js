@@ -18,6 +18,9 @@ import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
 
 
+const heightScreen = Dimensions.get('screen').height;
+console.log(heightScreen)
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -535,7 +538,8 @@ const _differenceWeight = () => {
        )
     }
     }
-  
+
+     
   return (
     <PaperProvider theme={theme}>
     <SafeAreaProvider>
@@ -859,7 +863,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     //width: 100,
-    height: Dimensions.get("window").height > 600 ? Dimensions.get('window').width/6 : 80,
+    //height: Dimensions.get("window").height > 600 ? Dimensions.get('window').width/6 : 80,
+    height: Dimensions.get("window").height > 600 ? heightScreen/2-325 : 80,
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: 10,
     width: Dimensions.get('window').width/3 - 12 

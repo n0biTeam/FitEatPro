@@ -53,7 +53,7 @@ const AboutTheAppScreen = ({ navigation }) => {
               <ScrollView>
               <Text style={styles.text}>Aplikacja powstała z myślą o osobach stosujących diety oparte o niski indeks glikemiczny. Przyda się w walce z otyłością oraz w zapobieganiu cukrzycy.</Text>
               <View style={{marginTop: spacing.SCALE_10}}>
-                <Text style={{color: colors.TEXT.GREEN}}>Podstawowe fukncje aplikacji:</Text>
+                <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>Podstawowe fukncje:</Text>
                 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
@@ -102,7 +102,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Sortowanie listy produktów wg wybranej wartości</Text>
+                    <Text style={styles.text}>Sortowanie listy produktów wg wybranego składnika</Text>
                   </View>
                 </View>
 
@@ -147,7 +147,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                 </View>
 
                 <View style={{marginTop: spacing.SCALE_10}}>
-                  <Text style={{color: colors.TEXT.GREEN}}>Pozostałe fukncje aplikacji:</Text>
+                  <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>Pozostałe fukncje:</Text>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
@@ -193,19 +193,19 @@ const AboutTheAppScreen = ({ navigation }) => {
               </View>
 
               <View style={{marginTop: spacing.SCALE_10}}>
-                  <Text style={{color: colors.TEXT.GREEN}}>Pozostałe informacje:</Text>
+                  <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>Pozostałe informacje:</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={styles.text}>Aplikacja wymaga połączenia z internetem, ponieważ wszystkie dane przetrzymywane są na zewnętrznym serwerze (firebase google).</Text>
+                    <Text style={styles.text}>Aplikacja wymaga połączenia z internetem, gdyż wszystkie dane przetrzymywane są na zewnętrznym serwerze (firebase google).</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={styles.text}>W razie wymiany telefonu, wystarczy pobrać aplikację i ponownie się zalogować.</Text>
+                    <Text style={styles.text}>W razie wymiany telefonu wystarczy pobrać aplikację i ponownie się zalogować.</Text>
                 </View>
 
               <View style={{marginTop: spacing.SCALE_15}}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>Źródło:</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Źródło:</Text>
                 <View>
-                  <Text style={{fontSize: typography.FONT_SIZE_12}}>The Univerity of Sydney, USDA U.A. Departamment Of Agriculture, Wikipedia, Low Crab Check i inne.</Text>
+                  <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>The Univerity of Sydney, USDA U.A. Departamment Of Agriculture, Wikipedia, Low Crab Check i inne.</Text>
                 </View>
               </View>
 
@@ -241,9 +241,10 @@ const styles = StyleSheet.create({
     },
     text: {
       fontSize: typography.FONT_SIZE_13,
+      color: colors.TEXT.DEEP_BLUE
     },
     dot: {
       fontSize: typography.FONT_SIZE_13,
-      color: colors.TEXT.GREY_AAA
+      color: colors.TEXT.DEEP_BLUE
     }
 })
