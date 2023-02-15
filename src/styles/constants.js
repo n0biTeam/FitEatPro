@@ -3,5 +3,5 @@ export const version ={
 }
 
 export const IG = {
-    value: '1'
+    value: '2'
 }

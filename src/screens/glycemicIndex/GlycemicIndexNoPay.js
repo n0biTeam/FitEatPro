@@ -30,33 +30,30 @@ const theme = {
   },
 };
 
+const lang = RNLocalize.getLocales()[0].languageCode;
+let data = [];
+if(lang === 'pl'){
+  data = dataPL;
+}else{
+  data = dataEN;
+}
+
 const GlycemicIndexNoPay = ({ 
       navigation
   }) => {
 
-    
+  
 
     const {t, i18n} = useTranslation();
-
-    const lang = RNLocalize.getLocales()[0].languageCode;
-    let data = [];
-    if(lang === 'pl'){
-      data = dataPL;
-    }else{
-      data = dataEN;
-    }
-
-    //const {user} = useContext(AuthContext);
     
     const [switchSort, setSwitchSort] = useState('2');
-
     
-      const [search, setSearch] = useState('');
-      const [filteredDataSource, setFilteredDataSource] = useState([...data.sort((a, b) => {
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState([...data.sort((a, b) => {
         return a.name.localeCompare(b.name)
-      })]);
-      const [masterDataSource, setMasterDataSource] = useState([...data]);
-      
+    })]);
+    const [masterDataSource, setMasterDataSource] = useState([...data]);
+     
            
     useEffect(() => {
       setFilteredDataSource([...data]);

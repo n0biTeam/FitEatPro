@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, ActivityIndicator, ToastAndroid, Alert} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
-import { Avatar, Banner, TextInput, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Avatar, Banner, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -745,7 +745,7 @@ const _differenceWeight = () => {
 
      <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
 
-       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('PurineListScreen')}}>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => { IG.value === '1' ? navigation.navigate('PurineListScreen') : navigation.navigate('PurineListScreenNoPay')}}>
           <View style={styles.boxContainer}>
           <MaterialCommunityIcons name='molecule' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
           </View>

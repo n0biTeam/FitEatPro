@@ -16,7 +16,7 @@ import { WeightLogScreen, WeightDetailScreen, WeightCharts, HistoryWeightScreen 
 import { GlucoseDiaryScreen, GlucoseViewItemScreen, GlucoseEditItemScreen, GlucoseChartScreen } from '../screens/glucose';
 import { BloodPressureScreen, BloodPressureViewItemScreen, BloodPressureEditItemScreen, BloodCharts } from '../screens/bloodPreesure';
 import { NotesScreen, NotesAddScreen, NotesEditScreen } from '../screens/notes';
-import { PurineListScreen, PurineAddScreen, PurineEditScreen } from '../screens/purine';
+import { PurineListScreen, PurineAddScreen, PurineEditScreen, PurineListScreenNoPay } from '../screens/purine';
 import { FindingScreen, FindingAddScreen, FindingEditScreen, FindingViewScreen } from '../screens/findings';
 import { SettingScreen, UnitSettingScreen, ShopScreen, PrivacyPolicyScreen, AboutTheAppScreen } from '../screens/settings';
 import { t } from 'i18next';
@@ -468,28 +468,26 @@ const AppStack = () => {
       }}
     />
 
-
-    { IG.value === '1' ?
-        <Stack.Screen
-              name="GlycemicIndex"
-              component={GlycemicIndex}
-              options={{
-                title: '',
-                headerBackTitleVisible: false,
-                headerShown: false,
-              }}
-            />
-        : 
-        <Stack.Screen
-              name="GlycemicIndexNoPay"
-              component={GlycemicIndexNoPay}
-              options={{
-                title: '',
-                headerBackTitleVisible: false,
-                headerShown: false,
-              }}
-            />
-    }
+    <Stack.Screen
+        name="GlycemicIndex"
+        component={GlycemicIndex}
+        options={{
+          title: '',
+          headerBackTitleVisible: false,
+          headerShown: false,
+        }}
+    />
+       
+    <Stack.Screen
+        name="GlycemicIndexNoPay"
+        component={GlycemicIndexNoPay}
+        options={{
+          title: '',
+          headerBackTitleVisible: false,
+          headerShown: false,
+        }}
+    />
+    
     <Stack.Screen
       name="EditItemGlycemicIndex"
       component={EditItemGlycemicIndex}
@@ -520,7 +518,7 @@ const AppStack = () => {
       }}
     />
 
-<Stack.Screen
+    <Stack.Screen
       name="TopTabs"
       component={TopTabs}
       options={{
@@ -530,7 +528,7 @@ const AppStack = () => {
       }}
     />
 
-<Stack.Screen
+    <Stack.Screen
       name="TopTabs2"
       component={TopTabs2}
       options={{
@@ -650,6 +648,7 @@ const AppStack = () => {
       }}
     />   
 
+   
     <Stack.Screen
       name="PurineListScreen"
       component={PurineListScreen}
@@ -659,7 +658,17 @@ const AppStack = () => {
         headerShown: false,
       }}
     />
-
+    
+    <Stack.Screen
+      name="PurineListScreenNoPay"
+      component={PurineListScreenNoPay}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+    
     <Stack.Screen
       name="PurineAddScreen"
       component={PurineAddScreen}
