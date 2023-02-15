@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "FitEatPro.app"
-               BlueprintName = "FitEatPro"
-               ReferencedContainer = "container:FitEatPro.xcodeproj">
+               BuildableName = "fiteatpro.app"
+               BlueprintName = "fiteatpro"
+               ReferencedContainer = "container:fiteatpro.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "FitEatProTests.xctest"
-               BlueprintName = "FitEatProTests"
-               ReferencedContainer = "container:FitEatPro.xcodeproj">
+               BuildableName = "fiteatproTests.xctest"
+               BlueprintName = "fiteatproTests"
+               ReferencedContainer = "container:fiteatpro.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FitEatPro.app"
-            BlueprintName = "FitEatPro"
-            ReferencedContainer = "container:FitEatPro.xcodeproj">
+            BuildableName = "fiteatpro.app"
+            BlueprintName = "fiteatpro"
+            ReferencedContainer = "container:fiteatpro.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "FitEatPro.app"
-            BlueprintName = "FitEatPro"
-            ReferencedContainer = "container:FitEatPro.xcodeproj">
+            BuildableName = "fiteatpro.app"
+            BlueprintName = "fiteatpro"
+            ReferencedContainer = "container:fiteatpro.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

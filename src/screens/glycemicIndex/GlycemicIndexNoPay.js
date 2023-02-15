@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, Pressable } from 'react-native';
-import React, {useContext, useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
+import { Searchbar, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
