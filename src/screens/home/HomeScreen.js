@@ -537,16 +537,19 @@ const _differenceWeight = () => {
     }
     }
 
-     
+  const heightScreen = Dimensions.get("screen").height;
+  console.log(heightScreen)
+    
   return (
     <PaperProvider theme={theme}>
     <SafeAreaProvider>
-    <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
+    <StatusBar translucent={true} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
     {baseConnect()}
     <ImageBackground 
     source={require('../../assets/images/wave.png')}
     style={{ 
       flex: 1, 
+      //backgroundColor: 'red',
       width: Dimensions.get('window').width,
       height: spacing.SCALE_300,
       width: Dimensions.get('window').width,
@@ -554,19 +557,18 @@ const _differenceWeight = () => {
     
   >
 
-<View style={{marginTop: spacing.SCALE_40, paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', alignContent: 'space-around', marginBottom: spacing.SCALE_35, zIndex: 0 }}>
-
-       <View style={{paddingTop: spacing.SCALE_3, justifyContent: 'center', flex: 1, zIndex: 100}}>
+    <View style={{marginTop: StatusBar.currentHeight, paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', alignContent: 'space-around', zIndex: 0 }}>
+      <View style={{paddingTop: spacing.SCALE_3, justifyContent: 'center', flex: 1}}>
           <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
             <Avatar.Image size={spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} />
           </TouchableOpacity>
-       </View>
-       
-       <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
+      </View>
+
+      <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
           <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, marginBottom: spacing.SCALE_3}}>{t('homescreen-weight')}</Text>
           <CircularProgress
             value={!weight ? 0 : _getWeightUnit()}
-            radius={spacing.SCALE_21}
+            radius={spacing.SCALE_22}
             //inActiveStrokeOpacity={0.3}
             maxValue={!weight ? 0 : _getWeightUnit()}
             rotation={360}
@@ -585,9 +587,9 @@ const _differenceWeight = () => {
               return value.toFixed(1);
             }}
           />
-       </View>
+      </View>
 
-       <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center'}}>
         <Text></Text>
         {
           weight > targetWeight ?
@@ -630,13 +632,13 @@ const _differenceWeight = () => {
             </TouchableOpacity>
           )
         }
-       </View>
+      </View>
 
-       <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
+      <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
           <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, marginBottom: spacing.SCALE_3}}>{t('homescreen-target')}</Text>
           <CircularProgress
             value={!targetWeight ? 0 : _getTargetUnit()}
-            radius={spacing.SCALE_20}
+            radius={spacing.SCALE_22}
             //inActiveStrokeOpacity={0.3}
             maxValue={!targetWeight ? 0 : _getTargetUnit()}
             rotation={360}
@@ -655,99 +657,93 @@ const _differenceWeight = () => {
               return value.toFixed(1);
             }}
           />
-       </View>
+      </View>
 
-       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
         
             <View style={{alignItems: 'center'}}>
             <TouchableOpacity onPress={logout} style={{paddingLeft: spacing.SCALE_8, paddingRight: spacing.SCALE_106, marginTop: spacing.SCALE_105}}>
               <MaterialCommunityIcons name='logout' size={spacing.SCALE_25} color={colors.COLORS.WHITE} />
             </TouchableOpacity>
             </View>
-       </View>
-
+      </View>
     </View>
-    <View style={{marginTop: -59, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
+
+    <View style={{marginTop: -20, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
       {netConnect()}
       {/* <MaterialCommunityIcons name='wifi-arrow-up' size={18} /> */}
       {netInfoType()}
       {/* {netGeneration()} */}
     </View>
 
-    {/* {baseConnect()} */}
+    { Dimensions.get("window").height > 600 &&
+      <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_5, marginTop: spacing.SCALE_8}}>
     
-   
- <ScrollView>
-  { Dimensions.get("window").height > 600 &&
-    <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_5, marginTop: spacing.SCALE_8}}>
-   
-      <View>
-        <View style={{flex: 1}}>
-          <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_11, textTransform: 'uppercase'}}>{t('homescreen-body-weight-chart')}</Text>
+        <View>
+          
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_11, textTransform: 'uppercase'}}>{t('homescreen-body-weight-chart')}</Text>
+          
+          
         </View>
-        
-      </View>
 
-      {
-       charts(dataCharts, dataDate7)
-      }  
-  
-    </View>
-  }
-    
+        {
+        charts(dataCharts, dataDate7)
+        }  
+      </View>
+    }
+
+    <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_10}}>
       <View style={[styles.menuContainer, {marginTop: Dimensions.get("window").height > 600 ? 0 : spacing.SCALE_30}]}>
         
-        <TouchableOpacity style={styles.menuBtn} onPress={() => navigation.navigate('GlycemicIndex')}>
-          <View style={styles.boxContainer}>
-            {/* <Text style={{fontSize: 25, color: TEXT.DEEP_BLUE, fontWeight: 'bold'}}>IG</Text> */}
-            <MaterialCommunityIcons name='food-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
-          </View>
-            <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.menuBtn} onPress={() => navigation.navigate('GlycemicIndex')}>
+            <View style={styles.boxContainer}>
+              <MaterialCommunityIcons name='food-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+            </View>
+              <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}}>
-          <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
-          </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-menu-weight')}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}}>
+            <View style={styles.boxContainer}>
+              <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+            </View>
+            <Text style={styles.menuBtnText}>{t('homescreen-menu-weight')}</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs')}}>
-          <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='human' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
-          </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-menu-bmi')}</Text>
-        </TouchableOpacity>
-      
+          <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs')}}>
+            <View style={styles.boxContainer}>
+              <MaterialCommunityIcons name='human' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+            </View>
+            <Text style={styles.menuBtnText}>{t('homescreen-menu-bmi')}</Text>
+          </TouchableOpacity>
+
       </View>
 
       <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
        
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}}>
-          <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
-          </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-menu-blood-pressure')}</Text>
-        </TouchableOpacity>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}}>
+         <View style={styles.boxContainer}>
+           <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+         </View>
+         <Text style={styles.menuBtnText}>{t('homescreen-menu-blood-pressure')}</Text>
+       </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}}>
-          <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
-          </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-menu-glucose')}</Text>
-        </TouchableOpacity>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}}>
+         <View style={styles.boxContainer}>
+           <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+         </View>
+         <Text style={styles.menuBtnText}>{t('homescreen-menu-glucose')}</Text>
+       </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs2')}}>
-          <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='clipboard-edit-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
-          </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-memu-insulin-resistance')}</Text>
-        </TouchableOpacity>
-        
-      </View>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs2')}}>
+         <View style={styles.boxContainer}>
+           <MaterialCommunityIcons name='clipboard-edit-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+         </View>
+         <Text style={styles.menuBtnText}>{t('homescreen-memu-insulin-resistance')}</Text>
+       </TouchableOpacity>
+       
+     </View>
 
-      <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
-
+     <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
 
        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('PurineListScreen')}}>
           <View style={styles.boxContainer}>
@@ -769,76 +765,12 @@ const _differenceWeight = () => {
           </View>
           <Text style={styles.menuBtnText}>{t('homescreen-menu-notes')}</Text>
         </TouchableOpacity>
-
-        
-        
       </View>
-      </ScrollView>
+
+    </View>
+      
     </ImageBackground>
-    <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={false}
-       // closeOnPressBack={true}
-        onClose={() => setIsOpen(false)}
-        //animationType='slide'
-        height={heightModal}
-        openDuration={400}
-        closeDuration={200}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "transparent",
-          },
-          draggableIcon: {
-            backgroundColor: colors.COLORS.DEEP_BLUE,
-          },
-          container: {
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            elevation: 15, 
-            backgroundColor: colors.COLORS.WHITE
-          }
-        }}
-      >
-       <View style={styles.modalRoot}>
-        {/* <Text>{userData.weightName}</Text> */}
-        <View style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_8, borderRadius: spacing.SCALE_5}}>
-            <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>Wyznacz nowy cel</Text>
-        </View>
-
-          <View>
-          <View style={{ elevation: 5, marginTop: spacing.SCALE_6}}>
-                    <TextInput
-                        underlineColor={colors.COLORS.WHITE}
-                        activeUnderlineColor={colors.COLORS.DEEP_BLUE}
-                        label={'Waga docelowa (' + UNIT.KG + ')'} 
-                        value={newTarget}
-                        style={{backgroundColor: colors.COLORS.LIGHT_GREY}}
-                        onChangeText={setNewTarget}
-                        keyboardType="numeric"
-                    />
-                </View>
-          </View>
-          
-
-          <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
-        <TouchableOpacity onPress={() => {handleAdd(); toggleLoading(true)}} style={styles.btnModal} >
-
-        <View style={{flexDirection: 'row'}}>
-          <View style={{marginRight: spacing.SCALE_10}}>
-             { isLoading && <ActivityIndicator size="small" color={colors.TEXT.WHITE} /> }
-          </View>
-          <View>
-             <Text style={styles.textBtn}>ZAPISZ</Text>
-          </View>
-        </View>
-          
-        </TouchableOpacity>
-
-      </View>
-
-       </View>
-       </RBSheet>
+   
     </SafeAreaProvider>
     </PaperProvider>
   )
@@ -852,7 +784,8 @@ const styles = StyleSheet.create({
     //width: '95%',
     alignSelf: 'center',
     marginBottom: 0,
-    flex: 1
+    //flex: 1,
+    
   },
   boxContainer:{
     borderWidth: 1,
@@ -862,7 +795,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     //width: 100,
     //height: Dimensions.get("window").height > 600 ? Dimensions.get('window').width/6 : 80,
-    height: Dimensions.get("window").height > 600 ? heightScreen/2-325 : 80,
+    height: Dimensions.get("window").height > 600 ? heightScreen/2-320 : 80,
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: 10,
     width: Dimensions.get('window').width/3 - 12 

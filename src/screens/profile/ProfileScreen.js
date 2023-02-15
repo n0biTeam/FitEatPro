@@ -344,21 +344,10 @@ const styles = StyleSheet.create({
     //height: Dimensions.get('screen').height-106,
     marginBottom: spacing.SCALE_6,
     borderRadius: spacing.SCALE_5,
-    elevation: 3
+    //borderTopLeftRadius: spacing.SCALE_5,
+    //borderTopRightRadius: spacing.SCALE_5,
+    //elevation: 3
   },
-  // btnModal: {
-  //   borderWidth: 0,
-  //   padding: spacing.SCALE_20,
-  //   width: Dimensions.get('window').width-12,
-  //   borderRadius: 10,
-  //   alignItems: 'center',
-  //   backgroundColor: colors.COLORS.DEEP_BLUE,
-  //   elevation: 3,
-  //   marginBottom: spacing.SCALE_10
-  // },
-  // textBtn: {
-  //   color: colors.TEXT.WHITE
-  // },
   box: {
     backgroundColor: colors.COLORS.WHITE,
     padding: spacing.SCALE_10,
