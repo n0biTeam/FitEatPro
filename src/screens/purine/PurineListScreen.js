@@ -508,7 +508,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     fabStyle: {
-      bottom: spacing.SCALE_16,
+      bottom: spacing.SCALE_20,
       right: spacing.SCALE_16,
       position: 'absolute',
       marginBottom: spacing.SCALE_35,

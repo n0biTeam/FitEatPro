@@ -284,7 +284,7 @@ const BmrScreen = ({ navigation }) => {
       <ScrollView>
       <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, alignItems: 'center',}}>
         
-        <View style={{flex: 1, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: 5, marginRight: spacing.SCALE_3, elevation: 4}}>
+        <View style={{flex: 1, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: 5, marginRight: spacing.SCALE_3, elevation: 4, height: 228}}>
         <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>BMR</Text>
         
         <CircularProgress
@@ -313,7 +313,7 @@ const BmrScreen = ({ navigation }) => {
          <Text style={{marginTop: spacing.SCALE_6}}>{t('bmrScreen.minimum-caloric-needs')}</Text>
         </View>
 
-        <View style={{flex: 1, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: 5, marginLeft: spacing.SCALE_3, elevation: 4}}>
+        <View style={{flex: 1, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: 5, marginLeft: spacing.SCALE_3, elevation: 4, height: 228}}>
         <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>CPM</Text>
         <CircularProgress
             value={cpmCalc === NaN ? 0.00 : sumCPM}
