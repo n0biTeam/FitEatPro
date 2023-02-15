@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, ActivityIndicator, ToastAndroid, Alert} from 'react-native';
+import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { Avatar, Banner, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -41,23 +41,17 @@ const HomeScreen = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(true);
   const heightModal = (Dimensions.get('window').height/3);
   const [newTarget, setNewTarget] = useState(0);
-  //const [sumTarget, setSumTarget] = useState(0);
-  //const [difference, setDifference] = useState(0);
-
+ 
   const [dataCharts, setDataCharts] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
   const [dataDate7, setDataDate7] = useState([]);
   
   const [dataChartsLB, setDataChartsLB] = useState([0]);
   const [dataChartsLB2, setDataChartsLB2] = useState([0]);
-
-  // const [dataChartsST, setDataChartsST] = useState([0]);
-  // const [dataChartsST2, setDataChartsST2] = useState([0]);
-  
+   
   const [weight, setWeight] = useState(0);
   const [targetWeight, setTargetWeight] = useState(0);
-  //const [net, setNet] = useState(null);
-
+  
   const [isLoading, setIsLoading] = useState(false); //button
     const toggleLoading = () => {
       setIsLoading(!isLoading);
@@ -73,11 +67,9 @@ const HomeScreen = ({ navigation }) => {
     .get()
     .then(( doc ) => {
       if( doc.exists ) {
-        //console.log('User Data: ', documentSnapshot.data());
         setUserData(doc.data());
         setWeight(doc.data().weightName);
         setTargetWeight(doc.data().targetWeight);
-        //setDifference(doc.data().difference);
       }
     })
   }
@@ -97,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
           const dataDate7 = [];
             querySnapshot.forEach(doc => {
             if( doc.exists ) {
-            //console.log('User data: ', doc.data());
+          
               dataCharts.push(doc.data().currentWeight); 
               dataCharts2.push(doc.data().targetWeight); 
 
@@ -116,8 +108,7 @@ const HomeScreen = ({ navigation }) => {
                
             });
 
-            //console.log(userData.weightUnit)
-           
+                     
            
             // waga KG
             const arrayData = dataCharts;
@@ -129,11 +120,6 @@ const HomeScreen = ({ navigation }) => {
             arrayDataLB.reverse();
             setDataChartsLB(arrayDataLB);
 
-            // waga ST
-            // const arrayDataST = dataChartsST;
-            // arrayDataST.reverse();
-            // setDataChartsST(arrayDataST);
-
             // cel KG
             const arrayData2 = dataCharts2;
             arrayData2.reverse();
@@ -143,11 +129,6 @@ const HomeScreen = ({ navigation }) => {
             const arrayDataLB2 = dataChartsLB2;
             arrayDataLB2.reverse();
             setDataChartsLB2(arrayDataLB2);
-
-            //cel ST
-            // const arrayDataST2 = dataChartsST2;
-            // arrayDataST2.reverse();
-            // setDataChartsST2(arrayDataST2);
 
             const arrayDate = dataDate7;
             arrayDate.reverse();
@@ -201,25 +182,6 @@ const _differenceWeight = () => {
     console.log(e);
   }
 }
-
-
-  const handleAdd = async () => {
-    await firestore()
-        .collection('users')
-        .doc(user.uid)
-        .collection('profile')
-        .doc('profil')
-        .update({
-          targetWeight: parseFloat(newTarget)
-        })
-        .then(() => {
-        console.log('Added');
-        ToastAndroid.show('Zaktualizowano cel', ToastAndroid.LONG, ToastAndroid.BOTTOM);
-        refRBSheet.current.close();
-        setIsLoading(false);
-        navigation.navigate('HomeScreen');
-      })
-  }
  
   useEffect(() => {
     
@@ -241,7 +203,6 @@ const _differenceWeight = () => {
     }
   }
 
-  //console.log(weight)
 
   const _getTargetUnit = () => {
     if(userData.weightUnit === UNIT.KG){
@@ -272,7 +233,7 @@ const _differenceWeight = () => {
        
       ]
     }}
-    width={Dimensions.get("window").width-12} // from react-native
+    //width = {Dimensions.get("window").width-12} // from react-native
     
     height={210}
     yAxisLabel=""
