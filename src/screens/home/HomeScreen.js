@@ -16,7 +16,7 @@ import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
 
-const heightScreen = Dimensions.get('screen').height;
+const heightScreen = Dimensions.get('window').height;
 
 const theme = {
   ...DefaultTheme,
@@ -233,9 +233,9 @@ const _differenceWeight = () => {
        
       ]
     }}
-    //width = {Dimensions.get("window").width-12} // from react-native
+    width = {Dimensions.get("window").width-12} // from react-native
     
-    height={210}
+    height={190}
     yAxisLabel=""
     yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
@@ -630,7 +630,7 @@ const _differenceWeight = () => {
       </View>
     </View>
 
-    <View style={{marginTop: -20, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
+    <View style={{marginTop: -10, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
       {netConnect()}
       {/* <MaterialCommunityIcons name='wifi-arrow-up' size={18} /> */}
       {netInfoType()}
@@ -756,7 +756,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     //width: 100,
     //height: Dimensions.get("window").height > 600 ? Dimensions.get('window').width/6 : 80,
-    height: Dimensions.get("window").height > 600 ? heightScreen/2-320 : 80,
+    height: Dimensions.get("window").height > 600 ? (heightScreen-530)/3 : 80,
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: 10,
     width: Dimensions.get('window').width/3 - 12 
