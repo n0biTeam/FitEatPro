@@ -1,0 +1,2240 @@
+import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, Pressable } from 'react-native';
+import React, {useContext, useState, useEffect, useRef} from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { AuthContext } from '../../navigation/AuthProvider';
+import firestore from '@react-native-firebase/firestore';
+import BigList from "react-native-big-list";
+import MyCircle from '../../components/MyCircle';
+import BtnModal from '../../components/BtnModal';
+import ItemBigList from '../../components/ItemBigList';
+import { MyButtonNoPay } from '../../components/MyButtonNoPay';
+import RBSheet from "react-native-raw-bottom-sheet";
+import CircularProgress from 'react-native-circular-progress-indicator';
+import { useTranslation } from 'react-i18next';
+import { colors, typography, spacing } from '../../styles';
+import { UNIT } from '../../styles/units';
+import MySwitch2 from '../../components/MySwitch';
+import * as RNLocalize from "react-native-localize";
+import dataPL from '../../data/dataPL';
+import dataEN from '../../data/dataEN';
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.COLORS.LIGHT_BLUE,
+    accent: colors.COLORS.YELLOW,
+  },
+};
+
+const GlycemicIndexNoPay = ({ 
+      navigation
+  }) => {
+
+    
+
+    const {t, i18n} = useTranslation();
+
+    const lang = RNLocalize.getLocales()[0].languageCode;
+    let data = [];
+    if(lang === 'pl'){
+      data = dataPL;
+    }else{
+      data = dataEN;
+    }
+
+    //const {user} = useContext(AuthContext);
+    
+    const [switchSort, setSwitchSort] = useState('2');
+
+    
+      const [search, setSearch] = useState('');
+      const [filteredDataSource, setFilteredDataSource] = useState([...data.sort((a, b) => {
+        return a.name.localeCompare(b.name)
+      })]);
+      const [masterDataSource, setMasterDataSource] = useState([...data]);
+      
+      // const [visible, setVisible] = React.useState(false);
+      // const showModal = () => setVisible(true);
+      // const hideModal = () => setVisible(false);
+     
+    useEffect(() => {
+      setFilteredDataSource([...data]);
+      setMasterDataSource([...data]);
+    }, []);
+    
+    const sortListASC = () => {
+      filteredDataSource.sort((obj1, obj2) => {
+        return obj1.index_glycemic - obj2.index_glycemic;
+      });
+      setMasterDataSource([...data]);
+    };
+    
+    const sortListDES = () => {
+      filteredDataSource.sort((obj1, obj2) => {
+        return obj2.index_glycemic - obj1.index_glycemic;
+      });
+      setMasterDataSource([...data]);
+    };
+    
+    const sortListAlfaASC = () => {
+        filteredDataSource.sort((obj1, obj2) => {
+        return obj1.name.localeCompare(obj2.name)
+      });
+      setMasterDataSource([...data]);
+    };
+    
+    const sortListAlfaDES = () => {
+      filteredDataSource.sort((obj1, obj2) => {
+      return obj2.name.localeCompare(obj1.name)
+    });
+    setMasterDataSource([...data]);
+    };
+    
+     
+     const searchFilterFunction = (text) => {
+     
+      if (text) {
+        const newData = masterDataSource.filter(
+          function (item) {
+            const itemData = item.name
+              ? item.name.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+        });
+        setFilteredDataSource(newData);
+        setSearch(text);
+      } else {
+        
+        setFilteredDataSource(masterDataSource);
+        setSearch(text);
+      }
+    };
+    
+  
+        
+      
+    
+
+//(a, b) => !a - !b || a - b
+const [modalX, setModalX] = useState('');
+
+const sortListIndex = () => {
+  filteredDataSource.sort((obj1, obj2) => {
+    return obj1.name.localeCompare(obj2.name)
+  });
+  setModalX('index')
+  setMasterDataSource([...data]);
+  setVisible(false);
+};
+
+//Białko
+const sortListProtein = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.protein - !b.protein || b.protein - a.protein;
+    });
+  
+    setModalX('protein');
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.protein - !b.protein || a.protein - b.protein;
+    });
+    
+    setModalX('protein');
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Tłuszcze
+const sortListFat = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.fat - !b.fat || b.fat - a.fat;
+    });
+    setModalX('fat')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.fat - !b.fat || a.fat - b.fat;
+    });
+    setModalX('fat')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Węglowodany
+const sortListCarbs = () => {
+    if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.carbs - !b.carbs || b.carbs - a.carbs;
+    });
+    setModalX('carbs')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+      filteredDataSource.sort((a, b) => {
+        return !a.carbs - !b.carbs || a.carbs - b.carbs;
+      });
+      setModalX('carbs')
+      setMasterDataSource([...data]);
+      setVisible(false);
+  }
+};
+
+//Błonnik
+const sortListFiber = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.fiber - !b.fiber || b.fiber - a.fiber;
+    });
+    setModalX('fiber')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.fiber - !b.fiber || a.fiber - b.fiber;
+    });
+    setModalX('fiber')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Cukier
+const sortListSugar = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Sugars - !b.Sugars || b.Sugars - a.Sugars;
+    });
+    setModalX('sugar')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Sugars - !b.Sugars || a.Sugars - b.Sugars;
+    });
+    setModalX('sugar')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Cholesterol
+const sortListCholesterol = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.choresterol - !b.choresterol || b.choresterol - a.choresterol;
+    });
+    setModalX('cholesterol')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.choresterol - !b.choresterol || a.choresterol - b.choresterol;
+    });
+    setModalX('cholesterol')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina A
+const sortListWitA = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.witA - !b.witA || b.witA - a.witA;
+    });
+    setModalX('witA')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.witA - !b.witA || a.witA - b.witA;
+    });
+    setModalX('witA')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Beat-caroten
+const sortListBetaCaroten = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.betaCarotene - !b.betaCarotene || b.betaCarotene - a.betaCarotene;
+    });
+    setModalX('betaCaroten')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.betaCarotene - !b.betaCarotene || a.betaCarotene - b.betaCarotene;
+    });
+    setModalX('betaCaroten')
+    setMasterDataSource([...data]);
+    setVisible(false);
+}
+};
+
+//Luteina
+const sortListLuteina = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || b.luteinaZeaksantyna - a.luteinaZeaksantyna;
+    });
+    setModalX('luteina')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || a.luteinaZeaksantyna - b.luteinaZeaksantyna;
+    });
+    setModalX('luteina')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina B1 - Tiamina
+const sortListWitB1 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB1Tiamina - !b.WitB1Tiamina || b.WitB1Tiamina - a.WitB1Tiamina;
+    });
+    setModalX('witB1')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB1Tiamina - !b.WitB1Tiamina || a.WitB1Tiamina - b.WitB1Tiamina;
+    });
+    setModalX('witB1')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina B2 - Ryboflawina
+const sortListWitB2 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || b.WitB2Ryboflawina - a.WitB2Ryboflawina;
+    });
+    setModalX('witB2')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || a.WitB2Ryboflawina - b.WitB2Ryboflawina;
+    });
+    setModalX('witB2')
+    setMasterDataSource([...data]);
+    setVisible(false);
+}
+};
+
+//Witamina B3 - niacyna
+const sortListWitB3 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB3Niacyna - !b.WitB3Niacyna || b.WitB3Niacyna - a.WitB3Niacyna;
+    });
+    setModalX('witB3')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB3Niacyna - !b.WitB3Niacyna || a.WitB3Niacyna - b.WitB3Niacyna;
+    });
+    setModalX('witB3')
+    setMasterDataSource([...data]);
+    setVisible(false);
+}
+};
+
+//Witamina B4 - cholina
+const sortListWitB4 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB4Cholina - !b.WitB4Cholina || b.WitB4Cholina - a.WitB4Cholina;
+    });
+    setModalX('witB4')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB4Cholina - !b.WitB4Cholina || a.WitB4Cholina - b.WitB4Cholina;
+    });
+    setModalX('witB4')
+    setMasterDataSource([...data]);
+    setVisible(false);
+}
+};
+
+//Witamina B5 - kwas pantotenowy
+const sortListWitB5 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB5KwasPantotenowy - !b.WitB5KwasPantotenowy || b.WitB5KwasPantotenowy - a.WitB5KwasPantotenowy;
+    });
+    setModalX('witB5')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB5KwasPantotenowy - !b.WitB5KwasPantotenowy || a.WitB5KwasPantotenowy - b.WitB5KwasPantotenowy;
+    });
+    setModalX('witB5')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina B6
+const sortListWitB6 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB6 - !b.WitB6 || b.WitB6 - a.WitB6;
+    });
+    setModalX('witB6')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB6 - !b.WitB6 || a.WitB6 - b.WitB6;
+    });
+    setModalX('witB6')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina B9 - kwas foliowy
+const sortListWitB9 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB9KwasFoliowy - !b.WitB9KwasFoliowy || b.WitB9KwasFoliowy - a.WitB9KwasFoliowy;
+    });
+    setModalX('witB9')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB9KwasFoliowy - !b.WitB9KwasFoliowy || a.WitB9KwasFoliowy - b.WitB9KwasFoliowy;
+    });
+    setModalX('witB9')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina B12
+const sortListWitB12 = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB12 - !b.WitB12 || b.WitB12 - a.WitB12;
+    });
+    setModalX('witB12')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitB12 - !b.WitB12 || a.WitB12 - b.WitB12;
+    });
+    setModalX('witB12')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina C
+const sortListWitC = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitC - !b.WitC || b.WitC - a.WitC;
+    });
+    setModalX('witC')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitC - !b.WitC || a.WitC - b.WitC;
+    });
+    setModalX('witC')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina E
+const sortListWitE = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitE - !b.WitC || b.WitE - a.WitE;
+    });
+    setModalX('witE')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitE - !b.WitE || a.WitE - b.WitE;
+    });
+    setModalX('witE')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Witamina K
+const sortListWitK = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.WitK - !b.WitK || b.WitK - a.WitK;
+    });
+    setModalX('witK')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.WitK - !b.WitK || a.WitK - b.WitK;
+    });
+    setModalX('witK')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Wapn
+const sortListWapn = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Wapn - !b.Wapn || b.Wapn - a.Wapn;
+    });
+    setModalX('wapn')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Wapn - !b.Wapn || a.Wapn - b.Wapn;
+    });
+    setModalX('wapn')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Magnez
+const sortListMagnez = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Magnez - !b.Magnez || b.Magnez - a.Magnez;
+    });
+    setModalX('magnez')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Magnez - !b.Magnez || a.Magnez - b.Magnez;
+    });
+    setModalX('magnez')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Fosfor
+const sortListFosfor = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Fosfor - !b.Fosfor || b.Fosfor - a.Fosfor;
+    });
+    setModalX('fosfor')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Fosfor - !b.Fosfor || a.Fosfor - b.Fosfor;
+    });
+    setModalX('fosfor')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Potas
+const sortListPotas = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Potas - !b.Potas || b.Potas - a.Potas;
+    });
+    setModalX('potas')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Potas - !b.Potas || a.Potas - b.Potas;
+    });
+    setModalX('potas')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Sod
+const sortListSod = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Sod - !b.Sod || b.Sod - a.Sod;
+    });
+    setModalX('sod')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Sod - !b.Sod || a.Sod - b.Sod;
+    });
+    setModalX('sod')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Miedz
+const sortListMiedz = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Miedz - !b.Miedz || b.Miedz - a.Miedz;
+    });
+    setModalX('miedz')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Miedz - !b.Miedz || a.Miedz - b.Miedz;
+    });
+    setModalX('miedz')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Żelazo
+const sortListIron = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Zelazo - !b.Zelazo || b.Zelazo - a.Zelazo;
+    });
+    setModalX('iron')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Zelazo - !b.Zelazo || a.Zelazo - b.Zelazo;
+    });
+    setModalX('iron')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Mangan
+const sortListMangan = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Mangan - !b.Mangan || b.Mangan - a.Mangan;
+    });
+    setModalX('mangan')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Mangan - !b.Mangan || a.Mangan - b.Mangan;
+    });
+    setModalX('mangan')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Selen
+const sortListSelen = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Selen - !b.Selen || b.Selen - a.Selen;
+    });
+    setModalX('selen')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Selen - !b.Selen || a.Selen - b.Selen;
+    });
+    setModalX('selen')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+//Cynk
+const sortListCynk = () => {
+  if(switchSort === 1){
+    filteredDataSource.sort((a, b) => {
+      return !a.Cynk - !b.Cynk || b.Cynk - a.Cynk;
+    });
+    setModalX('cynk')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }else{
+    filteredDataSource.sort((a, b) => {
+      return !a.Cynk - !b.Cynk || a.Cynk - b.Cynk;
+    });
+    setModalX('cynk')
+    setMasterDataSource([...data]);
+    setVisible(false);
+  }
+};
+
+const xxx = (item) => {
+  if(modalX === 'protein'){
+     return (
+      <ItemBigList value={(item.protein).toFixed(2)} unit={UNIT.GR} />
+     )
+  }else if(modalX === 'fat'){
+    return (
+      <ItemBigList value={(item.fat).toFixed(2)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'index'){
+    return(
+      <MyCircle percentage={item.index_glycemic} /> 
+    )
+  }else if(modalX === 'carbs'){
+     return (
+      <ItemBigList value={(item.carbs).toFixed(2)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'fiber'){
+    return (
+      <ItemBigList value={(item.fiber).toFixed(2)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'sugar'){
+    return (
+      <ItemBigList value={(item.Sugars).toFixed(2)} unit={UNIT.GR} />
+    )
+  }else if(modalX === 'cholesterol'){
+    return (
+      <ItemBigList value={(item.choresterol).toFixed(0)} unit={UNIT.MG} />
+    )
+  }else if(modalX === 'witA'){
+    return (
+      <ItemBigList value={(item.witA).toFixed(0)} unit={UNIT.IU} width={70} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'betaCaroten'){
+    return (
+      <ItemBigList value={(item.betaCarotene).toFixed(3)} unit={UNIT.UG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'luteina'){
+    return (
+      <ItemBigList value={(item.luteinaZeaksantyna).toFixed(3)} unit={UNIT.UG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB1'){
+    return (
+      <ItemBigList value={(item.WitB1Tiamina).toFixed(3)} unit={UNIT.MG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB2'){
+    return (
+      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB3'){
+    return (
+      <ItemBigList value={(item.WitB3Niacyna).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB4'){
+    return (
+      <ItemBigList value={(item.WitB4Cholina).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB5'){
+    return (
+      <ItemBigList value={(item.WitB5KwasPantotenowy).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB6'){
+    return (
+      <ItemBigList value={(item.WitB6).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB9'){
+    return (
+      <ItemBigList value={(item.WitB9KwasFoliowy).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witB12'){
+    return (
+      <ItemBigList value={(item.WitB12).toFixed(3)} width={75} unit={UNIT.UG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witC'){
+    return (
+      <ItemBigList value={(item.WitC).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witE'){
+    return (
+      <ItemBigList value={(item.WitE).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'witK'){
+    return (
+      <ItemBigList value={(item.WitK).toFixed(4)} width={85} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+    )
+  }else if(modalX === 'wapn'){
+    return (
+      <ItemBigList value={(item.Wapn).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'magnez'){
+    return (
+      <ItemBigList value={(item.Magnez).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'fosfor'){
+    return (
+      <ItemBigList value={(item.Fosfor).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'potas'){
+    return (
+      <ItemBigList value={(item.Potas).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'sod'){
+    return (
+      <ItemBigList value={(item.Sod).toFixed(0)} width={70} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
+    )
+  }else if(modalX === 'miedz'){
+    return (
+      <ItemBigList value={(item.Sod).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'iron'){
+    return (
+      <ItemBigList value={(item.Zelazo).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'mangan'){
+    return (
+      <ItemBigList value={(item.Mangan).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'selen'){
+    return (
+      <ItemBigList value={(item.Selen).toFixed(4)} width={85} unit={UNIT.UG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else if(modalX === 'cynk'){
+    return (
+      <ItemBigList value={(item.Cynk).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+    )
+  }else{
+    return(
+      <MyCircle percentage={item.index_glycemic} /> 
+    )
+  }
+}
+    
+    const _goBack = () => navigation.goBack();
+    const refRBSheet = useRef();
+    const [isOpen, setIsOpen] = useState(true);
+    const [initialItem, setInitialItem] = useState('');
+    const [number, onChangeNumber] = React.useState(null);
+    const heightMidal = (Dimensions.get('window').height);
+    
+
+   /**
+   * 
+   * @param {float} number 
+   * @returns 
+   */
+  function obliczLG(number){
+    
+    if(number === null){
+      const result = (((initialItem.carbs - initialItem.fiber)*initialItem.index_glycemic)/initialItem.grammage);
+      return result;
+    }else{
+      const num2 = number/100;
+      const result = ((((initialItem.carbs - initialItem.fiber)*initialItem.index_glycemic)/initialItem.grammage)*num2);
+      return result;
+    }
+ }
+
+ /**
+  * 
+  * @param {float} number 
+  * @returns 
+  */
+  function obliczWW(number)
+  {
+     if(number === null){
+         const result = (((initialItem.carbs - initialItem.fiber)*1)/10);
+         return result;
+     }else{
+         const wartosc = number/100;
+         const result = ((((initialItem.carbs - initialItem.fiber)*wartosc)*1)/10);
+         return result;
+     }
+  }
+ 
+  /**
+   * 
+   * @param {float} number 
+   * @returns 
+   */
+  function obliczWBT(number)
+  {
+     if(number === null){
+         const result = (initialItem.kcal - (initialItem.protein*4 + initialItem.fat*9))/100;
+         return result;
+     }else{
+         const wartosc = number/100;
+         const result = ((initialItem.kcal*wartosc) - ((initialItem.protein*4 + initialItem.fat*9)*wartosc))/100;
+         return result;
+     }
+  }
+
+  /**
+  * 
+  * @param {float} number 
+  * @returns 
+  */
+   function obliczKcal(number){
+     
+    if(number === null){
+      const result = initialItem.kcal;
+      return result;
+      console.log(result);
+    }else{
+      const wartosc = number/100;
+      const result = (initialItem.kcal*wartosc).toFixed();
+      return result;
+      console.log(result);
+    }
+ }
+
+  /**
+  * 
+  * @param {integer} numer 
+  * @returns 
+  */
+   function obliczBialko(numer)
+   {
+      if(number === null){
+          const result = initialItem.protein;
+          return result;
+      }else{
+          const wartosc = number/100;
+          const result = initialItem.protein*wartosc;
+          return result;
+      }
+   }
+
+   /**
+  * 
+  * @param {integer} numer 
+  * @returns 
+  */
+   function obliczBialkoOZ(numer)
+   {
+      if(number === null){
+          const result = initialItem.protein / 28.34952 ;
+          return result;
+      }else{
+          const wartosc = (number/100) / 28.34952;
+          const result = initialItem.protein*wartosc;
+          return result;
+      }
+   }
+  
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczTluszcz(numer)
+     {
+        if(number === null){
+            const result = initialItem.fat;
+            return result;
+        }else{
+            const wartosc = number/100;
+            const result = initialItem.fat*wartosc;
+            return result;
+        }
+     }
+
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczTluszczOZ(numer)
+     {
+        if(number === null){
+            const result = initialItem.fat / 28.34952;
+            return result;
+        }else{
+            const wartosc = (number/100) / 28.34952;
+            const result = initialItem.fat*wartosc;
+            return result;
+        }
+     }
+  
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+      function obliczWeglowodany(numer)
+      {
+         if(number === null){
+             const result = initialItem.carbs;
+             return result;
+         }else{
+             const wartosc = number/100;
+             const result = initialItem.carbs*wartosc;
+             return result;
+         }
+      }
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczWeglowodanyOZ(numer)
+     {
+        if(number === null){
+            const result = initialItem.carbs / 28.34952;
+            return result;
+        }else{
+            const wartosc = (number/100) / 28.34952;
+            const result = initialItem.carbs*wartosc;
+            return result;
+        }
+     }
+   
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczBlonnik(numer)
+     {
+        if(number === null){
+            const result = initialItem.fiber;
+            return result;
+        }else{
+            const wartosc = number/100;
+            const result = initialItem.fiber*wartosc;
+            return result;
+        }
+     }
+
+     /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+     function obliczBlonnikOZ(numer)
+     {
+        if(number === null){
+            const result = initialItem.fiber / 28.34952;
+            return result;
+        }else{
+            const wartosc = (number/100) / 28.34952;
+            const result = initialItem.fiber*wartosc;
+            return result;
+        }
+     }
+
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+        function obliczCukier(numer)
+        {
+           if(number === null){
+               const result = initialItem.Sugars;
+               return result;
+           }else{
+               const wartosc = number/100;
+               const result = initialItem.Sugars*wartosc;
+               return result;
+           }
+        }
+
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+    function obliczCukierOZ(numer)
+    {
+       if(number === null){
+           const result = initialItem.Sugars / 28.34952;
+           return result;
+       }else{
+           const wartosc = (number/100) / 28.34952;
+           const result = initialItem.Sugars*wartosc;
+           return result;
+       }
+    }
+
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+      function obliczCholesterol(numer)
+      {
+        if(number === null){
+          const result = initialItem.choresterol;
+          return result;
+        }else{
+          const wartosc = number/100;
+          const result = initialItem.choresterol*wartosc;
+          return result;
+        }
+      }
+
+    /**
+    * 
+    * @param {integer} numer 
+    * @returns 
+    */
+    function obliczCholesterolOZ(numer)
+    {
+      if(number === null){
+        const result = initialItem.choresterol / 28.34952;
+        return result;
+      }else{
+        const wartosc = (number/100) / 28.34952;
+        const result = initialItem.choresterol*wartosc;
+        return result;
+      }
+    }
+ 
+
+    const colorIG = () => {
+      let color;
+      if(initialItem.index_glycemic <= 50){
+        color = colors.COLORS.GREEN;
+      } else if ((initialItem.index_glycemic >= 51) && (initialItem.index_glycemic <= 71)){
+        color = colors.COLORS.YELLOW;
+      }else {
+        color = colors.COLORS.RED;
+      }
+      return color;
+  }
+  
+  const colorLG = () => {
+    let color;
+    if(obliczLG(number) <= 10.00){
+      color = colors.COLORS.GREEN;
+    } else if ((obliczLG(number) >= 10.01) && (obliczLG(number) <= 19)){
+      color = colors.COLORS.YELLOW;
+    }else {
+      color = colors.COLORS.RED;
+    }
+    return color;
+  }
+
+ 
+  const [showContent1, setShowContent1] = useState(false);
+  const [showContent2, setShowContent2] = useState(false);
+  const [showContent3, setShowContent3] = useState(false);
+  const animationControler1 = useRef(new Animated.Value(0)).current;
+  const animationControler2 = useRef(new Animated.Value(0)).current;
+  const animationControler3 = useRef(new Animated.Value(0)).current;
+
+  const toggleBox1 = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent1 ? 0 : 1,
+      useNativeDriver: true
+    };
+    Animated.timing(animationControler1, config).start();
+    setShowContent1(!showContent1);
+  };
+
+  const arrowTransform = animationControler1.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const toggleBox2 = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent2 ? 0 : 1,
+      useNativeDriver: true
+    };
+    Animated.timing(animationControler2, config).start();
+    setShowContent2(!showContent2);
+  };
+
+  const arrowTransform2 = animationControler2.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const toggleBox3 = () => {
+    const config = {
+      duration: 300,
+      toValue: showContent3 ? 0 : 1,
+      useNativeDriver: true
+    };
+    Animated.timing(animationControler3, config).start();
+    setShowContent3(!showContent3);
+  };
+
+  const arrowTransform3 = animationControler3.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const heightDim = Dimensions.get('window').height - 160;
+  const [visible, setVisible] = useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 6, marginHorizontal: spacing.SCALE_10, borderRadius: spacing.SCALE_5, height: heightDim};
+
+
+  const onSelectSwitch = (index) => {
+    console.log(index)
+    setSwitchSort(index);
+  };
+
+ // console.log(switchSort)
+  return (
+    <Provider>
+    <PaperProvider theme={theme}>
+       <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
+    <SafeAreaProvider style={{flexGrow: 1, backgroundColor: colors.COLORS.WHITE}}>
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        onClose={() => setIsOpen(false)}
+        height={heightMidal}
+        openDuration={500}
+        closeDuration={300}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent",
+          },
+          draggableIcon: {
+            backgroundColor: colors.COLORS.DEEP_BLUE,
+          },
+          container: {
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            elevation: 15
+          }
+        }}
+      >
+      <ImageBackground
+      source={require('../../assets/images/bg5.jpg')}
+      blurRadius={5}
+      style={{
+        flex: 1, 
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width
+      }}
+      imageStyle={{
+        opacity: 0.5
+      }}
+      >
+      <View style={{flex: 1}}>
+                
+        <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+          <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center'}]}>
+            <Text style={styles.textTitle}>{initialItem.name}</Text>
+          </View>
+          <View style={{justifyContent: 'center', marginRight: spacing.SCALE_20}}>
+            <MaterialCommunityIcons name='square-edit-outline' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
+                onPress={() => {
+                  refRBSheet.current.close(),
+                  navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
+                }} 
+                />
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
+          <View style={{justifyContent: 'center'}}>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
+          </View>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={onChangeNumber}
+                value={number}
+                placeholder="100"
+                keyboardType="numeric"
+              />
+              <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
+        </View>
+
+      <ScrollView>
+      <View style={{marginHorizontal: spacing.SCALE_8}}>
+
+        <View style={{flexDirection: 'row', borderWidth: 1, padding: spacing.SCALE_6, borderColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_5, backgroundColor: colors.COLORS.LIGHT_BLUE, elevation: 1}}>
+          <Text style={{marginRight: spacing.SCALE_4, fontSize: typography.FONT_SIZE_12, color: colors.COLORS.WHITE}}>{t('glycemicIndex.category')}</Text>
+          <Text style={styles.titleCategory}>{initialItem.category}</Text>
+        </View>
+
+        <View style={{flexDirection: 'row' }}>
+          
+          <View style={{borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, flex: 1, borderRadius: 5, marginRight: spacing.SCALE_3, elevation: 3 }}>
+            <View style={{ alignItems: 'center'}}>
+              <Text style={[styles.titleKcal, {marginRight: spacing.SCALE_4, flex: 1 }]}>{obliczKcal(number)}</Text>
+              <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.COLORS.DEEP_BLUE, marginTop: -spacing.SCALE_5}}>kcal</Text>
+            </View>
+          </View>
+
+          <View style={{ borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, flex: 1, borderRadius: 5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
+            <View style={{ alignItems: 'center'}}>
+              <Text style={[styles.titleKcal, {marginRight: 4, flex: 1 }]}> {(obliczKcal(number)*4.184).toFixed(0)}</Text>
+              <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.COLORS.DEEP_BLUE, marginTop: -spacing.SCALE_5}}>kJ</Text>
+            </View>
+          </View>
+          
+        </View>
+
+        <View style={{flexDirection: 'row', marginTop: spacing.SCALE_6}}>
+          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 3}}>
+            <CircularProgress
+                    value={initialItem.index_glycemic}
+                    radius={spacing.SCALE_25}
+                    duration={2000}
+                    progressValueColor={colors.COLORS.DEEP_BLUE}
+                    maxValue={110}
+                    activeStrokeWidth={8}
+                    inActiveStrokeWidth={8}
+                    activeStrokeColor={colorIG(initialItem.index_glycemic)}
+                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                    dashedStrokeConfig={{
+                      count: 25,
+                      width: 5,
+                    }}
+                  />
+                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-index')}</Text>
+          </View>
+
+          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
+            <CircularProgress
+                      value={obliczLG(number)}
+                      radius={spacing.SCALE_25}
+                      duration={2000}
+                      progressValueColor={colors.COLORS.DEEP_BLUE}
+                      maxValue={obliczLG(number) >= 100 ? obliczLG(number) : 100}
+                      activeStrokeWidth={8}
+                      inActiveStrokeWidth={8}
+                      activeStrokeColor={colorLG(obliczLG(number))}
+                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                      progressFormatter={(value, number) => {
+                        'worklet';   
+                        return value.toFixed(1);
+                      }}
+                      dashedStrokeConfig={{
+                        count: 25,
+                        width: 5,
+                      }}
+                    />
+                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-load')}</Text>
+          </View>
+        </View>
+
+        <View style={{flexDirection: 'row', marginTop: spacing.SCALE_6}}>
+          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 5}}>
+          <CircularProgress
+                    value={obliczWW(number)}
+                    radius={spacing.SCALE_25}
+                    duration={2000}
+                    progressValueColor={colors.COLORS.DEEP_BLUE}
+                    maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
+                    activeStrokeWidth={8}
+                    inActiveStrokeWidth={8}
+                    activeStrokeColor={colors.COLORS.DEEP_BLUE}
+                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                    progressFormatter={(value, number) => {
+                        'worklet';
+                        return value.toFixed(1);
+                      }}
+                      dashedStrokeConfig={{
+                        count: 25,
+                        width: 5,
+                      }}
+                  />
+                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
+                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.carbohydrate')}</Text>
+          </View>
+          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
+          <CircularProgress
+                      value={obliczWBT(number)}
+                      radius={spacing.SCALE_25}
+                      duration={2000}
+                      progressValueColor={colors.COLORS.DEEP_BLUE}
+                      maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
+                      activeStrokeWidth={10}
+                      inActiveStrokeWidth={10}
+                      activeStrokeColor={colors.COLORS.DEEP_BLUE}
+                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                      progressFormatter={(value, number) => {
+                        'worklet';
+                          
+                        return value.toFixed(1);
+                      }}
+                      dashedStrokeConfig={{
+                        count: 25,
+                        width: 5,
+                      }}
+                    />
+                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
+                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.protein-fat')}</Text>
+          </View>
+        </View>
+        
+        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3, marginBottom: spacing.SCALE_10}}>
+          
+          
+          { initialItem.protein !== 0 &&
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.protein')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+          }
+
+          { initialItem.fat !== 0 &&
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fat')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+          }
+
+          { initialItem.carbs !== 0 &&
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.carbohydrates')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+          }
+
+          { initialItem.fiber !== 0 &&
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fiber')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+          }
+
+          { initialItem.Sugars !== 0 &&
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.sugar')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+          }
+
+          { initialItem.choresterol !== 0 &&
+          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
+              
+              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.cholesterol')}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                    {initialItem.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
+                  </Text>
+                  </View>
+                  <View style={{justifyContent: 'flex-end'}}>
+                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
+                  </Text>
+                </View>
+              </View>
+
+          </View>
+          }
+
+        </View>
+
+
+        {initialItem.Status === 0 &&
+        <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
+            <TouchableOpacity onPress={() => toggleBox1()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
+              <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+                <Text style={{color: colors.TEXT.DEEP_BLUE}}>WITAMINY</Text>
+                <Animated.View style={{transform: [{rotateZ: arrowTransform}]}}>
+                  <MaterialIcons name='keyboard-arrow-down' size={20} />
+                </Animated.View>
+              </View>
+            </TouchableOpacity>
+            { showContent1  &&  
+            <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
+              { initialItem.witA !== 0 &&
+              
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>WITAMINA A</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{initialItem.witA} {UNIT.IU}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.betaCarotene !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1, marginLeft: 10}}>
+                      <Text style={styles.textBox2}>BETA-CAROTEN</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
+                    </View>
+                  </View>
+                } 
+
+                { initialItem.luteinaZeaksantyna !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1, marginLeft: 10}}>
+                      <Text style={styles.textBox2}>LUTEINA-ZEAKSANTYNA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB1Tiamina !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B1 - TIAMINA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB1Tiamina).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB2Ryboflawina !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B2 - RYBOFLAWINA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB2Ryboflawina).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB3Niacyna !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B3 - NIACYNA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB3Niacyna).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB4Cholina !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B4 - CHOLINA</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB4Cholina).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB5KwasPantotenowy !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B5 - KWAS PANTOTENOWY</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB5KwasPantotenowy).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB6 !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B6</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB6).toFixed(3)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB9KwasFoliowy !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B9 - KWAS FOLIOWY</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB9KwasFoliowy).toFixed(3)} {UNIT.UG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitB12 !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA B12</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.UG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitC !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA C</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitC).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitE !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA E</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitE).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.WitK !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WITAMINA K</Text>
+                    </View>
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.WitK).toFixed(2)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+              </View>
+               
+            }
+        </View>
+        }
+
+        { initialItem.Status === 0 &&
+          <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
+          <TouchableOpacity onPress={() => toggleBox2()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MAKROELEMENTY</Text>
+                <Animated.View style={{transform: [{rotateZ: arrowTransform2}]}}>
+                  <MaterialIcons name='keyboard-arrow-down' size={20} />
+                </Animated.View>
+              </View>
+          </TouchableOpacity>
+          
+          { showContent2  &&  
+              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
+                { initialItem.Wapn !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>WAPŃ</Text>
+                      
+                    </View>
+                    
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.Wapn).toFixed(1)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.Magnez !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>MAGNEZ</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Magnez).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Fosfor !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>FOSFOR</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Fosfor).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Potas !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>POTAS</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Potas).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Sod !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>SÓD</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Sod).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+              </View>
+          }
+        </View>
+      }
+
+      { initialItem.Status === 0 &&
+          <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
+          <TouchableOpacity onPress={() => toggleBox3()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
+            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MIKROELEMENTY</Text>
+                <Animated.View style={{transform: [{rotateZ: arrowTransform3}]}}>
+                  <MaterialIcons name='keyboard-arrow-down' size={20} />
+                </Animated.View>
+              </View>
+          </TouchableOpacity>
+          
+          { showContent3  &&  
+              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
+                { initialItem.Miedz !== 0 &&
+                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                    <View style={{flex: 1}}>
+                      <Text style={styles.textBox1}>MIEDŹ</Text>
+                      
+                    </View>
+                    
+                    <View style={{alignItems: 'flex-end'}}>
+                      <Text style={styles.textBox3}>{(initialItem.Miedz).toFixed(1)} {UNIT.MG}</Text>
+                    </View>
+                  </View>
+                }
+
+                { initialItem.Zelazo !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>ŻELAZO</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Zelazo).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Mangan !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>MANGAN</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Mangan).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Selen !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>SELEN</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Selen).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+                { initialItem.Cynk !== 0 &&
+                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
+                  <View style={{flex: 1}}>
+                    <Text style={styles.textBox1}>CYNK</Text>
+                    
+                  </View>
+                  
+                  <View style={{alignItems: 'flex-end'}}>
+                    <Text style={styles.textBox3}>{(initialItem.Cynk).toFixed(1)} {UNIT.MG}</Text>
+                  </View>
+                </View>
+                }
+
+              </View>
+          }
+        </View>
+      }
+
+
+      </View>
+      
+
+      </ScrollView>
+    </View>
+    </ImageBackground>
+    </RBSheet>
+
+  
+
+    <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+        <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
+            <TouchableOpacity onPress={_goBack}>
+                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
+            </TouchableOpacity>
+        </View>
+        <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
+        <Searchbar
+          placeholder={t('glycemicIndex.search')}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          iconColor={colors.COLORS.DEEP_BLUE}
+        />
+        </View>
+
+    </View>
+    <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
+          
+            <BigList
+              data={filteredDataSource}
+              //renderItem={renderItem}
+              renderItem={({item}) => (
+                <TouchableOpacity 
+                onPress={() => {
+                  refRBSheet.current.open();
+                  setInitialItem(item);
+                  onChangeNumber(null);
+                }}
+                >
+                 
+                  <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
+                      <View style={{flex: 5, marginRight: 20}}>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
+                      </View>
+                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
+                      
+                      {
+                        xxx(item)
+                        
+                      }
+
+                     
+                    </View>
+                  </View>
+            
+                </TouchableOpacity>
+              )}
+            />
+          {/* ) : (
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
+            </View>
+          ) */}
+        
+
+       
+    </View>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
+
+              <MyButtonNoPay icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>
+              <MyButtonNoPay icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
+              <MyButtonNoPay icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
+              <MyButtonNoPay icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
+              {/* <MyButton icons="sort" borderColor={colors.COLORS.LIGHT_BLUE} backgroundColor={colors.COLORS.LIGHT_BLUE} 
+              onPress={showModal}
+              /> */}
+              {/* <MyButton icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/> */}
+        
+      </View>
+
+    
+    
+    </SafeAreaProvider>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_3}}>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('glycemicIndex.modal.sort-by')}</Text>
+            </View>
+            <View style={{flex: 1}}>
+             
+              <MySwitch2
+                selectionMode={switchSort}
+                roundCorner={true}
+                option1={t('glycemicIndex.modal.ascending')}
+                option2={t('glycemicIndex.modal.descending')}
+                onSelectSwitch={onSelectSwitch}
+                selectionColor={colors.COLORS.DEEP_BLUE}
+              /> 
+            </View>
+          </View>
+         
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1}}>
+              <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndex} >
+                <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>{t('glycemicIndex.modal.btn-reset')}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <ScrollView>
+          <View style={{flex: 1, flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.protein')} onPress={sortListProtein} backgroundColor={colors.WHtR.WHtR_1}/>
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.fat')} onPress={sortListFat} />
+            </View>
+          
+            <View style={{marginLeft: spacing.SCALE_6, marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.carbohydrates')} onPress={sortListCarbs} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.fiber')} onPress={sortListFiber} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.sugar')} onPress={sortListSugar} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.cholesterol')} onPress={sortListCholesterol} />
+            </View>
+          </View>
+
+          <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+            <Text style={styles.textTitleModal}>{t('value.macronutrients')}</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.calcium')} onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.magnesium')} onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title={t('value.phosphorus')} onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title={t('value.potassium')} onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title={t('value.sodium')} onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
+            </View>
+          </View>
+
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
+            <Text style={styles.textTitleModal}>{t('value.micronutrients')}</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.copper')} onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+            
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.iron')} onPress={sortListIron} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title={t('value.manganese')} onPress={sortListMangan} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title={t('value.selenium')} onPress={sortListSelen} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+
+            <View style={{marginLeft: spacing.SCALE_6}}>
+              <BtnModal title={t('value.zinc')} onPress={sortListCynk} backgroundColor={colors.WHtR.WHtR_3} />
+            </View>
+          </View>
+
+          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
+            <Text style={styles.textTitleModal}>{t('value.vitamins')}</Text>
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.Vitamin-A')} onPress={sortListWitA} backgroundColor={colors.WHtR.WHtR_2}/>
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.beta-carotene')} onPress={sortListBetaCaroten} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.Lutein-Zeaxanthin')} onPress={sortListLuteina} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.Vitamin-B1')} onPress={sortListWitB1} backgroundColor={colors.WHtR.WHtR_2}/>
+            </View>
+          </View>
+        
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.Vitamin-B2')} onPress={sortListWitB2} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.Vitamin-B3')} onPress={sortListWitB3} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1 }}>
+              <BtnModal title={t('value.Vitamin-B4')} onPress={sortListWitB4} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
+            <View style={{flex: 1}}>
+              <BtnModal title={t('value.Vitamin-B5')} onPress={sortListWitB5} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{ marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.Vitamin-B6')} onPress={sortListWitB6} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.Vitamin-B9')} onPress={sortListWitB9} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
+            <View style={{marginRight: spacing.SCALE_3 }}>
+              <BtnModal title={t('value.Vitamin-B12')} onPress={sortListWitB12} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_3}}>
+              <BtnModal title={t('value.Vitamin-C')} onPress={sortListWitC} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+            <View style={{marginLeft: spacing.SCALE_6 }}>
+              <BtnModal title={t('value.Vitamin-E')} onPress={sortListWitE} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+            
+            <View style={{}}>
+              <BtnModal title={t('value.Vitamin-K')} onPress={sortListWitK} backgroundColor={colors.WHtR.WHtR_2} />
+            </View>
+          </View>
+
+          </ScrollView>
+        </Modal>
+      </Portal>
+    </PaperProvider>
+    </Provider>
+  )
+}
+
+export default GlycemicIndexNoPay
+
+const styles = StyleSheet.create({
+    flatListStyle: {
+        borderBottomWidth: 1,
+        borderBottomColor: colors.COLORS.GREY_333,
+        backgroundColor: colors.COLORS.WHITE,
+        paddingLeft: spacing.SCALE_10,
+        paddingTop: spacing.SCALE_10,
+        paddingBottom: spacing.SCALE_15,
+        flexDirection: 'row',
+        //marginHorizontal: 3,
+        //opacity: 0.7
+    },
+    itemText: {
+      color: colors.TEXT.DEEP_BLUE,
+      fontSize: typography.FONT_SIZE_14,
+      fontWeight: 'bold'
+    },
+    btnModal: {
+      borderWidth: 0,
+      padding: spacing.SCALE_10,
+      width: Dimensions.get('window').width-12,
+      borderRadius: spacing.SCALE_5,
+      alignItems: 'center',
+      backgroundColor: colors.COLORS.DEEP_BLUE,
+      elevation: 3,
+      marginBottom: spacing.SCALE_10,
+    },
+    textBtn: {
+      color: colors.TEXT.WHITE
+    },
+    titleContainer: {
+      //marginBottom: 10, 
+      alignItems: 'center',
+      backgroundColor: colors.COLORS.DEEP_BLUE,
+      padding: spacing.SCALE_10,
+    },
+    textTitle: {
+      fontSize: typography.FONT_SIZE_16,
+      color: colors.TEXT.WHITE,
+      textTransform: 'uppercase',
+      fontWeight: 'bold',
+      //borderBottomWidth: 3,
+      //borderBottomColor: 'orange'
+    },
+    titleCategory: {
+      fontSize: typography.FONT_SIZE_12,
+      color: colors.TEXT.WHITE,
+      fontWeight: 'bold',
+      textTransform: 'uppercase',
+    },
+    titleKcal:{
+      fontSize: typography.FONT_SIZE_24,
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold',
+    },
+    textInput: {
+      borderBottomWidth: 4,
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
+      borderBottomColor: colors.COLORS.DEEP_BLUE,
+      //backgroundColor: COLORS.WHITE,
+      width: 200,
+      textAlign: 'center',
+      height: 40,
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold',
+      //elevation: 3
+    },
+    fabStyle: {
+      bottom: spacing.SCALE_25,
+      right: spacing.SCALE_16,
+      position: 'absolute',
+      marginBottom: spacing.SCALE_35,
+    },
+    textBox1: {
+      fontSize: typography.FONT_SIZE_12,
+      textTransform: 'uppercase'
+    },
+    textBox2: {
+      fontSize: typography.FONT_SIZE_10,
+      textTransform: 'uppercase'
+    },
+    textBox3: {
+      fontSize: typography.FONT_SIZE_12,
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold'
+    },
+    modalBtnText: {
+      fontSize: typography.FONT_SIZE_10,
+      textTransform: 'uppercase',
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold'
+    },
+    textTitleModal: {
+      color: colors.TEXT.DEEP_BLUE,
+      fontWeight: 'bold',
+      textTransform: 'uppercase'
+    }
+})

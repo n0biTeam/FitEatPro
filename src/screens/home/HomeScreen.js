@@ -10,8 +10,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { LineChart } from "react-native-chart-kit";
 import { format } from 'date-fns';
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
-import { ScrollView } from 'react-native-gesture-handler';
-import RBSheet from "react-native-raw-bottom-sheet";
+import { IG } from '../../styles/constants';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
@@ -537,8 +536,9 @@ const _differenceWeight = () => {
     }
     }
 
-  const heightScreen = Dimensions.get("screen").height;
-  console.log(heightScreen)
+  //const heightScreen = Dimensions.get("screen").height;
+  
+  const [pay, setPay] = useState(false);
     
   return (
     <PaperProvider theme={theme}>
@@ -695,7 +695,7 @@ const _differenceWeight = () => {
     <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_10}}>
       <View style={[styles.menuContainer, {marginTop: Dimensions.get("window").height > 600 ? 0 : spacing.SCALE_30}]}>
         
-          <TouchableOpacity style={styles.menuBtn} onPress={() => navigation.navigate('GlycemicIndex')}>
+          <TouchableOpacity style={styles.menuBtn} onPress={() => IG.value === '1' ? navigation.navigate('GlycemicIndex') : navigation.navigate('GlycemicIndexNoPay')}>
             <View style={styles.boxContainer}>
               <MaterialCommunityIcons name='food-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
             </View>

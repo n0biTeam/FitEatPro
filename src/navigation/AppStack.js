@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
-
+import { IG } from '../styles/constants';
 import { HomeScreen } from '../screens/home';
 import { colors } from '../styles';
 import { ProfileScreen, EditProfileScreen } from '../screens/profile';
-import { GlycemicIndex, AddGlycemicIndex, EditItemGlycemicIndex } from '../screens/glycemicIndex';
+import { GlycemicIndex, AddGlycemicIndex, EditItemGlycemicIndex, GlycemicIndexNoPay } from '../screens/glycemicIndex';
 import { DiaryScreen, DiaryItemScreen, MealScreen } from '../screens/mealLog';
 import { BmiScreen, BmrScreen, WhrScreen, WhtrScreen } from '../screens/calculateBmr';
 import { HomairScreen, QuickiScreen } from '../screens/insulinResistance';
@@ -377,6 +377,9 @@ function GlucoseTabs() {
 const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
+
+  
+
   return (
     <Stack.Navigator>
     
@@ -466,16 +469,27 @@ const AppStack = () => {
     />
 
 
-    <Stack.Screen
-      name="GlycemicIndex"
-      component={GlycemicIndex}
-      options={{
-        title: '',
-        headerBackTitleVisible: false,
-        headerShown: false,
-      }}
-    />
-
+    { IG.value === '1' ?
+        <Stack.Screen
+              name="GlycemicIndex"
+              component={GlycemicIndex}
+              options={{
+                title: '',
+                headerBackTitleVisible: false,
+                headerShown: false,
+              }}
+            />
+        : 
+        <Stack.Screen
+              name="GlycemicIndexNoPay"
+              component={GlycemicIndexNoPay}
+              options={{
+                title: '',
+                headerBackTitleVisible: false,
+                headerShown: false,
+              }}
+            />
+    }
     <Stack.Screen
       name="EditItemGlycemicIndex"
       component={EditItemGlycemicIndex}
