@@ -5,8 +5,6 @@ import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal,
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AuthContext } from '../../navigation/AuthProvider';
-import firestore from '@react-native-firebase/firestore';
 import BigList from "react-native-big-list";
 import MyCircle from '../../components/MyCircle';
 import BtnModal from '../../components/BtnModal';
@@ -59,10 +57,7 @@ const GlycemicIndexNoPay = ({
       })]);
       const [masterDataSource, setMasterDataSource] = useState([...data]);
       
-      // const [visible, setVisible] = React.useState(false);
-      // const showModal = () => setVisible(true);
-      // const hideModal = () => setVisible(false);
-     
+           
     useEffect(() => {
       setFilteredDataSource([...data]);
       setMasterDataSource([...data]);
