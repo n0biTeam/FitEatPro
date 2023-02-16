@@ -129,7 +129,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
 
                 <View>
                     <Text style={[styles.title, {marginTop: spacing.SCALE_6}]}>Service Providers</Text>
-                    <Text style={styles.text}>We may employ third-party companies and individuals due to the following reasons:</Text>
+                    <Text style={styles.text}>I may employ third-party companies and individuals due to the following reasons:</Text>
 
                     <View style={{flexDirection: 'row'}}>
                         <View style={{marginRight: spacing.SCALE_6}}>
