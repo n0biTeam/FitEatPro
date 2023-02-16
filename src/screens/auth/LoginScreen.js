@@ -8,6 +8,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { colors, typography, spacing } from '../../styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const loginValidationSchema = yup.object().shape({
     email: yup.string().email('Proszę podać poprawny adres e-mail').required('Adres e-mail jest wymagany'),
@@ -141,6 +142,7 @@ const LoginScreen = ({ navigation }) => {
           //borderRadius: 50,
           }}
       >
+      <KeyboardAwareScrollView>
       <View style={styles.footer}>
       
       <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_34}}>{t('login-screen-welcome')}</Text>
@@ -225,8 +227,10 @@ const LoginScreen = ({ navigation }) => {
               </View>
               </TouchableOpacity>
             </View>
-        
+
+      
       </View>
+      </KeyboardAwareScrollView>  
      </ImageBackground>
      </Animatable.View>
     </View>

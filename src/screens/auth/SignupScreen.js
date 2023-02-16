@@ -9,7 +9,7 @@ import * as Animatable from 'react-native-animatable';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { colors, typography, spacing } from '../../styles';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const registerValidationSchema = yup.object().shape({
     // firstName: yup.string().min(2, 'Zamała ilość znaków').max(50, 'Za długa nazwa').required('Imię jest wymagane'),
@@ -165,6 +165,7 @@ const SignupScreen = ({ navigation }) => {
           
           }}
       >
+      <KeyboardAwareScrollView>
       <View style={styles.footer}>
       
       <View style={{flexDirection: 'row'}}>
@@ -261,9 +262,10 @@ const SignupScreen = ({ navigation }) => {
 
         </View>
         </View>
-
+      
         
       </View>
+      </KeyboardAwareScrollView>
      </ImageBackground>
      </Animatable.View>
     </View>
