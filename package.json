@@ -44,6 +44,7 @@
     "react-native-localize": "^2.2.4",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-paper": "^4.12.5",
+    "react-native-purchases": "^5.9.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.14.4",
     "react-native-rename": "^3.2.12",
