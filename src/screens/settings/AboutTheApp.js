@@ -5,13 +5,14 @@ import { Appbar } from 'react-native-paper';
 import { colors, spacing, typography } from '../../styles';
 import { version } from '../../styles/constants';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import { useTranslation } from 'react-i18next';
 
 const AboutTheAppScreen = ({ navigation }) => {
   
   const _goBack = () => navigation.navigate('SettingScreen');
   const imageBG = require('../../assets/images/bg5.jpg');
-  
+  const {t, i18n} = useTranslation();
+
   return (
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: '#224870', marginTop: 30}}>
@@ -51,9 +52,9 @@ const AboutTheAppScreen = ({ navigation }) => {
             <View style={styles.boxContainer}>
               <Text style={styles.title}>FitEat Pro v. {version.namber}</Text>
               <ScrollView>
-              <Text style={styles.text}>Aplikacja powstała z myślą o osobach stosujących diety oparte o niski indeks glikemiczny. Przyda się w walce z otyłością oraz w zapobieganiu cukrzycy.</Text>
+              <Text style={styles.text}>{t('aboutTheApp.text-1')}</Text>
               <View style={{marginTop: spacing.SCALE_10}}>
-                <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>Podstawowe fukncje:</Text>
+                <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>{t('aboutTheApp.text-2')}</Text>
                 
                 <View style={{flexDirection: 'row'}}>
                   <View style={{marginRight: spacing.SCALE_6}}>
@@ -61,8 +62,8 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Tworzenie posiłków w oparciu o listę produktów.</Text>
-                    <Text style={styles.text}>Po utworzeniu posiłku dostajemy informację o indeksie posiłku, ładunku posiłku, wymienniku węglowodanowym, wymienniku białkowo-tłuszczowym, ilości kalorii, wadze posiłku oraz ilości wartości takich jak: węglowodany, błonnik, białko, tłuszcze, cukier i cholesterol</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-3')}</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-4')}</Text>
                   </View>
                 </View>
 
@@ -72,7 +73,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Wyszukiwarka produktów</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-5')}</Text>
                   </View>
                 </View>
 
@@ -82,7 +83,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Dostajemy listę produktów, którą możemy uzupełniać, modyfikować lub kasować</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-6')}</Text>
                   </View>
                 </View>
 
@@ -92,7 +93,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Lista produktów wyświetla informację o indeksie glikemicznym, po kliknięciu w dany produkt dostajemy informację o wartościach odżywczych danego produktu mi. witaminy, makroelemeny i mikroelemeny</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-7')}</Text>
                   </View>
                 </View>
 
@@ -102,7 +103,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Sortowanie listy produktów wg wybranego składnika</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-8')}</Text>
                   </View>
                 </View>
 
@@ -112,7 +113,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Prowadzenie dziennika wagi</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-9')}</Text>
                   </View>
                 </View>
 
@@ -122,7 +123,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Prowadzenie dziennika pomiarów ciśnienia krwi</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-10')}</Text>
                   </View>
                 </View>
 
@@ -132,7 +133,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Prowadzenie dziennika pomiarów glukozy</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-11')}</Text>
                   </View>
                 </View>
 
@@ -142,12 +143,12 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Lista produktów - puryny.</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-12')}</Text>
                   </View>
                 </View>
 
                 <View style={{marginTop: spacing.SCALE_10}}>
-                  <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>Pozostałe fukncje:</Text>
+                  <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>{t('aboutTheApp.text-13')}</Text>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
@@ -156,7 +157,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Kalkulatory BMI, BMR, WHR i WtHR</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-14')}</Text>
                   </View>
                 </View>
 
@@ -166,7 +167,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Insulinooporność: kalkulator HOMA-IR i QUICKI</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-15')}</Text>
                   </View>
                 </View>
   
@@ -176,7 +177,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Dokumentowanie wyników badań za pomocą zdjęć</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-16')}</Text>
                   </View>
                 </View>
 
@@ -186,26 +187,26 @@ const AboutTheAppScreen = ({ navigation }) => {
                   </View>
       
                   <View style={{flex: 1}}>
-                    <Text style={styles.text}>Notatnik</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-17')}</Text>
                   </View>
                 </View>
 
               </View>
 
               <View style={{marginTop: spacing.SCALE_10}}>
-                  <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>Pozostałe informacje:</Text>
+                  <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>{t('aboutTheApp.text-18')}</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={styles.text}>Aplikacja wymaga połączenia z internetem, gdyż wszystkie dane przetrzymywane są na zewnętrznym serwerze (firebase google).</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-19')}</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={styles.text}>W razie wymiany telefonu wystarczy pobrać aplikację i ponownie się zalogować.</Text>
+                    <Text style={styles.text}>{t('aboutTheApp.text-20')}</Text>
                 </View>
 
               <View style={{marginTop: spacing.SCALE_15}}>
-                <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Źródło:</Text>
+                <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('aboutTheApp.text-21')}</Text>
                 <View>
-                  <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>The Univerity of Sydney, USDA U.A. Departamment Of Agriculture, Wikipedia, Low Crab Check i inne.</Text>
+                  <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>{t('aboutTheApp.text-22')}</Text>
                 </View>
               </View>
 

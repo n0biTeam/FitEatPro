@@ -630,7 +630,7 @@ const _differenceWeight = () => {
       </View>
     </View>
 
-    <View style={{marginTop: -10, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
+    <View style={{marginTop: -19, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
       {netConnect()}
       {/* <MaterialCommunityIcons name='wifi-arrow-up' size={18} /> */}
       {netInfoType()}
@@ -638,7 +638,7 @@ const _differenceWeight = () => {
     </View>
 
     { Dimensions.get("window").height > 600 &&
-      <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_5, marginTop: spacing.SCALE_8}}>
+      <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_5, marginTop: spacing.SCALE_12}}>
     
         <View>
           
