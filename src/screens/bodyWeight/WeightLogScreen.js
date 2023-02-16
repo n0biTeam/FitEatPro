@@ -275,7 +275,7 @@ const [isExtended, setIsExtended] = useState(true);
 
   const _handleAdd = async () => {
 
-    console.log(getBMI())
+    //console.log(getBMI())
     let diffKG = 0;
     let diffLB = 0;
     //let diffST = 0;
