@@ -7,6 +7,7 @@ import { version } from '../../styles/constants';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 
+
 const AboutTheAppScreen = ({ navigation }) => {
   
   const _goBack = () => navigation.navigate('SettingScreen');

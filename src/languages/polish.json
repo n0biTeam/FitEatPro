@@ -510,6 +510,11 @@
         "aboutTheApp.text-19": "Aplikacja wymaga połączenia z internetem, gdyż wszystkie dane przetrzymywane są na zewnętrznym serwerze (firebase google).",
         "aboutTheApp.text-20": "W razie wymiany telefonu wystarczy pobrać aplikację, zainstalować i ponownie się zalogować.",
         "aboutTheApp.text-21": "Źródło:",
-        "aboutTheApp.text-22": "The Univerity of Sydney, USDA U.A. Departamment Of Agriculture, Wikipedia, Low Crab Check i inne."
+        "aboutTheApp.text-22": "The Univerity of Sydney, USDA U.A. Departamment Of Agriculture, Wikipedia, Low Crab Check i inne.",
+        
+        "exitApp.title": "Zamknij FitEat Pro",
+        "exitApp.subTitle": "Czy na pewno chcesz zamknąć FitEat Pro ?",
+        "exitApp.cancel": "Anuluj",
+        "exitApp.yes": "Tak"
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
+import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, BackHandler, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { Avatar, Banner, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
+import { backAction } from './ExitApp';
 
 const heightScreen = Dimensions.get('window').height;
 
@@ -56,6 +57,25 @@ const HomeScreen = ({ navigation }) => {
     const toggleLoading = () => {
       setIsLoading(!isLoading);
     };
+
+    useEffect(() => {
+      const backAction = () => {
+        Alert.alert(t('exitApp.title'), t('exitApp.subTitle'), [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: t('exitApp.cancel'),
+          },
+          {text: t('exitApp.yes'), onPress: () => BackHandler.exitApp()},
+        ]);
+        return true;
+      };
+  
+      BackHandler.addEventListener("hardwareBackPress", backAction);
+
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, []);
 
 
   const getUser = async () => {
