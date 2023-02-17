@@ -309,7 +309,7 @@ const UnitSettingScreen = ({ navigation }) => {
                 </Button>
                 </View>
                 
-                <View style={{marginTop: spacing.SCALE_30, flexDirection: 'row', marginHorizontal: spacing.SCALE_6}}>
+                <View style={styles.boxUnit}>
                     <View style={{flex: 1, justifyContent: 'center'}}>
                         <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('unitSettingScreen.text')}</Text>
                     </View>
@@ -344,5 +344,15 @@ const styles = StyleSheet.create({
         flex: 1,
         borderTopLeftRadius: spacing.SCALE_5,
         borderTopRightRadius: spacing.SCALE_5,
+    },
+    boxUnit: {
+      marginTop: spacing.SCALE_30,
+      flexDirection: 'row',
+      marginHorizontal: spacing.SCALE_6,
+      padding: spacing.SCALE_18,
+      borderTopWidth: 1,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.COLORS.GREY_DDD,
+      borderTopColor: colors.COLORS.GREY_DDD,
     }
 })
