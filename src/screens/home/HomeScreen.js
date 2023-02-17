@@ -255,7 +255,7 @@ const _differenceWeight = () => {
     }}
     width = {Dimensions.get("window").width-12} // from react-native
     
-    height={190}
+    height={210}
     yAxisLabel=""
     yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
