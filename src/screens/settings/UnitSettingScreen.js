@@ -27,9 +27,7 @@ const UnitSettingScreen = ({ navigation }) => {
   const {user} = useContext(AuthContext);
   const [weightUnit, setWeightUnit] = useState('');
   const [growthUnit, setGrowthUnit] = useState('');
-  //const [diaryUnit, setDiaryUnit] = useState('');
-
-  //const [unit, setUnit] = useState();
+ 
   const [isSwitchOn, setIsSwitchOn] = useState(null);
 
   const onToggleSwitch = async () => {
@@ -313,7 +311,7 @@ const UnitSettingScreen = ({ navigation }) => {
                 
                 <View style={{marginTop: spacing.SCALE_30, flexDirection: 'row', marginHorizontal: spacing.SCALE_6}}>
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                        <Text style={{color: colors.TEXT.DEEP_BLUE}}>Pokaż jednostki uncji w dzienniku posiłku</Text>
+                        <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('unitSettingScreen.text')}</Text>
                     </View>
                     <View>
                         <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={{color: 'red'}}/>
