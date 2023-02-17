@@ -136,7 +136,7 @@ const AddGlycemicIndex = ({ navigation }) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = { backgroundColor: 'white', padding: 20, height: 200, margin: 20, justifyContent: 'flex-start' };
+  const containerStyle = { backgroundColor: 'white', padding: 20, margin: 20, justifyContent: 'flex-start' };
   
   return (
     <Provider>
@@ -665,8 +665,71 @@ const AddGlycemicIndex = ({ navigation }) => {
     </ImageBackground>
     <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
-          <Text style={{fontWeight: 'bold'}}>{t('addGlycemicIndex.modal.information')}</Text>
-          <Text>{t('addGlycemicIndex.modal.text')}</Text>
+          
+          <View>
+            <Text style={{fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE, textTransform: 'uppercase'}}>{t('addGlycemicIndex.modal.information')}</Text>
+            <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.text-1')}</Text>
+              
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.textModalColor}>{'\u2B24'}</Text>
+                </View>
+                <View style={{marginLeft: spacing.SCALE_6}}>
+                  <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.glyceminc-index')},</Text>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.textModalColor}>{'\u2B24'}</Text>
+                </View>
+                <View style={{marginLeft: spacing.SCALE_6}}>
+                  <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.calories')},</Text>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.textModalColor}>{'\u2B24'}</Text>
+                </View>
+                <View style={{marginLeft: spacing.SCALE_6}}>
+                  <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.carbs')},</Text>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.textModalColor}>{'\u2B24'}</Text>
+                </View>
+                <View style={{marginLeft: spacing.SCALE_6}}>
+                  <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.fiber')},</Text>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.textModalColor}>{'\u2B24'}</Text>
+                </View>
+                <View style={{marginLeft: spacing.SCALE_6}}>
+                  <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.protein')},</Text>
+                </View>
+              </View>
+
+              <View style={{flexDirection: 'row'}}>
+                <View>
+                  <Text style={styles.textModalColor}>{'\u2B24'}</Text>
+                </View>
+                <View style={{marginLeft: spacing.SCALE_6}}>
+                  <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.fat')}.</Text>
+                </View>
+              </View>
+
+            {/* <Text>{t('addGlycemicIndex.modal.text-2')}</Text> */}
+          </View>
+          <View style={{marginTop: spacing.SCALE_6}}>
+            
+            <Text style={styles.textModalColor}>{t('addGlycemicIndex.modal.text')}</Text>
+          </View>
         </Modal>
       </Portal>
     </SafeAreaProvider>
@@ -693,5 +756,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     marginHorizontal: spacing.SCALE_8
+  },
+  textModalColor: {
+    color: colors.TEXT.DEEP_BLUE
   }
 })
