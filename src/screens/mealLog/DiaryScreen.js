@@ -21,6 +21,7 @@ const DiaryScreen = ({ navigation }) => {
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState(diaryData);
     const [masterDataSource, setMasterDataSource] = useState(diaryData);
+    const [loading, setLoading] = useState(true);
   
     const getDiary = () => {
       firestore().collection('users').doc(user.uid).collection('diary')
@@ -48,6 +49,27 @@ const DiaryScreen = ({ navigation }) => {
     useEffect(() => {
       getDiary();
     }, []);
+
+    const [isSwitchOn, setIsSwitchOn] = useState(null);
+  const getUser = async () => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .get()
+    .then(( documentSnapshot ) => {
+      if( documentSnapshot.exists ) {
+        setIsSwitchOn(documentSnapshot.data().showOunce);
+      }
+    })
+  }
+ 
+  useEffect(() => {
+    getUser();
+   const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+   }, [navigation, loading, isSwitchOn]);
    
     const colorFirst = (total) => {
       let color;
@@ -177,7 +199,9 @@ const DiaryScreen = ({ navigation }) => {
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_5, borderRadius: 5, marginLeft: spacing.SCALE_3}}>
                            <Text style={{ fontSize: typography.FONT_SIZE_10}}>{t('diaryScreen.meal-weight')}</Text>
                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_15, fontWeight: 'bold'}}>{item.gramme} {UNIT.GR}</Text>
-                           <Text style={{ fontSize: typography.FONT_SIZE_10, fontWeight: 'bold'}}>{(item.gramme / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
+                           {isSwitchOn === true &&
+                              <Text style={{ fontSize: typography.FONT_SIZE_10, fontWeight: 'bold'}}>{(item.gramme / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
+                           }
                         </View>
                     </View>
 

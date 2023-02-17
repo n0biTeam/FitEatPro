@@ -136,7 +136,7 @@ const AddGlycemicIndex = ({ navigation }) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  const containerStyle = { backgroundColor: 'white', padding: 20, margin: 20, justifyContent: 'flex-start' };
+  const containerStyle = { backgroundColor: 'white', padding: 20, margin: 20, justifyContent: 'flex-start', borderRadius: spacing.SCALE_5};
   
   return (
     <Provider>

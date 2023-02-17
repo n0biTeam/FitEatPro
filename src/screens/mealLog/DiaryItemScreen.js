@@ -43,6 +43,7 @@ const DiaryItemScreen = ({ route, navigation }) => {
     const [initialItem, setInitialItem] = useState(0);
 
     const [number, onChangeNumber] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const emptyBtn = (number != null & number != '');
     const emptyBtnTitle = (changeTitle != null & changeTitle != '');
@@ -188,6 +189,27 @@ const DiaryItemScreen = ({ route, navigation }) => {
       getMealList();
       getGlycemicIndex();
     }, [mealData]);
+
+    const [isSwitchOn, setIsSwitchOn] = useState(null);
+  const getUser = async () => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .get()
+    .then(( documentSnapshot ) => {
+      if( documentSnapshot.exists ) {
+        setIsSwitchOn(documentSnapshot.data().showOunce);
+      }
+    })
+  }
+ 
+  useEffect(() => {
+    getUser();
+   const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+   }, [navigation, loading, isSwitchOn]);
 
       /**
    * 
@@ -549,7 +571,9 @@ const imageBG = require('../../assets/images/talerz.jpg');
               <View>
                 <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>
                   {sumGramma} <Text>{UNIT.GR}</Text></Text>
-                  <Text style={{fontSize: typography.FONT_SIZE_10}}>{(sumGramma / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
+                  {isSwitchOn === true &&
+                    <Text style={{fontSize: typography.FONT_SIZE_10}}>{(sumGramma / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
+                  }
               </View>
             </View>
 
@@ -573,27 +597,30 @@ const imageBG = require('../../assets/images/talerz.jpg');
                 <View style={{alignItems: 'flex-end', marginRight: spacing.SCALE_5}}>
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumCarbs).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumCarbs / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumCarbs / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                     <Text style={{fontWeight: 'bold'}}>{(sumProtein).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumProtein / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumProtein / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                     <Text style={{fontWeight: 'bold'}}>{(sumFat).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumFat / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumFat / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
-
-                    {/* <Text style={styles.textContainer}>{(sumProtein).toFixed(1)}</Text> */}
-                    {/* <Text style={styles.textContainer}>{(sumFat).toFixed(1)}</Text> */}
                     
                 </View>
               </View>
@@ -609,23 +636,29 @@ const imageBG = require('../../assets/images/talerz.jpg');
                 <View style={{alignItems: 'flex-end', paddingRight: spacing.SCALE_5}}>
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumFiber).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumFiber / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumFiber / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumCholesterol).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumCholesterol / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumCholesterol / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumSugar).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumSugar / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumSugar / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     {/* <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text> */}
@@ -672,11 +705,14 @@ const imageBG = require('../../assets/images/talerz.jpg');
                               <View style={{marginRight: spacing.SCALE_10, alignItems: 'center'}}> 
                                 <Text style={{fontSize: typography.FONT_SIZE_14, color: colors.TEXT.DEEP_BLUE}}>{item.quantity} {UNIT.GR}</Text>
                               </View>
+                              {isSwitchOn === true &&
                               <View style={{marginRight: spacing.SCALE_10, alignItems: 'center'}}>
                                 <Text style={{fontSize: typography.FONT_SIZE_9}}>
                                   {(item.quantity / 28.34952).toFixed(3)} {UNIT.OZ}
                                 </Text>
                               </View>
+                              }
+
                             </View>
                           
                             <View style={{justifyContent: 'center'}}>

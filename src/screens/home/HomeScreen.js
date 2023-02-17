@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
-import { backAction } from './ExitApp';
+
 
 const heightScreen = Dimensions.get('window').height;
 
@@ -38,10 +38,10 @@ const HomeScreen = ({ navigation }) => {
   const [userData, setUserData] = useState('');
   const [image, setImage] = useState('https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg');
   const [loading, setLoading] = useState(true);
-  const refRBSheet = useRef();
-  const [isOpen, setIsOpen] = useState(true);
-  const heightModal = (Dimensions.get('window').height/3);
-  const [newTarget, setNewTarget] = useState(0);
+  //const refRBSheet = useRef();
+  //const [isOpen, setIsOpen] = useState(true);
+  //const heightModal = (Dimensions.get('window').height/3);
+  //const [newTarget, setNewTarget] = useState(0);
  
   const [dataCharts, setDataCharts] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
@@ -62,9 +62,9 @@ const HomeScreen = ({ navigation }) => {
       const backAction = () => {
         Alert.alert(t('exitApp.title'), t('exitApp.subTitle'), [
           {
-            text: 'Cancel',
+            text: t('exitApp.cancel'),
             onPress: () => null,
-            style: t('exitApp.cancel'),
+            style: 'cancel',
           },
           {text: t('exitApp.yes'), onPress: () => BackHandler.exitApp()},
         ]);
@@ -797,5 +797,9 @@ const styles = StyleSheet.create({
     color: colors.TEXT.DEEP_BLUE,
     fontSize: typography.FONT_SIZE_11,
     //textTransform: 'uppercase'
+  },
+  text: {
+    fontSize: 8,
+    fontWeight: 'bold',
   },
 });

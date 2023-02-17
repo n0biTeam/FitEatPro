@@ -1,13 +1,23 @@
 import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions,ToastAndroid } from 'react-native'
 import React, {useState, useContext, useEffect} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Appbar, Button } from 'react-native-paper';
+import { Appbar, Button, Switch, DefaultTheme, Provider as PaperProvider, } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { UNIT } from '../../styles/units';
+
+const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: colors.COLORS.DEEP_BLUE,
+      accent: colors.COLORS.GREEN,
+    },
+  };
 
 const UnitSettingScreen = ({ navigation }) => {
   
@@ -19,6 +29,30 @@ const UnitSettingScreen = ({ navigation }) => {
   const [growthUnit, setGrowthUnit] = useState('');
   //const [diaryUnit, setDiaryUnit] = useState('');
 
+  //const [unit, setUnit] = useState();
+  const [isSwitchOn, setIsSwitchOn] = useState(null);
+
+  const onToggleSwitch = async () => {
+    setIsSwitchOn(!isSwitchOn);
+    
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .update({
+        showOunce: !isSwitchOn,
+        //diaryUnit: selectedD
+    })
+    .then(() => {
+      console.log('Unit Update');
+      //ToastAndroid.show(t('unitSettingScreen.toast.edit-unit'), ToastAndroid.LONG, ToastAndroid.CENTER);
+      //navigation.navigate('SettingScreen');
+    })
+    
+  }
+
+ 
 
   const getUser = async () => {
     await firestore()
@@ -32,6 +66,7 @@ const UnitSettingScreen = ({ navigation }) => {
        
         setWeightUnit(documentSnapshot.data().weightUnit);
         setGrowthUnit(documentSnapshot.data().growthUnit);
+        setIsSwitchOn(documentSnapshot.data().showOunce);
         //setDiaryUnit(documentSnapshot.data().diaryUnit);
       }
     })
@@ -112,6 +147,7 @@ const UnitSettingScreen = ({ navigation }) => {
   const imageBG = require('../../assets/images/bg5.jpg');
   
   return (
+    <PaperProvider theme={theme}>
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: '#224870', marginTop: 30}}>
     <Appbar.BackAction onPress={_goBack} />
@@ -274,8 +310,20 @@ const UnitSettingScreen = ({ navigation }) => {
                     ZAPISZ
                 </Button>
                 </View>
+                
+                <View style={{marginTop: spacing.SCALE_30, flexDirection: 'row', marginHorizontal: spacing.SCALE_6}}>
+                    <View style={{flex: 1, justifyContent: 'center'}}>
+                        <Text style={{color: colors.TEXT.DEEP_BLUE}}>Pokaż jednostki uncji w dzienniku posiłku</Text>
+                    </View>
+                    <View>
+                        <Switch value={isSwitchOn} onValueChange={onToggleSwitch} style={{color: 'red'}}/>
+                    </View>
+                    
+                </View> 
 
             </View>
+
+            
 
         </View>
 
@@ -283,6 +331,7 @@ const UnitSettingScreen = ({ navigation }) => {
     
     </ImageBackground>
     </SafeAreaProvider>
+    </PaperProvider>
   )
 }
 

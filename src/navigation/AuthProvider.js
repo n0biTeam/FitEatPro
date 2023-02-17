@@ -133,6 +133,7 @@ const insertPurineJson = async (dataPurineJson) => {
                       userImg: null,
                       weightUnit: UNIT.KG,
                       growthUnit: UNIT.CM,
+                      showOunce: true,
                       weightNameLB: 0, 
                       //weightNameST: 0,
                       heightNameIN: 0,

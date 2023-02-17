@@ -59,6 +59,7 @@ const MealScreen = ({
   const [sumFat, setSumFat] = useState(0);
   const [sumFiber, setSumFiber] = useState(0);
   const [sumSugar, setSumSugar] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   //const [idMeal, setIdMeal] = useState('');
 
@@ -150,6 +151,30 @@ const MealScreen = ({
   useEffect(() => {
     getMealList();
   }, []);
+
+  const [isSwitchOn, setIsSwitchOn] = useState(null);
+  const getUser = async () => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .get()
+    .then(( documentSnapshot ) => {
+      if( documentSnapshot.exists ) {
+        setIsSwitchOn(documentSnapshot.data().showOunce);
+        //setDiaryUnit(documentSnapshot.data().diaryUnit);
+      }
+    })
+  }
+ 
+  useEffect(() => {
+    getUser();
+   const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+   }, [navigation, loading, isSwitchOn]);
+
+  //console.log('switch: ' + isSwitchOn)
 
   const colorFirst = (total) => {
     let color;
@@ -428,7 +453,7 @@ const colorLG = (ladunek) => {
               inActiveStrokeWidth={12}
               progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_20 }}
               activeStrokeColor={colorFirst(total)}
-              inActiveStrokeColor="#ccc"
+              inActiveStrokeColor={colors.COLORS.GREY_CCC}
               duration={5000}
               dashedStrokeConfig={{
                 count: 40,
@@ -475,7 +500,9 @@ const colorLG = (ladunek) => {
               <View>
                 <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>
                   {sumGramma} <Text>{UNIT.GR}</Text></Text>
+                  {isSwitchOn === true &&
                   <Text style={{fontSize: typography.FONT_SIZE_10}}>{(sumGramma / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
+                  }
               </View>
             </View>
 
@@ -499,23 +526,29 @@ const colorLG = (ladunek) => {
                 <View style={{alignItems: 'flex-end', marginRight: spacing.SCALE_5}}>
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumCarbs).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumCarbs / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumCarbs / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                     <Text style={{fontWeight: 'bold'}}>{(sumProtein).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumProtein / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumProtein / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                     <Text style={{fontWeight: 'bold'}}>{(sumFat).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} |</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumFat / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumFat / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     {/* <Text style={styles.textContainer}>{(sumProtein).toFixed(1)}</Text> */}
@@ -535,23 +568,29 @@ const colorLG = (ladunek) => {
                 <View style={{alignItems: 'flex-end', paddingRight: spacing.SCALE_5}}>
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumFiber).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumFiber / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumFiber / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumCholesterol).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumCholesterol / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumCholesterol / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     <Text style={styles.textContainer}>
                       <Text style={{fontWeight: 'bold'}}>{(sumSugar).toFixed(1)}</Text>
-                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} /</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}> {(sumSugar / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
-                      </Text>
+                      <Text style={{textTransform: 'lowercase', fontWeight: 'bold'}}> {UNIT.GR} </Text>
+                      {isSwitchOn === true &&
+                        <Text style={{fontSize: typography.FONT_SIZE_9, color: colors.TEXT.GREY_777}}>| {(sumSugar / 28.34952).toFixed(2)} <Text style={{textTransform: 'lowercase'}}>{UNIT.OZ}</Text>
+                        </Text>
+                      }
                     </Text>
 
                     {/* <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text> */}
@@ -598,11 +637,14 @@ const colorLG = (ladunek) => {
                               <View style={{marginRight: spacing.SCALE_10, alignItems: 'center'}}> 
                                 <Text style={{fontSize: typography.FONT_SIZE_14, color: colors.TEXT.DEEP_BLUE}}>{item.quantity} {UNIT.GR}</Text>
                               </View>
+
+                              {isSwitchOn === true &&
                               <View style={{marginRight: spacing.SCALE_10, alignItems: 'center'}}>
                                 <Text style={{fontSize: typography.FONT_SIZE_9}}>
                                   {(item.quantity / 28.34952).toFixed(3)} {UNIT.OZ}
                                 </Text>
                               </View>
+                              }
                             </View>
                           
                             <View style={{justifyContent: 'center'}}>
