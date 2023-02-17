@@ -62,6 +62,7 @@ const GlycemicIndex = ({
     const [filteredDataSource, setFilteredDataSource] = useState(listData);
     const [masterDataSource, setMasterDataSource] = useState(listData);
     const [switchSort, setSwitchSort] = useState('2');
+    const [loading, setLoading] = useState(true);
 
     const getList = () => {
         firestore().collection('users').doc(user.uid).collection('products')
@@ -90,6 +91,27 @@ const GlycemicIndex = ({
         getList();
        // setIsOpen(false);
       }, []);
+
+  const [isSwitchOn, setIsSwitchOn] = useState(null);
+  const getUser = async () => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .collection('profile')
+    .doc('profil')
+    .get()
+    .then(( documentSnapshot ) => {
+      if( documentSnapshot.exists ) {
+        setIsSwitchOn(documentSnapshot.data().showOunce);
+      }
+    })
+  }
+ 
+  useEffect(() => {
+    getUser();
+   const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+   }, [navigation, loading, isSwitchOn]);
 
       const addMeal = async () => {
         await firestore()
@@ -1462,11 +1484,13 @@ const xxx = (item) => {
                     {initialItem.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
+                  {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                    ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
-                  </Text>
-                </View>
+                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                      ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
+                    </Text>
+                  </View>
+                  }
               </View>
 
           </View>
@@ -1484,11 +1508,13 @@ const xxx = (item) => {
                     {initialItem.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
+                  {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                    ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
-                  </Text>
-                </View>
+                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                      ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
+                    </Text>
+                  </View>
+                  }
               </View>
 
           </View>
@@ -1506,11 +1532,13 @@ const xxx = (item) => {
                     {initialItem.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
+                  {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                    ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
-                  </Text>
-                </View>
+                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                      ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
+                    </Text>
+                  </View>
+                  }
               </View>
 
           </View>
@@ -1528,11 +1556,13 @@ const xxx = (item) => {
                     {initialItem.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
+                  {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                    ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
-                  </Text>
-                </View>
+                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                      ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
+                    </Text>
+                  </View>
+                  }
               </View>
 
           </View>
@@ -1550,11 +1580,13 @@ const xxx = (item) => {
                     {initialItem.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
+                  {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                    ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
-                  </Text>
-                </View>
+                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                      ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
+                    </Text>
+                  </View>
+                  }
               </View>
 
           </View>
@@ -1572,11 +1604,13 @@ const xxx = (item) => {
                     {initialItem.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
+                  {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                  <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                    ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
-                  </Text>
-                </View>
+                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                      ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
+                    </Text>
+                  </View>
+                  }
               </View>
 
           </View>
