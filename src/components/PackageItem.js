@@ -47,7 +47,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
     //   <Text style={styles.title}>{priceString}</Text>
     // </Pressable>
     <View style={{marginBottom: spacing.SCALE_6 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: 10, elevation: 3}}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: 3, elevation: 3}}>
             <View style={styles.container}>
                 <View style={{flexDirection: 'column'}}>
                 <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "")}</Text>
@@ -77,15 +77,15 @@ const styles = StyleSheet.create({
       //borderBottomColor: colors.COLORS.GREY_CCC,
     },
     title: {
-      color: colors.TEXT.GREEN,
-      fontSize: typography.FONT_SIZE_16,
+      color: colors.TEXT.DEEP_BLUE,
+      fontSize: typography.FONT_SIZE_15,
       fontWeight: 'bold',
       textTransform: 'uppercase'
     },
     prince: {
-      color: colors.TEXT.DEEP_BLUE,
+      color: colors.TEXT.GREY_777,
       fontSize: typography.FONT_SIZE_16,
-      fontWeight: 'bold',
+      //fontWeight: 'bold',
     },
     terms: {
       color: 'darkgrey',

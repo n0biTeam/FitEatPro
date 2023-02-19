@@ -8,9 +8,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { LineChart } from "react-native-chart-kit";
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
-import { IG } from '../../styles/constants';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
@@ -59,9 +58,9 @@ const HomeScreen = ({ navigation }) => {
       setIsLoading(!isLoading);
     };
 
+
     const [userPro, setUserPro] = useState(false);
     
-
     useEffect(() => {
       
     Purchases.addCustomerInfoUpdateListener((info) => {

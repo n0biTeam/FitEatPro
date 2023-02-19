@@ -45,35 +45,7 @@ const MealScreen = ({
     setIsExtended(currentScrollPosition <= 0);
   };
 
-  const [userPro, setUserPro] = useState(false);
     
-
-    useEffect(() => {
-      
-    Purchases.addCustomerInfoUpdateListener((info) => {
-      const statusPro = async () => {
-        try {
-          // access latest customerInfo
-          const customerInfo = await Purchases.getCustomerInfo();
-    
-          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-                  
-            setUserPro(true);
-           
-          } else {
-          
-            setUserPro(false);
-  
-          }
-        } catch (e) {
-          Alert.alert('Error fetching customer info', e.message);
-        }
-        
-      }
-      statusPro();
-      });
-    
-    },[]);
 
   const fabStyle = { [animateFrom]: 16 };
 
@@ -94,6 +66,32 @@ const MealScreen = ({
   const [loading, setLoading] = useState(true);
 
   //const [idMeal, setIdMeal] = useState('');
+
+  const [userPro, setUserPro] = useState(false);
+    
+
+  const glycemicIndexRoute = async () => {
+        
+    try {
+      // access latest customerInfo
+      const customerInfo = await Purchases.getCustomerInfo();
+
+      if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+       
+        console.log('User is Pro')
+        navigation.navigate('GlycemicIndex');
+        setUserPro(true);
+        
+      } else {
+        navigation.navigate('GlycemicIndexNoPay');
+        console.log('User is not Pro')
+        setUserPro(false);
+        
+      }
+    } catch (e) {
+      Alert.alert('Error fetching customer info', e.message);
+    }
+  };
 
   const getMealList = () => {
 
@@ -766,22 +764,21 @@ const colorLG = (ladunek) => {
             
         
         </View>
-        { userPro === true &&
+        {/* { userPro === true && */}
+       
         <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
         //extended={isExtended}
-        onPress={() => {
-          navigation.navigate('GlycemicIndex');
-        }}
-        visible={visible}
+        onPress={glycemicIndexRoute}
+        visible={true}
         theme={'tertiary'}
         animateFrom={'right'}
         iconMode={'static'}
 
         style={[styles.fabStyle, style, fabStyle]}
       />
-      }
+       {/* } */}
       
 
     </ImageBackground>

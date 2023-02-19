@@ -10,6 +10,8 @@ import { Appbar, Searchbar } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import Purchases from 'react-native-purchases';
+import { ENTITLEMENT_ID } from '../../styles/constants';
 
 const DiaryScreen = ({ navigation }) => {
 
@@ -22,6 +24,36 @@ const DiaryScreen = ({ navigation }) => {
     const [filteredDataSource, setFilteredDataSource] = useState(diaryData);
     const [masterDataSource, setMasterDataSource] = useState(diaryData);
     const [loading, setLoading] = useState(true);
+
+    const [userPro, setUserPro] = useState(false);
+    
+
+    useEffect(() => {
+      
+      const statusInc = async () => {
+        
+        try {
+          // access latest customerInfo
+          const customerInfo = await Purchases.getCustomerInfo();
+    
+          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+                      
+            setUserPro(true);
+            
+          } else {
+          
+            setUserPro(false);
+            
+          }
+        } catch (e) {
+          Alert.alert('Error fetching customer info', e.message);
+        }
+      };
+      statusInc();
+    
+    },[]);
+
+    //console.log(userPro)
   
     const getDiary = () => {
       firestore().collection('users').doc(user.uid).collection('diary')
@@ -152,7 +184,7 @@ const DiaryScreen = ({ navigation }) => {
 
     </View>
     <View style={{flex: 1, backgroundColor: colors.COLORS.LIGHT_GREY}}> 
- 
+    { userPro === true &&
     <View style={{flex: 1, marginHorizontal: spacing.SCALE_6, marginTop: spacing.SCALE_6, marginBottom: spacing.SCALE_6}}>
     { 
     diaryData.length > 0 ?
@@ -280,9 +312,9 @@ const DiaryScreen = ({ navigation }) => {
         </View>
       )}
     </View>
-        
+    }  
     </View>
-    
+      
     
     </SafeAreaProvider>
     
