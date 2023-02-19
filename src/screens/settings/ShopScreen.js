@@ -79,16 +79,16 @@ const ShopScreen = ({ navigation }) => {
       }
     };
 
-    const Info = async () => {
-      try {
-        const customerInfo = await Purchases.getCustomerInfo();
-        // access latest customerInfo
-        return customerInfo()
-      } catch (e) {
-       // Error fetching customer info
-      }
-    }
-console.log(Info())
+//     const Info = async () => {
+//       try {
+//         const customerInfo = await Purchases.getCustomerInfo();
+//         // access latest customerInfo
+//         return customerInfo()
+//       } catch (e) {
+//        // Error fetching customer info
+//       }
+//     }
+// console.log(Info())
   return (
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
@@ -162,7 +162,7 @@ console.log(Info())
             {isPurchasing && <View style={styles.overlay} />}
             
             <View>
-              <Text style={{fontSize: typography.FONT_SIZE_13, marginBottom: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE}}>Jeżeli posiadasz subskrypcję wciśnij przycisk poniżej</Text>
+              <Text style={{fontSize: typography.FONT_SIZE_13, marginBottom: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE}}>* Jeżeli posiadasz subskrypcję wciśnij przycisk poniżej</Text>
               <View style={{marginBottom: spacing.SCALE_10}}>
                 <TouchableOpacity onPress={restorePurchases} style={{backgroundColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_10, borderRadius: spacing.SCALE_5, alignItems: 'center'}}>
                   <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>Przywróc subskrypcję</Text>
