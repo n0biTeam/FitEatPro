@@ -134,7 +134,7 @@ setMasterDataSource([...listData]);
 };
 
     
-    const _goBack = () => navigation.goBack();
+    const _goBack = () => navigation.navigate('HomeScreen');
     const refRBSheet = useRef();
     const [isOpen, setIsOpen] = useState(true);
     const [initialItem, setInitialItem] = useState('');

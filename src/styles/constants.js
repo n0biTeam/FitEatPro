@@ -5,3 +5,7 @@ export const version ={
 export const IG = {
     value: '1'
 }
+
+export const API_KEY = 'goog_zzZfiKEMoXOcnixkZnYmlPjwAnD';
+
+export const ENTITLEMENT_ID = 'Pro';

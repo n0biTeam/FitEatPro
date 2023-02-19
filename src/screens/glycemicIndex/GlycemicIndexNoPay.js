@@ -17,6 +17,7 @@ import * as RNLocalize from "react-native-localize";
 import dataPL from '../../data/dataPL';
 import dataEN from '../../data/dataEN';
 import firestore from '@react-native-firebase/firestore';
+import MyCircle from '../../components/MyCircle';
 
 const theme = {
   ...DefaultTheme,
@@ -1227,6 +1228,7 @@ const GlycemicIndexNoPay = ({
                       </View>
                       <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
                       
+                    <MyCircle percentage={item.index_glycemic} /> 
                      
                     </View>
                   </View>

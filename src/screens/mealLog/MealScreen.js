@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground,ToastAndroid, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground,ToastAndroid, StatusBar, Dimensions, Alert } from 'react-native'
 import React, { useEffect, useState, useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider,  Button, Modal, Portal, TextInput } from 'react-native-paper';
@@ -10,6 +10,8 @@ import BigList from "react-native-big-list";
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import Purchases from 'react-native-purchases';
+import { ENTITLEMENT_ID } from '../../styles/constants';
 
 const theme = {
   ...DefaultTheme,
@@ -42,6 +44,36 @@ const MealScreen = ({
   
     setIsExtended(currentScrollPosition <= 0);
   };
+
+  const [userPro, setUserPro] = useState(false);
+    
+
+    useEffect(() => {
+      
+    Purchases.addCustomerInfoUpdateListener((info) => {
+      const statusPro = async () => {
+        try {
+          // access latest customerInfo
+          const customerInfo = await Purchases.getCustomerInfo();
+    
+          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+                  
+            setUserPro(true);
+           
+          } else {
+          
+            setUserPro(false);
+  
+          }
+        } catch (e) {
+          Alert.alert('Error fetching customer info', e.message);
+        }
+        
+      }
+      statusPro();
+      });
+    
+    },[]);
 
   const fabStyle = { [animateFrom]: 16 };
 
@@ -734,7 +766,7 @@ const colorLG = (ladunek) => {
             
         
         </View>
-        
+        { userPro === true &&
         <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
@@ -749,7 +781,7 @@ const colorLG = (ladunek) => {
 
         style={[styles.fabStyle, style, fabStyle]}
       />
-
+      }
       
 
     </ImageBackground>

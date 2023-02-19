@@ -8,14 +8,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { LineChart } from "react-native-chart-kit";
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
 import { IG } from '../../styles/constants';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
-
+import Purchases from 'react-native-purchases';
+import { ENTITLEMENT_ID } from '../../styles/constants';
 
 const heightScreen = Dimensions.get('window').height;
 
@@ -57,6 +58,86 @@ const HomeScreen = ({ navigation }) => {
     const toggleLoading = () => {
       setIsLoading(!isLoading);
     };
+
+    const [userPro, setUserPro] = useState(false);
+    
+
+    useEffect(() => {
+      
+    Purchases.addCustomerInfoUpdateListener((info) => {
+      const statusPro = async () => {
+        try {
+          // access latest customerInfo
+          const customerInfo = await Purchases.getCustomerInfo();
+    
+          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+                  
+            setUserPro(true);
+           
+          } else {
+          
+            setUserPro(false);
+  
+          }
+        } catch (e) {
+          Alert.alert('Error fetching customer info', e.message);
+        }
+        
+      }
+      statusPro();
+      });
+    
+    },[]);
+    
+      const glycemicIndexRoute = async () => {
+        
+        try {
+          // access latest customerInfo
+          const customerInfo = await Purchases.getCustomerInfo();
+    
+          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+           
+            console.log('User is Pro')
+            navigation.navigate('GlycemicIndex');
+            setUserPro(true);
+            
+          } else {
+            navigation.navigate('GlycemicIndexNoPay');
+            console.log('User is not Pro')
+            setUserPro(false);
+            
+          }
+        } catch (e) {
+          Alert.alert('Error fetching customer info', e.message);
+        }
+      };
+    
+      const purineRoute = async () => {
+        
+        try {
+          // access latest customerInfo
+          const customerInfo = await Purchases.getCustomerInfo();
+    
+          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+           
+            console.log('User is Pro')
+            navigation.navigate('PurineAddScreen');
+            setUserPro(true);
+           
+          } else {
+            navigation.navigate('PurineListScreenNoPay');
+            console.log('User is not Pro')
+            setUserPro(false);
+            
+          }
+        } catch (e) {
+          Alert.alert('Error fetching customer info', e.message);
+        }
+      };
+    
+      
+
+    console.log(userPro)
 
     useEffect(() => {
       const backAction = () => {
@@ -209,7 +290,7 @@ const _differenceWeight = () => {
     getCharts();
     navigation.addListener("focus", () => setLoading(!loading));
     
-  }, [navigation, loading, weight]);
+  }, [navigation, loading, weight, userPro]);
 
   const _getWeightUnit = () => {
     try{
@@ -674,18 +755,18 @@ const _differenceWeight = () => {
     <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_10}}>
       <View style={[styles.menuContainer, {marginTop: Dimensions.get("window").height > 600 ? 0 : spacing.SCALE_30}]}>
         
-          <TouchableOpacity style={styles.menuBtn} onPress={() => IG.value === '1' ? navigation.navigate('GlycemicIndex') : navigation.navigate('GlycemicIndexNoPay')}>
+          <TouchableOpacity style={styles.menuBtn} onPress={glycemicIndexRoute} >
             <View style={styles.boxContainer}>
               <MaterialCommunityIcons name='food-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
             </View>
               <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}}>
+          <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}} disabled={!userPro}>
             <View style={styles.boxContainer}>
-              <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+              <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
             </View>
-            <Text style={styles.menuBtnText}>{t('homescreen-menu-weight')}</Text>
+            <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-weight')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs')}}>
@@ -699,23 +780,23 @@ const _differenceWeight = () => {
 
       <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
        
-       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}}>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}} disabled={!userPro}>
          <View style={styles.boxContainer}>
-           <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+           <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
          </View>
-         <Text style={styles.menuBtnText}>{t('homescreen-menu-blood-pressure')}</Text>
+         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-blood-pressure')}</Text>
        </TouchableOpacity>
 
-       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}}>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}} disabled={!userPro}>
          <View style={styles.boxContainer}>
-           <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+           <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
          </View>
-         <Text style={styles.menuBtnText}>{t('homescreen-menu-glucose')}</Text>
+         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-glucose')}</Text>
        </TouchableOpacity>
 
        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs2')}}>
          <View style={styles.boxContainer}>
-           <MaterialCommunityIcons name='clipboard-edit-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+           <MaterialCommunityIcons name='clipboard-edit-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE } />
          </View>
          <Text style={styles.menuBtnText}>{t('homescreen-memu-insulin-resistance')}</Text>
        </TouchableOpacity>
@@ -724,23 +805,23 @@ const _differenceWeight = () => {
 
      <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
 
-       <TouchableOpacity style={styles.menuBtn} onPress={() => { IG.value === '1' ? navigation.navigate('PurineListScreen') : navigation.navigate('PurineListScreenNoPay')}}>
+       <TouchableOpacity style={styles.menuBtn} onPress={purineRoute} >
           <View style={styles.boxContainer}>
-          <MaterialCommunityIcons name='molecule' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+          <MaterialCommunityIcons name='molecule' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE } />
           </View>
           <Text style={styles.menuBtnText}>{t('homescreen-menu-purine')}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('FindingScreen')}}>
+        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('FindingScreen')}} disabled={!userPro}>
           <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='archive' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+            <MaterialCommunityIcons name='archive' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
           </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-menu-findings')}</Text>
+          <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-findings')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('NotesScreen')}}>
           <View style={styles.boxContainer}>
-            <MaterialIcons name='notes' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+            <MaterialIcons name='notes' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE } />
           </View>
           <Text style={styles.menuBtnText}>{t('homescreen-menu-notes')}</Text>
         </TouchableOpacity>
