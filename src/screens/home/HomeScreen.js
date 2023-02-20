@@ -72,7 +72,6 @@ const HomeScreen = ({ navigation }) => {
     const customerInfo = await Purchases.getCustomerInfo();
     setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
     setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");       
-   console.log('t: ' + typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined")
   };
 
   

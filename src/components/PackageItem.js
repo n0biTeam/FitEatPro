@@ -26,7 +26,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
       if (typeof purchaseMade.customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
         console.log("User is PRO");
         setUserPro(true);
-        //navigation.navigate('HomeScreen');
+        navigation.navigate('HomeScreen');
       }
     } catch (e) {
       if (!e.userCancelled) {
@@ -47,17 +47,21 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
     //   <Text style={styles.title}>{priceString}</Text>
     // </Pressable>
     <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.LIGHT_BLUE, borderRadius: 5, padding: 3, elevation: 3}}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
             <View style={styles.container}>
                 <View style={{flexDirection: 'column'}}>
+                  
+                  
                   <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={styles.prince}>{priceString}</Text>
                 </View>
-                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                   <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "").replace("Subskrypcja", "")}</Text>
-                </View>
-               
-                {/* <Text style={styles.terms}>{description}</Text> */}
+                {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                   <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "")}</Text>
+                </View> */}
+               <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={styles.terms}>{description}</Text>
+                  </View>
+                
                 </View>
                 
 
@@ -93,6 +97,9 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     terms: {
-      color: 'darkgrey',
+      color: colors.TEXT.YELLOW,
+      fontWeight: 'bold',
+      textTransform: 'uppercase',
+      marginTop: spacing.SCALE_3
     },
   });
