@@ -60,33 +60,62 @@ const HomeScreen = ({ navigation }) => {
 
 
     const [userPro, setUserPro] = useState(false);
-    
-    useEffect(() => {
-      
-    Purchases.addCustomerInfoUpdateListener((info) => {
-      const statusPro = async () => {
-        try {
-          // access latest customerInfo
-          const customerInfo = await Purchases.getCustomerInfo();
-    
-          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-                  
-            setUserPro(true);
-           
-          } else {
-          
-            setUserPro(false);
+
+    const [userId, setUserId] = useState(null);
+  const [subscriptionActive, setSubscriptionActive] = useState(false);
+
+  // get the latest details about the user (is anonymous, user id, has active subscription)
+  const getUserDetails = async () => {
+    //setIsAnonymous(await Purchases.isAnonymous());
+    setUserId(await Purchases.getAppUserID());
+
+    const customerInfo = await Purchases.getCustomerInfo();
+    setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
+    setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");       
+   console.log('t: ' + typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined")
+  };
+
   
-          }
-        } catch (e) {
-          Alert.alert('Error fetching customer info', e.message);
-        }
-        
-      }
-      statusPro();
-      });
+
+  useEffect(() => {
+    // Get user details when component first mounts
+    getUserDetails();
+  }, []);
+
+  useEffect(() => {
+    // Subscribe to purchaser updates
+    Purchases.addCustomerInfoUpdateListener(getUserDetails);
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(getUserDetails);
+    };
+  });
     
-    },[]);
+    // useEffect(() => {
+      
+    // Purchases.addCustomerInfoUpdateListener((info) => {
+    //   const statusPro = async () => {
+    //     try {
+    //       // access latest customerInfo
+    //       const customerInfo = await Purchases.getCustomerInfo();
+    
+    //       if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+                  
+    //         setUserPro(true);
+           
+    //       } else {
+          
+    //         setUserPro(false);
+  
+    //       }
+    //     } catch (e) {
+    //       Alert.alert('Error fetching customer info', e.message);
+    //     }
+        
+    //   }
+    //   statusPro();
+    //   });
+    
+    // },[]);
     
       const glycemicIndexRoute = async () => {
         
@@ -98,12 +127,14 @@ const HomeScreen = ({ navigation }) => {
            
             console.log('User is Pro')
             navigation.navigate('GlycemicIndex');
-            setUserPro(true);
+            //setUserPro(true);
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
             
           } else {
             navigation.navigate('GlycemicIndexNoPay');
             console.log('User is not Pro')
-            setUserPro(false);
+            //setUserPro(false);
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
             
           }
         } catch (e) {
@@ -121,12 +152,14 @@ const HomeScreen = ({ navigation }) => {
            
             console.log('User is Pro')
             navigation.navigate('PurineAddScreen');
-            setUserPro(true);
+            //setUserPro(true);
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
            
           } else {
             navigation.navigate('PurineListScreenNoPay');
             console.log('User is not Pro')
-            setUserPro(false);
+            //setUserPro(false);
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
             
           }
         } catch (e) {
@@ -136,7 +169,7 @@ const HomeScreen = ({ navigation }) => {
     
       
 
-    console.log(userPro)
+    //console.log(userPro)
 
     useEffect(() => {
       const backAction = () => {

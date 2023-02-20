@@ -26,7 +26,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
       if (typeof purchaseMade.customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
         console.log("User is PRO");
         setUserPro(true);
-        navigation.navigate('HomeScreen');
+        //navigation.navigate('HomeScreen');
       }
     } catch (e) {
       if (!e.userCancelled) {
@@ -46,16 +46,20 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
     //   </View>
     //   <Text style={styles.title}>{priceString}</Text>
     // </Pressable>
-    <View style={{marginBottom: spacing.SCALE_6 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: 3, elevation: 3}}>
+    <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.LIGHT_BLUE, borderRadius: 5, padding: 3, elevation: 3}}>
             <View style={styles.container}>
                 <View style={{flexDirection: 'column'}}>
-                <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "")}</Text>
-                {/* <Text style={styles.terms}>{description}</Text> */}
-                </View>
-                <View style={{justifyContent: 'center', alignItems: 'flex-end'}}>
+                  <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={styles.prince}>{priceString}</Text>
                 </View>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                   <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "").replace("Subskrypcja", "")}</Text>
+                </View>
+               
+                {/* <Text style={styles.terms}>{description}</Text> */}
+                </View>
+                
 
             </View>
         </TouchableOpacity>
@@ -72,20 +76,21 @@ const styles = StyleSheet.create({
       //alignItems: 'center',
       flex: 1,
       padding: spacing.SCALE_6,
-      backgroundColor: colors.COLORS.WHITE,
+      backgroundColor: colors.COLORS.LIGHT_BLUE,
       //borderBottomWidth: 1,
       //borderBottomColor: colors.COLORS.GREY_CCC,
     },
     title: {
-      color: colors.TEXT.DEEP_BLUE,
-      fontSize: typography.FONT_SIZE_15,
-      fontWeight: 'bold',
-      textTransform: 'uppercase'
+      color: colors.TEXT.WHITE,
+      fontSize: typography.FONT_SIZE_12,
+      //fontWeight: 'bold',
+      textTransform: 'uppercase',
+      marginTop: spacing.SCALE_6
     },
     prince: {
-      color: colors.TEXT.GREY_777,
-      fontSize: typography.FONT_SIZE_16,
-      //fontWeight: 'bold',
+      color: colors.TEXT.WHITE,
+      fontSize: typography.FONT_SIZE_20,
+      fontWeight: 'bold',
     },
     terms: {
       color: 'darkgrey',

@@ -16,7 +16,7 @@ const ShopScreen = ({ navigation }) => {
   const [packages, setPackages] = useState([]);
   const [isPurchasing, setIsPurchasing] = useState(false);
 
-  const [isAnonymous, setIsAnonymous] = useState(true);
+  //const [isAnonymous, setIsAnonymous] = useState(true);
   const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
 
@@ -128,13 +128,94 @@ const ShopScreen = ({ navigation }) => {
 
               <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4}}>
                 <View>
-                  <Text style={styles.text}>FitEat Pro Premium</Text>
+                  <Text style={styles.text2}>FitEat Pro Premium</Text>
                 </View>
                 <View style={{alignItems: 'center', marginTop: spacing.SCALE_10}}>
                    <Text style={{color: colors.TEXT.DEEP_BLUE, textTransform: 'uppercase', fontSize: typography.FONT_SIZE_12}}>Status subskrybcji</Text>
                    <Text style={{ color: subscriptionActive ? colors.COLORS.GREEN : colors.COLORS.RED, fontSize: typography.FONT_SIZE_20, fontWeight: 'bold', textTransform: 'uppercase' }}>
                       {subscriptionActive ? 'Aktywna' : 'Nie aktywna'}
                   </Text>
+                </View>
+                
+              </View>
+
+              <View style={{backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4}}>
+                <View style={{backgroundColor: colors.COLORS.GREY_999, padding: spacing.SCALE_10, borderTopEndRadius: spacing.SCALE_5, borderTopStartRadius: spacing.SCALE_5, alignItems: 'center'}}>
+                  <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase'}}>Funkcje premium</Text>
+                </View>
+                
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_6}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Własna lista produktów (możliwość dodawania, modyfikacji i kasowania)</Text>
+                  </View>
+                </View>
+                
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Dziennik posiłków</Text>
+                  </View>
+                </View>
+
+                
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Dziennik wagi</Text>
+                  </View>
+                </View>
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Dziennik ciśnienia krwi</Text>
+                  </View>
+                </View>
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Dziennik pomiarów glukozy</Text>
+                  </View>
+                </View>
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Dziennik wyników badań</Text>
+                  </View>
+                </View>
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Sortowanie produktów po wartościach odżywczych / witaminy</Text>
+                  </View>
+                </View>
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3, marginBottom: spacing.SCALE_6}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>Własna lista - puryny (kwas moczowy)</Text>
+                  </View>
                 </View>
                 
               </View>
@@ -151,6 +232,7 @@ const ShopScreen = ({ navigation }) => {
       {/* The paywall flat list displaying each package */}
             <FlatList
               data={packages}
+              numColumns={2}
               renderItem={({ item }) => <PackageItem purchasePackage={item} setIsPurchasing={setIsPurchasing} />}
               keyExtractor={(item) => item.identifier}
               //ListHeaderComponent={header}
@@ -199,7 +281,7 @@ const styles = StyleSheet.create({
       padding: 6,
       flex: 1
     },
-    text: {
+    text2: {
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
       fontSize: typography.FONT_SIZE_16,
@@ -222,4 +304,13 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontWeight: 'bold',
     },
+    text: {
+      fontSize: typography.FONT_SIZE_13,
+      color: colors.TEXT.DEEP_BLUE
+    },
+    dot: {
+      fontSize: typography.FONT_SIZE_13,
+      color: colors.TEXT.ORANGE,
+      marginRight: spacing.SCALE_6
+    }
 })
