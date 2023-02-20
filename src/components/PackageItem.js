@@ -39,13 +39,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   
 
   return (
-    // <Pressable onPress={onSelection} style={styles.container}>
-    //   <View style={styles.left}>
-    //     <Text style={styles.title}>{title}</Text>
-    //     <Text style={styles.terms}>{description}</Text>
-    //   </View>
-    //   <Text style={styles.title}>{priceString}</Text>
-    // </Pressable>
+   
     <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
         <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
             <View style={styles.container}>
@@ -79,7 +73,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       //alignItems: 'center',
       flex: 1,
-      padding: spacing.SCALE_6,
+      padding: spacing.SCALE_3,
       backgroundColor: colors.COLORS.LIGHT_BLUE,
       //borderBottomWidth: 1,
       //borderBottomColor: colors.COLORS.GREY_CCC,

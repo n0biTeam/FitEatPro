@@ -7,6 +7,9 @@ import Purchases from 'react-native-purchases';
 import PackageItem from '../../components/PackageItem';
 import { ENTITLEMENT_ID } from '../../styles/constants';
 import { AuthContext } from '../../navigation/AuthProvider';
+import { ScrollView } from 'react-native-gesture-handler';
+import { act } from 'react-test-renderer';
+import { padding } from '../../styles/mixins';
 
 const ShopScreen = ({ navigation }) => {
   
@@ -23,7 +26,7 @@ const ShopScreen = ({ navigation }) => {
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
     //setIsAnonymous(await Purchases.isAnonymous());
-    setUserId(await Purchases.getAppUserID());
+    setUserId(user.uid);
 
     const customerInfo = await Purchases.getCustomerInfo();
     setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
@@ -58,17 +61,24 @@ const ShopScreen = ({ navigation }) => {
     getPackages();
   },[]);
 
-  const header = () => <Text style={styles.text}>FitEat Pro Premium</Text>;
-
-  const footer = () => {
+   const [activated, setActivated] = useState('');
+   useEffect(() => {
     
-    return (
-      <Text style={styles.text}>
-       
-      </Text>
-    );
-  };
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
 
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
+
+    //console.log(activated)
   
     const restorePurchases = async () => {
       try {
@@ -79,16 +89,7 @@ const ShopScreen = ({ navigation }) => {
       }
     };
 
-//     const Info = async () => {
-//       try {
-//         const customerInfo = await Purchases.getCustomerInfo();
-//         // access latest customerInfo
-//         return customerInfo()
-//       } catch (e) {
-//        // Error fetching customer info
-//       }
-//     }
-// console.log(Info())
+
   return (
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
@@ -124,22 +125,44 @@ const ShopScreen = ({ navigation }) => {
       }}
       >
         <View style={styles.rootContainer}>
-            <View style={styles.boxContainer}>
+            {/* <View style={styles.boxContainer}> */}
 
-              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4}}>
-                <View>
+              <View style={{ backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4}}>
+                <View style={{}}>
                   <Text style={styles.text2}>FitEat Pro Premium</Text>
                 </View>
-                <View style={{alignItems: 'center', marginTop: spacing.SCALE_10}}>
+                <View style={{alignItems: 'center', marginTop: spacing.SCALE_6}}>
                    <Text style={{color: colors.TEXT.DEEP_BLUE, textTransform: 'uppercase', fontSize: typography.FONT_SIZE_12}}>Status subskrybcji</Text>
                    <Text style={{ color: subscriptionActive ? colors.COLORS.GREEN : colors.COLORS.RED, fontSize: typography.FONT_SIZE_20, fontWeight: 'bold', textTransform: 'uppercase' }}>
                       {subscriptionActive ? 'Aktywna' : 'Nie aktywna'}
                   </Text>
+                  {String(activated) === 'fp_0599_rek' ? <View style={styles.boxAcive}><Text style={styles.boxText}>Usuń reklamy</Text></View> : null }
+                  {String(activated) === 'fp_1199_m' ? <View style={styles.boxAcive}><Text style={styles.boxText}>Miesiąc premium</Text></View> : null }
+                  {String(activated) === 'fp_8999_y' ? <View style={styles.boxAcive}><Text style={styles.boxText}>"Rok premium"</Text></View> : null }
                 </View>
                 
               </View>
 
-              <View style={{backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4}}>
+               <View style={{marginBottom: spacing.SCALE_3}}>
+                <Text style={{color: colors.TEXT.DEEP_BLUE}}>Wybierz subskrypcję:</Text>
+               
+              </View>
+              
+              <View>
+                <FlatList
+                  data={packages}
+                  numColumns={2}
+                  renderItem={({ item }) => <PackageItem purchasePackage={item} setIsPurchasing={setIsPurchasing} />}
+                  keyExtractor={(item) => item.identifier}
+                  //ListHeaderComponent={header}
+                  ListHeaderComponentStyle={styles.headerFooterContainer}
+                  // ListFooterComponent={footer}
+                  ListFooterComponentStyle={styles.headerFooterContainer}
+                />
+              </View>
+
+              <ScrollView>
+              <View style={{backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4, marginTop: spacing.SCALE_6}}>
                 <View style={{backgroundColor: colors.COLORS.GREY_999, padding: spacing.SCALE_10, borderTopEndRadius: spacing.SCALE_5, borderTopStartRadius: spacing.SCALE_5, alignItems: 'center'}}>
                   <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase'}}>Funkcje premium</Text>
                 </View>
@@ -219,39 +242,21 @@ const ShopScreen = ({ navigation }) => {
                 </View>
                 
               </View>
-              
-              <View style={{marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_3}}>
-                <Text style={{color: colors.TEXT.DEEP_BLUE}}>Wybierz subskrypcję:</Text>
-               
-              </View>
-              
-           {/* <Text>{userId}</Text> */}
-          
+              </ScrollView>
+             
+             
 
-
-      {/* The paywall flat list displaying each package */}
-            <FlatList
-              data={packages}
-              numColumns={2}
-              renderItem={({ item }) => <PackageItem purchasePackage={item} setIsPurchasing={setIsPurchasing} />}
-              keyExtractor={(item) => item.identifier}
-              //ListHeaderComponent={header}
-              ListHeaderComponentStyle={styles.headerFooterContainer}
-              ListFooterComponent={footer}
-              ListFooterComponentStyle={styles.headerFooterContainer}
-            />
-
-            {isPurchasing && <View style={styles.overlay} />}
+            {/* {isPurchasing && <View style={styles.overlay} />} */}
             
             <View>
               <Text style={{fontSize: typography.FONT_SIZE_13, marginBottom: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE}}>* Jeżeli posiadasz subskrypcję wciśnij przycisk poniżej</Text>
               <View style={{marginBottom: spacing.SCALE_10}}>
                 <TouchableOpacity onPress={restorePurchases} style={{backgroundColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_10, borderRadius: spacing.SCALE_5, alignItems: 'center'}}>
-                  <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>Przywróc subskrypcję</Text>
+                  <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>Przywróć subskrypcję</Text>
                 </TouchableOpacity>
               </View>
             </View>
-            </View>
+          {/* </View> */}
 
             
         </View>
@@ -268,19 +273,13 @@ const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
         //marginHorizontal: spacing.SCALE_6,
-    },
-    boxContainer: {
-        flex: 1,
         backgroundColor: colors.COLORS.LIGHT_GREY,
         padding: spacing.SCALE_6,
-        //marginBottom: spacing.SCALE_6,
-        borderTopLeftRadius: spacing.SCALE_5,
-        borderTopRightRadius: spacing.SCALE_5,
     },
-    page: {
-      padding: 6,
-      flex: 1
-    },
+    // page: {
+    //   padding: 6,
+    //   flex: 1
+    // },
     text2: {
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
@@ -312,5 +311,17 @@ const styles = StyleSheet.create({
       fontSize: typography.FONT_SIZE_13,
       color: colors.TEXT.ORANGE,
       marginRight: spacing.SCALE_6
+    },
+    boxAcive: {
+      backgroundColor: colors.COLORS.GREEN,
+      padding: spacing.SCALE_6,
+      borderRadius: spacing.SCALE_5,
+      elevation: 4
+    },
+    boxText: {
+      color: colors.TEXT.WHITE, 
+      textTransform: 'uppercase',
+      fontSize: typography.FONT_SIZE_12,
+      fontWeight: '600'
     }
 })
