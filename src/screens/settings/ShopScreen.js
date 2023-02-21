@@ -52,7 +52,7 @@ const ShopScreen = ({ navigation }) => {
         if (offerings.current !== null) {  
            //console.log(offerings.current);
            setPackages(offerings.current.availablePackages);
-           //console.log(packages)
+           console.log(packages)
         }
       } catch (e) {
         console.error(e)

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import { View, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import Purchases from 'react-native-purchases';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import { colors, typography, spacing } from '../styles';
 
 const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   const {
-    product: { title, description, priceString },
+    product: { title, description, priceString, identifier },
   } = purchasePackage;
 
   const [userPro, setUserPro] = useState(false);
@@ -17,6 +17,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
 
   const onSelection = async () => {
     setIsPurchasing(true);
+
 
     try {
       //const { purchaserInfo } = await Purchases.purchasePackage(purchasePackage);
@@ -36,24 +37,44 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
       setIsPurchasing(false);
     }
   };
+
+  const [activated, setActivated] = useState([]);
+      useEffect(() => {
+       
+       const identyfikator = async () => {
+        
+         try {
+           const customerInfo = await Purchases.getCustomerInfo();
+           setActivated(customerInfo.activeSubscriptions)
+   
+         } catch (e) {
+          // Error fetching customer info
+         }
+        
+       }
+       identyfikator();
+     },[]);
+
+     console.log(activated)
+
   
 
   return (
    
     <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
-            <View style={styles.container}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
+            <View style={[styles.container, {backgroundColor: String(activated) === identifier ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE}]}>
                 <View style={{flexDirection: 'column'}}>
                   
                   
                   <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={styles.prince}>{priceString}</Text>
+                    <Text style={[styles.prince, {color: String(activated) === identifier ? colors.TEXT.GREY_AAA : colors.TEXT.WHITE}]}>{priceString}</Text>
                 </View>
                 {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
                    <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "")}</Text>
                 </View> */}
                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={styles.terms}>{description}</Text>
+                    <Text style={[styles.terms, {color: String(activated) === identifier ? colors.TEXT.GREY_AAA : colors.TEXT.YELLOW}]}>{description}</Text>
                   </View>
                 
                 </View>
