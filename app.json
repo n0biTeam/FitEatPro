@@ -1,4 +1,8 @@
 {
   "name": "FitEatPro",
-  "displayName": "FitEatPro"
+  "displayName": "FitEatPro",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-6580805673232587~6786530894",
+    "ios_app_id": "ca-app-pub-6580805673232587~6786530894"
+  }
 }

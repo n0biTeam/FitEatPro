@@ -18,6 +18,10 @@ import dataPL from '../../data/dataPL';
 import dataEN from '../../data/dataEN';
 import firestore from '@react-native-firebase/firestore';
 import MyCircle from '../../components/MyCircle';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const theme = {
   ...DefaultTheme,
@@ -502,6 +506,23 @@ const GlycemicIndexNoPay = ({
     setSwitchSort(index);
   };
 
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
+
  // console.log(switchSort)
   return (
     <Provider>
@@ -839,6 +860,19 @@ const GlycemicIndexNoPay = ({
           }
 
         </View>
+
+        {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
+        </View>
+        : null
+        }
 
 
         {initialItem.Status === 0 &&
@@ -1194,7 +1228,7 @@ const GlycemicIndexNoPay = ({
 
     <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
-            <TouchableOpacity onPress={_goBack}>
+            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
                 <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
             </TouchableOpacity>
         </View>
@@ -1245,6 +1279,19 @@ const GlycemicIndexNoPay = ({
 
        
     </View>
+    {console.log(activated)}
+    {String(activated) !== 'fp_0599_rek' ?
+    <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+    </View>
+     : null
+     }
     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
 
               <MyButtonNoPay icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>

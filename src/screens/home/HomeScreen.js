@@ -64,18 +64,39 @@ const HomeScreen = ({ navigation }) => {
     const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
 
+  const [activated, setActivated] = useState([]);
+      useEffect(() => {
+       
+       const identyfikator = async () => {
+        
+         try {
+           const customerInfo = await Purchases.getCustomerInfo();
+           setActivated(customerInfo.activeSubscriptions)
+   
+         } catch (e) {
+          // Error fetching customer info
+         }
+        
+       }
+       identyfikator();
+     },[]);
+
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
     //setIsAnonymous(await Purchases.isAnonymous());
     setUserId(await Purchases.getAppUserID());
 
     const customerInfo = await Purchases.getCustomerInfo();
+    setActivated(customerInfo.activeSubscriptions);
     setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
-    setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");       
+    if(activated.indexOf('fp_0599_rek') <= 0 ){
+      setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+    }else{
+      setUserPro(false);
+    }
   };
 
   
-
   useEffect(() => {
     // Get user details when component first mounts
     getUserDetails();
@@ -89,57 +110,63 @@ const HomeScreen = ({ navigation }) => {
     };
   });
     
-    // useEffect(() => {
+
+    
+      // const glycemicIndexRoute = async () => {
+        
+      //   try {
+      //     // access latest customerInfo
+      //     const customerInfo = await Purchases.getCustomerInfo();
+    
+      //     if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+           
+      //       console.log('User is Pro')
+      //       navigation.navigate('GlycemicIndex');
+      //       //setUserPro(true);
+      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+            
+      //     } else {
+      //       navigation.navigate('GlycemicIndexNoPay');
+      //       console.log('User is not Pro')
+      //       //setUserPro(false);
+      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+            
+      //     }
+      //   } catch (e) {
+      //     Alert.alert('Error fetching customer info', e.message);
+      //   }
+      // };
       
-    // Purchases.addCustomerInfoUpdateListener((info) => {
-    //   const statusPro = async () => {
-    //     try {
-    //       // access latest customerInfo
-    //       const customerInfo = await Purchases.getCustomerInfo();
-    
-    //       if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-                  
-    //         setUserPro(true);
-           
-    //       } else {
-          
-    //         setUserPro(false);
-  
-    //       }
-    //     } catch (e) {
-    //       Alert.alert('Error fetching customer info', e.message);
-    //     }
-        
-    //   }
-    //   statusPro();
-    //   });
-    
-    // },[]);
-    
+
       const glycemicIndexRoute = async () => {
+        const customerInfo = await Purchases.getCustomerInfo();
         
-        try {
-          // access latest customerInfo
-          const customerInfo = await Purchases.getCustomerInfo();
-    
-          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-           
-            console.log('User is Pro')
-            navigation.navigate('GlycemicIndex');
-            //setUserPro(true);
-            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-            
-          } else {
+        //sprawdzamy czy sa aktywacje 
+        if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+
+          //sprawdzamy czy to reklama
+          if(activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1 ){
             navigation.navigate('GlycemicIndexNoPay');
-            console.log('User is not Pro')
-            //setUserPro(false);
             setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-            
+          }else{
+            navigation.navigate('GlycemicIndex');
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
           }
-        } catch (e) {
-          Alert.alert('Error fetching customer info', e.message);
+
         }
-      };
+        //brak aktywacji - blokada menu
+        else{
+          navigation.navigate('GlycemicIndexNoPay');
+          setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+        }
+      }
+
+  
+      
+      console.log(userPro)
+      console.log(activated)
+      console.log(activated.indexOf('fp_0599_rek'))
+      console.log(activated.length)
     
       const purineRoute = async () => {
         
@@ -793,11 +820,11 @@ const _differenceWeight = () => {
               <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}} disabled={!userPro}>
+          <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
             <View style={styles.boxContainer}>
-              <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
+              <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
             </View>
-            <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-weight')}</Text>
+            <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-weight')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs')}}>
@@ -811,18 +838,18 @@ const _differenceWeight = () => {
 
       <View style={[styles.menuContainer, {marginTop: spacing.SCALE_10}]}>
        
-       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}} disabled={!userPro}>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
          <View style={styles.boxContainer}>
-           <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
+           <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
          </View>
-         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-blood-pressure')}</Text>
+         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-blood-pressure')}</Text>
        </TouchableOpacity>
 
-       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}} disabled={!userPro}>
+       <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
          <View style={styles.boxContainer}>
-           <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
+           <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
          </View>
-         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-glucose')}</Text>
+         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-glucose')}</Text>
        </TouchableOpacity>
 
        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs2')}}>
@@ -843,11 +870,11 @@ const _differenceWeight = () => {
           <Text style={styles.menuBtnText}>{t('homescreen-menu-purine')}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('FindingScreen')}} disabled={!userPro}>
+        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('FindingScreen')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
           <View style={styles.boxContainer}>
-            <MaterialCommunityIcons name='archive' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE } />
+            <MaterialCommunityIcons name='archive' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
           </View>
-          <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_AAA : colors.COLORS.DEEP_BLUE}]}>{t('homescreen-menu-findings')}</Text>
+          <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-findings')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('NotesScreen')}}>
