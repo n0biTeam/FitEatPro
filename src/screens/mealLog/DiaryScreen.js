@@ -55,7 +55,7 @@ const DiaryScreen = ({ navigation }) => {
 
     
   const [activated, setActivated] = useState([]);
-      useEffect(() => {
+     
        
        const identyfikator = async () => {
         
@@ -68,43 +68,22 @@ const DiaryScreen = ({ navigation }) => {
          }
         
        }
-       identyfikator();
-     },[]);
-
-  //    useEffect(() => {
-  // const statusInc = async () => {
-  //   try {
-  //   const customerInfo = await Purchases.getCustomerInfo();
+       //identyfikator();
     
-  //   //sprawdzamy czy sa aktywacje 
-  //   if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
 
-  //     //sprawdzamy czy to reklama
-  //     if(activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1 ){
-        
-  //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-  //     }else{
-      
-  //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-  //     }
+     useEffect(() => {
+      // Subscribe to purchaser updates
+      Purchases.addCustomerInfoUpdateListener(identyfikator);
+      return () => {
+        Purchases.removeCustomerInfoUpdateListener(identyfikator);
+      };
+    });
+  
 
-  //   }
-  //   //brak aktywacji - blokada menu
-  //   else{
-  //     setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-  //   }
-  // } catch (e) {
-  //        Alert.alert('Error fetching customer info', e.message);
-  //      }
-  // }
-  //   statusInc();
-    
-  //  },[]);
-
-   console.log('userPro: ' + userPro)
-   console.log('activated: ' + activated)
-   console.log('activated.indexOf: ' + activated.indexOf('fp_0599_m'))
-   console.log('activated.length: ' + activated.length)
+  //  console.log('userPro: ' + userPro)
+  //  console.log('activated: ' + activated)
+  //  console.log('activated.indexOf: ' + activated.indexOf('fp_0599_m'))
+  //  console.log('activated.length: ' + activated.length)
   
     const getDiary = () => {
       firestore().collection('users').doc(user.uid).collection('diary')
