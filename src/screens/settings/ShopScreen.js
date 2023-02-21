@@ -136,10 +136,11 @@ const ShopScreen = ({ navigation }) => {
                    <Text style={{ color: subscriptionActive ? colors.COLORS.GREEN : colors.COLORS.RED, fontSize: typography.FONT_SIZE_20, fontWeight: 'bold', textTransform: 'uppercase' }}>
                       {subscriptionActive ? t('shopScreen.active') : t('shopScreen.inactive')}
                   </Text>
-                  
-                  {String(activated) === 'fp_0599_rek' ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.remove-ads')}</Text></View> : null }
-                  {String(activated) === 'fp_1199_m' ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-month')}</Text></View> : null }
-                  {String(activated) === 'fp_8999_y' ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-year')}</Text></View> : null }
+                  <View style={{flexDirection: 'row'}}>
+                  {activated.indexOf('fp_0599_rek') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.remove-ads')}</Text></View> : null }
+                  {activated.indexOf('fp_1199_m') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-month')}</Text></View> : null }
+                  {activated.indexOf('fp_8999_y') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-year')}</Text></View> : null }
+                  </View>
                 </View>
                 
               </View>
@@ -317,7 +318,8 @@ const styles = StyleSheet.create({
       backgroundColor: colors.COLORS.GREEN,
       padding: spacing.SCALE_6,
       borderRadius: spacing.SCALE_5,
-      elevation: 4
+      elevation: 4,
+      marginHorizontal: spacing.SCALE_3
     },
     boxText: {
       color: colors.TEXT.WHITE, 
