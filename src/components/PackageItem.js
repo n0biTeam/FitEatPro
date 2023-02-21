@@ -52,12 +52,11 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
          }
         
        }
-       identyfikator();
+      identyfikator();
      },[]);
 
      console.log(activated)
-
-  
+   
 
   return (
    

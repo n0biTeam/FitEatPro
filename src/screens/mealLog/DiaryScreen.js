@@ -57,28 +57,23 @@ const DiaryScreen = ({ navigation }) => {
   const [activated, setActivated] = useState([]);
      
        
-       const identyfikator = async () => {
-        
-         try {
-           const customerInfo = await Purchases.getCustomerInfo();
-           setActivated(customerInfo.activeSubscriptions)
-   
-         } catch (e) {
-          // Error fetching customer info
-         }
-        
-       }
-       //identyfikator();
-    
+  useEffect(() => {
+       
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
 
-     useEffect(() => {
-      // Subscribe to purchaser updates
-      Purchases.addCustomerInfoUpdateListener(identyfikator);
-      return () => {
-        Purchases.removeCustomerInfoUpdateListener(identyfikator);
-      };
-    });
-  
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+   identyfikator();
+  },[]);
+
+  console.log(activated)
 
   //  console.log('userPro: ' + userPro)
   //  console.log('activated: ' + activated)
