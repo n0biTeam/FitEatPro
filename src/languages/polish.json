@@ -524,6 +524,25 @@
         "exitApp.title": "Zamknij FitEat Pro",
         "exitApp.subTitle": "Czy na pewno chcesz zamknąć FitEat Pro ?",
         "exitApp.cancel": "Anuluj",
-        "exitApp.yes": "Tak"
+        "exitApp.yes": "Tak",
+
+        "shopScreen.subscription-status": "Status subskrypcji",
+        "shopScreen.active": "Aktywny",
+        "shopScreen.inactive": "Nie aktywny",
+        "shopScreen.remove-ads": "Usuń reklamy",
+        "shopScreen.premium-month": "Miesiąc premium",
+        "shopScreen.premium-year": "Rok premium",
+        "shopScreen.select-a-subscription": "Wybierz subskrypcję:",
+        "shopScreen.premium-features": "Funkcje premium",
+        "shopScreen.point-1": "Własna lista produktów (możliwość dodawania, modyfikacji i kasowania)",
+        "shopScreen.point-2": "Dziennik posiłków",
+        "shopScreen.point-3": "Dziennik wagi",
+        "shopScreen.point-4": "Dziennik ciśnienia krwi",
+        "shopScreen.point-5": "Dziennik pomiarów glukozy",
+        "shopScreen.point-6": "Dziennik wyników badań",
+        "shopScreen.point-7": "Sortowanie produktów po wartościach odżywczych / witaminy",
+        "shopScreen.point-8": "Własna lista - puryny (kwas moczowy)",
+        "shopScreen.text-1": "Jeżeli posiadasz subskrypcję wciśnij przycisk poniżej",
+        "shopScreen.btn.restore-subscription": "Przywróć subskrypcję"
     }
 }
