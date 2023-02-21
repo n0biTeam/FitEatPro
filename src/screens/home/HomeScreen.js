@@ -139,6 +139,7 @@ const HomeScreen = ({ navigation }) => {
       
 
       const glycemicIndexRoute = async () => {
+        try {
         const customerInfo = await Purchases.getCustomerInfo();
         
         //sprawdzamy czy sa aktywacje 
@@ -159,6 +160,9 @@ const HomeScreen = ({ navigation }) => {
           navigation.navigate('GlycemicIndexNoPay');
           setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
         }
+      } catch (e) {
+             Alert.alert('Error fetching customer info', e.message);
+           }
       }
 
   
@@ -168,30 +172,57 @@ const HomeScreen = ({ navigation }) => {
       console.log(activated.indexOf('fp_0599_rek'))
       console.log(activated.length)
     
-      const purineRoute = async () => {
+      // const purineRoute = async () => {
         
-        try {
-          // access latest customerInfo
-          const customerInfo = await Purchases.getCustomerInfo();
+      //   try {
+      //     // access latest customerInfo
+      //     const customerInfo = await Purchases.getCustomerInfo();
     
-          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+      //     if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
            
-            console.log('User is Pro')
-            navigation.navigate('PurineAddScreen');
-            //setUserPro(true);
-            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+      //       console.log('User is Pro')
+      //       navigation.navigate('PurineAddScreen');
+      //       //setUserPro(true);
+      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
            
-          } else {
-            navigation.navigate('PurineListScreenNoPay');
-            console.log('User is not Pro')
-            //setUserPro(false);
-            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+      //     } else {
+      //       navigation.navigate('PurineListScreenNoPay');
+      //       console.log('User is not Pro')
+      //       //setUserPro(false);
+      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
             
+      //     }
+      //   } catch (e) {
+      //     Alert.alert('Error fetching customer info', e.message);
+      //   }
+      // };
+
+      const purineRoute = async () => {
+        try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        
+        //sprawdzamy czy sa aktywacje 
+        if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+
+          //sprawdzamy czy to reklama
+          if(activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1 ){
+            navigation.navigate('PurineListScreenNoPay');
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+          }else{
+            navigation.navigate('PurineListScreen');
+            setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
           }
-        } catch (e) {
-          Alert.alert('Error fetching customer info', e.message);
+
         }
-      };
+        //brak aktywacji - blokada menu
+        else{
+          navigation.navigate('PurineListScreenNoPay');
+          setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+        }
+      } catch (e) {
+             Alert.alert('Error fetching customer info', e.message);
+         }
+      }
     
       
 

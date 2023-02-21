@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions, Alert } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -28,32 +28,83 @@ const DiaryScreen = ({ navigation }) => {
     const [userPro, setUserPro] = useState(false);
     
 
-    useEffect(() => {
+    // useEffect(() => {
       
-      const statusInc = async () => {
+    //   const statusInc = async () => {
         
-        try {
-          // access latest customerInfo
-          const customerInfo = await Purchases.getCustomerInfo();
+    //     try {
+    //       // access latest customerInfo
+    //       const customerInfo = await Purchases.getCustomerInfo();
     
-          if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+    //       if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
                       
-            setUserPro(true);
+    //         setUserPro(true);
             
-          } else {
+    //       } else {
           
-            setUserPro(false);
+    //         setUserPro(false);
             
-          }
-        } catch (e) {
-          Alert.alert('Error fetching customer info', e.message);
-        }
-      };
-      statusInc();
+    //       }
+    //     } catch (e) {
+    //       Alert.alert('Error fetching customer info', e.message);
+    //     }
+    //   };
+    //   statusInc();
     
-    },[]);
+    // },[]);
 
-    //console.log(userPro)
+    
+  const [activated, setActivated] = useState([]);
+      useEffect(() => {
+       
+       const identyfikator = async () => {
+        
+         try {
+           const customerInfo = await Purchases.getCustomerInfo();
+           setActivated(customerInfo.activeSubscriptions)
+   
+         } catch (e) {
+          // Error fetching customer info
+         }
+        
+       }
+       identyfikator();
+     },[]);
+
+  //    useEffect(() => {
+  // const statusInc = async () => {
+  //   try {
+  //   const customerInfo = await Purchases.getCustomerInfo();
+    
+  //   //sprawdzamy czy sa aktywacje 
+  //   if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
+
+  //     //sprawdzamy czy to reklama
+  //     if(activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1 ){
+        
+  //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+  //     }else{
+      
+  //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+  //     }
+
+  //   }
+  //   //brak aktywacji - blokada menu
+  //   else{
+  //     setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+  //   }
+  // } catch (e) {
+  //        Alert.alert('Error fetching customer info', e.message);
+  //      }
+  // }
+  //   statusInc();
+    
+  //  },[]);
+
+   console.log('userPro: ' + userPro)
+   console.log('activated: ' + activated)
+   console.log('activated.indexOf: ' + activated.indexOf('fp_0599_m'))
+   console.log('activated.length: ' + activated.length)
   
     const getDiary = () => {
       firestore().collection('users').doc(user.uid).collection('diary')
@@ -184,7 +235,7 @@ const DiaryScreen = ({ navigation }) => {
 
     </View>
     <View style={{flex: 1, backgroundColor: colors.COLORS.LIGHT_GREY}}> 
-    { userPro === true &&
+    { ((activated.indexOf('fp_1199_m') >= 0) || (activated.indexOf('fp_8999_y') >= 0)) &&
     <View style={{flex: 1, marginHorizontal: spacing.SCALE_6, marginTop: spacing.SCALE_6, marginBottom: spacing.SCALE_6}}>
     { 
     diaryData.length > 0 ?

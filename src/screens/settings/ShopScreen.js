@@ -137,9 +137,9 @@ const ShopScreen = ({ navigation }) => {
                       {subscriptionActive ? t('shopScreen.active') : t('shopScreen.inactive')}
                   </Text>
                   <View style={{flexDirection: 'row'}}>
-                  {activated.indexOf('fp_0599_rek') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.remove-ads')}</Text></View> : null }
-                  {activated.indexOf('fp_1199_m') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-month')}</Text></View> : null }
-                  {activated.indexOf('fp_8999_y') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-year')}</Text></View> : null }
+                  {subscriptionActive && activated.indexOf('fp_0599_rek') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.remove-ads')}</Text></View> : null }
+                  {subscriptionActive && activated.indexOf('fp_1199_m') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-month')}</Text></View> : null }
+                  {subscriptionActive && activated.indexOf('fp_8999_y') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-year')}</Text></View> : null }
                   </View>
                 </View>
                 

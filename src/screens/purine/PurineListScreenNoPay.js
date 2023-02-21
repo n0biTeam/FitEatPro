@@ -16,6 +16,10 @@ import { useTranslation } from 'react-i18next';
 import * as RNLocalize from "react-native-localize";
 import dataPurinePL from '../../data/dataPurinePL';
 import dataPurineEN from '../../data/dataPurineEN';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const theme = {
   ...DefaultTheme,
@@ -34,6 +38,7 @@ const lang = RNLocalize.getLocales()[0].languageCode;
     }else{
       data = dataPurineEN;
     }
+    
 
 const PurineListScreenNoPay = ({ navigation }) => {
 
@@ -45,6 +50,22 @@ const PurineListScreenNoPay = ({ navigation }) => {
     })]);
     const [masterDataSource, setMasterDataSource] = useState([...data]);
       
+    const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
  
     useEffect(() => {
       setFilteredDataSource([...data]);
@@ -322,6 +343,18 @@ setMasterDataSource([...data]);
               <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
             
             </View> */}
+            {String(activated) !== 'fp_0599_rek' ?
+              <View style={{marginBottom: 3, alignItems: 'center'}}>
+              <BannerAd
+                  unitId={adUnitId}
+                  size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                  requestOptions={{
+                      requestNonPersonalizedAdsOnly: true,
+                  }}
+              />
+              </View>
+              : null
+            }
          
        
     </View>

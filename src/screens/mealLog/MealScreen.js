@@ -69,29 +69,49 @@ const MealScreen = ({
 
   const [userPro, setUserPro] = useState(false);
     
+  const [activated, setActivated] = useState([]);
+      useEffect(() => {
+       
+       const identyfikator = async () => {
+        
+         try {
+           const customerInfo = await Purchases.getCustomerInfo();
+           setActivated(customerInfo.activeSubscriptions)
+   
+         } catch (e) {
+          // Error fetching customer info
+         }
+        
+       }
+       identyfikator();
+     },[]);
 
   const glycemicIndexRoute = async () => {
-        
     try {
-      // access latest customerInfo
-      const customerInfo = await Purchases.getCustomerInfo();
+    const customerInfo = await Purchases.getCustomerInfo();
+    
+    //sprawdzamy czy sa aktywacje 
+    if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
 
-      if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-       
-        console.log('User is Pro')
-        navigation.navigate('GlycemicIndex');
-        setUserPro(true);
-        
-      } else {
+      //sprawdzamy czy to reklama
+      if(activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1 ){
         navigation.navigate('GlycemicIndexNoPay');
-        console.log('User is not Pro')
-        setUserPro(false);
-        
+        setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+      }else{
+        navigation.navigate('GlycemicIndex');
+        setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
       }
-    } catch (e) {
-      Alert.alert('Error fetching customer info', e.message);
+
     }
-  };
+    //brak aktywacji - blokada menu
+    else{
+      navigation.navigate('GlycemicIndexNoPay');
+      setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+    }
+  } catch (e) {
+         Alert.alert('Error fetching customer info', e.message);
+       }
+  }
 
   const getMealList = () => {
 

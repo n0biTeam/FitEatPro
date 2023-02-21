@@ -1279,7 +1279,7 @@ const GlycemicIndexNoPay = ({
 
        
     </View>
-    {console.log(activated)}
+    {/* {console.log(activated)} */}
     {String(activated) !== 'fp_0599_rek' ?
     <View style={{marginBottom: 3, alignItems: 'center'}}>
             <BannerAd
