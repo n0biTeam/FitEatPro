@@ -88,8 +88,8 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   return (
    
     <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
-            <View style={[styles.container, {backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE}]}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
+            <View style={[styles.container, {backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE}]}>
                 <View style={{flexDirection: 'column'}}>
                   
                   
@@ -133,13 +133,14 @@ const styles = StyleSheet.create({
     },
     prince: {
       color: colors.TEXT.WHITE,
-      fontSize: typography.FONT_SIZE_20,
-      fontWeight: 'bold',
+      fontSize: typography.FONT_SIZE_20
+      //fontWeight: 'bold',
     },
     terms: {
       color: colors.TEXT.YELLOW,
       fontWeight: 'bold',
       textTransform: 'uppercase',
-      marginTop: spacing.SCALE_3
+      marginTop: spacing.SCALE_3,
+      fontSize: typography.FONT_SIZE_12,
     },
   });
