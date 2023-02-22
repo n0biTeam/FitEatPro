@@ -13,7 +13,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
   
   return (
     <SafeAreaProvider>
-      <Appbar.Header style={{backgroundColor: '#224870', marginTop: 30}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title="Polityka prywatności" />
     </Appbar.Header>

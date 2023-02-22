@@ -59,7 +59,7 @@ const SettingScreen = ({ route, navigation }) => {
                 <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('UnitSettingScreen')}>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'center'}}>
-                            <MaterialCommunityIcons name='cog' size={25} color={colors.COLORS.GREEN} />
+                            <MaterialCommunityIcons name='cog' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                             <Text style={styles.text}>Ustawienie jednostek</Text>
@@ -75,7 +75,7 @@ const SettingScreen = ({ route, navigation }) => {
                 <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('ShopScreen')}>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'center'}}>
-                            <MaterialCommunityIcons name='cart-outline' size={25} color={colors.COLORS.GREEN} />
+                            <MaterialCommunityIcons name='cart-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                             <Text style={styles.text}>Kup / Subskrypcje</Text>
@@ -91,7 +91,7 @@ const SettingScreen = ({ route, navigation }) => {
             <TouchableOpacity style={styles.box} onPress={openPlayStore}>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'center'}}>
-                            <MaterialCommunityIcons name='star-outline' size={25} color={colors.COLORS.GREEN} />
+                            <MaterialCommunityIcons name='star-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                             <Text style={styles.text}>Oceń aplikację</Text>
@@ -105,7 +105,7 @@ const SettingScreen = ({ route, navigation }) => {
             <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('PrivacyPolicyScreen')}>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'center'}}>
-                            <MaterialCommunityIcons name='eye-outline' size={25} color={colors.COLORS.GREEN} />
+                            <MaterialCommunityIcons name='eye-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                             <Text style={styles.text}>Polityka prywatności</Text>
@@ -119,7 +119,7 @@ const SettingScreen = ({ route, navigation }) => {
             <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('AboutTheAppScreen')}>
                     <View style={{flexDirection: 'row'}}>
                         <View style={{justifyContent: 'center'}}>
-                            <MaterialCommunityIcons name='information-outline' size={25} color={colors.COLORS.GREEN} />
+                            <MaterialCommunityIcons name='information-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
                             <Text style={styles.text}>O aplikacji</Text>
