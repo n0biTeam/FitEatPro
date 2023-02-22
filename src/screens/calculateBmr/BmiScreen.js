@@ -272,7 +272,10 @@ const BmiScreen = ({ navigation }) => {
         </View>
         }
 
-        {String(activated) !== 'fp_0599_rek' ?
+        
+    </ScrollView>
+    </View>
+    {String(activated) !== 'fp_0599_rek' ?
         <View style={{marginBottom: 3, alignItems: 'center'}}>
             <BannerAd
                 unitId={adUnitId}
@@ -284,9 +287,6 @@ const BmiScreen = ({ navigation }) => {
         </View>
         : null
         }
-    </ScrollView>
-    </View>
-    
     </ImageBackground>
     
     </SafeAreaProvider>
