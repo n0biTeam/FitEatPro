@@ -543,6 +543,11 @@
         "shopScreen.point-7": "Sortowanie produktów po wartościach odżywczych / witaminy",
         "shopScreen.point-8": "Własna lista - puryny (kwas moczowy)",
         "shopScreen.text-1": "Jeżeli posiadasz subskrypcję wciśnij przycisk poniżej",
-        "shopScreen.btn.restore-subscription": "Przywróć subskrypcję"
+        "shopScreen.btn.restore-subscription": "Przywróć subskrypcję",
+        
+        "provider.user-account-created": "Konto użytkownika utworzone i zalogowano się",
+        "provider.email-already-in-use": "Adres-e-mail jest już używany",
+        "provider.invalid-email": "Adres e-mail jest nieprawidłowy",
+        "provider.user-not-found": "Brak podanego e-maila"
     }
 }

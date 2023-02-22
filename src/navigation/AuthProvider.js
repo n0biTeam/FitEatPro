@@ -8,7 +8,7 @@ import dataPurinePL from '../data/dataPurinePL';
 import dataPurineEN from '../data/dataPurineEN';
 import { UNIT } from '../styles/units';
 import * as RNLocalize from "react-native-localize";
-
+import { useTranslation } from 'react-i18next';
 
 const lang = RNLocalize.getLocales()[0].languageCode;
 
@@ -16,6 +16,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
    const [user, setUser] = useState();
+   const {t, i18n} = useTranslation();
    
    let dataJson = [];
    if(lang === 'pl'){
@@ -78,20 +79,23 @@ const insertPurineJson = async (dataPurineJson) => {
               values.password
             )
             .then(() => {
-              console.log('User account created & signed in!');
+              //console.log('User account created & signed in!');
+              ToastAndroid.show(t('provider.user-account-created'), ToastAndroid.LONG, ToastAndroid.CENTER);
               //navigation.navigate('Home');
             })
             .catch(error => {
               if (error.code === 'auth/email-already-in-use') {
-                console.log('That email address is already in use!');
+                //console.log('That email address is already in use!');
+                ToastAndroid.show(t('provider.email-already-in-use'), ToastAndroid.LONG, ToastAndroid.CENTER);
               }
           
               if (error.code === 'auth/invalid-email') {
-                console.log('That email address is invalid!');
+                //console.log('That email address is invalid!');
+                ToastAndroid.show(t('provider.invalid-email'), ToastAndroid.LONG, ToastAndroid.CENTER);
               }
           
               if (error.code === 'auth/user-not-found') {
-                ToastAndroid.show('Brak rekordu użytkownika odpowiadającego temu identyfikatorowi. Użytkownik mógł zostać usunięty.', ToastAndroid.LONG, ToastAndroid.CENTER);
+                ToastAndroid.show(t('provider.user-not-found'), ToastAndroid.LONG, ToastAndroid.CENTER);
               }
           
               console.error(error);
@@ -107,9 +111,22 @@ const insertPurineJson = async (dataPurineJson) => {
                     values.email,
                     values.password
                 )
-                .then(() => {
-                    console.log('User account created & signed in!');
-                    ToastAndroid.show('Konto zostało utworzone.', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+                // .then(() => {
+                //     console.log('User account created & signed in!');
+                //     ToastAndroid.show('Konto zostało utworzone.', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+                // })
+                .catch(error => {
+                  if (error.code === 'auth/email-already-in-use') {
+                    //console.log('That email address is already in use!');
+                    ToastAndroid.show(t('provider.email-already-in-use'), ToastAndroid.LONG, ToastAndroid.CENTER);
+                  }
+              
+                  if (error.code === 'auth/invalid-email') {
+                    //console.log('That email address is invalid!');
+                    ToastAndroid.show(t('provider.invalid-email'), ToastAndroid.LONG, ToastAndroid.CENTER);
+                  }
+                           
+                  console.error(error);
                 })
                 // .catch((error) =>{
                 //     console.log(error);
@@ -157,30 +174,8 @@ const insertPurineJson = async (dataPurineJson) => {
                     console.log('Error: 3' + error);
                })
 
-                .catch(error => {
-                    if (error.code === 'auth/email-already-in-use') {
-                   // console.log('That email address is already in use!');
-                    ToastAndroid.show('Adres e-mail jest już używany przez inne konto.', ToastAndroid.LONG, ToastAndroid.CENTER);
-                    }
-        
-                    if (error.code === 'auth/invalid-email') {
-                    console.log('That email address is invalid!');
-                    }
-        
-                    //console.error('Error: 2' + error);
-                });
+                
           },
-
-        // forgetPassword: async (values) => {
-        //   const email = values.email;
-        //   await auth().sendPasswordResetEmail(email)
-        //   .then(() => {
-        //     Alert.alert('Wysłano na e-mail reset hasła.');
-        //     //navigation.navigate('Login');
-        //   }).catch((error) => {
-        //     console.log(error);
-        //   })
-        // },
 
         logout: async () => {
           try {
