@@ -25,7 +25,7 @@ const DiaryScreen = ({ navigation }) => {
     const [masterDataSource, setMasterDataSource] = useState(diaryData);
     const [loading, setLoading] = useState(true);
 
-    const [userPro, setUserPro] = useState(false);
+    //const [userPro, setUserPro] = useState(false);
     
 
     // useEffect(() => {
@@ -57,7 +57,7 @@ const DiaryScreen = ({ navigation }) => {
   const [activated, setActivated] = useState([]);
      
        
-  useEffect(() => {
+ 
        
     const identyfikator = async () => {
      
@@ -69,11 +69,18 @@ const DiaryScreen = ({ navigation }) => {
        // Error fetching customer info
       }
      
-    }
-   identyfikator();
-  },[]);
+    } 
+   
+   useEffect(() => {
+    
+    identyfikator();
+    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+    
+   }, [navigation, loading, activated]);
 
-  console.log(activated)
+  //console.log(activated)
+  //console.log('d: ' + activated.indexOf('fp_1199_m') >= 0)
 
   //  console.log('userPro: ' + userPro)
   //  console.log('activated: ' + activated)
@@ -188,6 +195,7 @@ const DiaryScreen = ({ navigation }) => {
   
   const imageBG = require('../../assets/images/drewno2.jpg');
 
+  
 
   return (
     <SafeAreaProvider style={{ flexGrow: 1}}>
@@ -209,7 +217,7 @@ const DiaryScreen = ({ navigation }) => {
 
     </View>
     <View style={{flex: 1, backgroundColor: colors.COLORS.LIGHT_GREY}}> 
-    { ((activated.indexOf('fp_1199_m') >= 0) || (activated.indexOf('fp_8999_y') >= 0)) &&
+    { ( ((activated.indexOf('fp_1199_m') >= 0) === true)  || ((activated.indexOf('fp_8999_y') >= 0) === true )) &&
     <View style={{flex: 1, marginHorizontal: spacing.SCALE_6, marginTop: spacing.SCALE_6, marginBottom: spacing.SCALE_6}}>
     { 
     diaryData.length > 0 ?

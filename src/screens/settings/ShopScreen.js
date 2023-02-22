@@ -22,6 +22,7 @@ const ShopScreen = ({ navigation }) => {
   //const [isAnonymous, setIsAnonymous] = useState(true);
   const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
@@ -76,7 +77,10 @@ const ShopScreen = ({ navigation }) => {
      
     }
     identyfikator();
-  },[]);
+    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+    
+   }, [navigation, loading, packages]);
 
     //console.log(activated)
   

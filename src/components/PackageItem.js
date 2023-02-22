@@ -1,18 +1,19 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import { View, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import Purchases from 'react-native-purchases';
 import { useNavigation } from '@react-navigation/native';
 import { ENTITLEMENT_ID } from '../styles/constants';
 import { colors, typography, spacing } from '../styles';
-
+import { AuthContext } from '../navigation/AuthProvider';
 
 const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   const {
     product: { title, description, priceString, identifier },
   } = purchasePackage;
 
+  const {user} = useContext(AuthContext);
   const [userPro, setUserPro] = useState(false);
-
+  const [userId, setUserId] = useState(null);
   const navigation = useNavigation();
 
   const onSelection = async () => {
@@ -39,7 +40,8 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   };
 
   const [activated, setActivated] = useState([]);
-      useEffect(() => {
+  const [subscriptionActive, setSubscriptionActive] = useState(false);
+      
        
        const identyfikator = async () => {
         
@@ -52,33 +54,54 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
          }
         
        }
+     useEffect(() => {
       identyfikator();
-     },[]);
+    
+     }, []);
 
-     console.log(activated)
+     //console.log(activated)
+     const getUserDetails = async () => {
+      //setIsAnonymous(await Purchases.isAnonymous());
+      setUserId(user.uid);
+  
+      const customerInfo = await Purchases.getCustomerInfo();
+      setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
+    };
+  
+    useEffect(() => {
+      // Get user details when component first mounts
+      getUserDetails();
+    }, []);
+  
+    useEffect(() => {
+      // Subscribe to purchaser updates
+      Purchases.addCustomerInfoUpdateListener(getUserDetails);
+      return () => {
+        Purchases.removeCustomerInfoUpdateListener(getUserDetails);
+      };
+    });
    
 
   return (
    
     <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
-            <View style={[styles.container, {backgroundColor: String(activated) === identifier ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE}]}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
+            <View style={[styles.container, {backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.GREY_CCC : colors.COLORS.LIGHT_BLUE}]}>
                 <View style={{flexDirection: 'column'}}>
                   
                   
                   <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={[styles.prince, {color: String(activated) === identifier ? colors.TEXT.GREY_AAA : colors.TEXT.WHITE}]}>{priceString}</Text>
+                    <Text style={[styles.prince, {color: String(activated) === identifier && subscriptionActive ? colors.TEXT.GREY_AAA : colors.TEXT.WHITE}]}>{priceString}</Text>
                 </View>
                 {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
                    <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "")}</Text>
                 </View> */}
                <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={[styles.terms, {color: String(activated) === identifier ? colors.TEXT.GREY_AAA : colors.TEXT.YELLOW}]}>{description}</Text>
+                    <Text style={[styles.terms, {color: String(activated) === identifier && subscriptionActive ? colors.TEXT.GREY_AAA : colors.TEXT.YELLOW}]}>{description}</Text>
                   </View>
                 
                 </View>
                 
-
             </View>
         </TouchableOpacity>
     </View>
