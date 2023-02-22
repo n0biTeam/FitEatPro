@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Linking, ScrollView } from 'react-native'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, spacing } from '../../styles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { version } from '../../styles/constants';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const SettingScreen = ({ route, navigation }) => {
   
@@ -16,6 +20,23 @@ const SettingScreen = ({ route, navigation }) => {
 
     Linking.openURL(`market://details?id=${GOOGLE_PACKAGE_NAME}`);
   };
+
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
   
   return (
     <SafeAreaProvider>
@@ -107,11 +128,23 @@ const SettingScreen = ({ route, navigation }) => {
             <View style={{borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_DDD, marginVertical: spacing.SCALE_10}}></View>
             </View>
 
-            <View style={{flex:1, justifyContent: 'flex-end', marginBottom: spacing.SCALE_10, alignItems: 'center'}}>
+            <View style={{flex:1, justifyContent: 'flex-end', marginBottom: spacing.SCALE_6, alignItems: 'center'}}>
                 <Text style={{color: colors.TEXT.DEEP_BLUE}}>FitEat Pro v. {version.namber}</Text>
             </View>
 
         </View>
+        {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
     </ScrollView>
     
     

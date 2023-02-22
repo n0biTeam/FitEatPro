@@ -8,6 +8,10 @@ import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const BmiScreen = ({ navigation }) => {
 
@@ -155,6 +159,23 @@ const BmiScreen = ({ navigation }) => {
   const image = require('../../assets/images/owoce4.jpg');
 
   const emptyBtn = (userData.heightName != null && userData.heightName != '');
+
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
   
   return (
     <SafeAreaProvider style={{}}>
@@ -249,6 +270,19 @@ const BmiScreen = ({ navigation }) => {
                 {textBMI(sumBMI)}
         
         </View>
+        }
+
+        {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
         }
     </ScrollView>
     </View>

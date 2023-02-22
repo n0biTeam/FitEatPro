@@ -12,6 +12,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { UNIT } from '../../styles/units';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const BmrScreen = ({ navigation }) => {
 
@@ -134,6 +138,23 @@ const BmrScreen = ({ navigation }) => {
   }
 
   const image = require('../../assets/images/owoce6.jpg');
+
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
   
   return (
     <SafeAreaProvider>
@@ -342,6 +363,18 @@ const BmrScreen = ({ navigation }) => {
         </View>
               
     </View>
+    {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
     </ScrollView>
     {/* } */}
     </View>

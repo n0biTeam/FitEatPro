@@ -8,6 +8,10 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const QuickiScreen = ({ navigation }) => {
 
@@ -85,6 +89,23 @@ const QuickiScreen = ({ navigation }) => {
   const _goBack = () => navigation.navigate('HomeScreen');
   
   const imageBG = require('../../assets/images/glukometr4.jpg');
+
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
   
   return (
     <SafeAreaProvider>
@@ -180,6 +201,19 @@ const QuickiScreen = ({ navigation }) => {
         </View>
         }
         </View>
+
+        {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
 
     </ImageBackground>
     </SafeAreaProvider>

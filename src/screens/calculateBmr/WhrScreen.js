@@ -9,6 +9,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const WhrScreen = ({ navigation }) => {
 
@@ -120,6 +124,23 @@ const WhrScreen = ({ navigation }) => {
    // && ((male != null && male != '' ) || (female != null && female != '' ));
    
   const image = require('../../assets/images/owoce8.jpg');
+
+  const [activated, setActivated] = useState('');
+  useEffect(() => {
+   
+   const identyfikator = async () => {
+    
+     try {
+       const customerInfo = await Purchases.getCustomerInfo();
+       setActivated(customerInfo.activeSubscriptions)
+
+     } catch (e) {
+      // Error fetching customer info
+     }
+    
+   }
+   identyfikator();
+ },[]);
   
   return (
     <SafeAreaProvider style={{}}>
@@ -238,6 +259,19 @@ const WhrScreen = ({ navigation }) => {
         </View>
         }
     </View>
+
+    {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
 
     </ImageBackground>
     </SafeAreaProvider>

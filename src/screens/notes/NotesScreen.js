@@ -7,6 +7,10 @@ import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
 import BigList from "react-native-big-list";
 import { colors, typography, spacing } from '../../styles';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const theme = {
   ...DefaultTheme,
@@ -117,6 +121,23 @@ const NotesScreen = ({
 
   const _goBack = () => navigation.navigate('HomeScreen');
 
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
+
 
   return (
     <PaperProvider theme={theme}>
@@ -182,6 +203,18 @@ const NotesScreen = ({
             }
       
         </View>
+        {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
 
         <AnimatedFAB
         icon={'plus'}
@@ -198,6 +231,7 @@ const NotesScreen = ({
 
         style={[styles.fabStyle, style, fabStyle]}
       />
+      
     </ImageBackground>
     </SafeAreaProvider>
     </PaperProvider>

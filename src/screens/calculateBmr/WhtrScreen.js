@@ -9,6 +9,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const WhtrScreen = ({ navigation }) => {
 
@@ -185,6 +189,22 @@ const WhtrScreen = ({ navigation }) => {
 
   const image = require('../../assets/images/owoce10.jpg');
  
+  const [activated, setActivated] = useState('');
+  useEffect(() => {
+   
+   const identyfikator = async () => {
+    
+     try {
+       const customerInfo = await Purchases.getCustomerInfo();
+       setActivated(customerInfo.activeSubscriptions)
+
+     } catch (e) {
+      // Error fetching customer info
+     }
+    
+   }
+   identyfikator();
+ },[]);
   
   return (
     <SafeAreaProvider>
@@ -263,37 +283,6 @@ const WhtrScreen = ({ navigation }) => {
 
           </View>
 
-      {/* <View style={{ marginTop: 6, elevation: 5, flexDirection: 'row', borderWidth: 1, borderColor: COLORS.WHITE, padding: 8, backgroundColor: COLORS.WHITE, }}>
-            
-            <View style={{flexDirection: 'row', flex: 1}}>           
-              <View>
-                  <Checkbox
-                  color={COLORS.DEEP_BLUE}
-                  status={female ? 'checked' : 'unchecked'}
-                  onPress={femaleGender}
-                />
-              </View>
-              <View style={{justifyContent: 'center'}}>
-                <Text style={{color: TEXT.DEEP_BLUE}}>Kobieta</Text>
-              </View>
-            </View>
-  
-            <View style={{flexDirection: 'row', flex: 1}}>           
-              <View>
-                  <Checkbox
-                  color={COLORS.DEEP_BLUE}
-                  status={male ? 'checked' : 'unchecked'}
-                  onPress={maleGender}
-                />
-              </View>
-              <View style={{justifyContent: 'center'}}>
-                <Text style={{color: TEXT.DEEP_BLUE}}>Mężczyzna</Text>
-              </View>
-            </View>
-  
-  
-          </View> */}
-
       <View style={{marginTop: spacing.SCALE_10}}>
         <Button mode="contained" color={colors.COLORS.YELLOW} onPress={calcWHtR} disabled={!emptyBtn}>
             {t('whtrScreen.calculate')}
@@ -334,6 +323,19 @@ const WhtrScreen = ({ navigation }) => {
         </View>
         }
     </View>
+
+    {String(activated) !== 'fp_0599_rek' ?
+        <View style={{marginBottom: 3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
 
     </ImageBackground>
     </SafeAreaProvider>
