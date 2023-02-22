@@ -241,10 +241,16 @@ const HomeScreen = ({ navigation }) => {
         return true;
       };
   
-      BackHandler.addEventListener("hardwareBackPress", backAction);
+      // BackHandler.addEventListener("hardwareBackPress", backAction);
 
-      return () =>
-        BackHandler.removeEventListener("hardwareBackPress", backAction);
+      // return () =>
+      //   BackHandler.removeEventListener("hardwareBackPress", backAction);
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+  
+      return () => backHandler.remove();
     }, []);
 
 
