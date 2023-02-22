@@ -88,8 +88,8 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   return (
    
     <View style={{marginBottom: spacing.SCALE_6, flex:1, marginLeft: spacing.SCALE_3, marginRight: spacing.SCALE_3 }}>
-        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.LIGHT_GREY : colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
-            <View style={[styles.container, {backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.LIGHT_GREY : colors.COLORS.DEEP_BLUE}]}>
+        <TouchableOpacity onPress={onSelection} style={{backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.LIGHT_GREY2 : colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5, padding: spacing.SCALE_3, elevation: 4}}>
+            <View style={[styles.container, {backgroundColor: String(activated) === identifier && subscriptionActive ? colors.COLORS.LIGHT_GREY2 : colors.COLORS.DEEP_BLUE}]}>
                 <View style={{flexDirection: 'column'}}>
                   
                   
