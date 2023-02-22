@@ -21,6 +21,8 @@ const SettingScreen = ({ route, navigation }) => {
     Linking.openURL(`market://details?id=${GOOGLE_PACKAGE_NAME}`);
   };
 
+  const [loading, setLoading] = useState(true);
+
   const [activated, setActivated] = useState('');
    useEffect(() => {
     
@@ -36,7 +38,9 @@ const SettingScreen = ({ route, navigation }) => {
      
     }
     identyfikator();
-  },[]);
+    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+   }, [navigation, loading, activated]);
   
   return (
     <SafeAreaProvider>
