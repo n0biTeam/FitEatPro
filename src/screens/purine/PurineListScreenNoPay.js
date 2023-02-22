@@ -286,8 +286,21 @@ setMasterDataSource([...data]);
 
         </View>
         
+        
       </ScrollView>
     </View>
+    {activated.length === 0 ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
+        </View>
+        : null
+        }
     </ImageBackground>
     </RBSheet>
 
@@ -343,7 +356,7 @@ setMasterDataSource([...data]);
               <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
             
             </View> */}
-            {String(activated) !== 'fp_0599_rek' ?
+            {activated.length === 0 ?
               <View style={{marginBottom: 3, alignItems: 'center'}}>
               <BannerAd
                   unitId={adUnitId}

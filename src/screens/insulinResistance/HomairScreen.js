@@ -215,7 +215,7 @@ const HomairScreen = ({ navigation }) => {
         
         </View>
 
-        {String(activated) !== 'fp_0599_rek' ?
+        {activated.length === 0 ?
         <View style={{marginBottom: 3, alignItems: 'center'}}>
             <BannerAd
                 unitId={adUnitId}

@@ -324,7 +324,7 @@ const WhtrScreen = ({ navigation }) => {
         }
     </View>
 
-    {String(activated) !== 'fp_0599_rek' ?
+    {activated.length === 0 ?
         <View style={{marginBottom: 3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
             <BannerAd
                 unitId={adUnitId}

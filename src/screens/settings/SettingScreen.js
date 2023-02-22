@@ -42,6 +42,7 @@ const SettingScreen = ({ route, navigation }) => {
     return unsubscribe;
    }, [navigation, loading, activated]);
   
+   
   return (
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE}}>
@@ -137,7 +138,7 @@ const SettingScreen = ({ route, navigation }) => {
             </View>
 
         </View>
-        {String(activated) !== 'fp_0599_rek' ?
+        {  activated.length === 0 ?
         <View style={{marginBottom: 3, alignItems: 'center'}}>
             <BannerAd
                 unitId={adUnitId}

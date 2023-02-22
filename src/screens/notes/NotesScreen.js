@@ -203,19 +203,8 @@ const NotesScreen = ({
             }
       
         </View>
-        {String(activated) !== 'fp_0599_rek' ?
-        <View style={{marginBottom: 3, alignItems: 'center'}}>
-            <BannerAd
-                unitId={adUnitId}
-                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                requestOptions={{
-                    requestNonPersonalizedAdsOnly: true,
-                }}
-            />
-        </View>
-        : null
-        }
-
+        
+        <View>
         <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
@@ -231,7 +220,19 @@ const NotesScreen = ({
 
         style={[styles.fabStyle, style, fabStyle]}
       />
-      
+      </View>
+      {activated.length === 0 ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+        </View>
+        : null
+        }
     </ImageBackground>
     </SafeAreaProvider>
     </PaperProvider>
