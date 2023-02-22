@@ -151,9 +151,6 @@ const SettingScreen = ({ route, navigation }) => {
         : null
         }
     </ScrollView>
-    
-    
-    
     </SafeAreaProvider>
    
   )
