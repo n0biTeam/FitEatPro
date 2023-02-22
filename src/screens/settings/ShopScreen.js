@@ -137,9 +137,11 @@ const ShopScreen = ({ navigation }) => {
                 </View>
                 <View style={{alignItems: 'center', marginTop: spacing.SCALE_6}}>
                    <Text style={{color: colors.TEXT.DEEP_BLUE, textTransform: 'uppercase', fontSize: typography.FONT_SIZE_12}}>{t('shopScreen.subscription-status')}</Text>
-                   <Text style={{ color: subscriptionActive ? colors.COLORS.GREEN : colors.COLORS.RED, fontSize: typography.FONT_SIZE_20, fontWeight: 'bold', textTransform: 'uppercase' }}>
-                      {subscriptionActive ? t('shopScreen.active') : t('shopScreen.inactive')}
-                  </Text>
+                  <View style={{borderWidth: 2, borderColor: subscriptionActive ? colors.COLORS.GREEN : colors.COLORS.RED, paddingHorizontal: spacing.SCALE_6, paddingVertical: 1, borderRadius: spacing.SCALE_5, marginBottom: subscriptionActive ? spacing.SCALE_3 : 0}}>
+                    <Text style={{ color: subscriptionActive ? colors.COLORS.GREEN : colors.COLORS.RED, fontSize: typography.FONT_SIZE_20, fontWeight: 'bold', textTransform: 'uppercase' }}>
+                        {subscriptionActive ? t('shopScreen.active') : t('shopScreen.inactive')}
+                    </Text>
+                  </View> 
                   <View style={{flexDirection: 'row'}}>
                   {subscriptionActive && activated.indexOf('fp_0599_rek') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.remove-ads')}</Text></View> : null }
                   {subscriptionActive && activated.indexOf('fp_1199_m') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-month')}</Text></View> : null }
