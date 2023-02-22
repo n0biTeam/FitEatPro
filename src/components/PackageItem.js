@@ -41,7 +41,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
 
   const [activated, setActivated] = useState([]);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
-      
+  const [loading, setLoading] = useState(true);
        
        const identyfikator = async () => {
         
@@ -57,7 +57,10 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
      useEffect(() => {
       identyfikator();
     
-     }, []);
+      const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+      return unsubscribe;
+      
+     }, [navigation, loading, subscriptionActive]);
 
      //console.log(activated)
      const getUserDetails = async () => {
