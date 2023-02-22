@@ -53,7 +53,7 @@ const ShopScreen = ({ navigation }) => {
         if (offerings.current !== null) {  
            //console.log(offerings.current);
            setPackages(offerings.current.availablePackages);
-           console.log(packages)
+           //console.log(packages)
         }
       } catch (e) {
         console.error(e)
@@ -80,7 +80,7 @@ const ShopScreen = ({ navigation }) => {
     const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
     return unsubscribe;
     
-   }, [navigation, loading, packages]);
+   }, [navigation, loading, subscriptionActive]);
 
     //console.log(activated)
   

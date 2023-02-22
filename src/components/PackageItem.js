@@ -16,9 +16,9 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
   const [userId, setUserId] = useState(null);
   const navigation = useNavigation();
 
+  // Wybor subskrypcji
   const onSelection = async () => {
     setIsPurchasing(true);
-
 
     try {
       //const { purchaserInfo } = await Purchases.purchasePackage(purchasePackage);
@@ -28,7 +28,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
       if (typeof purchaseMade.customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
         console.log("User is PRO");
         setUserPro(true);
-        navigation.navigate('HomeScreen');
+       // navigation.navigate('HomeScreen');
       }
     } catch (e) {
       if (!e.userCancelled) {
