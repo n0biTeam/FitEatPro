@@ -70,21 +70,27 @@ const MealScreen = ({
   const [userPro, setUserPro] = useState(false);
     
   const [activated, setActivated] = useState([]);
-      useEffect(() => {
-       
-       const identyfikator = async () => {
-        
-         try {
-           const customerInfo = await Purchases.getCustomerInfo();
-           setActivated(customerInfo.activeSubscriptions)
+     
+      
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
+
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    } 
    
-         } catch (e) {
-          // Error fetching customer info
-         }
-        
-       }
-       identyfikator();
-     },[]);
+   useEffect(() => {
+    
+    identyfikator();
+    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
+    return unsubscribe;
+    
+   }, [navigation, loading]);
 
   const glycemicIndexRoute = async () => {
     try {
@@ -437,6 +443,31 @@ const colorLG = (ladunek) => {
   }
 
   const imageBG = require('../../assets/images/talerz.jpg');
+
+  const [subscriptionActive, setSubscriptionActive] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  // get the latest details about the user (is anonymous, user id, has active subscription)
+  const getUserDetails = async () => {
+    //setIsAnonymous(await Purchases.isAnonymous());
+    setUserId(user.uid);
+
+    const customerInfo = await Purchases.getCustomerInfo();
+    setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
+  };
+
+  useEffect(() => {
+    // Get user details when component first mounts
+    getUserDetails();
+  }, []);
+
+  useEffect(() => {
+    // Subscribe to purchaser updates
+    Purchases.addCustomerInfoUpdateListener(getUserDetails);
+    return () => {
+      Purchases.removeCustomerInfoUpdateListener(getUserDetails);
+    };
+  });
   
   return (
     <PaperProvider theme={theme}>
@@ -444,9 +475,11 @@ const colorLG = (ladunek) => {
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     {/* <Appbar.BackAction onPress={_goBack} /> */}
        <Appbar.Content  title={t('mealScreen.meal-creator')} />
+       { ( ((activated.indexOf('fp_1199_m') >= 0) === true)  || ((activated.indexOf('fp_8999_y') >= 0) === true )) &&
        <Appbar.Action icon="content-save" onPress={() => {
                           setVisible3(true);
                          }} />
+        }
        <Appbar.Action icon="trash-can" onPress={handeDeleteAll} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
@@ -643,9 +676,6 @@ const colorLG = (ladunek) => {
                       }
                     </Text>
 
-                    {/* <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text> */}
-                    {/* <Text style={styles.textContainer}>{(sumCholesterol).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumSugar).toFixed(1)}</Text> */}
                 </View>
                
               </View>
@@ -656,8 +686,20 @@ const colorLG = (ladunek) => {
                
             <View style={{flex: 1}}>
             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center', backgroundColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_8, marginBottom: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
-              <Text style={{ color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase', fontSize: typography.FONT_SIZE_16 }}>{t('mealScreen.product-list')}</Text>
+              <Text style={{ color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase', fontSize: typography.FONT_SIZE_16 }}>{t('mealScreen.product-list')}  
+             
+                
+              { ( ((activated.indexOf('fp_1199_m') >= 0) === true)  || ((activated.indexOf('fp_8999_y') >= 0) === true )) ?
+                 <Text style={{fontWeight: '400', fontSize: typography.FONT_SIZE_16}}> [ {mealData.length} ]
+              </Text>
+              :
+                <Text style={{fontWeight: '400', fontSize: typography.FONT_SIZE_16}}> 
+                  [ {mealData.length}/2 ]
+                </Text>
+              }
+             </Text>
             </View>
+            <View style={{flex: 1}}>
             { 
               mealData.length > 0 ?
               (
@@ -719,6 +761,18 @@ const colorLG = (ladunek) => {
                     <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>{t('mealScreen.empty-list')}</Text>
                   </View>
                 )}
+                </View>   
+                
+                { 
+                // ( ((activated.indexOf('fp_1199_m') >= 0) === false)  || ((activated.indexOf('fp_8999_y') >= 0) === false ) )  
+                  (!subscriptionActive && mealData.length >= 2)
+                && 
+                  <View style={{flex: 1, justifyContent: 'flex-start'}}>
+                    <TouchableOpacity style={styles.btn} onPress={() => {navigation.navigate('ShopScreen')}}>
+                      <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>{t('mealScreen.buy-subscription')}</Text>
+                    </TouchableOpacity>
+                  </View>
+                }
                 <View style={{marginBottom: spacing.SCALE_6}}></View>
                 </View>
                 
@@ -842,5 +896,12 @@ const styles = StyleSheet.create({
     color: colors.COLORS.DEEP_BLUE,
     textTransform: 'uppercase',
     //fontWeight: 'bold'
+  },
+  btn: {
+    backgroundColor: colors.COLORS.GREEN,
+    paddingHorizontal: spacing.SCALE_10,
+    paddingVertical: spacing.SCALE_105,
+    borderRadius: spacing.SCALE_5,
+    alignItems: 'center'
   }
 })

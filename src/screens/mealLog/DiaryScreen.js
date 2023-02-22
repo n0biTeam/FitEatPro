@@ -56,9 +56,7 @@ const DiaryScreen = ({ navigation }) => {
     
   const [activated, setActivated] = useState([]);
      
-       
- 
-       
+      
     const identyfikator = async () => {
      
       try {

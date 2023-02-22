@@ -57,6 +57,8 @@ const GlycemicIndexNoPay = ({
         return a.name.localeCompare(b.name)
     })]);
     const [masterDataSource, setMasterDataSource] = useState([...data]);
+
+    const [dataMeal, setDataMeal] = useState([]);
      
     const [isSwitchOn, setIsSwitchOn] = useState(null);
     const getUser = async () => {
@@ -79,6 +81,32 @@ const GlycemicIndexNoPay = ({
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
     return unsubscribe;
    }, [navigation, loading, isSwitchOn]);
+
+
+   const getDataMeal = () => {
+    firestore().collection('users').doc(user.uid).collection('meal')
+        .orderBy('name', 'asc')
+        .onSnapshot(
+           querySnapshot => {
+           const mealData = [];
+ 
+               querySnapshot.forEach(doc => {
+                
+                mealData.push({...doc.data()});
+               
+              });
+              setDataMeal(mealData);
+              },
+                error => {
+                 console.log(error)
+              }
+          
+        )
+  }
+
+  useEffect(() => {
+    getDataMeal();
+  },[]);
            
     useEffect(() => {
       setFilteredDataSource([...data]);
@@ -133,6 +161,31 @@ const GlycemicIndexNoPay = ({
         setSearch(text);
       }
     };
+
+    const addMeal = async () => {
+      await firestore()
+      .collection('users')
+      .doc(user.uid)
+      .collection('meal')
+      .add({
+        name: initialItem.name,
+        quantity: number != undefined ? parseInt(number) : 100, //ilosc gram
+        kcal: number != undefined ? parseInt(initialItem.kcal/(100/number)) : parseInt(initialItem.kcal),
+        glycemicIndex: parseInt(initialItem.index_glycemic),
+        protein: parseFloat(initialItem.protein),
+        fat: parseFloat(initialItem.fat),
+        carbs: number != undefined ? parseFloat(initialItem.carbs/(100/number)) : parseFloat(initialItem.carbs),
+        fiber: number != undefined ? parseFloat(initialItem.fiber/(100/number)) : parseFloat(initialItem.fiber),
+        sugar: parseFloat(initialItem.Sugars),
+        cholesterol: parseFloat(initialItem.choresterol),
+        createdAt: firestore.Timestamp.fromDate(new Date()),
+      })
+      .then(() => {
+        console.log('Product Added list meal');
+        ToastAndroid.show(t('glycemicIndex.toast-add'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
+        refRBSheet.current.close();
+      })
+    }
    
     
     const _goBack = () => navigation.goBack();
@@ -523,7 +576,7 @@ const GlycemicIndexNoPay = ({
     identyfikator();
   },[]);
 
- // console.log(switchSort)
+  //console.log(activated)
   return (
     <Provider>
     <PaperProvider theme={theme}>
@@ -712,7 +765,7 @@ const GlycemicIndexNoPay = ({
           </View>
         </View>
         
-        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3, marginBottom: spacing.SCALE_10}}>
+        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3, marginBottom: spacing.SCALE_6}}>
           
           
           { initialItem.protein !== 0 &&
@@ -860,6 +913,15 @@ const GlycemicIndexNoPay = ({
           }
 
         </View>
+
+        
+        {dataMeal.length < 2 &&
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
+            <Text style={styles.textBtn}>{t('glycemicIndex.add-to-meal')}</Text>
+          </TouchableOpacity>       
+        </View>
+        }
 
         {activated.length === 0 ?
         <View style={{marginBottom: 3, alignItems: 'center'}}>
@@ -1298,7 +1360,7 @@ const GlycemicIndexNoPay = ({
               <MyButtonNoPay icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
               <MyButtonNoPay icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
               <MyButtonNoPay icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
-
+              <MyButtonNoPay icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
     </View>
     
     
