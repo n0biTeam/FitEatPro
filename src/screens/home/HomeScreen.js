@@ -167,10 +167,10 @@ const HomeScreen = ({ navigation }) => {
 
   
       
-      console.log(userPro)
-      console.log(activated)
-      console.log(activated.indexOf('fp_0599_rek'))
-      console.log(activated.length)
+      // console.log(userPro)
+      // console.log(activated)
+      // console.log(activated.indexOf('fp_0599_rek'))
+      // console.log(activated.length)
     
       // const purineRoute = async () => {
         
