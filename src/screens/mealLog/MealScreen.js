@@ -84,14 +84,7 @@ const MealScreen = ({
      
     } 
    
-   useEffect(() => {
-    
-    identyfikator();
-    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
-    return unsubscribe;
-    
-   }, [navigation, loading]);
-
+  
   const glycemicIndexRoute = async () => {
     try {
     const customerInfo = await Purchases.getCustomerInfo();
@@ -102,17 +95,17 @@ const MealScreen = ({
       //sprawdzamy czy to reklama
       if(activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1 ){
         navigation.navigate('GlycemicIndexNoPay');
-        setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+        //setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
       }else{
         navigation.navigate('GlycemicIndex');
-        setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+        //setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
       }
 
     }
     //brak aktywacji - blokada menu
     else{
       navigation.navigate('GlycemicIndexNoPay');
-      setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
+      //setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
     }
   } catch (e) {
          Alert.alert('Error fetching customer info', e.message);
@@ -226,11 +219,12 @@ const MealScreen = ({
  
   useEffect(() => {
     getUser();
+    identyfikator();
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
     return unsubscribe;
    }, [navigation, loading, isSwitchOn]);
 
-  //console.log('switch: ' + isSwitchOn)
+  console.log('switch: ' + activated)
 
   const colorFirst = (total) => {
     let color;
@@ -407,7 +401,6 @@ const colorLG = (ladunek) => {
     .doc(codeID)
     .set({
       title: titleName,
-      //product: firebase.firestore.FieldValue.arrayUnion(...mealData),
       sumKcal: sumKcal,
       sumCarbs: sumCarbs,
       sumCholesterol: sumCholesterol,
@@ -693,8 +686,7 @@ const colorLG = (ladunek) => {
                  <Text style={{fontWeight: '400', fontSize: typography.FONT_SIZE_16}}> [ {mealData.length} ]
               </Text>
               :
-                <Text style={{fontWeight: '400', fontSize: typography.FONT_SIZE_16}}> 
-                  [ {mealData.length}/2 ]
+                <Text style={{fontWeight: '400', fontSize: typography.FONT_SIZE_16}}> [ {mealData.length}/2 ]
                 </Text>
               }
              </Text>
@@ -898,10 +890,12 @@ const styles = StyleSheet.create({
     //fontWeight: 'bold'
   },
   btn: {
-    backgroundColor: colors.COLORS.GREEN,
+    backgroundColor: colors.COLORS.LIGHT_BLUE,
     paddingHorizontal: spacing.SCALE_10,
     paddingVertical: spacing.SCALE_105,
     borderRadius: spacing.SCALE_5,
-    alignItems: 'center'
+    alignItems: 'center',
+    alignContent: 'center',
+    //alignSelf: 'center'
   }
 })
