@@ -224,7 +224,7 @@ const MealScreen = ({
     return unsubscribe;
    }, [navigation, loading, isSwitchOn]);
 
-  console.log('switch: ' + activated)
+  //console.log('switch: ' + activated)
 
   const colorFirst = (total) => {
     let color;
@@ -755,8 +755,8 @@ const colorLG = (ladunek) => {
                 )}
                 </View>   
                 
-                { 
-                // ( ((activated.indexOf('fp_1199_m') >= 0) === false)  || ((activated.indexOf('fp_8999_y') >= 0) === false ) )  
+                {/* { 
+               
                   (!subscriptionActive && mealData.length >= 2)
                 && 
                   <View style={{flex: 1, justifyContent: 'flex-start'}}>
@@ -764,7 +764,7 @@ const colorLG = (ladunek) => {
                       <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>{t('mealScreen.buy-subscription')}</Text>
                     </TouchableOpacity>
                   </View>
-                }
+                } */}
                 <View style={{marginBottom: spacing.SCALE_6}}></View>
                 </View>
                 

@@ -5,7 +5,7 @@ import Purchases from 'react-native-purchases';
 import { API_KEY } from './src/styles/constants';
 
 //LogBox.ignoreLogs(['ReactImageView: Image source']);
-//LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 const App = () => {
 

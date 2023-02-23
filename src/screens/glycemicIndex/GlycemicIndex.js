@@ -1288,7 +1288,7 @@ const xxx = (item) => {
         closeOnPressMask={false}
        // closeOnPressBack={true}
         onClose={() => setIsOpen(false)}
-        //animationType='slide'
+        animationType='slide'
         height={heightMidal}
         openDuration={500}
         closeDuration={300}
