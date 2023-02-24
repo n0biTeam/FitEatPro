@@ -1460,20 +1460,21 @@ const xxx = (item) => {
             >
                 <View style={{flex: 1}}>
                 <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
-                    <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center'}]}>
+                    <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center', flexDirection: 'row', marginLeft: spacing.SCALE_20}]}>
                        
                         <Text style={styles.textTitle}>{initialItem.name}</Text>
-                    </View>
-                    <View style={{justifyContent: 'center', marginRight: spacing.SCALE_6}}>
-                      <View style={{flexDirection: 'row'}}>
-                        <View>
-                        <MaterialCommunityIcons name='square-edit-outline' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
+                        <View style={{marginLeft: spacing.SCALE_6}}>
+                        <MaterialIcons name='mode-edit' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
                             onPress={() => {
                               bottomSheetModalRef.current.close();
                             navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
                             }}   
                             />
                         </View>
+                    </View>
+                    <View style={{justifyContent: 'center', marginRight: spacing.SCALE_10}}>
+                      <View style={{}}>
+                        
                         <View style={{marginLeft: spacing.SCALE_15}}>
                             <MaterialCommunityIcons name='window-close' size={spacing.SCALE_26} color={colors.COLORS.WHITE}
                             onPress={() => {
