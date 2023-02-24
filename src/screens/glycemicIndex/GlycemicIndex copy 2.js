@@ -1,8 +1,7 @@
-import React, { useCallback, useMemo, useRef, useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, StatusBar, Dimensions, ImageBackground, ActivityIndicator, TouchableOpacity, ToastAndroid, Animated, BackHandler, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, Pressable } from 'react-native';
+import React, {useContext, useState, useEffect, useCallback, useMemo, useRef} from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
-import { BottomSheetModal, BottomSheetModalProvider, useBottomSheetModal } from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,82 +16,100 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { UNIT } from '../../styles/units';
-import MySwitch2 from '../../components/MySwitch';
-import { ScrollView} from 'react-native-gesture-handler';
+
 
 const theme = {
-    ...DefaultTheme,
-    roundness: 2,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: colors.COLORS.LIGHT_BLUE,
-      accent: colors.COLORS.YELLOW,
-    },
-  };
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.COLORS.LIGHT_BLUE,
+    accent: colors.COLORS.YELLOW,
+  },
+};
 
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-  const GlycemicIndex = ({ 
-    route,
-    navigation,
-    animatedValue,
-    visible2,
-    extended,
-    label,
-    animateFrom,
-    style,
-    iconMode
+const GlycemicIndex = ({ 
+  route,
+  navigation,
+  animatedValue,
+  visible2,
+  extended,
+  label,
+  animateFrom,
+  style,
+  iconMode
 }) => {
+
+  // ref
+  const bottomSheetModalRef = useRef(null);
+
+  // variables
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index) => {
+    console.log('handleSheetChanges', index);
+  }, []);
 
   const [isExtended, setIsExtended] = React.useState(true);
 
-  const isIOS = Platform.OS === 'ios';
+    const isIOS = Platform.OS === 'ios';
+  
+    const onScroll = ({ nativeEvent }) => {
+      const currentScrollPosition =
+        Math.floor(nativeEvent?.contentOffset?.y) ?? 0;
+  
+      setIsExtended(currentScrollPosition <= 0);
+    };
 
-  const onScroll = ({ nativeEvent }) => {
-    const currentScrollPosition =
-      Math.floor(nativeEvent?.contentOffset?.y) ?? 0;
+    const fabStyle = { [animateFrom]: 16 };
 
-    setIsExtended(currentScrollPosition <= 0);
-  };
+    const {t, i18n} = useTranslation();
 
-  const fabStyle = { [animateFrom]: 16 };
+    const {user} = useContext(AuthContext);
+    const [listData, setListData] = useState([]);
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState(listData);
+    const [masterDataSource, setMasterDataSource] = useState(listData);
+    const [switchSort, setSwitchSort] = useState('2');
+    const [loading, setLoading] = useState(true);
 
-  const {t, i18n} = useTranslation();
+    const getList = () => {
+        firestore().collection('users').doc(user.uid).collection('products')
+        .orderBy('name', 'asc')
+        .onSnapshot(
+           querySnapshot => {
+           const listData = []
 
-  const {user} = useContext(AuthContext);
-  const [listData, setListData] = useState([]);
-  const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState(listData);
-  const [masterDataSource, setMasterDataSource] = useState(listData);
-  const [switchSort, setSwitchSort] = useState('2');
-  const [loading, setLoading] = useState(true);
+               querySnapshot.forEach(doc => {
+                //const listData = doc.data()
+                //listData.id = doc.id
+                listData.push({...doc.data(), id: doc.id})
+              });
+              
+                 setListData(listData);
+                 setFilteredDataSource(listData);
+                 setMasterDataSource(listData);
+              },
+                error => {
+                 console.log(error)
+              }
+        )
+    };
 
-  const getList = () => {
-    firestore().collection('users').doc(user.uid).collection('products')
-    .orderBy('name', 'asc')
-    .onSnapshot(
-       querySnapshot => {
-       const listData = []
-
-           querySnapshot.forEach(doc => {
-            //const listData = doc.data()
-            //listData.id = doc.id
-            listData.push({...doc.data(), id: doc.id})
-          });
-          
-             setListData(listData);
-             setFilteredDataSource(listData);
-             setMasterDataSource(listData);
-          },
-            error => {
-             console.log(error)
-          }
-    )
-};
-
-useEffect(() => {
-    getList();
-   // setIsOpen(false);
-  }, []);
+    useEffect(() => {
+        getList();
+       // setIsOpen(false);
+      }, []);
 
   const [isSwitchOn, setIsSwitchOn] = useState(null);
   const getUser = async () => {
@@ -108,55 +125,7 @@ useEffect(() => {
       }
     })
   }
-
-  // ref
-  const bottomSheetModalRef = useRef(null);
-
-  // variables
-  const snapPoints = useMemo(() => ['75%', '100%'], []);
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-  
-  const [indx, setIndx] = useState(0);
-
-  const handleSheetChanges = useCallback((index) => {
-    console.log('handleSheetChanges', index);
-        setIndx(index)
-    //navigation.navigate('GlycemicIndex')
-  }, []);
  
- 
-
-  useEffect(() => {
-console.log(indx)
-    const backAction1 = () => {  
-        bottomSheetModalRef.current.close()
-      return true;
-    };
-    
-    if(indx === 1){
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction1
-    );
-    return () => backHandler.remove();
-    }else{
-        const backHandler = BackHandler.addEventListener(
-            "hardwareBackPress",
-            backAction1
-          );
-          return () => backHandler.remove();
-    }
-
-
-    
-    }, []);
-
-    
-
   useEffect(() => {
     getUser();
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
@@ -956,7 +925,7 @@ const xxx = (item) => {
 }
     
     const _goBack = () => navigation.goBack();
-    const refRBSheet = useRef();
+
     const [isOpen, setIsOpen] = useState(true);
     const [initialItem, setInitialItem] = useState('');
     const [number, onChangeNumber] = React.useState(null);
@@ -1326,12 +1295,10 @@ const xxx = (item) => {
     setSwitchSort(index);
   };
 
-
-
   const renderItem =({ item, index }) => (
     <TouchableOpacity 
                 onPress={() => {
-                  handlePresentModalPress();
+                  refRBSheet.current.open();
                   setInitialItem(item);
                   onChangeNumber(null);
                 }}
@@ -1358,19 +1325,15 @@ const xxx = (item) => {
 
   // renders
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-      <Provider>
-        <PaperProvider theme={theme}>
-      <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
-    
+  <GestureHandlerRootView style={{ flex: 1 }}>
+    <BottomSheetModalProvider>
+      
+    <Provider>
+    <PaperProvider theme={theme}>
+       <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
+    <SafeAreaProvider style={{flexGrow: 1, backgroundColor: colors.COLORS.WHITE}}>
       <View style={styles.container}>
-        {/* <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        /> */}
-        <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+      <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
             <TouchableOpacity onPress={_goBack}>
                 <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
@@ -1386,29 +1349,29 @@ const xxx = (item) => {
         </View>
 
     </View>
-        <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
+    <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
     
-            { 
-            listData.length > 0 ?
-            (
-                <BigList
-                data={filteredDataSource}
-                //renderItem={renderItem}
-                renderItem={renderItem}
-                />
-            ) : (
-                <View style={{flex: 1, justifyContent: 'center'}}>
-                <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
-                {/* <View style={{alignItems: 'center'}}>
-                    <Text style={{color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_11}}>WCZYTYWANIE DANYCH...</Text>
-                </View> */}
-                </View>
-            )
-            }
-        
-        </View>
-        
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
+        { 
+          listData.length > 0 ?
+          (
+            <BigList
+              data={filteredDataSource}
+              //renderItem={renderItem}
+              renderItem={renderItem}
+            />
+          ) : (
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
+              {/* <View style={{alignItems: 'center'}}>
+                <Text style={{color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_11}}>WCZYTYWANIE DANYCH...</Text>
+              </View> */}
+            </View>
+          )
+        }
+
+       
+    </View>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
 
               <MyButton icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>
               <MyButton icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
@@ -1420,24 +1383,8 @@ const xxx = (item) => {
               />
               <MyButton icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
         
-        </View>
+      </View>
 
-        <AnimatedFAB
-            icon={'plus'}
-            label={'Dodaj'}
-            //extended={isExtended}
-            onPress={() => {
-            navigation.navigate('AddGlycemicIndex');
-            }}
-            visible2={visible2}
-            theme={'tertiary'}
-            animateFrom={'right'}
-            iconMode={'static'}
-            //color={colors.COLORS.ORANGE}
-            //disabled
-
-            style={[styles.fabStyle, style, fabStyle]}
-        />
 
         <BottomSheetModal
           ref={bottomSheetModalRef}
@@ -1445,676 +1392,24 @@ const xxx = (item) => {
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
         >
-            <ImageBackground
-                source={require('../../assets/images/bg5.jpg')}
-                blurRadius={5}
-                style={{
-                    flex: 1, 
-                    height: Dimensions.get('window').height,
-                    width: Dimensions.get('window').width
-                }}
-                imageStyle={{
-                    opacity: 0.5
-                }}
-            >
-                <View style={{flex: 1}}>
-                <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
-                    <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center'}]}>
-                        {/* <Text style={styles.textTitle}>{initialItem.id}</Text> */}
-                        <Text style={styles.textTitle}>{initialItem.name}</Text>
-                    </View>
-                    <View style={{justifyContent: 'center', marginRight: spacing.SCALE_20}}>
-                        <MaterialCommunityIcons name='square-edit-outline' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
-                            onPress={() => {
-                            refRBSheet.current.close(),
-                            navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
-                            }} 
-                            //disabled
-                            />
-                    </View>
-                    </View>
+          <ImageBackground
+      source={require('../../assets/images/bg5.jpg')}
+      blurRadius={5}
+      style={{
+        flex: 1, 
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width
+      }}
+      imageStyle={{
+        opacity: 0.5
+      }}
+      >
 
-                    <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
-                        <View style={{justifyContent: 'center'}}>
-                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
-                        </View>
-                            <TextInput
-                                style={styles.textInput}
-                                onChangeText={onChangeNumber}
-                                value={number}
-                                placeholder="100"
-                                keyboardType="numeric"
-                            />
-                            <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
-                    </View>
+      </ImageBackground>
 
-                    <ScrollView>
-      <View style={{marginHorizontal: spacing.SCALE_8}}>
-
-        <View style={{flexDirection: 'row', borderWidth: 1, padding: spacing.SCALE_6, borderColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_5, backgroundColor: colors.COLORS.LIGHT_BLUE, elevation: 1}}>
-          <Text style={{marginRight: spacing.SCALE_4, fontSize: typography.FONT_SIZE_12, color: colors.COLORS.WHITE}}>{t('glycemicIndex.category')}</Text>
-          <Text style={styles.titleCategory}>{initialItem.category}</Text>
-        </View>
-
-        <View style={{flexDirection: 'row' }}>
-          
-          <View style={{borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, flex: 1, borderRadius: 5, marginRight: spacing.SCALE_3, elevation: 3 }}>
-            <View style={{ alignItems: 'center'}}>
-              <Text style={[styles.titleKcal, {marginRight: spacing.SCALE_4, flex: 1 }]}>{obliczKcal(number)}</Text>
-              <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.COLORS.DEEP_BLUE, marginTop: -spacing.SCALE_5}}>kcal</Text>
-            </View>
-          </View>
-
-          <View style={{ borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, flex: 1, borderRadius: 5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
-            <View style={{ alignItems: 'center'}}>
-              <Text style={[styles.titleKcal, {marginRight: 4, flex: 1 }]}> {(obliczKcal(number)*4.184).toFixed(0)}</Text>
-              <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.COLORS.DEEP_BLUE, marginTop: -spacing.SCALE_5}}>kJ</Text>
-            </View>
-          </View>
-          
-        </View>
-
-        <View style={{flexDirection: 'row', marginTop: spacing.SCALE_6}}>
-          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 3}}>
-            <CircularProgress
-                    value={initialItem.index_glycemic}
-                    radius={spacing.SCALE_25}
-                    duration={2000}
-                    progressValueColor={colors.COLORS.DEEP_BLUE}
-                    maxValue={110}
-                    activeStrokeWidth={8}
-                    inActiveStrokeWidth={8}
-                    activeStrokeColor={colorIG(initialItem.index_glycemic)}
-                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
-                    dashedStrokeConfig={{
-                      count: 25,
-                      width: 5,
-                    }}
-                  />
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-index')}</Text>
-          </View>
-
-          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
-            <CircularProgress
-                      value={obliczLG(number)}
-                      radius={spacing.SCALE_25}
-                      duration={2000}
-                      progressValueColor={colors.COLORS.DEEP_BLUE}
-                      maxValue={obliczLG(number) >= 100 ? obliczLG(number) : 100}
-                      activeStrokeWidth={8}
-                      inActiveStrokeWidth={8}
-                      activeStrokeColor={colorLG(obliczLG(number))}
-                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
-                      progressFormatter={(value, number) => {
-                        'worklet';   
-                        return value.toFixed(1);
-                      }}
-                      dashedStrokeConfig={{
-                        count: 25,
-                        width: 5,
-                      }}
-                    />
-                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-load')}</Text>
-          </View>
-        </View>
-
-        <View style={{flexDirection: 'row', marginTop: spacing.SCALE_6}}>
-          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 5}}>
-          <CircularProgress
-                    value={obliczWW(number)}
-                    radius={spacing.SCALE_25}
-                    duration={2000}
-                    progressValueColor={colors.COLORS.DEEP_BLUE}
-                    maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
-                    activeStrokeWidth={8}
-                    inActiveStrokeWidth={8}
-                    activeStrokeColor={colors.COLORS.DEEP_BLUE}
-                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
-                    progressFormatter={(value, number) => {
-                        'worklet';
-                        return value.toFixed(1);
-                      }}
-                      dashedStrokeConfig={{
-                        count: 25,
-                        width: 5,
-                      }}
-                  />
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.carbohydrate')}</Text>
-          </View>
-          <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
-          <CircularProgress
-                      value={obliczWBT(number)}
-                      radius={spacing.SCALE_25}
-                      duration={2000}
-                      progressValueColor={colors.COLORS.DEEP_BLUE}
-                      maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
-                      activeStrokeWidth={10}
-                      inActiveStrokeWidth={10}
-                      activeStrokeColor={colors.COLORS.DEEP_BLUE}
-                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
-                      progressFormatter={(value, number) => {
-                        'worklet';
-                          
-                        return value.toFixed(1);
-                      }}
-                      dashedStrokeConfig={{
-                        count: 25,
-                        width: 5,
-                      }}
-                    />
-                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
-                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.protein-fat')}</Text>
-          </View>
-        </View>
-        
-        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
-          
-          
-          { initialItem.protein !== 0 &&
-          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
-              
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.protein')}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {initialItem.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
-                  </Text>
-                  </View>
-                  {isSwitchOn === true &&
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
-                    </Text>
-                  </View>
-                  }
-              </View>
-
-          </View>
-          }
-
-          { initialItem.fat !== 0 &&
-          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
-              
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fat')}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {initialItem.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
-                  </Text>
-                  </View>
-                  {isSwitchOn === true &&
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
-                    </Text>
-                  </View>
-                  }
-              </View>
-
-          </View>
-          }
-
-          { initialItem.carbs !== 0 &&
-          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
-              
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.carbohydrates')}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {initialItem.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
-                  </Text>
-                  </View>
-                  {isSwitchOn === true &&
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
-                    </Text>
-                  </View>
-                  }
-              </View>
-
-          </View>
-          }
-
-          { initialItem.fiber !== 0 &&
-          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
-              
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fiber')}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {initialItem.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
-                  </Text>
-                  </View>
-                  {isSwitchOn === true &&
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
-                    </Text>
-                  </View>
-                  }
-              </View>
-
-          </View>
-          }
-
-          { initialItem.Sugars !== 0 &&
-          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
-              
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.sugar')}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {initialItem.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
-                  </Text>
-                  </View>
-                  {isSwitchOn === true &&
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
-                    </Text>
-                  </View>
-                  }
-              </View>
-
-          </View>
-          }
-
-          { initialItem.choresterol !== 0 &&
-          <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
-              
-              <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.cholesterol')}</Text>
-                </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {initialItem.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
-                  </Text>
-                  </View>
-                  {isSwitchOn === true &&
-                  <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
-                    </Text>
-                  </View>
-                  }
-              </View>
-
-          </View>
-          }
-
-        </View>
-
-        <View style={{flex: 1,alignItems: 'center', marginTop: spacing.SCALE_6}}>
-          <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
-            <Text style={styles.textBtn}>{t('glycemicIndex.add-to-meal')}</Text>
-          </TouchableOpacity>       
-        </View>
-
-        {initialItem.Status === 0 &&
-        <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
-            <TouchableOpacity onPress={() => toggleBox1()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
-              <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-                <Text style={{color: colors.TEXT.DEEP_BLUE}}>WITAMINY</Text>
-                <Animated.View style={{transform: [{rotateZ: arrowTransform}]}}>
-                  <MaterialIcons name='keyboard-arrow-down' size={20} />
-                </Animated.View>
-              </View>
-            </TouchableOpacity>
-            { showContent1  &&  
-            <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
-              { initialItem.witA !== 0 &&
-              
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>WITAMINA A</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{initialItem.witA} {UNIT.IU}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.betaCarotene !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1, marginLeft: 10}}>
-                      <Text style={styles.textBox2}>BETA-CAROTEN</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
-                    </View>
-                  </View>
-                } 
-
-                { initialItem.luteinaZeaksantyna !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1, marginLeft: 10}}>
-                      <Text style={styles.textBox2}>LUTEINA-ZEAKSANTYNA</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB1Tiamina !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B1 - TIAMINA</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB1Tiamina).toFixed(3)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB2Ryboflawina !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B2 - RYBOFLAWINA</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB2Ryboflawina).toFixed(3)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB3Niacyna !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B3 - NIACYNA</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB3Niacyna).toFixed(3)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB4Cholina !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B4 - CHOLINA</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB4Cholina).toFixed(3)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB5KwasPantotenowy !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B5 - KWAS PANTOTENOWY</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB5KwasPantotenowy).toFixed(3)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB6 !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B6</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB6).toFixed(3)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB9KwasFoliowy !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B9 - KWAS FOLIOWY</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB9KwasFoliowy).toFixed(3)} {UNIT.UG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitB12 !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B12</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.UG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitC !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA C</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitC).toFixed(2)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitE !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA E</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitE).toFixed(2)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.WitK !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA K</Text>
-                    </View>
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.WitK).toFixed(2)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-              </View>
-               
-            }
-        </View>
-        }
-
-        { initialItem.Status === 0 &&
-          <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
-          <TouchableOpacity onPress={() => toggleBox2()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
-            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MAKROELEMENTY</Text>
-                <Animated.View style={{transform: [{rotateZ: arrowTransform2}]}}>
-                  <MaterialIcons name='keyboard-arrow-down' size={20} />
-                </Animated.View>
-              </View>
-          </TouchableOpacity>
-          
-          { showContent2  &&  
-              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
-                { initialItem.Wapn !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WAPŃ</Text>
-                      
-                    </View>
-                    
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.Wapn).toFixed(1)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.Magnez !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>MAGNEZ</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Magnez).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.Fosfor !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>FOSFOR</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Fosfor).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.Potas !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>POTAS</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Potas).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.Sod !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>SÓD</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Sod).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-              </View>
-          }
-        </View>
-      }
-
-      { initialItem.Status === 0 &&
-          <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
-          <TouchableOpacity onPress={() => toggleBox3()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
-            <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MIKROELEMENTY</Text>
-                <Animated.View style={{transform: [{rotateZ: arrowTransform3}]}}>
-                  <MaterialIcons name='keyboard-arrow-down' size={20} />
-                </Animated.View>
-              </View>
-          </TouchableOpacity>
-          
-          { showContent3  &&  
-              <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
-                { initialItem.Miedz !== 0 &&
-                  <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                    <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>MIEDŹ</Text>
-                      
-                    </View>
-                    
-                    <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(initialItem.Miedz).toFixed(1)} {UNIT.MG}</Text>
-                    </View>
-                  </View>
-                }
-
-                { initialItem.Zelazo !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>ŻELAZO</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Zelazo).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.Mangan !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>MANGAN</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Mangan).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.Selen !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>SELEN</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Selen).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-                { initialItem.Cynk !== 0 &&
-                <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
-                  <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>CYNK</Text>
-                    
-                  </View>
-                  
-                  <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(initialItem.Cynk).toFixed(1)} {UNIT.MG}</Text>
-                  </View>
-                </View>
-                }
-
-              </View>
-          }
-        </View>
-      }
-
-
-      </View>
-       
-
-      
-
-      </ScrollView>
-
-                </View>
-            </ImageBackground>
         </BottomSheetModal>
-      </View>
+      </View>  
+      </SafeAreaProvider>
       <Portal>
         <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
           
@@ -2295,10 +1590,6 @@ const xxx = (item) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.COLORS.LIGHT_GREY,
-    },
     flatListStyle: {
         borderBottomWidth: 1,
         borderBottomColor: colors.COLORS.GREY_333,
@@ -2307,6 +1598,8 @@ const styles = StyleSheet.create({
         paddingTop: spacing.SCALE_10,
         paddingBottom: spacing.SCALE_15,
         flexDirection: 'row',
+        //marginHorizontal: 3,
+        //opacity: 0.7
     },
     itemText: {
       color: colors.TEXT.DEEP_BLUE,
@@ -2393,10 +1686,7 @@ const styles = StyleSheet.create({
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
       textTransform: 'uppercase'
-    },
-    contentContainer: {
-        
     }
-});
+})
 
 export default GlycemicIndex;
