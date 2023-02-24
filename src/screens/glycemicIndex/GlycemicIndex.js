@@ -1223,7 +1223,7 @@ const xxx = (item) => {
     const config = {
       duration: 300,
       toValue: showContent1 ? 0 : 1,
-      useNativeDriver: true
+      useNativeDriver: false
     };
     Animated.timing(animationControler1, config).start();
     setShowContent1(!showContent1);
@@ -1238,7 +1238,7 @@ const xxx = (item) => {
     const config = {
       duration: 300,
       toValue: showContent2 ? 0 : 1,
-      useNativeDriver: true
+      useNativeDriver: false
     };
     Animated.timing(animationControler2, config).start();
     setShowContent2(!showContent2);
@@ -1253,7 +1253,7 @@ const xxx = (item) => {
     const config = {
       duration: 300,
       toValue: showContent3 ? 0 : 1,
-      useNativeDriver: true
+      useNativeDriver: false
     };
     Animated.timing(animationControler3, config).start();
     setShowContent3(!showContent3);
@@ -1275,6 +1275,34 @@ const xxx = (item) => {
     console.log(index)
     setSwitchSort(index);
   };
+
+  const renderItem =({ item, index }) => (
+    <TouchableOpacity 
+                onPress={() => {
+                  refRBSheet.current.open();
+                  setInitialItem(item);
+                  onChangeNumber(null);
+                }}
+                >
+                 
+                  <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
+                      <View style={{flex: 5, marginRight: 20}}>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
+                      </View>
+                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
+                      
+                      {
+                        xxx(item)
+                        
+                      }
+
+                        {/* <MyCircle percentage={item.index_glycemic} />  */}
+                     
+                    </View>
+                  </View>
+            
+                </TouchableOpacity>
+  );
 
  // console.log(switchSort)
   return (
@@ -2001,33 +2029,7 @@ const xxx = (item) => {
             <BigList
               data={filteredDataSource}
               //renderItem={renderItem}
-              renderItem={({item}) => (
-                <TouchableOpacity 
-                onPress={() => {
-                  refRBSheet.current.open();
-                  setInitialItem(item);
-                  onChangeNumber(null);
-                }}
-                >
-                 
-                  <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
-                      <View style={{flex: 5, marginRight: 20}}>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
-                      </View>
-                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
-                      
-                      {
-                        xxx(item)
-                        
-                      }
-
-                        {/* <MyCircle percentage={item.index_glycemic} />  */}
-                     
-                    </View>
-                  </View>
-            
-                </TouchableOpacity>
-              )}
+              renderItem={renderItem}
             />
           ) : (
             <View style={{flex: 1, justifyContent: 'center'}}>
@@ -2318,7 +2320,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       height: 40,
       color: colors.TEXT.DEEP_BLUE,
-      fontWeight: 'bold',
+      //fontWeight: 'bold',
       //elevation: 3
     },
     fabStyle: {
