@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef, useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, StatusBar, Dimensions, ImageBackground, ActivityIndicator, TouchableOpacity, ToastAndroid, Animated, BackHandler, TextInput } from 'react-native';
 import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetModalProvider, useBottomSheetModal } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -113,7 +113,7 @@ useEffect(() => {
   const bottomSheetModalRef = useRef(null);
 
   // variables
-  const snapPoints = useMemo(() => ['73%', '100%'], []);
+  const snapPoints = useMemo(() => ['75%', '100%'], []);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
@@ -123,8 +123,18 @@ useEffect(() => {
   const [indx, setIndx] = useState(0);
 
   const handleSheetChanges = useCallback((index) => {
-  
-    console.log('handleSheetChanges', index);
+    
+    if(index === -1){
+      setIndx(1);
+    }else{
+      setIndx(-1)
+    }
+    //console.log(indx)
+    //console.log('handleSheetChanges', index);
+
+        
+        
+    //navigation.navigate('GlycemicIndex')
   }, []);
  
  

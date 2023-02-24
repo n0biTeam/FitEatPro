@@ -1,101 +1,67 @@
-import React, { useCallback, useMemo, useRef, useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, StatusBar, Dimensions, ImageBackground, ActivityIndicator, TouchableOpacity, ToastAndroid, Animated, BackHandler, TextInput } from 'react-native';
-import { Searchbar, AnimatedFAB, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, Pressable } from 'react-native';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Searchbar, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../../navigation/AuthProvider';
-import firestore from '@react-native-firebase/firestore';
 import BigList from "react-native-big-list";
-import MyCircle from '../../components/MyCircle';
-import BtnModal from '../../components/BtnModal';
-import ItemBigList from '../../components/ItemBigList';
-import { MyButton } from '../../components/MyButton';
+import { MyButtonNoPay } from '../../components/MyButtonNoPay';
+import RBSheet from "react-native-raw-bottom-sheet";
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { UNIT } from '../../styles/units';
-import MySwitch2 from '../../components/MySwitch';
-import { ScrollView} from 'react-native-gesture-handler';
+import * as RNLocalize from "react-native-localize";
+import dataPL from '../../data/dataPL';
+import dataEN from '../../data/dataEN';
+import firestore from '@react-native-firebase/firestore';
+import MyCircle from '../../components/MyCircle';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import Purchases from 'react-native-purchases';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const theme = {
-    ...DefaultTheme,
-    roundness: 2,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: colors.COLORS.LIGHT_BLUE,
-      accent: colors.COLORS.YELLOW,
-    },
-  };
-
-
-  const GlycemicIndex = ({ 
-    route,
-    navigation,
-    animatedValue,
-    visible2,
-    extended,
-    label,
-    animateFrom,
-    style,
-    iconMode
-}) => {
-
-  const [isExtended, setIsExtended] = React.useState(true);
-
-  const isIOS = Platform.OS === 'ios';
-
-  const onScroll = ({ nativeEvent }) => {
-    const currentScrollPosition =
-      Math.floor(nativeEvent?.contentOffset?.y) ?? 0;
-
-    setIsExtended(currentScrollPosition <= 0);
-  };
-
-  const fabStyle = { [animateFrom]: 16 };
-
-  const {t, i18n} = useTranslation();
-
-  const {user} = useContext(AuthContext);
-  const [listData, setListData] = useState([]);
-  const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState(listData);
-  const [masterDataSource, setMasterDataSource] = useState(listData);
-  const [switchSort, setSwitchSort] = useState('2');
-  const [loading, setLoading] = useState(true);
-
-  const getList = () => {
-    firestore().collection('users').doc(user.uid).collection('products')
-    .orderBy('name', 'asc')
-    .onSnapshot(
-       querySnapshot => {
-       const listData = []
-
-           querySnapshot.forEach(doc => {
-            //const listData = doc.data()
-            //listData.id = doc.id
-            listData.push({...doc.data(), id: doc.id})
-          });
-          
-             setListData(listData);
-             setFilteredDataSource(listData);
-             setMasterDataSource(listData);
-          },
-            error => {
-             console.log(error)
-          }
-    )
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.COLORS.LIGHT_BLUE,
+    accent: colors.COLORS.YELLOW,
+  },
 };
 
-useEffect(() => {
-    getList();
-   // setIsOpen(false);
-  }, []);
+const lang = RNLocalize.getLocales()[0].languageCode;
+let data = [];
+if(lang === 'pl'){
+  data = dataPL;
+}else{
+  data = dataEN;
+}
 
-  const [isSwitchOn, setIsSwitchOn] = useState(null);
-  const getUser = async () => {
+const GlycemicIndexNoPay = ({ 
+      navigation
+  }) => {
+
+  
+
+    const {t, i18n} = useTranslation();
+    const {user} = useContext(AuthContext);
+    const [switchSort, setSwitchSort] = useState('2');
+    const [loading, setLoading] = useState(true);
+    
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState([...data.sort((a, b) => {
+        return a.name.localeCompare(b.name)
+    })]);
+    const [masterDataSource, setMasterDataSource] = useState([...data]);
+
+    const [dataMeal, setDataMeal] = useState([]);
+     
+    const [isSwitchOn, setIsSwitchOn] = useState(null);
+    const getUser = async () => {
     await firestore()
     .collection('users')
     .doc(user.uid)
@@ -105,854 +71,122 @@ useEffect(() => {
     .then(( documentSnapshot ) => {
       if( documentSnapshot.exists ) {
         setIsSwitchOn(documentSnapshot.data().showOunce);
+        //setDiaryUnit(documentSnapshot.data().diaryUnit);
       }
     })
   }
-
-  // ref
-  const bottomSheetModalRef = useRef(null);
-
-  // variables
-  const snapPoints = useMemo(() => ['73%', '100%'], []);
-
-  // callbacks
-  const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
-  
-  const [indx, setIndx] = useState(0);
-
-  const handleSheetChanges = useCallback((index) => {
-  
-    console.log('handleSheetChanges', index);
-  }, []);
  
- 
-
-//   useEffect(() => {
-// console.log('indx: '+ indx);
-//     const backAction1 = () => {  
-//         bottomSheetModalRef.current.close()
-//       return true;
-//     };
-    
-//     if(indx === -1){
-//     const backHandler = BackHandler.addEventListener(
-//       "hardwareBackPress",
-//       backAction1
-//     );
-//     return () => backHandler.remove();
-//     }else if(indx === 0){
-       
-//       //return () => navigation.navigate('GlycemicIndex');
-//     }else{
-//       return () => navigation.navigate('HomeScreen');
-//     }
-
-
-    
-//     }, [indx]);
-
-    
-
   useEffect(() => {
     getUser();
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
     return unsubscribe;
    }, [navigation, loading, isSwitchOn]);
 
-      const addMeal = async () => {
-        await firestore()
-        .collection('users')
-        .doc(user.uid)
-        .collection('meal')
-        .add({
-          name: initialItem.name,
-          quantity: number != undefined ? parseInt(number) : 100, //ilosc gram
-          kcal: number != undefined ? parseInt(initialItem.kcal/(100/number)) : parseInt(initialItem.kcal),
-          glycemicIndex: parseInt(initialItem.index_glycemic),
-          protein: parseFloat(initialItem.protein),
-          fat: parseFloat(initialItem.fat),
-          carbs: number != undefined ? parseFloat(initialItem.carbs/(100/number)) : parseFloat(initialItem.carbs),
-          fiber: number != undefined ? parseFloat(initialItem.fiber/(100/number)) : parseFloat(initialItem.fiber),
-          sugar: parseFloat(initialItem.Sugars),
-          cholesterol: parseFloat(initialItem.choresterol),
-          createdAt: firestore.Timestamp.fromDate(new Date()),
-        })
-        .then(() => {
-          console.log('Product Added list meal');
-          ToastAndroid.show(t('glycemicIndex.toast-add'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-          //refRBSheet.current.close();
-          bottomSheetModalRef.current.close();
-        })
-      }
-    
-const searchFilterFunction = (text) => {
+
+   const getDataMeal = () => {
+    firestore().collection('users').doc(user.uid).collection('meal')
+        .orderBy('name', 'asc')
+        .onSnapshot(
+           querySnapshot => {
+           const mealData = [];
  
-  if (text) {
-    const newData = masterDataSource.filter(
-      function (item) {
-        const itemData = item.name
-          ? item.name.toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-    });
-    setFilteredDataSource(newData);
-    setSearch(text);
-  } else {
+               querySnapshot.forEach(doc => {
+                
+                mealData.push({...doc.data()});
+               
+              });
+              setDataMeal(mealData);
+              },
+                error => {
+                 console.log(error)
+              }
+          
+        )
+  }
+
+  useEffect(() => {
+    getDataMeal();
+  },[]);
+           
+    useEffect(() => {
+      setFilteredDataSource([...data]);
+      setMasterDataSource([...data]);
+    }, []);
     
-    setFilteredDataSource(masterDataSource);
-    setSearch(text);
-  }
-};
-
-const sortListASC = () => {
-  filteredDataSource.sort((obj1, obj2) => {
-    return obj1.index_glycemic - obj2.index_glycemic;
-  });
-  setMasterDataSource([...listData]);
-};
-
-const sortListDES = () => {
-  filteredDataSource.sort((obj1, obj2) => {
-    return obj2.index_glycemic - obj1.index_glycemic;
-  });
-  setMasterDataSource([...listData]);
-  setModalX('index');
-  setVisible(false);
-};
-
-const sortListAlfaASC = () => {
-    filteredDataSource.sort((obj1, obj2) => {
-    return obj1.name.localeCompare(obj2.name)
-  });
-  setMasterDataSource([...listData]);
-};
-
-const sortListAlfaDES = () => {
-  
-  filteredDataSource.sort((obj1, obj2) => {
-  return obj2.name.localeCompare(obj1.name)
-});
-setMasterDataSource([...listData]);
-};
-
-//(a, b) => !a - !b || a - b
-const [modalX, setModalX] = useState('');
-
-const sortListIndex = () => {
-  filteredDataSource.sort((obj1, obj2) => {
-    return obj1.name.localeCompare(obj2.name)
-  });
-  setModalX('index')
-  setMasterDataSource([...listData]);
-  setVisible(false);
-};
-
-//Białko
-const sortListProtein = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.protein - !b.protein || b.protein - a.protein;
-    });
-  
-    setModalX('protein');
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.protein - !b.protein || a.protein - b.protein;
-    });
-    
-    setModalX('protein');
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Tłuszcze
-const sortListFat = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.fat - !b.fat || b.fat - a.fat;
-    });
-    setModalX('fat')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.fat - !b.fat || a.fat - b.fat;
-    });
-    setModalX('fat')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Węglowodany
-const sortListCarbs = () => {
-    if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.carbs - !b.carbs || b.carbs - a.carbs;
-    });
-    setModalX('carbs')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-      filteredDataSource.sort((a, b) => {
-        return !a.carbs - !b.carbs || a.carbs - b.carbs;
+    const sortListASC = () => {
+      filteredDataSource.sort((obj1, obj2) => {
+        return obj1.index_glycemic - obj2.index_glycemic;
       });
-      setModalX('carbs')
-      setMasterDataSource([...listData]);
-      setVisible(false);
-  }
-};
+      setMasterDataSource([...data]);
+    };
+    
+    const sortListDES = () => {
+      filteredDataSource.sort((obj1, obj2) => {
+        return obj2.index_glycemic - obj1.index_glycemic;
+      });
+      setMasterDataSource([...data]);
+    };
+    
+    const sortListAlfaASC = () => {
+        filteredDataSource.sort((obj1, obj2) => {
+        return obj1.name.localeCompare(obj2.name)
+      });
+      setMasterDataSource([...data]);
+    };
+    
+    const sortListAlfaDES = () => {
+      filteredDataSource.sort((obj1, obj2) => {
+      return obj2.name.localeCompare(obj1.name)
+    });
+    setMasterDataSource([...data]);
+    };
+    
+     
+     const searchFilterFunction = (text) => {
+     
+      if (text) {
+        const newData = masterDataSource.filter(
+          function (item) {
+            const itemData = item.name
+              ? item.name.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+        });
+        setFilteredDataSource(newData);
+        setSearch(text);
+      } else {
+        
+        setFilteredDataSource(masterDataSource);
+        setSearch(text);
+      }
+    };
 
-//Błonnik
-const sortListFiber = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.fiber - !b.fiber || b.fiber - a.fiber;
-    });
-    setModalX('fiber')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.fiber - !b.fiber || a.fiber - b.fiber;
-    });
-    setModalX('fiber')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Cukier
-const sortListSugar = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Sugars - !b.Sugars || b.Sugars - a.Sugars;
-    });
-    setModalX('sugar')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Sugars - !b.Sugars || a.Sugars - b.Sugars;
-    });
-    setModalX('sugar')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Cholesterol
-const sortListCholesterol = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.choresterol - !b.choresterol || b.choresterol - a.choresterol;
-    });
-    setModalX('cholesterol')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.choresterol - !b.choresterol || a.choresterol - b.choresterol;
-    });
-    setModalX('cholesterol')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina A
-const sortListWitA = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.witA - !b.witA || b.witA - a.witA;
-    });
-    setModalX('witA')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.witA - !b.witA || a.witA - b.witA;
-    });
-    setModalX('witA')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Beat-caroten
-const sortListBetaCaroten = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.betaCarotene - !b.betaCarotene || b.betaCarotene - a.betaCarotene;
-    });
-    setModalX('betaCaroten')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.betaCarotene - !b.betaCarotene || a.betaCarotene - b.betaCarotene;
-    });
-    setModalX('betaCaroten')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-}
-};
-
-//Luteina
-const sortListLuteina = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || b.luteinaZeaksantyna - a.luteinaZeaksantyna;
-    });
-    setModalX('luteina')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.luteinaZeaksantyna - !b.luteinaZeaksantyna || a.luteinaZeaksantyna - b.luteinaZeaksantyna;
-    });
-    setModalX('luteina')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina B1 - Tiamina
-const sortListWitB1 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB1Tiamina - !b.WitB1Tiamina || b.WitB1Tiamina - a.WitB1Tiamina;
-    });
-    setModalX('witB1')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB1Tiamina - !b.WitB1Tiamina || a.WitB1Tiamina - b.WitB1Tiamina;
-    });
-    setModalX('witB1')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina B2 - Ryboflawina
-const sortListWitB2 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || b.WitB2Ryboflawina - a.WitB2Ryboflawina;
-    });
-    setModalX('witB2')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB2Ryboflawina - !b.WitB2Ryboflawina || a.WitB2Ryboflawina - b.WitB2Ryboflawina;
-    });
-    setModalX('witB2')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-}
-};
-
-//Witamina B3 - niacyna
-const sortListWitB3 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB3Niacyna - !b.WitB3Niacyna || b.WitB3Niacyna - a.WitB3Niacyna;
-    });
-    setModalX('witB3')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB3Niacyna - !b.WitB3Niacyna || a.WitB3Niacyna - b.WitB3Niacyna;
-    });
-    setModalX('witB3')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-}
-};
-
-//Witamina B4 - cholina
-const sortListWitB4 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB4Cholina - !b.WitB4Cholina || b.WitB4Cholina - a.WitB4Cholina;
-    });
-    setModalX('witB4')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB4Cholina - !b.WitB4Cholina || a.WitB4Cholina - b.WitB4Cholina;
-    });
-    setModalX('witB4')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-}
-};
-
-//Witamina B5 - kwas pantotenowy
-const sortListWitB5 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB5KwasPantotenowy - !b.WitB5KwasPantotenowy || b.WitB5KwasPantotenowy - a.WitB5KwasPantotenowy;
-    });
-    setModalX('witB5')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB5KwasPantotenowy - !b.WitB5KwasPantotenowy || a.WitB5KwasPantotenowy - b.WitB5KwasPantotenowy;
-    });
-    setModalX('witB5')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina B6
-const sortListWitB6 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB6 - !b.WitB6 || b.WitB6 - a.WitB6;
-    });
-    setModalX('witB6')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB6 - !b.WitB6 || a.WitB6 - b.WitB6;
-    });
-    setModalX('witB6')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina B9 - kwas foliowy
-const sortListWitB9 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB9KwasFoliowy - !b.WitB9KwasFoliowy || b.WitB9KwasFoliowy - a.WitB9KwasFoliowy;
-    });
-    setModalX('witB9')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB9KwasFoliowy - !b.WitB9KwasFoliowy || a.WitB9KwasFoliowy - b.WitB9KwasFoliowy;
-    });
-    setModalX('witB9')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina B12
-const sortListWitB12 = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB12 - !b.WitB12 || b.WitB12 - a.WitB12;
-    });
-    setModalX('witB12')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitB12 - !b.WitB12 || a.WitB12 - b.WitB12;
-    });
-    setModalX('witB12')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina C
-const sortListWitC = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitC - !b.WitC || b.WitC - a.WitC;
-    });
-    setModalX('witC')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitC - !b.WitC || a.WitC - b.WitC;
-    });
-    setModalX('witC')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina E
-const sortListWitE = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitE - !b.WitC || b.WitE - a.WitE;
-    });
-    setModalX('witE')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitE - !b.WitE || a.WitE - b.WitE;
-    });
-    setModalX('witE')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Witamina K
-const sortListWitK = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.WitK - !b.WitK || b.WitK - a.WitK;
-    });
-    setModalX('witK')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.WitK - !b.WitK || a.WitK - b.WitK;
-    });
-    setModalX('witK')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Wapn
-const sortListWapn = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Wapn - !b.Wapn || b.Wapn - a.Wapn;
-    });
-    setModalX('wapn')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Wapn - !b.Wapn || a.Wapn - b.Wapn;
-    });
-    setModalX('wapn')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Magnez
-const sortListMagnez = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Magnez - !b.Magnez || b.Magnez - a.Magnez;
-    });
-    setModalX('magnez')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Magnez - !b.Magnez || a.Magnez - b.Magnez;
-    });
-    setModalX('magnez')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Fosfor
-const sortListFosfor = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Fosfor - !b.Fosfor || b.Fosfor - a.Fosfor;
-    });
-    setModalX('fosfor')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Fosfor - !b.Fosfor || a.Fosfor - b.Fosfor;
-    });
-    setModalX('fosfor')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Potas
-const sortListPotas = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Potas - !b.Potas || b.Potas - a.Potas;
-    });
-    setModalX('potas')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Potas - !b.Potas || a.Potas - b.Potas;
-    });
-    setModalX('potas')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Sod
-const sortListSod = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Sod - !b.Sod || b.Sod - a.Sod;
-    });
-    setModalX('sod')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Sod - !b.Sod || a.Sod - b.Sod;
-    });
-    setModalX('sod')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Miedz
-const sortListMiedz = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Miedz - !b.Miedz || b.Miedz - a.Miedz;
-    });
-    setModalX('miedz')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Miedz - !b.Miedz || a.Miedz - b.Miedz;
-    });
-    setModalX('miedz')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Żelazo
-const sortListIron = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Zelazo - !b.Zelazo || b.Zelazo - a.Zelazo;
-    });
-    setModalX('iron')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Zelazo - !b.Zelazo || a.Zelazo - b.Zelazo;
-    });
-    setModalX('iron')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Mangan
-const sortListMangan = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Mangan - !b.Mangan || b.Mangan - a.Mangan;
-    });
-    setModalX('mangan')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Mangan - !b.Mangan || a.Mangan - b.Mangan;
-    });
-    setModalX('mangan')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Selen
-const sortListSelen = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Selen - !b.Selen || b.Selen - a.Selen;
-    });
-    setModalX('selen')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Selen - !b.Selen || a.Selen - b.Selen;
-    });
-    setModalX('selen')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-//Cynk
-const sortListCynk = () => {
-  if(switchSort === 1){
-    filteredDataSource.sort((a, b) => {
-      return !a.Cynk - !b.Cynk || b.Cynk - a.Cynk;
-    });
-    setModalX('cynk')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }else{
-    filteredDataSource.sort((a, b) => {
-      return !a.Cynk - !b.Cynk || a.Cynk - b.Cynk;
-    });
-    setModalX('cynk')
-    setMasterDataSource([...listData]);
-    setVisible(false);
-  }
-};
-
-const xxx = (item) => {
-  if(modalX === 'protein'){
-     return (
-      <ItemBigList value={(item.protein).toFixed(2)} unit={UNIT.GR} />
-     )
-  }else if(modalX === 'fat'){
-    return (
-      <ItemBigList value={(item.fat).toFixed(2)} unit={UNIT.GR} />
-    )
-  }else if(modalX === 'index'){
-    return(
-      <MyCircle percentage={item.index_glycemic} /> 
-    )
-  }else if(modalX === 'carbs'){
-     return (
-      <ItemBigList value={(item.carbs).toFixed(2)} unit={UNIT.GR} />
-    )
-  }else if(modalX === 'fiber'){
-    return (
-      <ItemBigList value={(item.fiber).toFixed(2)} unit={UNIT.GR} />
-    )
-  }else if(modalX === 'sugar'){
-    return (
-      <ItemBigList value={(item.Sugars).toFixed(2)} unit={UNIT.GR} />
-    )
-  }else if(modalX === 'cholesterol'){
-    return (
-      <ItemBigList value={(item.choresterol).toFixed(0)} unit={UNIT.MG} />
-    )
-  }else if(modalX === 'witA'){
-    return (
-      <ItemBigList value={(item.witA).toFixed(0)} unit={UNIT.IU} width={70} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'betaCaroten'){
-    return (
-      <ItemBigList value={(item.betaCarotene).toFixed(3)} unit={UNIT.UG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'luteina'){
-    return (
-      <ItemBigList value={(item.luteinaZeaksantyna).toFixed(3)} unit={UNIT.UG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB1'){
-    return (
-      <ItemBigList value={(item.WitB1Tiamina).toFixed(3)} unit={UNIT.MG} width={75} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB2'){
-    return (
-      <ItemBigList value={(item.WitB2Ryboflawina).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB3'){
-    return (
-      <ItemBigList value={(item.WitB3Niacyna).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB4'){
-    return (
-      <ItemBigList value={(item.WitB4Cholina).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB5'){
-    return (
-      <ItemBigList value={(item.WitB5KwasPantotenowy).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB6'){
-    return (
-      <ItemBigList value={(item.WitB6).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB9'){
-    return (
-      <ItemBigList value={(item.WitB9KwasFoliowy).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witB12'){
-    return (
-      <ItemBigList value={(item.WitB12).toFixed(3)} width={75} unit={UNIT.UG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witC'){
-    return (
-      <ItemBigList value={(item.WitC).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witE'){
-    return (
-      <ItemBigList value={(item.WitE).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'witK'){
-    return (
-      <ItemBigList value={(item.WitK).toFixed(4)} width={85} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
-    )
-  }else if(modalX === 'wapn'){
-    return (
-      <ItemBigList value={(item.Wapn).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
-    )
-  }else if(modalX === 'magnez'){
-    return (
-      <ItemBigList value={(item.Magnez).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
-    )
-  }else if(modalX === 'fosfor'){
-    return (
-      <ItemBigList value={(item.Fosfor).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
-    )
-  }else if(modalX === 'potas'){
-    return (
-      <ItemBigList value={(item.Potas).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
-    )
-  }else if(modalX === 'sod'){
-    return (
-      <ItemBigList value={(item.Sod).toFixed(0)} width={70} unit={UNIT.MG} backgroundColor={colors.PRESSURE.P2} />
-    )
-  }else if(modalX === 'miedz'){
-    return (
-      <ItemBigList value={(item.Sod).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
-    )
-  }else if(modalX === 'iron'){
-    return (
-      <ItemBigList value={(item.Zelazo).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
-    )
-  }else if(modalX === 'mangan'){
-    return (
-      <ItemBigList value={(item.Mangan).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
-    )
-  }else if(modalX === 'selen'){
-    return (
-      <ItemBigList value={(item.Selen).toFixed(4)} width={85} unit={UNIT.UG} backgroundColor={colors.WHtR.WHtR_3} />
-    )
-  }else if(modalX === 'cynk'){
-    return (
-      <ItemBigList value={(item.Cynk).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
-    )
-  }else{
-    return(
-      <MyCircle percentage={item.index_glycemic} /> 
-    )
-  }
-}
+    const addMeal = async () => {
+      await firestore()
+      .collection('users')
+      .doc(user.uid)
+      .collection('meal')
+      .add({
+        name: initialItem.name,
+        quantity: number != undefined ? parseInt(number) : 100, //ilosc gram
+        kcal: number != undefined ? parseInt(initialItem.kcal/(100/number)) : parseInt(initialItem.kcal),
+        glycemicIndex: parseInt(initialItem.index_glycemic),
+        protein: parseFloat(initialItem.protein),
+        fat: parseFloat(initialItem.fat),
+        carbs: number != undefined ? parseFloat(initialItem.carbs/(100/number)) : parseFloat(initialItem.carbs),
+        fiber: number != undefined ? parseFloat(initialItem.fiber/(100/number)) : parseFloat(initialItem.fiber),
+        sugar: parseFloat(initialItem.Sugars),
+        cholesterol: parseFloat(initialItem.choresterol),
+        createdAt: firestore.Timestamp.fromDate(new Date()),
+      })
+      .then(() => {
+        console.log('Product Added list meal');
+        ToastAndroid.show(t('glycemicIndex.toast-add'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
+        refRBSheet.current.close();
+      })
+    }
+   
     
     const _goBack = () => navigation.goBack();
     const refRBSheet = useRef();
@@ -1272,7 +506,7 @@ const xxx = (item) => {
     const config = {
       duration: 300,
       toValue: showContent1 ? 0 : 1,
-      useNativeDriver: false
+      useNativeDriver: true
     };
     Animated.timing(animationControler1, config).start();
     setShowContent1(!showContent1);
@@ -1287,7 +521,7 @@ const xxx = (item) => {
     const config = {
       duration: 300,
       toValue: showContent2 ? 0 : 1,
-      useNativeDriver: false
+      useNativeDriver: true
     };
     Animated.timing(animationControler2, config).start();
     setShowContent2(!showContent2);
@@ -1302,7 +536,7 @@ const xxx = (item) => {
     const config = {
       duration: 300,
       toValue: showContent3 ? 0 : 1,
-      useNativeDriver: false
+      useNativeDriver: true
     };
     Animated.timing(animationControler3, config).start();
     setShowContent3(!showContent3);
@@ -1325,181 +559,93 @@ const xxx = (item) => {
     setSwitchSort(index);
   };
 
+  const [activated, setActivated] = useState('');
+   useEffect(() => {
+    
+    const identyfikator = async () => {
+     
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        setActivated(customerInfo.activeSubscriptions)
 
+      } catch (e) {
+       // Error fetching customer info
+      }
+     
+    }
+    identyfikator();
+  },[]);
 
-  const renderItem =({ item, index }) => (
-    <TouchableOpacity 
-                onPress={() => {
-                  handlePresentModalPress();
-                  setInitialItem(item);
-                  onChangeNumber(null);
-                }}
-                >
-                 
-                  <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
-                      <View style={{flex: 5, marginRight: 20}}>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
-                      </View>
-                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
-                      
-                      {
-                        xxx(item)
-                        
-                      }
-
-                        {/* <MyCircle percentage={item.index_glycemic} />  */}
-                     
-                    </View>
-                  </View>
-            
-                </TouchableOpacity>
-  );
-
-  // renders
+  //console.log(activated)
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-      <Provider>
-        <PaperProvider theme={theme}>
-      <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
-    
-      <View style={styles.container}>
-        {/* <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        /> */}
-        <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
-        <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
-            <TouchableOpacity onPress={_goBack}>
-                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
-            </TouchableOpacity>
-        </View>
-        <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
-        <Searchbar
-          placeholder={t('glycemicIndex.search')}
-          onChangeText={(text) => searchFilterFunction(text)}
-          value={search}
-          iconColor={colors.COLORS.DEEP_BLUE}
-        />
-        </View>
-
-    </View>
-        <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
-    
-            { 
-            listData.length > 0 ?
-            (
-                <BigList
-                data={filteredDataSource}
-                //renderItem={renderItem}
-                renderItem={renderItem}
+    <Provider>
+    <PaperProvider theme={theme}>
+       <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
+    <SafeAreaProvider style={{flexGrow: 1, backgroundColor: colors.COLORS.WHITE}}>
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        onClose={() => setIsOpen(false)}
+        height={heightMidal}
+        openDuration={500}
+        closeDuration={300}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent",
+          },
+          draggableIcon: {
+            backgroundColor: colors.COLORS.DEEP_BLUE,
+          },
+          container: {
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            elevation: 15
+          }
+        }}
+      >
+      <ImageBackground
+      source={require('../../assets/images/bg5.jpg')}
+      blurRadius={5}
+      style={{
+        flex: 1, 
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width
+      }}
+      imageStyle={{
+        opacity: 0.5
+      }}
+      >
+      <View style={{flex: 1}}>
+                
+        <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+          <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center'}]}>
+            <Text style={styles.textTitle}>{initialItem.name}</Text>
+          </View>
+          <View style={{justifyContent: 'center', marginRight: spacing.SCALE_20}}>
+            <MaterialCommunityIcons name='square-edit-outline' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
+                onPress={() => {
+                  refRBSheet.current.close(),
+                  navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
+                }} 
                 />
-            ) : (
-                <View style={{flex: 1, justifyContent: 'center'}}>
-                <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
-                {/* <View style={{alignItems: 'center'}}>
-                    <Text style={{color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_11}}>WCZYTYWANIE DANYCH...</Text>
-                </View> */}
-                </View>
-            )
-            }
-        
+          </View>
         </View>
-        
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
-
-              <MyButton icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>
-              <MyButton icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
-              <MyButton icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
-              <MyButton icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
-              <MyButton icons="sort" borderColor={colors.COLORS.LIGHT_BLUE} backgroundColor={colors.COLORS.LIGHT_BLUE} 
-              onPress={showModal}
-              //onPress={sortListFiberASC}
+        <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
+          <View style={{justifyContent: 'center'}}>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
+          </View>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={onChangeNumber}
+                value={number}
+                placeholder="100"
+                keyboardType="numeric"
               />
-              <MyButton icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
-        
+              <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
         </View>
 
-        <AnimatedFAB
-            icon={'plus'}
-            label={'Dodaj'}
-            //extended={isExtended}
-            onPress={() => {
-            navigation.navigate('AddGlycemicIndex');
-            }}
-            visible2={visible2}
-            theme={'tertiary'}
-            animateFrom={'right'}
-            iconMode={'static'}
-            //color={colors.COLORS.ORANGE}
-            //disabled
-
-            style={[styles.fabStyle, style, fabStyle]}
-        />
-
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-          //contentContainerStyle={styles.bottomSheet}
-          backgroundStyle={styles.bottomSheet}
-        >
-            <ImageBackground
-                source={require('../../assets/images/bg5.jpg')}
-                blurRadius={5}
-                style={{
-                    flex: 1, 
-                    height: Dimensions.get('window').height,
-                    width: Dimensions.get('window').width
-                }}
-                imageStyle={{
-                    opacity: 0.5
-                }}
-            >
-                <View style={{flex: 1}}>
-                <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
-                    <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center'}]}>
-                       
-                        <Text style={styles.textTitle}>{initialItem.name}</Text>
-                    </View>
-                    <View style={{justifyContent: 'center', marginRight: spacing.SCALE_6}}>
-                      <View style={{flexDirection: 'row'}}>
-                        <View>
-                        <MaterialCommunityIcons name='square-edit-outline' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
-                            onPress={() => {
-                              bottomSheetModalRef.current.close();
-                            navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
-                            }}   
-                            />
-                        </View>
-                        <View style={{marginLeft: spacing.SCALE_15}}>
-                            <MaterialCommunityIcons name='window-close' size={spacing.SCALE_26} color={colors.COLORS.WHITE}
-                            onPress={() => {
-                            bottomSheetModalRef.current.close()
-                            }} 
-                            />
-                        </View>
-                      </View>
-                    </View>
-                    </View>
-
-                    <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
-                        <View style={{justifyContent: 'center'}}>
-                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
-                        </View>
-                            <TextInput
-                                style={styles.textInput}
-                                onChangeText={onChangeNumber}
-                                value={number}
-                                placeholder="100"
-                                keyboardType="numeric"
-                            />
-                            <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
-                    </View>
-
-                    <ScrollView>
+      <ScrollView>
       <View style={{marginHorizontal: spacing.SCALE_8}}>
 
         <View style={{flexDirection: 'row', borderWidth: 1, padding: spacing.SCALE_6, borderColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_5, backgroundColor: colors.COLORS.LIGHT_BLUE, elevation: 1}}>
@@ -1619,7 +765,7 @@ const xxx = (item) => {
           </View>
         </View>
         
-        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
+        <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3, marginBottom: spacing.SCALE_6}}>
           
           
           { initialItem.protein !== 0 &&
@@ -1768,11 +914,28 @@ const xxx = (item) => {
 
         </View>
 
-        <View style={{flex: 1,alignItems: 'center', marginTop: spacing.SCALE_6}}>
+        
+        {dataMeal.length < 2 &&
+        <View style={{flex: 1, alignItems: 'center'}}>
           <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
             <Text style={styles.textBtn}>{t('glycemicIndex.add-to-meal')}</Text>
           </TouchableOpacity>       
         </View>
+        }
+
+        {activated.length === 0 ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
+        </View>
+        : null
+        }
+
 
         {initialItem.Status === 0 &&
         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
@@ -2116,200 +1279,100 @@ const xxx = (item) => {
 
 
       </View>
-       
-
       
 
       </ScrollView>
+    </View>
+    </ImageBackground>
+    </RBSheet>
 
-                </View>
-            </ImageBackground>
-        </BottomSheetModal>
-      </View>
-      <Portal>
-        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+  
+
+    <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+        <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
+            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
+            </TouchableOpacity>
+        </View>
+        <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
+        <Searchbar
+          placeholder={t('glycemicIndex.search')}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          iconColor={colors.COLORS.DEEP_BLUE}
+        />
+        </View>
+
+    </View>
+    <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
           
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_3}}>
-            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('glycemicIndex.modal.sort-by')}</Text>
-            </View>
-            <View style={{flex: 1}}>
-             
-              <MySwitch2
-                selectionMode={switchSort}
-                roundCorner={true}
-                option1={t('glycemicIndex.modal.ascending')}
-                option2={t('glycemicIndex.modal.descending')}
-                onSelectSwitch={onSelectSwitch}
-                selectionColor={colors.COLORS.DEEP_BLUE}
-              /> 
-            </View>
-          </View>
-         
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity style={{alignItems: 'center', padding: spacing.SCALE_10, backgroundColor: colors.COLORS.DEEP_BLUE, borderRadius: spacing.SCALE_5}} onPress={sortListIndex} >
-                <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>{t('glycemicIndex.modal.btn-reset')}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <ScrollView>
-          <View style={{flex: 1, flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.protein')} onPress={sortListProtein} backgroundColor={colors.WHtR.WHtR_1}/>
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.fat')} onPress={sortListFat} />
-            </View>
-          
-            <View style={{marginLeft: spacing.SCALE_6, marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.carbohydrates')} onPress={sortListCarbs} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.fiber')} onPress={sortListFiber} />
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.sugar')} onPress={sortListSugar} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.cholesterol')} onPress={sortListCholesterol} />
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={styles.textTitleModal}>{t('value.macronutrients')}</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.calcium')} onPress={sortListWapn} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.magnesium')} onPress={sortListMagnez} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title={t('value.phosphorus')} onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title={t('value.potassium')} onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title={t('value.sodium')} onPress={sortListSod} backgroundColor={colors.PRESSURE.P2} />
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_6, alignItems: 'center'}}>
-            <Text style={styles.textTitleModal}>{t('value.micronutrients')}</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.copper')} onPress={sortListMiedz} backgroundColor={colors.WHtR.WHtR_3} />
-            </View>
+            <BigList
+              data={filteredDataSource}
+              //renderItem={renderItem}
+              renderItem={({item}) => (
+                <TouchableOpacity 
+                onPress={() => {
+                  refRBSheet.current.open();
+                  setInitialItem(item);
+                  onChangeNumber(null);
+                }}
+                >
+                 
+                  <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
+                      <View style={{flex: 5, marginRight: 20}}>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
+                      </View>
+                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
+                      
+                    <MyCircle percentage={item.index_glycemic} /> 
+                     
+                    </View>
+                  </View>
             
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.iron')} onPress={sortListIron} backgroundColor={colors.WHtR.WHtR_3} />
+                </TouchableOpacity>
+              )}
+            />
+          {/* ) : (
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
             </View>
-
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title={t('value.manganese')} onPress={sortListMangan} backgroundColor={colors.WHtR.WHtR_3} />
-            </View>
-
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title={t('value.selenium')} onPress={sortListSelen} backgroundColor={colors.WHtR.WHtR_3} />
-            </View>
-
-            <View style={{marginLeft: spacing.SCALE_6}}>
-              <BtnModal title={t('value.zinc')} onPress={sortListCynk} backgroundColor={colors.WHtR.WHtR_3} />
-            </View>
-          </View>
-
-          <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
-            <Text style={styles.textTitleModal}>{t('value.vitamins')}</Text>
-          </View>
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.Vitamin-A')} onPress={sortListWitA} backgroundColor={colors.WHtR.WHtR_2}/>
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.beta-carotene')} onPress={sortListBetaCaroten} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.Lutein-Zeaxanthin')} onPress={sortListLuteina} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.Vitamin-B1')} onPress={sortListWitB1} backgroundColor={colors.WHtR.WHtR_2}/>
-            </View>
-          </View>
+          ) */}
         
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.Vitamin-B2')} onPress={sortListWitB2} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.Vitamin-B3')} onPress={sortListWitB3} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
 
-          <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1 }}>
-              <BtnModal title={t('value.Vitamin-B4')} onPress={sortListWitB4} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
+       
+    </View>
+    {/* {console.log(activated)} */}
+    {activated.length === 0 ?
+    <View style={{marginBottom: 3, alignItems: 'center'}}>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true,
+                }}
+            />
+    </View>
+     : null
+     }
+    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
 
-          <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1}}>
-              <BtnModal title={t('value.Vitamin-B5')} onPress={sortListWitB5} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{ marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.Vitamin-B6')} onPress={sortListWitB6} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.Vitamin-B9')} onPress={sortListWitB9} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6, flexWrap: 'wrap'}}>
-            <View style={{marginRight: spacing.SCALE_3 }}>
-              <BtnModal title={t('value.Vitamin-B12')} onPress={sortListWitB12} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_3}}>
-              <BtnModal title={t('value.Vitamin-C')} onPress={sortListWitC} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-            <View style={{marginLeft: spacing.SCALE_6 }}>
-              <BtnModal title={t('value.Vitamin-E')} onPress={sortListWitE} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
-
-          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
-            
-            <View style={{}}>
-              <BtnModal title={t('value.Vitamin-K')} onPress={sortListWitK} backgroundColor={colors.WHtR.WHtR_2} />
-            </View>
-          </View>
-
-          </ScrollView>
-        </Modal>
-      </Portal>
-      </PaperProvider>
+              <MyButtonNoPay icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>
+              <MyButtonNoPay icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
+              <MyButtonNoPay icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
+              <MyButtonNoPay icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
+              <MyButtonNoPay icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
+    </View>
+    
+    
+    </SafeAreaProvider>
+         </PaperProvider>
     </Provider>
-    </BottomSheetModalProvider>
-    </GestureHandlerRootView>
-  );
-};
+  )
+}
+
+export default GlycemicIndexNoPay
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.COLORS.LIGHT_GREY,
-    },
     flatListStyle: {
         borderBottomWidth: 1,
         borderBottomColor: colors.COLORS.GREY_333,
@@ -2318,6 +1381,8 @@ const styles = StyleSheet.create({
         paddingTop: spacing.SCALE_10,
         paddingBottom: spacing.SCALE_15,
         flexDirection: 'row',
+        //marginHorizontal: 3,
+        //opacity: 0.7
     },
     itemText: {
       color: colors.TEXT.DEEP_BLUE,
@@ -2372,7 +1437,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       height: 40,
       color: colors.TEXT.DEEP_BLUE,
-      //fontWeight: 'bold',
+      fontWeight: 'bold',
       //elevation: 3
     },
     fabStyle: {
@@ -2404,18 +1469,5 @@ const styles = StyleSheet.create({
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
       textTransform: 'uppercase'
-    },
-    bottomSheet: {
-      shadowColor: colors.COLORS.BLACK,
-      shadowOffset: {
-        width: 0,
-        height: 12,
-      },
-      shadowOpacity: 0.58,
-      shadowRadius: 16.00,
-      
-      elevation: 24,
     }
-});
-
-export default GlycemicIndex;
+})

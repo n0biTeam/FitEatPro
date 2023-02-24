@@ -1,23 +1,24 @@
-import { StyleSheet, Text, View, ImageBackground, StatusBar, TextInput, Dimensions, Animated, ScrollView, TouchableOpacity, ActivityIndicator, ToastAndroid, Pressable } from 'react-native';
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Searchbar, DefaultTheme, Provider as PaperProvider, Modal, Portal, Provider } from 'react-native-paper';
+import React, { useCallback, useMemo, useRef, useContext, useState, useEffect } from 'react';
+import { View, Text, StyleSheet, StatusBar, Dimensions, ImageBackground, TouchableOpacity, ToastAndroid, Animated, ActivityIndicator, TextInput } from 'react-native';
+import { Searchbar, DefaultTheme, Provider as PaperProvider, Provider } from 'react-native-paper';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { AuthContext } from '../../navigation/AuthProvider';
+import firestore from '@react-native-firebase/firestore';
 import BigList from "react-native-big-list";
+import MyCircle from '../../components/MyCircle';
 import { MyButtonNoPay } from '../../components/MyButtonNoPay';
-import RBSheet from "react-native-raw-bottom-sheet";
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { UNIT } from '../../styles/units';
+import { ScrollView} from 'react-native-gesture-handler';
 import * as RNLocalize from "react-native-localize";
 import dataPL from '../../data/dataPL';
 import dataEN from '../../data/dataEN';
-import firestore from '@react-native-firebase/firestore';
-import MyCircle from '../../components/MyCircle';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
 
@@ -41,11 +42,7 @@ if(lang === 'pl'){
   data = dataEN;
 }
 
-const GlycemicIndexNoPay = ({ 
-      navigation
-  }) => {
-
-  
+  const GlycemicIndex = ({ navigation }) => {
 
     const {t, i18n} = useTranslation();
     const {user} = useContext(AuthContext);
@@ -81,6 +78,24 @@ const GlycemicIndexNoPay = ({
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
     return unsubscribe;
    }, [navigation, loading, isSwitchOn]);
+
+   // ref
+  const bottomSheetModalRef = useRef(null);
+
+  // variables
+  const snapPoints = useMemo(() => ['73%', '100%'], []);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  
+  const [indx, setIndx] = useState(0);
+
+  const handleSheetChanges = useCallback((index) => {
+  
+    console.log('handleSheetChanges', index);
+  }, []);
 
 
    const getDataMeal = () => {
@@ -183,7 +198,7 @@ const GlycemicIndexNoPay = ({
       .then(() => {
         console.log('Product Added list meal');
         ToastAndroid.show(t('glycemicIndex.toast-add'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-        refRBSheet.current.close();
+        bottomSheetModalRef.current.close();
       })
     }
    
@@ -576,76 +591,145 @@ const GlycemicIndexNoPay = ({
     identyfikator();
   },[]);
 
-  //console.log(activated)
-  return (
-    <Provider>
-    <PaperProvider theme={theme}>
-       <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
-    <SafeAreaProvider style={{flexGrow: 1, backgroundColor: colors.COLORS.WHITE}}>
-      <RBSheet
-        ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={false}
-        onClose={() => setIsOpen(false)}
-        height={heightMidal}
-        openDuration={500}
-        closeDuration={300}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "transparent",
-          },
-          draggableIcon: {
-            backgroundColor: colors.COLORS.DEEP_BLUE,
-          },
-          container: {
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            elevation: 15
-          }
-        }}
-      >
-      <ImageBackground
-      source={require('../../assets/images/bg5.jpg')}
-      blurRadius={5}
-      style={{
-        flex: 1, 
-        height: Dimensions.get('window').height,
-        width: Dimensions.get('window').width
-      }}
-      imageStyle={{
-        opacity: 0.5
-      }}
-      >
-      <View style={{flex: 1}}>
-                
-        <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
-          <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center'}]}>
-            <Text style={styles.textTitle}>{initialItem.name}</Text>
-          </View>
-          <View style={{justifyContent: 'center', marginRight: spacing.SCALE_20}}>
-            <MaterialCommunityIcons name='square-edit-outline' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
+
+  const renderItem =({ item, index }) => (
+    <TouchableOpacity 
                 onPress={() => {
-                  refRBSheet.current.close(),
-                  navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
-                }} 
-                />
-          </View>
+                  handlePresentModalPress();
+                  setInitialItem(item);
+                  onChangeNumber(null);
+                }}
+                >
+                 
+                 <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
+                      <View style={{flex: 5, marginRight: 20}}>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
+                      </View>
+                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
+                      
+                    <MyCircle percentage={item.index_glycemic} /> 
+                     
+                    </View>
+                  </View>
+            
+                </TouchableOpacity>
+  );
+
+  // renders
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+      <Provider>
+        <PaperProvider theme={theme}>
+      <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
+    
+      <View style={styles.container}>
+        {/* <Button
+          onPress={handlePresentModalPress}
+          title="Present Modal"
+          color="black"
+        /> */}
+        <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+        <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
+            <TouchableOpacity onPress={_goBack}>
+                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
+            </TouchableOpacity>
         </View>
-        <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
-          <View style={{justifyContent: 'center'}}>
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
-          </View>
-              <TextInput
-                style={styles.textInput}
-                onChangeText={onChangeNumber}
-                value={number}
-                placeholder="100"
-                keyboardType="numeric"
-              />
-              <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
+        <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
+        <Searchbar
+          placeholder={t('glycemicIndex.search')}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          iconColor={colors.COLORS.DEEP_BLUE}
+        />
         </View>
 
-      <ScrollView>
+    </View>
+        <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
+    
+        { 
+            data.length > 0 ?
+            (
+                <BigList
+                data={filteredDataSource}
+                //renderItem={renderItem}
+                renderItem={renderItem}
+                />
+            ) : (
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                  <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
+                </View>
+            )
+            }
+           
+        </View>
+        
+        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
+
+          <MyButtonNoPay icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>
+          <MyButtonNoPay icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
+          <MyButtonNoPay icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
+          <MyButtonNoPay icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
+          <MyButtonNoPay icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
+        
+        </View>
+
+        <BottomSheetModal
+          ref={bottomSheetModalRef}
+          index={1}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+          //contentContainerStyle={styles.bottomSheet}
+          backgroundStyle={styles.bottomSheet}
+        >
+            <ImageBackground
+                source={require('../../assets/images/bg5.jpg')}
+                blurRadius={5}
+                style={{
+                    flex: 1, 
+                    height: Dimensions.get('window').height,
+                    width: Dimensions.get('window').width
+                }}
+                imageStyle={{
+                    opacity: 0.5
+                }}
+            >
+                <View style={{flex: 1}}>
+                <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
+                    <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center', flexDirection: 'row', marginLeft: spacing.SCALE_12}]}>
+                       
+                        <Text style={styles.textTitle}>{initialItem.name}</Text>
+                        
+                    </View>
+                    <View style={{justifyContent: 'center', marginRight: spacing.SCALE_6}}>
+                      <View style={{}}>
+                        
+                        <View style={{marginRight: spacing.SCALE_6}}>
+                            <MaterialCommunityIcons name='window-close' size={spacing.SCALE_26} color={colors.COLORS.WHITE}
+                            onPress={() => {
+                            bottomSheetModalRef.current.close()
+                            }} 
+                            />
+                        </View>
+                      </View>
+                    </View>
+                    </View>
+
+                    <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
+                        <View style={{justifyContent: 'center'}}>
+                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
+                        </View>
+                            <TextInput
+                                style={styles.textInput}
+                                onChangeText={onChangeNumber}
+                                value={number}
+                                placeholder="100"
+                                keyboardType="numeric"
+                            />
+                            <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
+                    </View>
+
+                    <ScrollView>
       <View style={{marginHorizontal: spacing.SCALE_8}}>
 
         <View style={{flexDirection: 'row', borderWidth: 1, padding: spacing.SCALE_6, borderColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_5, backgroundColor: colors.COLORS.LIGHT_BLUE, elevation: 1}}>
@@ -914,7 +998,6 @@ const GlycemicIndexNoPay = ({
 
         </View>
 
-        
         {dataMeal.length < 2 &&
         <View style={{flex: 1, alignItems: 'center'}}>
           <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
@@ -924,7 +1007,7 @@ const GlycemicIndexNoPay = ({
         }
 
         {activated.length === 0 ?
-        <View style={{marginBottom: 3, alignItems: 'center'}}>
+        <View style={{marginBottom: 6, alignItems: 'center'}}>
                 <BannerAd
                     unitId={adUnitId}
                     size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
@@ -935,7 +1018,6 @@ const GlycemicIndexNoPay = ({
         </View>
         : null
         }
-
 
         {initialItem.Status === 0 &&
         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
@@ -1277,102 +1359,27 @@ const GlycemicIndexNoPay = ({
         </View>
       }
 
-
       </View>
       
-
       </ScrollView>
-    </View>
-    </ImageBackground>
-    </RBSheet>
 
-  
-
-    <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
-        <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
-            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
-            </TouchableOpacity>
-        </View>
-        <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
-        <Searchbar
-          placeholder={t('glycemicIndex.search')}
-          onChangeText={(text) => searchFilterFunction(text)}
-          value={search}
-          iconColor={colors.COLORS.DEEP_BLUE}
-        />
-        </View>
-
-    </View>
-    <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE}}>
-          
-            <BigList
-              data={filteredDataSource}
-              //renderItem={renderItem}
-              renderItem={({item}) => (
-                <TouchableOpacity 
-                onPress={() => {
-                  refRBSheet.current.open();
-                  setInitialItem(item);
-                  onChangeNumber(null);
-                }}
-                >
-                 
-                  <View style={{flexDirection: 'row', alignItems: 'center', paddingLeft: spacing.SCALE_10, justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC, paddingTop: spacing.SCALE_10, paddingBottom: spacing.SCALE_6}}>
-                      <View style={{flex: 5, marginRight: 20}}>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.itemText}>{item.name.toUpperCase()}</Text>
-                      </View>
-                      <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
-                      
-                    <MyCircle percentage={item.index_glycemic} /> 
-                     
-                    </View>
-                  </View>
-            
-                </TouchableOpacity>
-              )}
-            />
-          {/* ) : (
-            <View style={{flex: 1, justifyContent: 'center'}}>
-              <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
-            </View>
-          ) */}
-        
-
-       
-    </View>
-    {/* {console.log(activated)} */}
-    {activated.length === 0 ?
-    <View style={{marginBottom: 3, alignItems: 'center'}}>
-            <BannerAd
-                unitId={adUnitId}
-                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                requestOptions={{
-                    requestNonPersonalizedAdsOnly: true,
-                }}
-            />
-    </View>
-     : null
-     }
-    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
-
-              <MyButtonNoPay icons="sort-alphabetical-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaASC}/>
-              <MyButtonNoPay icons="sort-alphabetical-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListAlfaDES}/>
-              <MyButtonNoPay icons="sort-numeric-ascending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListASC}/>
-              <MyButtonNoPay icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
-              <MyButtonNoPay icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
-    </View>
-    
-    
-    </SafeAreaProvider>
-         </PaperProvider>
+                </View>
+            </ImageBackground>
+        </BottomSheetModal>
+      </View>
+      
+      </PaperProvider>
     </Provider>
-  )
-}
-
-export default GlycemicIndexNoPay
+    </BottomSheetModalProvider>
+    </GestureHandlerRootView>
+  );
+};
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.COLORS.LIGHT_GREY,
+    },
     flatListStyle: {
         borderBottomWidth: 1,
         borderBottomColor: colors.COLORS.GREY_333,
@@ -1381,8 +1388,6 @@ const styles = StyleSheet.create({
         paddingTop: spacing.SCALE_10,
         paddingBottom: spacing.SCALE_15,
         flexDirection: 'row',
-        //marginHorizontal: 3,
-        //opacity: 0.7
     },
     itemText: {
       color: colors.TEXT.DEEP_BLUE,
@@ -1437,7 +1442,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       height: 40,
       color: colors.TEXT.DEEP_BLUE,
-      fontWeight: 'bold',
+      //fontWeight: 'bold',
       //elevation: 3
     },
     fabStyle: {
@@ -1469,5 +1474,18 @@ const styles = StyleSheet.create({
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
       textTransform: 'uppercase'
+    },
+    bottomSheet: {
+      shadowColor: colors.COLORS.BLACK,
+      shadowOffset: {
+        width: 0,
+        height: 12,
+      },
+      shadowOpacity: 0.58,
+      shadowRadius: 16.00,
+      
+      elevation: 24,
     }
-})
+});
+
+export default GlycemicIndex;
