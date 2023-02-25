@@ -14,7 +14,7 @@ import { BmiScreen, BmrScreen, WhrScreen, WhtrScreen } from '../screens/calculat
 import { HomairScreen, QuickiScreen } from '../screens/insulinResistance';
 import { WeightLogScreen, WeightDetailScreen, WeightCharts, HistoryWeightScreen } from '../screens/bodyWeight';
 import { GlucoseDiaryScreen, GlucoseViewItemScreen, GlucoseEditItemScreen, GlucoseChartScreen } from '../screens/glucose';
-import { BloodPressureScreen, BloodPressureViewItemScreen, BloodPressureEditItemScreen, BloodCharts } from '../screens/bloodPreesure';
+import { BloodPressureScreen, BloodPressureViewItemScreen, BloodPressureEditItemScreen, BloodCharts, StandardPressureScreen } from '../screens/bloodPreesure';
 import { NotesScreen, NotesAddScreen, NotesEditScreen } from '../screens/notes';
 import { PurineListScreen, PurineAddScreen, PurineEditScreen, PurineListScreenNoPay } from '../screens/purine';
 import { FindingScreen, FindingAddScreen, FindingEditScreen, FindingViewScreen } from '../screens/findings';
@@ -288,6 +288,7 @@ function BloodPressureTabs() {
             const icons = {
               BloodPressureScreen: 'heart-pulse',
               BloodCharts: 'chart-line',
+              StandardPressureScreen: 'drag',
             };
             
             return (
@@ -317,6 +318,15 @@ function BloodPressureTabs() {
           component={BloodCharts} 
           options={{
             title: t('menu.blood-pressure-chart'),
+            headerShown: false
+      }} 
+      />
+
+      <Tab.Screen 
+          name="StandardPressureScreen"
+          component={StandardPressureScreen} 
+          options={{
+            title: t('menu.blood-standrads'),
             headerShown: false
       }} 
       />

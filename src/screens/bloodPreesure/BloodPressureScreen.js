@@ -148,98 +148,471 @@ const BloodPressureScreen = ({
 
   const lastPressure = () => {
 
-    if((getSystolic < 120) && (getDiastolic < 80)){
-      return(
-        <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.optimal')}</Text>
-        </View>
-      )
-    } else if(((getSystolic >= 120) && (getSystolic <= 129)) || ((getDiastolic >= 80) && (getDiastolic <= 84))){
+    let sbpt;
+    let dbpt;
+    // komunikaty = new Array(5);
+    // komunikaty[0]=new Array(5);
+    // komunikaty[1]=new Array(5);
+    // komunikaty[2]=new Array(5);
+    // komunikaty[3]=new Array(5);
+    // komunikaty[4]=new Array(5);
+
+    // komunikaty[0][0]="Prawidłowe";
+    // komunikaty[0][1]="Wysokie prawidłowe";
+    // komunikaty[0][2]="Nadciśnienie Tętnicze I stopnia";
+    // komunikaty[0][3]="Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[0][4]="Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[1][0]="Wysokie prawidłowe";
+    // komunikaty[1][1]="Wysokie prawidłowe";
+    // komunikaty[1][2]="Nadciśnienie Tętnicze I stopnia";
+    // komunikaty[1][3]="Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[1][4]="Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[2][0]="Izolowane Skurczowe Nadciśnienie Tętnicze I stopnia";
+    // komunikaty[2][1]="Izolowane Skurczowe Nadciśnienie Tętnicze I stopnia";
+    // komunikaty[2][2]="Nadciśnienie Tętnicze I stopnia";
+    // komunikaty[2][3]="Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[2][4]="Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[3][0]="Izolowane Skurczowe Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[3][1]="Izolowane Skurczowe Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[3][2]="Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[3][3]="Nadciśnienie Tętnicze II stopnia";
+    // komunikaty[3][4]="Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[4][0]="Izolowane Skurczowe Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[4][1]="Izolowane Skurczowe Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[4][2]="Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[4][3]="Nadciśnienie Tętnicze III stopnia";
+    // komunikaty[4][4]="Nadciśnienie Tętnicze III stopnia";
+
+    if ( getSystolic >= 180 ) { sbpt=4;  };
+    if ( getSystolic < 180 ) { sbpt=3; };
+    if ( getSystolic < 160 ) { sbpt=2;  };
+    if ( getSystolic < 140 ) { sbpt=1;  };
+    if ( getSystolic < 130 ) { sbpt=0;  };
+    
+    if ( getDiastolic >= 110 ) { dbpt=4;  };
+    if ( getDiastolic < 110 ) { dbpt=3;  };
+    if ( getDiastolic < 100 ) { dbpt=2;  };
+    if ( getDiastolic < 90 ) { dbpt=1;  };
+    if ( getDiastolic < 85 ) { dbpt=0;  };
+    
+
+    if(sbpt === 0 && dbpt === 0) {
       return(
         <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
           <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
         </View>
       )
-    } else if(((getSystolic >= 130) && (getSystolic <= 139)) || ((getDiastolic >= 85) && (getDiastolic <= 89))){
+    }else if(sbpt === 0 && dbpt === 1){
       return(
         <View style={{backgroundColor: colors.PRESSURE.P2, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
           <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
         </View>
-        )
-    } else if(((getSystolic >= 140) && (getSystolic <= 159)) || ((getDiastolic >= 90) && (getDiastolic <= 99))){
+      )
+    }else if(sbpt === 0 && dbpt === 2){
       return(
         <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
           <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
         </View>
       )
-    } else if(((getSystolic >= 160) && (getSystolic <= 179)) || ((getDiastolic >= 100) && (getDiastolic <= 109))){
+    }else if(sbpt === 0 && dbpt === 3){
       return(
         <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
           <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
         </View>
-        )
-    } else if((getSystolic >= 180) && (getDiastolic >= 110)){
+      )
+    }else if(sbpt === 0 && dbpt === 4){
       return(
         <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.value-3st')}</Text>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
         </View>
       )
-    }else{
+    }else if(sbpt === 1 && dbpt === 0){
       return(
-          <View style={{backgroundColor: colors.PRESSURE.P5, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.measurement-error')}</Text>
+        <View style={{backgroundColor: colors.PRESSURE.P2, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P2, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-4st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-4st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-5st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-5st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-6st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-6st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+          <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
         </View>
       )
     }
+
+    // return(
+    // <View>
+    //   <Text>{komunikaty[sbpt][dbpt]}</Text>
+    // </View>
+    // )
+
+    // if((getSystolic < 120) && (getDiastolic < 80)){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.optimal')}</Text>
+    //     </View>
+    //   )
+    // } else if(((getSystolic >= 120) && (getSystolic <= 129)) || ((getDiastolic >= 80) && (getDiastolic <= 84))){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
+    //     </View>
+    //   )
+    // } else if(((getSystolic >= 130) && (getSystolic <= 139)) || ((getDiastolic >= 85) && (getDiastolic <= 89))){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P2, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+    //     </View>
+    //     )
+    // } else if(((getSystolic >= 140) && (getSystolic <= 159)) || ((getDiastolic >= 90) && (getDiastolic <= 99))){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+    //     </View>
+    //   )
+    // } else if(((getSystolic >= 160) && (getSystolic <= 179)) || ((getDiastolic >= 100) && (getDiastolic <= 109))){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+    //     </View>
+    //     )
+    // } else if((getSystolic >= 180) && (getDiastolic >= 110)){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.value-3st')}</Text>
+    //     </View>
+    //   )
+    // }else{
+    //   return(
+    //       <View style={{backgroundColor: colors.PRESSURE.P5, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.measurement-error')}</Text>
+    //     </View>
+    //   )
+    // }
   }
  //console.log('------')
   const pressure = (item) => {
     //console.log(item.systolic + ' ' + item.diastolic)
-   
+    let sbpt;
+    let dbpt;
+  
+
+    if ( item.systolic >= 180 ) { sbpt=4;  };
+    if ( item.systolic < 180 ) { sbpt=3; };
+    if ( item.systolic < 160 ) { sbpt=2;  };
+    if ( item.systolic < 140 ) { sbpt=1;  };
+    if ( item.systolic < 130 ) { sbpt=0;  };
     
-    if((item.systolic < 120) && (item.diastolic < 80)){
-      return(
-        <View style={{backgroundColor: colors.PRESSURE.P1, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-          <Text style={{ffontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.optimal')}</Text>
-        </View>
-      )
-    }else if(((item.systolic >= 120) && (item.systolic <= 129)) || ((item.diastolic >= 80) && (item.diastolic <= 84))){
+    if ( item.diastolic >= 110 ) { dbpt=4;  };
+    if ( item.diastolic < 110 ) { dbpt=3;  };
+    if ( item.diastolic < 100 ) { dbpt=2;  };
+    if ( item.diastolic < 90 ) { dbpt=1;  };
+    if ( item.diastolic < 85 ) { dbpt=0;  };
+
+    if(sbpt === 0 && dbpt === 0) {
       return(
         <View style={{backgroundColor: colors.PRESSURE.P1, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
           <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
         </View>
       )
-      }else if(((item.systolic >= 130) && (item.systolic <= 139)) || ((item.diastolic >= 85) && (item.diastolic <= 89))){
-        return(
-          <View style={{backgroundColor: colors.PRESSURE.P2, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
-          </View>
-        )
-      }else if(((item.systolic >= 140) && (item.systolic <= 159)) || ((item.diastolic >= 90) && (item.diastolic <= 99))){
-        return(
-          <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
-          </View>
-        )
-      }else if(((item.systolic >= 160) && (item.systolic <= 179)) || ((item.diastolic >= 100) && (item.diastolic <= 109))){
-        return(
-          <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
-          </View>
-        )
-      }else if((item.systolic >= 180) && (item.diastolic >= 110)){
-        return(
-          <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-            <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
-          </View>
-        )
-    }else{
+    }else if(sbpt === 0 && dbpt === 1){
       return(
-        <View style={{backgroundColor: colors.PRESSURE.P5, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.measurement-error')}</Text>
+        <View style={{backgroundColor: colors.PRESSURE.P2, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+        </View>
+      )
+    }else if(sbpt === 0 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 0 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3,paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 0 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P2, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P2, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 1 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4,paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-4st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-4st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 2 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12,  color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-5st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-5st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12,  color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 3 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12,  color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 0){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-6st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 1){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-6st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 2){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 3){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+        </View>
+      )
+    }else if(sbpt === 4 && dbpt === 4){
+      return(
+        <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+          <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
         </View>
       )
     }
+
+    
+    // if((item.systolic < 120) && (item.diastolic < 80)){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P1, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //       <Text style={{ffontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.optimal')}</Text>
+    //     </View>
+    //   )
+    // }else if(((item.systolic >= 120) && (item.systolic <= 129)) || ((item.diastolic >= 80) && (item.diastolic <= 84))){
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P1, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
+    //     </View>
+    //   )
+    //   }else if(((item.systolic >= 130) && (item.systolic <= 139)) || ((item.diastolic >= 85) && (item.diastolic <= 89))){
+    //     return(
+    //       <View style={{backgroundColor: colors.PRESSURE.P2, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //         <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
+    //       </View>
+    //     )
+    //   }else if(((item.systolic >= 140) && (item.systolic <= 159)) || ((item.diastolic >= 90) && (item.diastolic <= 99))){
+    //     return(
+    //       <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //         <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
+    //       </View>
+    //     )
+    //   }else if(((item.systolic >= 160) && (item.systolic <= 179)) || ((item.diastolic >= 100) && (item.diastolic <= 109))){
+    //     return(
+    //       <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //         <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
+    //       </View>
+    //     )
+    //   }else if((item.systolic >= 180) && (item.diastolic >= 110)){
+    //     return(
+    //       <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //         <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
+    //       </View>
+    //     )
+    // }else{
+    //   return(
+    //     <View style={{backgroundColor: colors.PRESSURE.P5, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
+    //       <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.measurement-error')}</Text>
+    //     </View>
+    //   )
+    // }
   }
 
 

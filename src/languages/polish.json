@@ -294,6 +294,7 @@
 
         "menu.blood-pressure": "Ciśnienie krwi",
         "menu.blood-pressure-chart": "Wykres",
+        "menu.blood-standrads": "Normy",
 
         "bloodPressureScreen.optimal": "Optymalne",
         "bloodPressureScreen.correct": "Prawidłowe",
@@ -301,6 +302,9 @@
         "bloodPressureScreen.value-1st": "Nadciśnienie tętnicze I stopnia",
         "bloodPressureScreen.value-2st": "Nadciśnienie tętnicze II stopnia",
         "bloodPressureScreen.value-3st": "Nadciśnienie tętnicze III stopnia",
+        "bloodPressureScreen.value-4st": "Izolowane Skurczowe Nadciśnienie Tętnicze I stopnia",
+        "bloodPressureScreen.value-5st": "Izolowane Skurczowe Nadciśnienie Tętnicze II stopnia",
+        "bloodPressureScreen.value-6st": "Izolowane Skurczowe Nadciśnienie Tętnicze III stopnia",
         "bloodPressureScreen.measurement-error": "Błąd pomiaru",
         "bloodPressureScreen.toast.measurement-added": "Dodano pomiar",
         "bloodPressureScreen.alert.text-1": "Czy napewno chcesz usunąć wszystkie pomiary z dziennika ciśnienia krwi ?",
@@ -318,6 +322,7 @@
         "bloodPressureScreen.bpm": "ud./min",
         "bloodPressureScreen.give-data": "Podaj dane",
         "bloodPressureScreen.save": "ZAPISZ",
+        
 
         "bloodChartScreen.title": "Wykres ciśnienia krwi",
         "bloodChartScreen.7-measurements": "7 pomiarów",
