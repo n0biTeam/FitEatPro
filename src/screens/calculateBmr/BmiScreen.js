@@ -177,7 +177,6 @@ const BmiScreen = ({ navigation }) => {
     identyfikator();
   },[]);
 
-  console.log(activated)
   
   return (
     <SafeAreaProvider style={{}}>
