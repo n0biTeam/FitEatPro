@@ -179,11 +179,12 @@ const HomairScreen = ({ navigation }) => {
                     </Button>
                 </View>    
                 <ScrollView>
+                  {console.log(sumHomair)}
                 <View style={{marginTop: spacing.SCALE_10, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_20, borderRadius: 5, elevation: 5}}>
                     <CircularProgress
                         value={homairCalc === NaN ? 0.00 : sumHomair}
                         radius={80}
-                        maxValue={sumHomair}
+                        maxValue={5}
                         inActiveStrokeOpacity={0.8}
                         activeStrokeWidth={20}
                         inActiveStrokeWidth={20}
