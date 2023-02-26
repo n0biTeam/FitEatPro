@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
 import React, {useState, useEffect, useContext} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar, TextInput, Button } from 'react-native-paper';
@@ -9,6 +9,7 @@ import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -177,7 +178,7 @@ const HomairScreen = ({ navigation }) => {
                         {t('homairScreen.calculate')}
                     </Button>
                 </View>    
-
+                <ScrollView>
                 <View style={{marginTop: spacing.SCALE_10, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_20, borderRadius: 5, elevation: 5}}>
                     <CircularProgress
                         value={homairCalc === NaN ? 0.00 : sumHomair}
@@ -208,10 +209,10 @@ const HomairScreen = ({ navigation }) => {
                 <View style={{marginTop: spacing.SCALE_6, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_20, borderRadius: 5, elevation: 5 }}>
         
                 {textHomair(sumHomair)}
-        
+                
         </View>
         }
-
+        </ScrollView>
         
         </View>
 

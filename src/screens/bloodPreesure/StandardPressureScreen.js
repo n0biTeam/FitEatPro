@@ -3,11 +3,12 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, spacing, typography } from '../../styles';
-
+import { useTranslation } from 'react-i18next';
 
 
 const StandardPressureScreen = ({ route, navigation }) => {
   
+  const {t, i18n} = useTranslation();
   const _goBack = () => navigation.navigate('BloodPressureScreen');
   const imageBG = require('../../assets/images/bloodpreesure1.jpg');
   
@@ -15,7 +16,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="EDYCJA PRODUKTU" />
+       <Appbar.Content title={t('standardPressureScreen.title-screen')} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -49,23 +50,23 @@ const StandardPressureScreen = ({ route, navigation }) => {
         <View style={styles.rootContainer}>
             <View style={styles.rootBox}>
                 <View style={{}}>
-                    <Text style={styles.title}>Klasyfikacja i podział nadciśnienia</Text>
-                    <Text style={styles.title}>Osoby dorosłe</Text>
+                    <Text style={styles.title}>{t('standardPressureScreen.title')}</Text>
+                    <Text style={styles.title}>{t('standardPressureScreen.subtitle')}</Text>
                 </View>
             
 
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={[styles.rowText, {color: colors.TEXT.GREEN}]}>Kategoria</Text>
+                    <Text style={[styles.rowText, {color: colors.TEXT.GREEN}]}>{t('standardPressureScreen.category')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
-                    <Text style={[styles.rowText, {color: colors.TEXT.RED}]}>Skurczowe</Text>
+                    <Text style={[styles.rowText, {color: colors.TEXT.RED}]}>{t('bloodPressureScreen.systolic')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
-                    <Text style={[styles.rowText, {color: colors.TEXT.ORANGE}]}>Rozkurczowe</Text>
+                    <Text style={[styles.rowText, {color: colors.TEXT.ORANGE}]}>{t('bloodPressureScreen.diastolic')}</Text>
                 </View>
 
             </View>
@@ -73,7 +74,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Optymalne</Text>
+                    <Text style={styles.rowText1}>{t('bloodPressureScreen.optimal')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -89,7 +90,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Prawidłowe</Text>
+                    <Text style={styles.rowText1}>{t('bloodPressureScreen.correct')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -105,7 +106,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Wysokie prawidłowe</Text>
+                    <Text style={styles.rowText1}>{t('bloodPressureScreen.high-correct')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -121,7 +122,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Nadciśnienie 1 stopnia</Text>
+                    <Text style={styles.rowText1}>{t('"standardPressureScreen.value-1st')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -137,7 +138,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Nadciśnienie 2 stopnia</Text>
+                    <Text style={styles.rowText1}>{t('"standardPressureScreen.value-2st')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -153,7 +154,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Nadciśnienie 3 stopnia</Text>
+                    <Text style={styles.rowText1}>{t('"standardPressureScreen.value-3st')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -169,7 +170,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>Izolowane skurczowe</Text>
+                    <Text style={styles.rowText1}>{t('standardPressureScreen.systolic-isolated-pressure')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>

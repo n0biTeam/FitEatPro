@@ -198,10 +198,7 @@ const AboutTheAppScreen = ({ navigation }) => {
                   <Text style={{color: colors.TEXT.GREEN, fontWeight: 'bold'}}>{t('aboutTheApp.text-18')}</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={styles.text}>{t('aboutTheApp.text-19')}</Text>
-                </View>
-                <View style={{flex: 1}}>
-                    <Text style={styles.text}>{t('aboutTheApp.text-20')}</Text>
+                    <Text style={[styles.text, {fontWeight: 'bold'}]}>{t('aboutTheApp.text-19')}</Text>
                 </View>
 
               <View style={{marginTop: spacing.SCALE_15}}>
@@ -244,7 +241,7 @@ const styles = StyleSheet.create({
     },
     text: {
       fontSize: typography.FONT_SIZE_13,
-      color: colors.TEXT.DEEP_BLUE
+      color: colors.TEXT.DEEP_BLUE,
     },
     dot: {
       fontSize: typography.FONT_SIZE_13,
