@@ -9,6 +9,7 @@ import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+import { ScrollView } from 'react-native-gesture-handler';
 import Purchases from 'react-native-purchases';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
@@ -166,7 +167,7 @@ const QuickiScreen = ({ navigation }) => {
                         {t('quickiScreen.calculate')}
                     </Button>
                 </View>    
-
+                <ScrollView>
                 <View style={{marginTop: spacing.SCALE_10, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_20, borderRadius: 5, elevation: 5}}>
                     <CircularProgress
                         value={homairCalc === NaN ? 0.00 : sumHomair}
@@ -200,7 +201,9 @@ const QuickiScreen = ({ navigation }) => {
         
         </View>
         }
+        </ScrollView>
         </View>
+        
 
         {activated.length === 0 ?
         <View style={{marginBottom: 3, alignItems: 'center'}}>

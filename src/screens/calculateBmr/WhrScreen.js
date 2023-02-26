@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
 import React, {useState, useContext, useEffect} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar, TextInput, Button, Checkbox } from 'react-native-paper';
@@ -9,6 +9,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { ScrollView } from 'react-native-gesture-handler';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
 
@@ -224,7 +225,7 @@ const WhrScreen = ({ navigation }) => {
             {t('whrScreen.calculate')}
         </Button>
       </View>
-
+      <ScrollView>
       <View style={{marginTop: spacing.SCALE_10, alignItems: 'center', backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_20, borderRadius: 5, elevation: 4}}>
         <CircularProgress
             value={sumWHR}
@@ -258,6 +259,7 @@ const WhrScreen = ({ navigation }) => {
         
         </View>
         }
+    </ScrollView>
     </View>
 
     {activated.length === 0 ?

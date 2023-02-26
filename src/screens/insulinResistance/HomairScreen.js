@@ -55,7 +55,7 @@ const HomairScreen = ({ navigation }) => {
     const _goBack = () => navigation.navigate('HomeScreen');
 
     const textHomair = (sumHomair) => {
-        if(sumHomair < 1.5){
+        if(sumHomair >= 2){
             return( 
               <View style={{}}>
                 <Text style={styles.textTitle1}>{t('homairScreen.correct-result')}</Text>
@@ -64,7 +64,7 @@ const HomairScreen = ({ navigation }) => {
                 </View>
              
              );
-            } else if(sumHomair > 1.5 && sumHomair < 1.9){
+            } else if(sumHomair > 2 && sumHomair < 2.5){
                 return( 
                     <View style={{}}>
                       <Text style={styles.textTitle2}>{t('homairScreen.moderate-result')}</Text>
@@ -89,9 +89,9 @@ const HomairScreen = ({ navigation }) => {
 
   const colorHomair = (sumHomair) => {
     let color;
-    if(sumHomair < 1.50){
+    if(sumHomair >= 2){
       color = colors.COLORS.GREEN;
-    } else if(sumHomair > 1.5 && sumHomair < 1.9){
+    } else if(sumHomair > 2 && sumHomair < 2.5){
         color = colors.COLORS.ORANGE;
     }else {
       color = colors.COLORS.RED;
