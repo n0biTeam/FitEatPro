@@ -51,9 +51,9 @@ const PrivacyPolicyScreen = ({ navigation }) => {
             <ScrollView>
                 <View>
                     <Text style={styles.title}>Privacy Policy</Text>
-                    <Text style={styles.text}>Impact IT built the FitEat Pro app as a Commercial app. This SERVICE is provided by Impact IT and is intended for use as is.</Text>
+                    <Text style={styles.text}>Impact IT built the FitEat Pro app as a Freemium app. This SERVICE is provided by Impact IT at no cost and is intended for use as is.</Text>
                     <Text style={styles.text}>This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
-                           If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.</Text>
+                    If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.</Text>
                     <Text style={styles.text}>The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at FitEat Pro unless otherwise defined in this Privacy Policy.</Text>
                 </View>
 
@@ -89,7 +89,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
 
                     </View>
 
-                    {/* <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row'}}>
                         <View style={{marginRight: spacing.SCALE_6}}>
                           <Text style={styles.dot}>{'\u2B24'}</Text>
                         </View>
@@ -113,7 +113,20 @@ const PrivacyPolicyScreen = ({ navigation }) => {
                           </Text>
                         </View>
 
-                    </View> */}
+                    </View>
+
+                    <View style={{flexDirection: 'row'}}>
+                        <View style={{marginRight: spacing.SCALE_6}}>
+                          <Text style={styles.dot}>{'\u2B24'}</Text>
+                        </View>
+                        <View>
+                          <Text style={{color: colors.COLORS.LIGHT_BLUE}}
+                            onPress={() => Linking.openURL('https://www.revenuecat.com/privacy/')}>
+                              RevenueCat
+                          </Text>
+                        </View>
+
+                    </View>
                 </View>
 
                 <View>
@@ -199,7 +212,7 @@ const PrivacyPolicyScreen = ({ navigation }) => {
                 <View>
                     <Text style={[styles.title, {marginTop: spacing.SCALE_6}]}>Changes to This Privacy Policy</Text>
                     <Text style={styles.text}>I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page.</Text>
-                    <Text style={styles.text}>This policy is effective as of 2023-02-16</Text>
+                    <Text style={styles.text}>This policy is effective as of 2023-03-01</Text>
                 </View>
 
                 <View>
