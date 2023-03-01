@@ -122,7 +122,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>{t('"standardPressureScreen.value-1st')}</Text>
+                    <Text style={styles.rowText1}>{t('standardPressureScreen.value-1st')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -138,7 +138,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>{t('"standardPressureScreen.value-2st')}</Text>
+                    <Text style={styles.rowText1}>{t('standardPressureScreen.value-2st')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
@@ -154,7 +154,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
             <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, justifyContent:'space-between'}}>
 
                 <View style={{flex: 3}}>
-                    <Text style={styles.rowText1}>{t('"standardPressureScreen.value-3st')}</Text>
+                    <Text style={styles.rowText1}>{t('standardPressureScreen.value-3st')}</Text>
                 </View>
 
                 <View style={{flex: 2, alignItems: 'center'}}>
