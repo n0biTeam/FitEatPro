@@ -663,6 +663,19 @@ if(lang === 'pl'){
             }
            
         </View>
+
+        {activated.length === 0 ?
+        <View style={{marginBottom: 3, alignItems: 'center'}}>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true,
+                    }}
+                />
+        </View>
+        : null
+        }
         
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 2, marginTop: 3, backgroundColor: colors.COLORS.WHITE}}>
 
