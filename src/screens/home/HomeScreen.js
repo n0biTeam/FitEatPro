@@ -16,6 +16,18 @@ import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
 import Purchases from 'react-native-purchases';
 import { ENTITLEMENT_ID } from '../../styles/constants';
+import {
+  fontScale,
+  scale,
+  deviceInch,
+  hasNotch,
+  isAndroid,
+  isIOS,
+  isSmallDevice,
+  isTablet,
+  width,
+  height,
+} from 'react-native-utils-scale';
 
 const heightScreen = Dimensions.get('window').height;
 
@@ -429,9 +441,9 @@ const _differenceWeight = () => {
        
       ]
     }}
-    width = {Dimensions.get("window").width-12} // from react-native
+    width = {isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
     
-    height={210}
+    height={fontScale(210)}
     yAxisLabel=""
     yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
@@ -485,8 +497,8 @@ const _differenceWeight = () => {
                   ],
                   legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
-                        width={Dimensions.get("window").width-12} // from react-native
-                        height={190}
+                        width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
+                        height={scale(190)}
                         yAxisLabel=""
                         yAxisSuffix={' ' + userData.weightUnit}
                         yAxisInterval={1} // optional, defaults to 1
@@ -506,7 +518,7 @@ const _differenceWeight = () => {
                               stroke: colors.COLORS.YELLOW
                             },
                             propsForLabels:{
-                              fontSize: typography.FONT_SIZE_11
+                              fontSize: fontScale(typography.FONT_SIZE_11)
                             }
                           }}
                         bezier
@@ -538,8 +550,8 @@ const _differenceWeight = () => {
           ],
          legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
         }}
-        width={Dimensions.get("window").width-12} // from react-native
-        height={190}
+        width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12}
+        height={scale(190)}
         yAxisLabel=""
         yAxisSuffix={' ' + userData.weightUnit}
         yAxisInterval={1} // optional, defaults to 1
@@ -563,7 +575,7 @@ const _differenceWeight = () => {
             stroke: colors.COLORS.YELLOW
           },
           propsForLabels:{
-            fontSize: typography.FONT_SIZE_11
+            fontSize: fontScale(typography.FONT_SIZE_11)
           }
         }}
         bezier
@@ -703,13 +715,13 @@ const _differenceWeight = () => {
     <StatusBar translucent={true} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
     {baseConnect()}
     <ImageBackground 
-    source={require('../../assets/images/wave1.png')}
+    source={require('../../assets/images/wave2.png')}
     style={{ 
-      flex: 1, 
+      //flex: 1, 
       //backgroundColor: 'red',
       width: Dimensions.get('window').width,
-      height: spacing.SCALE_300,
-      width: Dimensions.get('window').width,
+      height: !isTablet ? scale(145) : scale(280),
+      //width: Dimensions.get('window').width,
        }}
     
   >
@@ -722,22 +734,22 @@ const _differenceWeight = () => {
       </View>
 
       <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
-          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, marginBottom: spacing.SCALE_3}}>{t('homescreen-weight')}</Text>
+          <Text style={{color: colors.TEXT.WHITE, fontSize: fontScale(typography.FONT_SIZE_10), marginBottom: spacing.SCALE_3}}>{t('homescreen-weight')}</Text>
           <CircularProgress
             value={!weight ? 0 : _getWeightUnit()}
-            radius={spacing.SCALE_22}
+            radius={fontScale(spacing.SCALE_22)}
             //inActiveStrokeOpacity={0.3}
             maxValue={!weight ? 0 : _getWeightUnit()}
-            rotation={360}
-            activeStrokeWidth={5}
-            inActiveStrokeWidth={5}
+            rotation={scale(360)}
+            activeStrokeWidth={scale(5)}
+            inActiveStrokeWidth={scale(5)}
             inActiveStrokeColor={colors.BMI.BMI_1}
-            progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: typography.FONT_SIZE_10 }}
+            progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
             activeStrokeColor={ colors.BMI.BMI_1}
             duration={0}
             dashedStrokeConfig={{
-              count: 18,
-              width: 3,
+              count: scale(18),
+              width: scale(3),
             }}
             progressFormatter={(value, total) => {
               'worklet';   
@@ -746,7 +758,7 @@ const _differenceWeight = () => {
           />
       </View>
 
-      <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center', alignContent: 'flex-end'}}>
         <Text></Text>
         {
           weight > targetWeight ?
@@ -762,7 +774,7 @@ const _differenceWeight = () => {
             inActiveStrokeWidth={5}
             //inActiveStrokeColor={ colors.BMI.BMI_2}
             inActiveStrokeColor={ colors.COLORS.DEEP_BLUE}
-            progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: typography.FONT_SIZE_12 }}
+            progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
             //activeStrokeColor={colors.COLORS.DEEP_BLUE}
             activeStrokeColor={colors.BMI.BMI_2}
             duration={2000}
@@ -775,39 +787,40 @@ const _differenceWeight = () => {
               return value.toFixed(2);
             }}
           /> ) : (
-          
+          <View style={{flex: 1, justifyContent: 'center', }}>
             <TouchableOpacity 
-              style={{alignItems: 'center', borderWidth: 1, borderColor: colors.BMI.BMI_2, backgroundColor: colors.BMI.BMI_2, borderRadius: 30, height: 60, width: 60, justifyContent: 'center'}}
+              style={{alignItems: 'center', borderWidth: 1, borderColor: colors.BMI.BMI_2, backgroundColor: colors.BMI.BMI_2, borderRadius: scale(30), height: scale(60), width: scale(60), justifyContent: 'center'}}
               onPress={() => {
                 navigation.navigate('EditProfile');
             }}
             >
               <View style={{alignItems: 'center', alignContent: 'center', alignSelf: 'center', justifyContent: 'center'}}>
-              <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_8}}>{t('homescreen-new-target')}</Text>
+              <Text style={{color: colors.TEXT.WHITE, fontSize: fontScale(typography.FONT_SIZE_8)}}>{t('homescreen-new-target')}</Text>
               </View>
-              <MaterialIcons name='edit' size={spacing.SCALE_18} color={colors.COLORS.WHITE}/>
+              <MaterialIcons name='edit' size={spacing.SCALE_14} color={colors.COLORS.WHITE}/>
             </TouchableOpacity>
+            </View>
           )
         }
       </View>
 
       <View style={{flex: 1, alignItems: 'center', marginTop: spacing.SCALE_10}}>
-          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, marginBottom: spacing.SCALE_3}}>{t('homescreen-target')}</Text>
+          <Text style={{color: colors.TEXT.WHITE, fontSize: fontScale(typography.FONT_SIZE_10), marginBottom: spacing.SCALE_3}}>{t('homescreen-target')}</Text>
           <CircularProgress
             value={!targetWeight ? 0 : _getTargetUnit()}
-            radius={spacing.SCALE_22}
+            radius={scale(spacing.SCALE_22)}
             //inActiveStrokeOpacity={0.3}
             maxValue={!targetWeight ? 0 : _getTargetUnit()}
-            rotation={360}
-            activeStrokeWidth={5}
-            inActiveStrokeWidth={5}
+            rotation={scale(360)}
+            activeStrokeWidth={scale(5)}
+            inActiveStrokeWidth={scale(5)}
             inActiveStrokeColor={colors.BMI.BMI_3}
-            progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: typography.FONT_SIZE_10 }}
+            progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
             activeStrokeColor={ colors.BMI.BMI_3}
             duration={0}
             dashedStrokeConfig={{
-              count: 18,
-              width: 3,
+              count: scale(18),
+              width: scale(3),
             }}
             progressFormatter={(value, total) => {
               'worklet';   
@@ -826,17 +839,18 @@ const _differenceWeight = () => {
       </View>
     </View>
 
-    <View style={{marginTop: -19, alignItems: 'flex-end', marginRight: spacing.SCALE_10, marginBottom: spacing.SCALE_30}}>
+    <View style={{flex: 1, marginRight: scale(spacing.SCALE_10), justifyContent: 'flex-start', alignItems: 'flex-end', marginTop: scale(-spacing.SCALE_30)}}>
       {netConnect()}
       {netInfoType()}
     </View>
-
-    { Dimensions.get("window").height > 600 &&
-      <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_5, marginTop: spacing.SCALE_12}}>
+    </ImageBackground>
+    
+    { !isSmallDevice &&
+      <View style={{marginBottom: spacing.SCALE_5, marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_10}}>
     
         <View>
           
-            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_11, textTransform: 'uppercase'}}>{t('homescreen-body-weight-chart')}</Text>
+            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_11), textTransform: 'uppercase'}}>{t('homescreen-body-weight-chart')}</Text>
           
           
         </View>
@@ -847,8 +861,8 @@ const _differenceWeight = () => {
       </View>
     }
 
-    <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_10}}>
-      <View style={[styles.menuContainer, {marginTop: Dimensions.get("window").height > 600 ? 0 : spacing.SCALE_30}]}>
+    <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_6}}>
+      <View style={[styles.menuContainer, {marginTop: !isSmallDevice ? 0 : scale(spacing.SCALE_20)}]}>
         
           <TouchableOpacity style={styles.menuBtn} onPress={glycemicIndexRoute} >
             <View style={styles.boxContainer}>
@@ -924,7 +938,7 @@ const _differenceWeight = () => {
 
     </View>
       
-    </ImageBackground>
+   
    
     </SafeAreaProvider>
     </PaperProvider>
@@ -938,8 +952,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     //width: '95%',
     alignSelf: 'center',
-    marginBottom: 0,
-    //flex: 1,
+    marginBottom: 10,
+    flex: 1,
     
   },
   boxContainer:{
@@ -950,7 +964,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     //width: 100,
     //height: Dimensions.get("window").height > 600 ? Dimensions.get('window').width/6 : 80,
-    height: Dimensions.get("window").height > 600 ? (heightScreen-530)/3 : 80,
+    //height: Dimensions.get("window").height > 600 ? (heightScreen-530)/3 : 80,
+    height: '100%',
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: 10,
     width: Dimensions.get('window').width/3 - 12 
@@ -971,7 +986,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: spacing.SCALE_5,
     color: colors.TEXT.DEEP_BLUE,
-    fontSize: typography.FONT_SIZE_11,
+    fontSize: fontScale(typography.FONT_SIZE_11),
     //textTransform: 'uppercase'
   },
   text: {

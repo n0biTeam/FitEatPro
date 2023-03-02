@@ -18,7 +18,18 @@ import { useTranslation } from 'react-i18next';
 import { colors, typography, spacing } from '../../styles';
 import { UNIT } from '../../styles/units';
 import MySwitch2 from '../../components/MySwitch';
-import { ScrollView} from 'react-native-gesture-handler';
+import { ScrollView} from 'react-native-gesture-handler';import {
+  fontScale,
+  scale,
+  deviceInch,
+  hasNotch,
+  isAndroid,
+  isIOS,
+  isSmallDevice,
+  isTablet,
+  width,
+  height,
+} from 'react-native-utils-scale';
 
 const theme = {
     ...DefaultTheme,
