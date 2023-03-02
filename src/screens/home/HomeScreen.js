@@ -703,7 +703,7 @@ const _differenceWeight = () => {
     <StatusBar translucent={true} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
     {baseConnect()}
     <ImageBackground 
-    source={require('../../assets/images/wave.png')}
+    source={require('../../assets/images/wave1.png')}
     style={{ 
       flex: 1, 
       //backgroundColor: 'red',
