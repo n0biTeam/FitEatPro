@@ -846,7 +846,7 @@ const _differenceWeight = () => {
     </ImageBackground>
     
     { !isSmallDevice &&
-      <View style={{marginHorizontal: spacing.SCALE_6}}>
+      <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_3}}>
     
         <View>
           
@@ -861,7 +861,7 @@ const _differenceWeight = () => {
       </View>
     }
 
-    <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_6}}>
+    <View style={{flex: 1, justifyContent: 'space-around', marginBottom: spacing.SCALE_10}}>
       <View style={[styles.menuContainer, {marginTop: !isSmallDevice ? 0 : scale(spacing.SCALE_20)}]}>
         
           <TouchableOpacity style={styles.menuBtn} onPress={glycemicIndexRoute} >
@@ -977,8 +977,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: spacing.SCALE_10,
-    width: Dimensions.get('window').width/3 - 12 
-    
+    width: Dimensions.get('window').width/3 - 12     
   },
   boxText: {
     padding: spacing.SCALE_10,
