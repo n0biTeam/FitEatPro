@@ -866,7 +866,7 @@ const _differenceWeight = () => {
         
           <TouchableOpacity style={styles.menuBtn} onPress={glycemicIndexRoute} >
             <View style={styles.boxContainer}>
-              <MaterialCommunityIcons name='food-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+              <MaterialCommunityIcons name='food-variant' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
                <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
             </View>
           </TouchableOpacity>
