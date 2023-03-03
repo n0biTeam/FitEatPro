@@ -443,7 +443,7 @@ const _differenceWeight = () => {
     }}
     width = {isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
     
-    height={fontScale(210)}
+    height={isTablet ? scale(260) : scale(210)}
     yAxisLabel=""
     yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
@@ -498,7 +498,7 @@ const _differenceWeight = () => {
                   legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
                         width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
-                        height={scale(190)}
+                        height={isTablet ? scale(260) : scale(190)}
                         yAxisLabel=""
                         yAxisSuffix={' ' + userData.weightUnit}
                         yAxisInterval={1} // optional, defaults to 1
@@ -551,7 +551,7 @@ const _differenceWeight = () => {
          legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
         }}
         width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12}
-        height={scale(190)}
+        height={isTablet ? scale(260) : scale(190)}
         yAxisLabel=""
         yAxisSuffix={' ' + userData.weightUnit}
         yAxisInterval={1} // optional, defaults to 1
@@ -720,7 +720,7 @@ const _differenceWeight = () => {
       //flex: 1, 
       //backgroundColor: 'red',
       width: Dimensions.get('window').width,
-      height: !isTablet ? scale(145) : scale(280),
+      height: !isTablet ? scale(145) : scale(240),
       //width: Dimensions.get('window').width,
        }}
     
@@ -729,7 +729,7 @@ const _differenceWeight = () => {
     <View style={{marginTop: StatusBar.currentHeight, paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', alignContent: 'space-around', zIndex: 0 }}>
       <View style={{paddingTop: spacing.SCALE_3, justifyContent: 'center', flex: 1}}>
           <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
-            <Avatar.Image size={spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} />
+            <Avatar.Image size={isTablet ? spacing.SCALE_40 : spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} />
           </TouchableOpacity>
       </View>
 
@@ -741,15 +741,15 @@ const _differenceWeight = () => {
             //inActiveStrokeOpacity={0.3}
             maxValue={!weight ? 0 : _getWeightUnit()}
             rotation={scale(360)}
-            activeStrokeWidth={scale(5)}
-            inActiveStrokeWidth={scale(5)}
+            activeStrokeWidth={isTablet ? scale(10) : scale(5)}
+            inActiveStrokeWidth={isTablet ? scale(10) : scale(5)}
             inActiveStrokeColor={colors.BMI.BMI_1}
             progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
             activeStrokeColor={ colors.BMI.BMI_1}
             duration={0}
             dashedStrokeConfig={{
-              count: scale(18),
-              width: scale(3),
+              count: isTablet ? scale(30) : scale(18),
+              width: isTablet ? scale(5) : scale(3),
             }}
             progressFormatter={(value, total) => {
               'worklet';   
@@ -757,7 +757,6 @@ const _differenceWeight = () => {
             }}
           />
       </View>
-
       <View style={{flex: 1, alignItems: 'center', alignContent: 'flex-end'}}>
         <Text></Text>
         {
@@ -765,13 +764,13 @@ const _differenceWeight = () => {
           (
         <CircularProgress
             value={_getWeightUnit()-_getTargetUnit()}
-            radius={spacing.SCALE_30}
+            radius={scale(spacing.SCALE_30)}
             //inActiveStrokeOpacity={0.3}
             maxValue={_differenceWeight()}
-            rotation={360}
+            rotation={scale(360)}
             valuePrefix={'+'}
-            activeStrokeWidth={5}
-            inActiveStrokeWidth={5}
+            activeStrokeWidth={isTablet ? scale(10) : scale(5)}
+            inActiveStrokeWidth={isTablet ? scale(10) : scale(5)}
             //inActiveStrokeColor={ colors.BMI.BMI_2}
             inActiveStrokeColor={ colors.COLORS.DEEP_BLUE}
             progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
@@ -779,8 +778,8 @@ const _differenceWeight = () => {
             activeStrokeColor={colors.BMI.BMI_2}
             duration={2000}
             dashedStrokeConfig={{
-              count: 25,
-              width: 3,
+              count: isTablet ? scale(30) : scale(18),
+              width: isTablet ? scale(5) : scale(3),
             }}
             progressFormatter={(value, total) => {
               'worklet';   
@@ -812,15 +811,15 @@ const _differenceWeight = () => {
             //inActiveStrokeOpacity={0.3}
             maxValue={!targetWeight ? 0 : _getTargetUnit()}
             rotation={scale(360)}
-            activeStrokeWidth={scale(5)}
-            inActiveStrokeWidth={scale(5)}
+            activeStrokeWidth={isTablet ? scale(10) : scale(5)}
+            inActiveStrokeWidth={isTablet ? scale(10) : scale(5)}
             inActiveStrokeColor={colors.BMI.BMI_3}
             progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
             activeStrokeColor={ colors.BMI.BMI_3}
             duration={0}
             dashedStrokeConfig={{
-              count: scale(18),
-              width: scale(3),
+              count: isTablet ? scale(30) : scale(18),
+              width: isTablet ? scale(5) : scale(3),
             }}
             progressFormatter={(value, total) => {
               'worklet';   
@@ -833,13 +832,13 @@ const _differenceWeight = () => {
         
             <View style={{alignItems: 'center'}}>
             <TouchableOpacity onPress={logout} style={{paddingLeft: spacing.SCALE_8, paddingRight: scale(spacing.SCALE_106), marginTop: scale(spacing.SCALE_105)}}>
-              <MaterialCommunityIcons name='logout' size={scale(spacing.SCALE_25)} color={colors.COLORS.WHITE} />
+              <MaterialCommunityIcons name='logout' size={ isTablet ? scale(spacing.SCALE_10) : scale(spacing.SCALE_25)} color={colors.COLORS.WHITE} />
             </TouchableOpacity>
             </View>
       </View>
     </View>
 
-    <View style={{flex: 1, marginRight: scale(spacing.SCALE_10), justifyContent: 'flex-start', alignItems: 'flex-end', marginTop: scale(-spacing.SCALE_30)}}>
+    <View style={{flex: 1, marginRight: scale(spacing.SCALE_10), justifyContent: 'flex-start', alignItems: 'flex-end', marginTop: isTablet ? 0 : scale(-spacing.SCALE_30)}}>
       {netConnect()}
       {netInfoType()}
     </View>
@@ -977,7 +976,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: spacing.SCALE_10,
-    width: Dimensions.get('window').width/3 - 12     
+    width: isTablet ? Dimensions.get('window').width/3 - 28 : Dimensions.get('window').width/3 - 12
   },
   boxText: {
     padding: spacing.SCALE_10,
