@@ -240,12 +240,21 @@ const ShopScreen = ({ navigation }) => {
                   </View>
                 </View>
 
-                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3, marginBottom: spacing.SCALE_6}}>
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
                   <View>
                     <Text style={styles.dot}>{'\u2B24'}</Text>
                   </View>
                   <View>
                   <Text style={styles.text}>{t('shopScreen.point-8')}</Text>
+                  </View>
+                </View>
+
+                <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3, marginBottom: spacing.SCALE_6}}>
+                  <View>
+                    <Text style={styles.dot}>{'\u2B24'}</Text>
+                  </View>
+                  <View>
+                  <Text style={styles.text}>{t('shopScreen.point-9')}</Text>
                   </View>
                 </View>
                 
@@ -312,7 +321,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     text: {
-      fontSize: typography.FONT_SIZE_13,
+      fontSize: typography.FONT_SIZE_12,
       color: colors.TEXT.DEEP_BLUE
     },
     dot: {
