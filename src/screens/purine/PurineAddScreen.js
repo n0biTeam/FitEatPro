@@ -95,19 +95,7 @@ const PurineAddScreen = ({ navigation }) => {
       }}
     
   >
-      <ImageBackground
-        source={require('../../assets/images/wave.png')}
-        style={{
-          flex: 1, 
-          height: Dimensions.get('window').height,
-          //width: Dimensions.get('window').width,
-          height: 110,
-        }}
-        imageStyle={{
-          //opacity: 0.8
-        }}
-        >
-                 
+                       
         <SafeAreaProvider style={styles.rootContainer}>
 
           <TextInput
@@ -174,7 +162,7 @@ const PurineAddScreen = ({ navigation }) => {
 
       </ImageBackground>
       
-    </ImageBackground>
+   
     </SafeAreaProvider>
   )
 }
@@ -197,6 +185,7 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     justifyContent: 'flex-start',
-    marginHorizontal: spacing.SCALE_8
+    marginHorizontal: spacing.SCALE_8,
+    marginTop: spacing.SCALE_3
   }
 })

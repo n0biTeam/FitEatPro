@@ -298,7 +298,7 @@ setMasterDataSource([...listData]);
             label={'Dodaj'}
             //extended={isExtended}
             onPress={() => {
-            navigation.navigate('AddGlycemicIndex');
+            navigation.navigate('PurineAddScreen');
             }}
             visible2={visible2}
             theme={'tertiary'}

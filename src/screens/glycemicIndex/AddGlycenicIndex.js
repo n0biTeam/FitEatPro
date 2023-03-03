@@ -130,7 +130,13 @@ const AddGlycemicIndex = ({ navigation }) => {
     };
 
   const emptyBtn = (name != null && name != '') 
-                    && (category != null && category != '');
+                    && (category != null && category != '')
+                    && (glycemicIndex != null && glycemicIndex != '')
+                    && (kcal != null && kcal != '')
+                    && (protein != null && protein != '')
+                    && (fat != null && fat != '')
+                    && (carbs != null && carbs != '')
+                    && (fiber != null && fiber != '');
 
   const [visible, setVisible] = React.useState(false);
 
@@ -144,6 +150,9 @@ const AddGlycemicIndex = ({ navigation }) => {
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('addGlycemicIndex.title')} />
+       { emptyBtn &&
+       <Appbar.Action icon="content-save" onPress={handleAdd} color={colors.BMI.BMI_4}/>
+       }
        <Appbar.Action icon="information" onPress={showModal}  />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>

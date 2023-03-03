@@ -107,6 +107,7 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title="Edycja produktu" />
+       <Appbar.Action icon="content-save" onPress={handleUpdate} color={colors.BMI.BMI_4}/>
        <Appbar.Action icon="trash-can" onPress={handleDelete} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
@@ -124,24 +125,13 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
       }}
     
   >
-      <ImageBackground
-        source={require('../../assets/images/wave.png')}
-        style={{
-          flex: 1, 
-          height: Dimensions.get('window').height,
-          //width: Dimensions.get('window').width,
-          height: 125,
-        }}
-        imageStyle={{
-          //opacity: 0.8
-        }}
-        >
+      
                  
         <View style={{flex: 1, justifyContent: 'flex-start', marginHorizontal: spacing.SCALE_8}}>
           
           <ScrollView>
 
-          <View style={{marginBottom: spacing.SCALE_10}}></View>
+          <View style={{marginTop: spacing.SCALE_6}}></View>
           <TextInput
             underlineColor={colors.COLORS.LIGHT_GREY}
             activeUnderlineColor={colors.COLORS.DEEP_BLUE}
@@ -604,7 +594,7 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
 
       </ImageBackground>
       
-    </ImageBackground>
+    
     </SafeAreaProvider>
   )
 }
