@@ -832,8 +832,8 @@ const _differenceWeight = () => {
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
         
             <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={logout} style={{paddingLeft: spacing.SCALE_8, paddingRight: spacing.SCALE_106, marginTop: spacing.SCALE_105}}>
-              <MaterialCommunityIcons name='logout' size={spacing.SCALE_25} color={colors.COLORS.WHITE} />
+            <TouchableOpacity onPress={logout} style={{paddingLeft: spacing.SCALE_8, paddingRight: scale(spacing.SCALE_106), marginTop: scale(spacing.SCALE_105)}}>
+              <MaterialCommunityIcons name='logout' size={scale(spacing.SCALE_25)} color={colors.COLORS.WHITE} />
             </TouchableOpacity>
             </View>
       </View>
