@@ -846,7 +846,7 @@ const _differenceWeight = () => {
     </ImageBackground>
     
     { !isSmallDevice &&
-      <View style={{marginBottom: spacing.SCALE_5, marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_10}}>
+      <View style={{marginHorizontal: spacing.SCALE_6}}>
     
         <View>
           
@@ -867,22 +867,25 @@ const _differenceWeight = () => {
           <TouchableOpacity style={styles.menuBtn} onPress={glycemicIndexRoute} >
             <View style={styles.boxContainer}>
               <MaterialCommunityIcons name='food-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+               <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
             </View>
-              <Text style={styles.menuBtnText}>{t('homescreen-menu-glycemic-index')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('WeightTabs')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
             <View style={styles.boxContainer}>
               <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
+             <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-weight')}</Text>
             </View>
-            <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-weight')}</Text>
+
+           
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs')}}>
             <View style={styles.boxContainer}>
               <MaterialCommunityIcons name='human' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE} />
+              <Text style={styles.menuBtnText}>{t('homescreen-menu-bmi')}</Text>
             </View>
-            <Text style={styles.menuBtnText}>{t('homescreen-menu-bmi')}</Text>
+            
           </TouchableOpacity>
 
       </View>
@@ -892,22 +895,25 @@ const _differenceWeight = () => {
        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('BloodPressureTabs')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
          <View style={styles.boxContainer}>
            <MaterialCommunityIcons name='heart-pulse' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
+           <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-blood-pressure')}</Text>
          </View>
-         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-blood-pressure')}</Text>
+         
        </TouchableOpacity>
 
        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('GlucoseTabs')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
          <View style={styles.boxContainer}>
            <MaterialCommunityIcons name='water-check' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
+           <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-glucose')}</Text>
          </View>
-         <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-glucose')}</Text>
+         
        </TouchableOpacity>
 
        <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('TopTabs2')}}>
          <View style={styles.boxContainer}>
            <MaterialCommunityIcons name='clipboard-edit-outline' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE } />
+           <Text style={styles.menuBtnText}>{t('homescreen-memu-insulin-resistance')}</Text>
          </View>
-         <Text style={styles.menuBtnText}>{t('homescreen-memu-insulin-resistance')}</Text>
+        
        </TouchableOpacity>
        
      </View>
@@ -917,22 +923,25 @@ const _differenceWeight = () => {
        <TouchableOpacity style={styles.menuBtn} onPress={purineRoute} >
           <View style={styles.boxContainer}>
           <MaterialCommunityIcons name='molecule' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE } />
-          </View>
           <Text style={styles.menuBtnText}>{t('homescreen-menu-purine')}</Text>
+          </View>
+          
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('FindingScreen')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
           <View style={styles.boxContainer}>
             <MaterialCommunityIcons name='archive' size={spacing.SCALE_35} color={userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE ) } />
+            <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-findings')}</Text>
           </View>
-          <Text style={[styles.menuBtnText, {color: userPro === false ? colors.COLORS.GREY_CCC : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>{t('homescreen-menu-findings')}</Text>
+          
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuBtn} onPress={() => {navigation.navigate('NotesScreen')}}>
           <View style={styles.boxContainer}>
             <MaterialIcons name='notes' size={spacing.SCALE_35} color={colors.COLORS.DEEP_BLUE } />
+            <Text style={styles.menuBtnText}>{t('homescreen-menu-notes')}</Text>
           </View>
-          <Text style={styles.menuBtnText}>{t('homescreen-menu-notes')}</Text>
+          
         </TouchableOpacity>
       </View>
 
@@ -952,7 +961,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     //width: '95%',
     alignSelf: 'center',
-    marginBottom: 10,
+    //marginBottom: spacing.SCALE_3,
     flex: 1,
     
   },
@@ -967,7 +976,7 @@ const styles = StyleSheet.create({
     //height: Dimensions.get("window").height > 600 ? (heightScreen-530)/3 : 80,
     height: '100%',
     backgroundColor: colors.COLORS.WHITE,
-    borderRadius: 10,
+    borderRadius: spacing.SCALE_10,
     width: Dimensions.get('window').width/3 - 12 
     
   },
@@ -977,7 +986,7 @@ const styles = StyleSheet.create({
   },
   menuBtn: {
     //flex: 1,
-    width: '30%',
+    //width: '30%',
     marginHorizontal: spacing.SCALE_6,
     alignSelf: 'center',
 
@@ -986,8 +995,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: spacing.SCALE_5,
     color: colors.TEXT.DEEP_BLUE,
-    fontSize: fontScale(typography.FONT_SIZE_11),
-    //textTransform: 'uppercase'
+    fontSize: fontScale(typography.FONT_SIZE_10),
+    textTransform: 'uppercase'
   },
   text: {
     fontSize: 8,
