@@ -778,8 +778,8 @@ const _differenceWeight = () => {
             activeStrokeColor={colors.BMI.BMI_2}
             duration={2000}
             dashedStrokeConfig={{
-              count: isTablet ? scale(30) : scale(18),
-              width: isTablet ? scale(5) : scale(3),
+              count: isTablet ? scale(30) : scale(22),
+              width: isTablet ? scale(5) : scale(4),
             }}
             progressFormatter={(value, total) => {
               'worklet';   
