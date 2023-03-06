@@ -1,4 +1,4 @@
-import { StyleSheet, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, View, ImageBackground, StatusBar, Dimensions, Text, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect, useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar, Button } from 'react-native-paper';
@@ -10,9 +10,10 @@ import { format } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import { LineChart } from "react-native-chart-kit";
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
-import { colors, spacing } from '../../styles';
+import { colors, spacing, typography } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+
 
 const WeightCharts = ({ navigation }) => {
 
@@ -219,7 +220,7 @@ const WeightCharts = ({ navigation }) => {
       color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       style: {
-        borderRadius: 10
+        borderRadius: 5
       },
       propsForDots: {
         r: "0",
@@ -229,7 +230,7 @@ const WeightCharts = ({ navigation }) => {
     }}
     bezier
     style={{
-      borderRadius: 10
+      borderRadius: 5
     }}
 
     
@@ -419,7 +420,7 @@ const WeightCharts = ({ navigation }) => {
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Wykres pomiarów wagi" />
+       <Appbar.Content title={t('weightChartScreen.weight-measurement-chart')} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -463,14 +464,14 @@ const WeightCharts = ({ navigation }) => {
               
               <View style={{flexDirection: 'row'}}>
                 <View style={{ flex:1, marginRight: spacing.SCALE_3}}>
-                    <Button mode='contained' onPress={changeNumber} color={colors.COLORS.DEEP_BLUE} style={{borderRadius: 5}}>
-                      7 pomiarów
-                    </Button>
+                    <TouchableOpacity onPress={changeNumber} style={styles.btn}>
+                      <Text style={styles.textBtn}>{t('glucoseChartScreen.7-measurements')}</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flex:1,  marginLeft: spacing.SCALE_3}}>
-                  <Button mode='contained' onPress={changeNumber2} color={colors.COLORS.DEEP_BLUE} style={{borderRadius: 5}}>
-                    30 pomiarów
-                  </Button>
+                  <TouchableOpacity onPress={changeNumber2} style={styles.btn}>
+                      <Text style={styles.textBtn}>{t('glucoseChartScreen.30-measurements')}</Text>
+                    </TouchableOpacity>
                 </View>
               </View>
               
@@ -491,5 +492,16 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     marginHorizontal: spacing.SCALE_6
+  },
+  btn: {
+    backgroundColor: colors.COLORS.DEEP_BLUE,
+    marginTop: spacing.SCALE_6,
+    padding: spacing.SCALE_8,
+    alignItems: 'center',
+    borderRadius: spacing.SCALE_5
+  },
+  textBtn: {
+    color: colors.COLORS.WHITE,
+    fontSize: typography.FONT_SIZE_14
   }
 })

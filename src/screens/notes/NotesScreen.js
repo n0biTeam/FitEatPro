@@ -9,6 +9,7 @@ import BigList from "react-native-big-list";
 import { colors, typography, spacing } from '../../styles';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { useTranslation } from 'react-i18next';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -32,6 +33,8 @@ const NotesScreen = ({
   animateFrom,
   style,
   iconMode }) => {
+
+  const {t, i18n} = useTranslation();
   
   const [isExtended, setIsExtended] = React.useState(true);
 
@@ -88,11 +91,11 @@ const NotesScreen = ({
       //title
       '',
       //body
-      'Czy napewno chcesz usunąć wszystkie notatki ?',
+      t('notesScreen.alert.delete-all-notes'),
       [
-        { text: 'TAK', onPress: () => _handleDeleteAllNote() },
+        { text: t('notesScreen.alert.yes'), onPress: () => _handleDeleteAllNote() },
         {
-          text: 'NIE',
+          text: t('notesScreen.alert.cancel'),
           onPress: () => console.log('No Pressed'),
           style: 'cancel',
         },
@@ -144,7 +147,7 @@ const NotesScreen = ({
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
         <Appbar.BackAction onPress={_goBack} />
-        <Appbar.Content title="Notatki" />
+        <Appbar.Content title={t('notesScreen.title')} />
         <Appbar.Action icon="trash-can" onPress={_alertHandler} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
@@ -184,7 +187,7 @@ const NotesScreen = ({
                   </View>
 
                   <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
-                        <Text style={styles.dateText}>Ostatni zapis: </Text>
+                        <Text style={styles.dateText}>{t('findingScreen.last-save')}: </Text>
                         <Text style={styles.dateText}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}, </Text>
                         <Text style={styles.dateText}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
                   </View>
@@ -196,7 +199,7 @@ const NotesScreen = ({
             />
             ) : (
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>Brak notatek</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>{t('notesScreen.no-notes')}</Text>
             </View>
             )
            

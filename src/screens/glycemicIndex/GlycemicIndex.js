@@ -1392,6 +1392,7 @@ const xxx = (item) => {
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
           iconColor={colors.COLORS.DEEP_BLUE}
+          inputStyle={{marginLeft: -spacing.SCALE_15}}
         />
         </View>
 
@@ -1790,7 +1791,7 @@ const xxx = (item) => {
         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
             <TouchableOpacity onPress={() => toggleBox1()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
               <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-                <Text style={{color: colors.TEXT.DEEP_BLUE}}>WITAMINY</Text>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, textTransform: 'uppercase'}}>{t('views.modal.vitamins')}</Text>
                 <Animated.View style={{transform: [{rotateZ: arrowTransform}]}}>
                   <MaterialIcons name='keyboard-arrow-down' size={20} />
                 </Animated.View>
@@ -1802,7 +1803,7 @@ const xxx = (item) => {
               
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>WITAMINA A</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.vitamin-a')}</Text>
                     
                   </View>
                   
@@ -1815,7 +1816,7 @@ const xxx = (item) => {
                 { initialItem.betaCarotene !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1, marginLeft: 10}}>
-                      <Text style={styles.textBox2}>BETA-CAROTEN</Text>
+                      <Text style={styles.textBox2}>{t('views.modal.beta-carotene')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
@@ -1826,7 +1827,7 @@ const xxx = (item) => {
                 { initialItem.luteinaZeaksantyna !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1, marginLeft: 10}}>
-                      <Text style={styles.textBox2}>LUTEINA-ZEAKSANTYNA</Text>
+                      <Text style={styles.textBox2}>{t('views.modal.lutein-zeaxanthin')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
@@ -1837,7 +1838,7 @@ const xxx = (item) => {
                 { initialItem.WitB1Tiamina !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B1 - TIAMINA</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b1')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB1Tiamina).toFixed(3)} {UNIT.MG}</Text>
@@ -1848,7 +1849,7 @@ const xxx = (item) => {
                 { initialItem.WitB2Ryboflawina !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B2 - RYBOFLAWINA</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b2')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB2Ryboflawina).toFixed(3)} {UNIT.MG}</Text>
@@ -1859,7 +1860,7 @@ const xxx = (item) => {
                 { initialItem.WitB3Niacyna !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B3 - NIACYNA</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b3')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB3Niacyna).toFixed(3)} {UNIT.MG}</Text>
@@ -1870,7 +1871,7 @@ const xxx = (item) => {
                 { initialItem.WitB4Cholina !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B4 - CHOLINA</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b4')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB4Cholina).toFixed(3)} {UNIT.MG}</Text>
@@ -1881,7 +1882,7 @@ const xxx = (item) => {
                 { initialItem.WitB5KwasPantotenowy !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B5 - KWAS PANTOTENOWY</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b5')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB5KwasPantotenowy).toFixed(3)} {UNIT.MG}</Text>
@@ -1892,7 +1893,7 @@ const xxx = (item) => {
                 { initialItem.WitB6 !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B6</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b6')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB6).toFixed(3)} {UNIT.MG}</Text>
@@ -1903,7 +1904,7 @@ const xxx = (item) => {
                 { initialItem.WitB9KwasFoliowy !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B9 - KWAS FOLIOWY</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b9')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB9KwasFoliowy).toFixed(3)} {UNIT.UG}</Text>
@@ -1914,7 +1915,7 @@ const xxx = (item) => {
                 { initialItem.WitB12 !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA B12</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-b12')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.UG}</Text>
@@ -1925,7 +1926,7 @@ const xxx = (item) => {
                 { initialItem.WitC !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA C</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-c')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitC).toFixed(2)} {UNIT.MG}</Text>
@@ -1936,7 +1937,7 @@ const xxx = (item) => {
                 { initialItem.WitE !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA E</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-e')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitE).toFixed(2)} {UNIT.MG}</Text>
@@ -1947,7 +1948,7 @@ const xxx = (item) => {
                 { initialItem.WitK !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WITAMINA K</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.vitamin-k')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
                       <Text style={styles.textBox3}>{(initialItem.WitK).toFixed(2)} {UNIT.MG}</Text>
@@ -1964,7 +1965,7 @@ const xxx = (item) => {
           <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
           <TouchableOpacity onPress={() => toggleBox2()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
             <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MAKROELEMENTY</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('views.modal.macronutrients')}</Text>
                 <Animated.View style={{transform: [{rotateZ: arrowTransform2}]}}>
                   <MaterialIcons name='keyboard-arrow-down' size={20} />
                 </Animated.View>
@@ -1976,7 +1977,7 @@ const xxx = (item) => {
                 { initialItem.Wapn !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>WAPŃ</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.calcium')}</Text>
                       
                     </View>
                     
@@ -1989,7 +1990,7 @@ const xxx = (item) => {
                 { initialItem.Magnez !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>MAGNEZ</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.magnesium')}</Text>
                     
                   </View>
                   
@@ -2002,7 +2003,7 @@ const xxx = (item) => {
                 { initialItem.Fosfor !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>FOSFOR</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.phosphorus')}</Text>
                     
                   </View>
                   
@@ -2015,7 +2016,7 @@ const xxx = (item) => {
                 { initialItem.Potas !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>POTAS</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.potassium')}</Text>
                     
                   </View>
                   
@@ -2028,7 +2029,7 @@ const xxx = (item) => {
                 { initialItem.Sod !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>SÓD</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.sodium')}</Text>
                     
                   </View>
                   
@@ -2047,7 +2048,7 @@ const xxx = (item) => {
           <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
           <TouchableOpacity onPress={() => toggleBox3()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
             <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
-              <Text style={{color: colors.TEXT.DEEP_BLUE}}>MIKROELEMENTY</Text>
+              <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('views.modal.microelements')}</Text>
                 <Animated.View style={{transform: [{rotateZ: arrowTransform3}]}}>
                   <MaterialIcons name='keyboard-arrow-down' size={20} />
                 </Animated.View>
@@ -2059,7 +2060,7 @@ const xxx = (item) => {
                 { initialItem.Miedz !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
-                      <Text style={styles.textBox1}>MIEDŹ</Text>
+                      <Text style={styles.textBox1}>{t('views.modal.copper')}</Text>
                       
                     </View>
                     
@@ -2072,7 +2073,7 @@ const xxx = (item) => {
                 { initialItem.Zelazo !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>ŻELAZO</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.iron')}</Text>
                     
                   </View>
                   
@@ -2085,7 +2086,7 @@ const xxx = (item) => {
                 { initialItem.Mangan !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>MANGAN</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.manganese')}</Text>
                     
                   </View>
                   
@@ -2098,7 +2099,7 @@ const xxx = (item) => {
                 { initialItem.Selen !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>SELEN</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.selenium')}</Text>
                     
                   </View>
                   
@@ -2111,7 +2112,7 @@ const xxx = (item) => {
                 { initialItem.Cynk !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
-                    <Text style={styles.textBox1}>CYNK</Text>
+                    <Text style={styles.textBox1}>{t('views.modal.zinc')}</Text>
                     
                   </View>
                   
@@ -2145,7 +2146,7 @@ const xxx = (item) => {
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('glycemicIndex.modal.sort-by')}</Text>
             </View>
-            <View style={{flex: 1}}>
+            <View style={{flex: 2}}>
              
               <MySwitch2
                 selectionMode={switchSort}
@@ -2204,7 +2205,10 @@ const xxx = (item) => {
             <View style={{marginLeft: spacing.SCALE_6}}>
               <BtnModal title={t('value.phosphorus')} onPress={sortListFosfor} backgroundColor={colors.PRESSURE.P2} />
             </View>
-            <View style={{marginLeft: spacing.SCALE_6}}>
+            
+          </View>
+          <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
+          <View style={{}}>
               <BtnModal title={t('value.potassium')} onPress={sortListPotas} backgroundColor={colors.PRESSURE.P2} />
             </View>
             <View style={{marginLeft: spacing.SCALE_6}}>
@@ -2232,10 +2236,11 @@ const xxx = (item) => {
               <BtnModal title={t('value.selenium')} onPress={sortListSelen} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
 
-            <View style={{marginLeft: spacing.SCALE_6}}>
+            
+          </View>
+          <View style={{alignItems: 'flex-start'}}>
               <BtnModal title={t('value.zinc')} onPress={sortListCynk} backgroundColor={colors.WHtR.WHtR_3} />
             </View>
-          </View>
 
           <View style={{marginBottom: spacing.SCALE_3, marginTop: spacing.SCALE_3, alignItems: 'center'}}>
             <Text style={styles.textTitleModal}>{t('value.vitamins')}</Text>
@@ -2268,13 +2273,13 @@ const xxx = (item) => {
           </View>
 
           <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1 }}>
+            <View style={{alignItems: 'flex-start' }}>
               <BtnModal title={t('value.Vitamin-B4')} onPress={sortListWitB4} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>
 
           <View style={{flex: 1, marginBottom: spacing.SCALE_6}}>
-            <View style={{flex: 1}}>
+            <View style={{alignItems: 'flex-start'}}>
               <BtnModal title={t('value.Vitamin-B5')} onPress={sortListWitB5} backgroundColor={colors.WHtR.WHtR_2} />
             </View>
           </View>

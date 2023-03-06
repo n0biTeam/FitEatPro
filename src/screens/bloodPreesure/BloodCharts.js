@@ -1,4 +1,4 @@
-import { StyleSheet, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, View, ImageBackground, StatusBar, Dimensions, Text, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect, useContext} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider, Appbar, Button } from 'react-native-paper';
@@ -381,14 +381,14 @@ const BloodCharts = ({ route, navigation }) => {
               
               <View style={{flexDirection: 'row'}}>
                 <View style={{ flex:1, marginRight: spacing.SCALE_3}}>
-                    <Button mode='contained' onPress={changeNumber} color={colors.COLORS.DEEP_BLUE} style={{borderRadius: 5}}>
-                      {t('bloodChartScreen.7-measurements')}
-                    </Button>
+                    <TouchableOpacity onPress={changeNumber} style={styles.btn}>
+                      <Text style={styles.textBtn}>{t('glucoseChartScreen.7-measurements')}</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flex:1,  marginLeft: spacing.SCALE_3}}>
-                  <Button mode='contained' onPress={changeNumber2} color={colors.COLORS.DEEP_BLUE} style={{borderRadius: 5}}>
-                  {t('bloodChartScreen.30-measurements')}
-                  </Button>
+                  <TouchableOpacity onPress={changeNumber2} style={styles.btn}>
+                      <Text style={styles.textBtn}>{t('glucoseChartScreen.30-measurements')}</Text>
+                    </TouchableOpacity>
                 </View>
               </View>
               
@@ -409,5 +409,16 @@ const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
     marginHorizontal: spacing.SCALE_6
+  },
+  btn: {
+    backgroundColor: colors.COLORS.DEEP_BLUE,
+    marginTop: spacing.SCALE_6,
+    padding: spacing.SCALE_8,
+    alignItems: 'center',
+    borderRadius: spacing.SCALE_5
+  },
+  textBtn: {
+    color: colors.COLORS.WHITE,
+    fontSize: typography.FONT_SIZE_14
   }
 })

@@ -803,7 +803,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Dziennik wagi" />
+       <Appbar.Content title={t('memu-weight.weight-log')} />
        {/* <Appbar.Action icon="history" onPress={() => navigation.navigate('HistoryWeightScreen')} /> */}
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
@@ -1066,7 +1066,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                     ) : (
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                      
-                        <Text style={{fontSize: typography.FONT_SIZE_18, color: colors.TEXT.DEEP_BLUE}}>Brak danych</Text>
+                        <Text style={{fontSize: typography.FONT_SIZE_18, color: colors.TEXT.DEEP_BLUE}}>{t('glucoseDiaryScreen.no-data')}</Text>
                     
                     </View>
                     )

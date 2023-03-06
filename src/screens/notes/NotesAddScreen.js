@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
+import { useTranslation } from 'react-i18next';
 
 const theme = {
   ...DefaultTheme,
@@ -42,6 +43,8 @@ const NotesAddScreen = ({
   
   const _goBack = () => navigation.navigate('NotesScreen');
 
+  const {t, i18n} = useTranslation();
+
   const {user} = useContext(AuthContext); 
 
   const [title, setTitle] = useState(null);
@@ -61,7 +64,7 @@ const NotesAddScreen = ({
 
           }).then(() => {
             console.log('Added');
-            ToastAndroid.show('Dodano notatkę', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+            ToastAndroid.show(t('notesAddScreen.toast.note-added'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
             navigation.navigate('NotesScreen');
      
           }).catch((error) => {
@@ -75,7 +78,7 @@ const NotesAddScreen = ({
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Notatka" />
+       <Appbar.Content title={t('notesAddScreen.note')} />
        { title &&
         <Appbar.Action icon="content-save" onPress={addNote} color={colors.BMI.BMI_4}/>
         }
@@ -112,7 +115,7 @@ const NotesAddScreen = ({
           
                 <View>
                     <TextInput 
-                        placeholder='Tytuł'
+                        placeholder={t('notesAddScreen.title')}
                         onChangeText={setTitle}
                         value={title}
                         style={styles.titleInput }
@@ -120,7 +123,7 @@ const NotesAddScreen = ({
                 </View>
                 <ScrollView>
                     <TextInput 
-                        placeholder='Treść'
+                        placeholder={t('notesAddScreen.content')}
                         onChangeText={setContents}
                         value={contents}
                         multiline

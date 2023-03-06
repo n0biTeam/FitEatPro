@@ -11,7 +11,7 @@
         "login-screen-text-2": "Register",
         "login-screen-email": "Email",
         "login-screen-password": "Password",
-        "login-screen-login": "LOGIN-SCREEN-LOGIN",
+        "login-screen-login": "SIGN IN",
         "login-screen-rememberMe": "REMEMBER ME",
         "login-screen-forgotPassword": "Forgot your password?",
 
@@ -29,7 +29,7 @@
         "signup-registration": "Signup-registration",
         "signup-email": "Email",
         "signup-new-password": "New-password",
-        "signup-repeat-new-password": "Signup-repeat-new-password",
+        "signup-repeat-new-password": "Repeat new password",
         "signup-join": "JOIN",
 
         "homescreen-weight": "WEIGHT",
@@ -211,7 +211,7 @@
         "historyWeightScreen.alert.no": "NO",
         "historyWeightScreen.time": "Time",
         "historyWeightScreen.height": "Weight",
-        "historyWeightScreen.empty-data": "Empty-data",
+        "historyWeightScreen.empty-data": "No data",
 
         "weightDetalScreen.alert.delete-one": "Are you sure you want to delete the weight measurement ?",
         "weightDetalScreen.alert.yes": "YES",
@@ -351,6 +351,7 @@
 
         "findingScreen.title": "Findings",
         "findingScreen.last-save": "Last-save:",
+        "findingScreen.no-test-results": "No test results",
 
         "findingAddScreen.toast.no-photo-selected": "No photo selected",
         "findingAddScreen.toast.added": "Added",
@@ -580,7 +581,55 @@
         "unitSettingScreen.kg": "Kilograms",
         "unitSettingScreen.funt": "Pounds",
         "unitSettingScreen.cm": "Centimeters",
-        "unitSettingScreen.cal": "Inches"
+        "unitSettingScreen.cal": "Inches",
+
+        "views.modal.vitamins": "VITAMINES",
+        "views.modal.vitamin-a": "VITAMIN A",
+        "views.modal.beta-carotene": "Beta-caroten",
+        "views.modal.lutein-zeaxanthin": "Lutein + zeaxanthin",
+        "views.modal.vitamin-b1": "Vitamin B1 - Thiamine",
+        "views.modal.vitamin-b2": "Vitamin B2 - Riboflavin",
+        "views.modal.vitamin-b3": "Vitamin B3 - Niacyna",
+        "views.modal.vitamin-b4": "Vitamin B4 - Choline",
+        "views.modal.vitamin-b5": "Vitamin B5 - Pantothenic Acid",
+        "views.modal.vitamin-b6": "Vitamin B6",
+        "views.modal.vitamin-b9": "Vitamin B9 - Folic acid",
+        "views.modal.vitamin-b12": "Vitamin B12",
+        "views.modal.vitamin-c": "Vitamin C",
+        "views.modal.vitamin-e": "Vitamin E",
+        "views.modal.vitamin-k": "Vitamin K",
+
+        "views.modal.macronutrients": "MACROELEMENTS",
+        "views.modal.calcium": "Calcium",
+        "views.modal.magnesium": "Magnesium",
+        "views.modal.phosphorus": "Phosphorus",
+        "views.modal.potassium": "Potassium",
+        "views.modal.sodium": "Sodium",
+
+        "views.modal.microelements": "MICROELEMENTS",
+        "views.modal.copper": "Copper",
+        "views.modal.iron": "Iron",
+        "views.modal.manganese": "Manganese",
+        "views.modal.selenium": "Selenium",
+        "views.modal.zinc": "Zinc",
+
+        "notesScreen.title": "Notes",
+        "notesScreen.alert.delete-all-notes": "Are you sure you want to delete all notes?",
+        "notesScreen.alert.yes": "Yes",
+        "notesScreen.alert.cancel": "Cancel",
+        "notesScreen.no-notes": "No notes",
+
+        "notesAddScreen.toast.note-added": "Note added",
+        "notesAddScreen.note": "Note",
+        "notesAddScreen.title": "Title",
+        "notesAddScreen.content": "Content",
+        
+        "notesEditScreen.toast.note-updated": "Note updated",
+        "notesEditScreen.alert.delete-note": "Are you sure you want to delete the note?",
+        "notesEditScreen.alert.yes": "Yes",
+        "notesEditScreen.alert.cancel": "Cancel",
+        "notesEditScreen.toast.note-deleted": "Note deleted",
+        "notesEditScreen.title": "Note"
 
     }
 }

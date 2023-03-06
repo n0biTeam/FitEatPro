@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
+import { useTranslation } from 'react-i18next';
 
 const theme = {
   ...DefaultTheme,
@@ -29,6 +30,8 @@ const NotesEditScreen = ({
   iconMode }) => {
   
   const [isExtended, setIsExtended] = useState(true);
+
+  const {t, i18n} = useTranslation();
 
   const isIOS = Platform.OS === 'ios';
     
@@ -85,7 +88,7 @@ const NotesEditScreen = ({
 
           }).then(() => {
             console.log('Added');
-            ToastAndroid.show('Zaktualizowano notatkę', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+            ToastAndroid.show(t('notesEditScreen.toast.note-updated'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
             navigation.navigate('NotesScreen');
      
           }).catch((error) => {
@@ -104,11 +107,11 @@ const NotesEditScreen = ({
       //title
       '',
       //body
-      'Czy napewno chcesz usunąć natatkę ?',
+      t('notesEditScreen.alert.delete-note'),
       [
-        { text: 'TAK', onPress: () => _handeDeleteNote() },
+        { text: t('notesEditScreen.alert.yes'), onPress: () => _handeDeleteNote() },
         {
-          text: 'NIE',
+          text: t('notesEditScreen.alert.cancel'),
           onPress: () => console.log('No Pressed'),
           style: 'cancel',
         },
@@ -126,7 +129,7 @@ const NotesEditScreen = ({
     .doc(noteId)
     .delete()
     .then(() => {
-       ToastAndroid.show('Skasowano notatkę', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+       ToastAndroid.show(t('notesEditScreen.toast.note-deleted'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
        navigation.navigate('NotesScreen');
     })
 }
@@ -137,7 +140,7 @@ const NotesEditScreen = ({
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Notatka" />
+       <Appbar.Content title={t('notesEditScreen.title')} />
        <Appbar.Action icon="trash-can" onPress={_alertHandler} color={colors.BMI.BMI_7} />
        <Appbar.Action icon="content-save" onPress={updateNote} color={colors.BMI.BMI_4} />
     </Appbar.Header>

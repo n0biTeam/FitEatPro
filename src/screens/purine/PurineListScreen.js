@@ -258,6 +258,7 @@ setMasterDataSource([...listData]);
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
           iconColor={colors.COLORS.DEEP_BLUE}
+          inputStyle={{marginLeft: -spacing.SCALE_15}}
         />
         </View>
 

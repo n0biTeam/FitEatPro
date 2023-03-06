@@ -352,6 +352,7 @@
 
         "findingScreen.title": "Wyniki badań",
         "findingScreen.last-save": "Ostatni zapis:",
+        "findingScreen.no-test-results": "Brak wyników badań",
 
         "findingAddScreen.toast.no-photo-selected": "Nie wybrano zdjęcia",
         "findingAddScreen.toast.added": "Dodano",
@@ -374,6 +375,7 @@
         "findingViewScreen.title-1": "Wynik badań",
         "findingViewScreen.description": "Opis:",
         "findingViewScreen.photo": "Zdjęcie:",
+
 
         "findingEditScreen.toast.updated": "Zaktualizowano",
         "findingEditScreen.title-1": "Edycja wyniku badań",
@@ -582,6 +584,54 @@
         "unitSettingScreen.kg": "Kilogram",
         "unitSettingScreen.funt": "Funt",
         "unitSettingScreen.cm": "Centrymetr",
-        "unitSettingScreen.cal": "Cale"
+        "unitSettingScreen.cal": "Cale",
+
+        "views.modal.vitamins": "WITAMINY",
+        "views.modal.vitamin-a": "WITAMINA A",
+        "views.modal.beta-carotene": "Beta-caroten",
+        "views.modal.lutein-zeaxanthin": "Luteina + zeaksantyna",
+        "views.modal.vitamin-b1": "Witamina B1 - Tiamina",
+        "views.modal.vitamin-b2": "Witamina B2 - Ryboflawina",
+        "views.modal.vitamin-b3": "Witamina B3 - Niacyna",
+        "views.modal.vitamin-b4": "Witamina B4 - Cholina",
+        "views.modal.vitamin-b5": "Witamina B5 - Kwas pantotenowy",
+        "views.modal.vitamin-b6": "Witamina B6",
+        "views.modal.vitamin-b9": "Witamina B9 - Kwas foliowy",
+        "views.modal.vitamin-b12": "Witamina B12",
+        "views.modal.vitamin-c": "Witamina C",
+        "views.modal.vitamin-e": "Witamina E",
+        "views.modal.vitamin-k": "Witamina K",
+
+        "views.modal.macronutrients": "MAKROELEMENTY",
+        "views.modal.calcium": "Wapń",
+        "views.modal.magnesium": "Magnez",
+        "views.modal.phosphorus": "Fosfor",
+        "views.modal.potassium": "Potas",
+        "views.modal.sodium": "Sód",
+
+        "views.modal.microelements": "MIKROELEMENTY",
+        "views.modal.copper": "Miedź",
+        "views.modal.iron": "Żelazo",
+        "views.modal.manganese": "Mangan",
+        "views.modal.selenium": "Selen",
+        "views.modal.zinc": "Cynk",
+        
+        "notesScreen.title": "Notatki",
+        "notesScreen.alert.delete-all-notes": "Czy napewno chcesz usunąć wszystkie notatki?",
+        "notesScreen.alert.yes": "Tak",
+        "notesScreen.alert.cancel": "Anuluj",
+        "notesScreen.no-notes": "Brak notatek",
+
+        "notesAddScreen.toast.note-added": "Dodano notatkę",
+        "notesAddScreen.note": "Notatka",
+        "notesAddScreen.title": "Tytuł",
+        "notesAddScreen.content": "Treść",
+
+        "notesEditScreen.toast.note-updated": "Zaktualizowano notatkę",
+        "notesEditScreen.alert.delete-note": "Czy napewno chcesz usunąć natatkę ?",
+        "notesEditScreen.alert.yes": "Tak",
+        "notesEditScreen.alert.cancel": "Anuluj",
+        "notesEditScreen.toast.note-deleted": "Skasowano notatkę",
+        "notesEditScreen.title": "Notatka"
     }
 }

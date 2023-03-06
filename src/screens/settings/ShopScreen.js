@@ -98,7 +98,7 @@ const ShopScreen = ({ navigation }) => {
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Kup / Subskrypcje" />
+       <Appbar.Content title={t('settingScreen.bay')} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
