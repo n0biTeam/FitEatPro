@@ -1,1850 +1,1850 @@
 export default data = [
   {
     "idProd": 1,
-    "name": "Agrest",
+    "name": "gooseberry",
     "uricAcid": 16,
     "purine": 7,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 2,
-    "name": "Ananas",
+    "name": "Pineapple",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 3,
     "name": "Anchois",
     "uricAcid": 240,
     "purine": 100,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 4,
-    "name": "Arbuz",
+    "name": "Watermelon",
     "uricAcid": 19,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 5,
-    "name": "Awokado",
+    "name": "Avocado",
     "uricAcid": 30,
     "purine": 13,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 6,
-    "name": "Bakłażan",
+    "name": "Aubergine",
     "uricAcid": 21,
     "purine": 9,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 7,
-    "name": "Banan",
+    "name": "Banana",
     "uricAcid": 57,
     "purine": 24,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 8,
-    "name": "Bazylia",
+    "name": "Basil",
     "uricAcid": 50,
     "purine": 21,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 9,
-    "name": "Bażant",
+    "name": "Pheasant",
     "uricAcid": 150,
     "purine": 63,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 10,
-    "name": "Boczek",
+    "name": "Bacon",
     "uricAcid": 96,
     "purine": 40,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat productse"
   },
   {
     "idProd": 11,
-    "name": "Boczniaki",
+    "name": "Oystercatchers",
     "uricAcid": 50,
     "purine": 21,
-    "category": "Grzyby"
+    "category": "Mushrooms"
   },
   {
     "idProd": 12,
-    "name": "Borowik szlachetny",
+    "name": "Boletus nobilis",
     "uricAcid": 92,
     "purine": 38,
-    "category": "Grzyby"
+    "category": "Mushrooms"
   },
   {
     "idProd": 13,
-    "name": "Bób, świeży",
+    "name": "Broad beans, fresh",
     "uricAcid": 43,
     "purine": 18,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 14,
-    "name": "Brokuły",
+    "name": "Broccoli",
     "uricAcid": 81,
     "purine": 34,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 15,
-    "name": "Brukselka",
+    "name": "Brussels sprouts",
     "uricAcid": 69,
     "purine": 29,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 16,
-    "name": "Brzoskwinia",
+    "name": "Peach",
     "uricAcid": 21,
     "purine": 9,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 17,
-    "name": "Bułka kajzerka",
+    "name": "Kaiser roll",
     "uricAcid": 22,
     "purine": 9,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 18,
-    "name": "Bułka tarta",
+    "name": "Breadcrumbs",
     "uricAcid": 48,
     "purine": 20,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 19,
-    "name": "Burka",
+    "name": "Beetroot",
     "uricAcid": 40,
     "purine": 17,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 20,
-    "name": "Cebula",
+    "name": "Onion",
     "uricAcid": 13,
     "purine": 5,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 21,
-    "name": "Chleb biały, pszeniczny",
+    "name": "White, wheat bread",
     "uricAcid": 14,
     "purine": 6,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 22,
-    "name": "Chleb lniany",
+    "name": "Linseed bread",
     "uricAcid": 45,
     "purine": 19,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 23,
-    "name": "Chleb pełnoziarnisty",
+    "name": "Whole-grain bread",
     "uricAcid": 50,
     "purine": 21,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 24,
-    "name": "Chleb pszenny",
+    "name": "Wheat bread",
     "uricAcid": 40,
     "purine": 17,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 25,
-    "name": "Chleb razowy",
+    "name": "Wholemeal bread",
     "uricAcid": 50,
     "purine": 21,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 26,
     "name": "Chleb żytni",
     "uricAcid": 45,
     "purine": 19,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 27,
-    "name": "Chrzan",
+    "name": "Horseradish",
     "uricAcid": 31,
     "purine": 13,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 28,
-    "name": "Ciecierzyca",
+    "name": "Chickpeas",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 29,
-    "name": "Cielęcina, łopatka",
+    "name": "Veal, shoulder",
     "uricAcid": 150,
     "purine": 63,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 30,
-    "name": "Cielęcina, mózg",
+    "name": "Veal, brain",
     "uricAcid": 460,
     "purine": 192,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 31,
-    "name": "Cielęcina, nerki",
+    "name": "Veal, kidneys",
     "uricAcid": 218,
     "purine": 91,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 32,
-    "name": "Cielęcina, nerkówka",
+    "name": "Veal, kidney",
     "uricAcid": 1260,
     "purine": 525,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 33,
-    "name": "Cielęcina, płucka",
+    "name": "Veal, lungs",
     "uricAcid": 147,
     "purine": 61,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 34,
-    "name": "Cielęcina, polędwica",
+    "name": "Veal, sirloin",
     "uricAcid": 140,
     "purine": 58,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 35,
-    "name": "Cielęcina, wątróbka",
+    "name": "Veal, liver",
     "uricAcid": 218,
     "purine": 91,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 36,
     "name": "Cola",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 37,
-    "name": "Cukier",
+    "name": "Sugar",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 38,
-    "name": "Cukinia",
+    "name": "Zucchini",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 39,
-    "name": "Cykoria",
+    "name": "Chicory",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 40,
-    "name": "Cytryna",
+    "name": "Lemon",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 41,
-    "name": "Czarny bez",
+    "name": "Black elderberry",
     "uricAcid": 33,
     "purine": 14,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 42,
-    "name": "Czekolada gorzka",
+    "name": "Dark chocolate",
     "uricAcid": 26,
     "purine": 11,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 43,
-    "name": "Czekolada mleczna",
+    "name": "Milk chocolate",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 44,
-    "name": "Czereśnie",
+    "name": "Cherries",
     "uricAcid": 19,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 45,
-    "name": "Daktyl, suszony",
+    "name": "Date, dried",
     "uricAcid": 35,
     "purine": 15,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 46,
-    "name": "Dorsz",
+    "name": "Cod",
     "uricAcid": 109,
     "purine": 45,
-    "category": "Ryby i owoce morza"
+    "category": "Ryby i Fruits morza"
   },
   {
     "idProd": 47,
-    "name": "Drożdże do pieczenia",
+    "name": "Baking yeast",
     "uricAcid": 680,
     "purine": 283,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 48,
-    "name": "Drożdże piwne",
+    "name": "Beer yeast",
     "uricAcid": 1810,
     "purine": 754,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 49,
-    "name": "Dynia",
+    "name": "Pumpkin",
     "uricAcid": 44,
     "purine": 18,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 50,
-    "name": "Fasola biała, sucha",
+    "name": "White beans, dry",
     "uricAcid": 128,
     "purine": 53,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 51,
-    "name": "Fasolka szparagowa",
+    "name": "Green beans",
     "uricAcid": 37,
     "purine": 15,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 52,
-    "name": "Figi suszone",
+    "name": "Dried figs",
     "uricAcid": 64,
     "purine": 27,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 53,
-    "name": "Frankfuterki",
+    "name": "Frankfutters",
     "uricAcid": 89,
     "purine": 37,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 54,
-    "name": "Gęś",
+    "name": "Goose",
     "uricAcid": 165,
     "purine": 69,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 55,
-    "name": "Grejpfrut",
+    "name": "Grapefruit",
     "uricAcid": 15,
     "purine": 6,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 56,
-    "name": "Groch",
+    "name": "Peas",
     "uricAcid": 95,
     "purine": 40,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 57,
-    "name": "Groszek zielony",
+    "name": "Green peas",
     "uricAcid": 84,
     "purine": 35,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 58,
-    "name": "Gruszka",
+    "name": "Pear",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 59,
-    "name": "Gryka (ziarno)",
+    "name": "Buckwheat (grain)",
     "uricAcid": 149,
     "purine": 62,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 60,
-    "name": "Grzyby konserwowe",
+    "name": "Canned mushrooms",
     "uricAcid": 29,
     "purine": 12,
-    "category": "Grzyby"
+    "category": "Mushrooms"
   },
   {
     "idProd": 61,
     "name": "Halibut",
     "uricAcid": 178,
     "purine": 74,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 62,
-    "name": "Herbata (czarna)",
+    "name": "Tea (black)",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 63,
-    "name": "Homar",
+    "name": "Lobster",
     "uricAcid": 118,
     "purine": 49,
-    "category": "Ryby i owoce morza"
+    "category": "Fisha and seafood"
   },
   {
     "idProd": 64,
-    "name": "Indyk, ze skórą",
+    "name": "Turkey, with skin",
     "uricAcid": 150,
     "purine": 63,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 65,
-    "name": "Jabłko",
+    "name": "Apple",
     "uricAcid": 14,
     "purine": 6,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 66,
-    "name": "Jabłko, suszone",
+    "name": "Apple, dried",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 67,
-    "name": "Jagnięcina",
+    "name": "Lamb",
     "uricAcid": 140,
     "purine": 58,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 68,
-    "name": "Jagnięcina, serce",
+    "name": "Lamb, heart",
     "uricAcid": 241,
     "purine": 100,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 69,
-    "name": "Jagody",
+    "name": "Berries",
     "uricAcid": 20,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 70,
-    "name": "Jajka",
+    "name": "Eggs",
     "uricAcid": 5,
     "purine": 2,
-    "category": "Jaja"
+    "category": "Eggs"
   },
   {
     "idProd": 71,
-    "name": "Jajka, białko",
+    "name": "Eggs, protein",
     "uricAcid": 2,
     "purine": 1,
-    "category": "Jaja"
+    "category": "Eggs"
   },
   {
     "idProd": 72,
-    "name": "Jajka, żółtko",
+    "name": "Eggs, yolk",
     "uricAcid": 6,
     "purine": 3,
     "category": "Jaja"
   },
   {
     "idProd": 73,
-    "name": "Jarmuż",
+    "name": "Kale",
     "uricAcid": 48,
     "purine": 20,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 74,
-    "name": "Jeżyna",
+    "name": "Blackberry",
     "uricAcid": 15,
     "purine": 6,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 75,
-    "name": "Jęczmień",
+    "name": "Barley",
     "uricAcid": 96,
     "purine": 40,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 76,
-    "name": "Jogurt (3,5% tłuszczu)",
+    "name": "Yogurt (3.5% fat)",
     "uricAcid": 8,
     "purine": 3,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 77,
-    "name": "Kaczka",
+    "name": "Duck",
     "uricAcid": 138,
     "purine": 58,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 78,
-    "name": "Kakao w proszku",
+    "name": "Cocoa powder",
     "uricAcid": 71,
     "purine": 30,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 79,
     "name": "Kaki",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 80,
-    "name": "Kalafior",
+    "name": "Cauliflower",
     "uricAcid": 51,
     "purine": 21,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 81,
-    "name": "Kalarepa",
+    "name": "Kohlrabi",
     "uricAcid": 30,
     "purine": 13,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 82,
-    "name": "Kapary",
+    "name": "Capers",
     "uricAcid": 20,
     "purine": 8,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 83,
-    "name": "Kapusta biała",
+    "name": "White cabbage",
     "uricAcid": 22,
     "purine": 9,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 84,
-    "name": "Kapusta czerwona",
+    "name": "Red cabbage",
     "uricAcid": 32,
     "purine": 13,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 85,
-    "name": "Kapusta kiszona",
+    "name": "Pickled cabbage",
     "uricAcid": 16,
     "purine": 7,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 86,
-    "name": "Kapusta pekińska",
+    "name": "Chinese cabbage",
     "uricAcid": 22,
     "purine": 9,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 87,
-    "name": "Kapusta włoska",
+    "name": "Savoy cabbagea",
     "uricAcid": 37,
     "purine": 15,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 88,
-    "name": "Karczochy",
+    "name": "Artichokes",
     "uricAcid": 50,
     "purine": 21,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 89,
-    "name": "Karmazyn",
+    "name": "Crimson",
     "uricAcid": 240,
     "purine": 100,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 90,
-    "name": "Karp",
+    "name": "Carp",
     "uricAcid": 160,
     "purine": 67,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 91,
-    "name": "Kasza jaglana",
+    "name": "Buckwheat",
     "uricAcid": 148,
     "purine": 62,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 92,
-    "name": "Kaszanka",
+    "name": "Pudding",
     "uricAcid": 166,
     "purine": 69,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 93,
-    "name": "Kaszka kukurydziana",
+    "name": "Corn porridge",
     "uricAcid": 25,
     "purine": 10,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 94,
-    "name": "Kasztany",
+    "name": "Chestnuts",
     "uricAcid": 2,
     "purine": 1,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 95,
-    "name": "Kawa",
+    "name": "Coffee",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 96,
-    "name": "Kawior",
+    "name": "Caviar",
     "uricAcid": 144,
     "purine": 60,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 97,
     "name": "Ketchup",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 98,
-    "name": "Kiełbasa biała",
+    "name": "White sausage",
     "uricAcid": 73,
     "purine": 30,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 99,
-    "name": "Kiełbasa smażona cielęca",
+    "name": "Fried veal sausage",
     "uricAcid": 91,
     "purine": 38,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 100,
     "name": "Kiwi",
     "uricAcid": 19,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 101,
-    "name": "Kminek",
+    "name": "Cumin",
     "uricAcid": 240,
     "purine": 100,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 102,
-    "name": "Koncentrat pomidorowy",
+    "name": "Tomato concentrate",
     "uricAcid": 80,
     "purine": 33,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 103,
-    "name": "Konina",
+    "name": "Horsemeat",
     "uricAcid": 200,
     "purine": 83,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 104,
-    "name": "Koperek",
+    "name": "Fennel",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 105,
-    "name": "Kraby",
+    "name": "Crabs",
     "uricAcid": 148,
     "purine": 62,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 106,
-    "name": "Krewetki",
+    "name": "Shrimps",
     "uricAcid": 147,
     "purine": 61,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 107,
-    "name": "Królik",
+    "name": "Rabbit",
     "uricAcid": 105,
     "purine": 44,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 108,
-    "name": "Kukurydza słodka",
+    "name": "Sweet corn",
     "uricAcid": 52,
     "purine": 22,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 109,
-    "name": "Kurczak, nóżki, ze skórą",
+    "name": "Chicken, legs, with skin",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 110,
-    "name": "Kurczak, piersi ze skórą",
+    "name": "Chicken, breast with skin",
     "uricAcid": 175,
     "purine": 73,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 111,
-    "name": "Kurki",
+    "name": "Chanterelles",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Grzyby"
+    "category": "Mushrooms"
   },
   {
     "idProd": 112,
-    "name": "Lin",
+    "name": "Tench",
     "uricAcid": 80,
     "purine": 33,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 113,
-    "name": "Łosoś",
+    "name": "Salmon",
     "uricAcid": 170,
     "purine": 71,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 114,
-    "name": "Łupacz",
+    "name": "Haddock",
     "uricAcid": 139,
     "purine": 58,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 115,
-    "name": "Majonez",
+    "name": "Mayonnaise",
     "uricAcid": 1,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 116,
-    "name": "Mak",
+    "name": "Poppy",
     "uricAcid": 170,
     "purine": 71,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 117,
-    "name": "Makaron pszeniczny",
+    "name": "Wheat pasta",
     "uricAcid": 40,
     "purine": 17,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 118,
-    "name": "Makrela",
+    "name": "Mackerel",
     "uricAcid": 145,
     "purine": 60,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 119,
-    "name": "Maliny",
+    "name": "Raspberries",
     "uricAcid": 18,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 120,
     "name": "Mango",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 121,
-    "name": "Marcepan",
+    "name": "Marzipan",
     "uricAcid": 50,
     "purine": 21,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 122,
-    "name": "Marchew",
+    "name": "Carrots",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 123,
-    "name": "Margaryny",
+    "name": "Margarines",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 124,
-    "name": "Masło",
+    "name": "Butter",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 125,
-    "name": "Mąka pszenna typ 1700",
+    "name": "Wheat flour type 1700",
     "uricAcid": 84,
     "purine": 35,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 126,
-    "name": "Mąka pszenna typ 405",
+    "name": "Wheat flour type 405",
     "uricAcid": 40,
     "purine": 17,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 127,
-    "name": "Mąka razowa",
+    "name": "Wholemeal flour",
     "uricAcid": 84,
     "purine": 35,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 128,
-    "name": "Mąka ryżowa",
+    "name": "Rice flour",
     "uricAcid": 72,
     "purine": 30,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 129,
     "name": "Melon",
     "uricAcid": 33,
     "purine": 14,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 130,
-    "name": "Metka",
+    "name": "The tag",
     "uricAcid": 74,
     "purine": 31,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 131,
-    "name": "Mielonka",
+    "name": "Mince meat",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 132,
-    "name": "Migdały",
+    "name": "Almonds",
     "uricAcid": 37,
     "purine": 15,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 133,
-    "name": "Miód",
+    "name": "Honey",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 134,
-    "name": "Mleko",
+    "name": "Milk",
     "uricAcid": 8,
     "purine": 3,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 135,
-    "name": "Mleko kokosowe",
+    "name": "Coconut milk",
     "uricAcid": 2,
     "purine": 1,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 136,
-    "name": "Mleko zsiadłe",
+    "name": "Curdled milk",
     "uricAcid": 8,
     "purine": 3,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 137,
-    "name": "Morele",
+    "name": "Apricots",
     "uricAcid": 20,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 138,
-    "name": "Morele, suszone",
+    "name": "Apricots, dried",
     "uricAcid": 73,
     "purine": 30,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 139,
-    "name": "Mortadela",
+    "name": "Mortadella",
     "uricAcid": 97,
     "purine": 40,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 140,
-    "name": "Musztarda",
+    "name": "Mustard",
     "uricAcid": 100,
     "purine": 42,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 141,
-    "name": "Natka pietruszki",
+    "name": "Parsley",
     "uricAcid": 57,
     "purine": 24,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 142,
-    "name": "Ogórki",
+    "name": "Cucumbers",
     "uricAcid": 7,
     "purine": 3,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 143,
-    "name": "Ogórki korniszony",
+    "name": "Gherkin cucumbers",
     "uricAcid": 8,
     "purine": 3,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 144,
-    "name": "Okoń",
+    "name": "Perch",
     "uricAcid": 160,
     "purine": 67,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 145,
-    "name": "Oleje roślinne",
+    "name": "Vegetable oils",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 146,
-    "name": "Oliwa z oliwek",
+    "name": "Olive oil",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 147,
-    "name": "Oliwki zielone marynowane",
+    "name": "Pickled green olives",
     "uricAcid": 28,
     "purine": 12,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 148,
-    "name": "Orzechy brazilijskie",
+    "name": "Brazil nuts",
     "uricAcid": 22,
     "purine": 9,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 149,
-    "name": "Orzechy laskowe",
+    "name": "Hazelnuts",
     "uricAcid": 37,
     "purine": 15,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 150,
-    "name": "Orzechy włoskie",
+    "name": "Walnuts",
     "uricAcid": 27,
     "purine": 11,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 151,
-    "name": "Orzeszki ziemne",
+    "name": "Peanuts",
     "uricAcid": 80,
     "purine": 33,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 152,
-    "name": "Ostrygi",
+    "name": "Oysters",
     "uricAcid": 90,
     "purine": 38,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 153,
-    "name": "Ośmiornica",
+    "name": "Octopus",
     "uricAcid": 77,
     "purine": 32,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 154,
-    "name": "Owies (nasiona bez łuski)",
+    "name": "Oats (seeds without husk)",
     "uricAcid": 100,
     "purine": 42,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 155,
-    "name": "Paluszki rybne, mrożone",
+    "name": "Fish sticks, frozen",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 156,
-    "name": "Papaja",
+    "name": "Papaya",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 157,
-    "name": "Papryka czerwona",
+    "name": "Red pepper",
     "uricAcid": 15,
     "purine": 6,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 158,
-    "name": "Papryka zielona",
+    "name": "Green pepper",
     "uricAcid": 55,
     "purine": 23,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 159,
-    "name": "Parówki",
+    "name": "Sausages",
     "uricAcid": 78,
     "purine": 33,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 160,
-    "name": "Pasternak",
+    "name": "Parsnip",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 161,
-    "name": "Pieczarki",
+    "name": "Champignons",
     "uricAcid": 58,
     "purine": 24,
-    "category": "Grzyby"
+    "category": "Mushrooms"
   },
   {
     "idProd": 162,
-    "name": "Pieczywo chrupkie",
+    "name": "Crisp bread",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 163,
-    "name": "Pietruszka",
+    "name": "Parsley",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 164,
-    "name": "Pigwa",
+    "name": "Quince",
     "uricAcid": 30,
     "purine": 13,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 165,
-    "name": "Piwo ciemne",
+    "name": "Dark beer",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 166,
-    "name": "Piwo jasne",
+    "name": "Light beer",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 167,
-    "name": "Piwo pszeniczne",
+    "name": "Wheat beer",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 168,
-    "name": "Piwo typu lager",
+    "name": "Lager beer",
     "uricAcid": 13,
     "purine": 5,
     "category": "Alkohole"
   },
   {
     "idProd": 169,
-    "name": "Piwo, bezalkoholowe",
+    "name": "Beer, non-alcoholic",
     "uricAcid": 8,
     "purine": 3,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 170,
-    "name": "Płatki kukurydziane",
+    "name": "Corn flakes",
     "uricAcid": 64,
     "purine": 27,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 171,
-    "name": "Pomarańcza",
+    "name": "Orange",
     "uricAcid": 19,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 172,
-    "name": "Pomidory",
+    "name": "Tomatoes",
     "uricAcid": 11,
     "purine": 5,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 173,
     "name": "Por",
     "uricAcid": 74,
     "purine": 31,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 174,
-    "name": "Portulka",
+    "name": "Porthole",
     "uricAcid": 26,
     "purine": 11,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 175,
-    "name": "Porzeczka czerwona",
+    "name": "Red currant",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 176,
-    "name": "Proso, mąka",
+    "name": "Millet, flour",
     "uricAcid": 85,
     "purine": 35,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 177,
-    "name": "Pstrąg",
+    "name": "Trout",
     "uricAcid": 297,
     "purine": 124,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 178,
-    "name": "Rabarbar",
+    "name": "Rhubarb",
     "uricAcid": 212,
     "purine": 88,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 179,
-    "name": "Raki",
+    "name": "Crayfish",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 180,
-    "name": "Rodzynki",
+    "name": "Raisins",
     "uricAcid": 108,
     "purine": 45,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 181,
-    "name": "Raszponka",
+    "name": "Corn salad",
     "uricAcid": 38,
     "purine": 16,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 182,
-    "name": "Ryż",
+    "name": "Rice",
     "uricAcid": 35,
     "purine": 15,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 183,
-    "name": "Rzepa",
+    "name": "Turnip",
     "uricAcid": 18,
     "purine": 8,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 184,
-    "name": "Rzeżucha",
+    "name": "Cress",
     "uricAcid": 20,
     "purine": 8,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 185,
-    "name": "Rzodkiewka",
+    "name": "Radish",
     "uricAcid": 15,
     "purine": 6,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 186,
     "name": "Sago",
     "uricAcid": 82,
     "purine": 34,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 187,
     "name": "Salami",
     "uricAcid": 103,
     "purine": 43,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 188,
-    "name": "Salsefia",
+    "name": "Salsify",
     "uricAcid": 70,
     "purine": 29,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 189,
-    "name": "Sałata",
+    "name": "Lettuce",
     "uricAcid": 14,
     "purine": 6,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 190,
-    "name": "Sandacz",
+    "name": "Zander",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 191,
-    "name": "Sardynki",
+    "name": "Sardines",
     "uricAcid": 345,
     "purine": 144,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 192,
-    "name": "Sarnina, udziec",
+    "name": "Venison, leg",
     "uricAcid": 138,
     "purine": 58,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 193,
-    "name": "Seler",
+    "name": "Celery",
     "uricAcid": 30,
     "purine": 13,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 194,
-    "name": "Ser Brie",
+    "name": "Brie Cheese",
     "uricAcid": 7,
     "purine": 3,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 195,
-    "name": "Ser Feta",
+    "name": "Feta Cheese",
     "uricAcid": 30,
     "purine": 13,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 196,
-    "name": "Ser Gouda",
+    "name": "Gouda cheese",
     "uricAcid": 16,
     "purine": 7,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 197,
-    "name": "Ser Mozzarella",
+    "name": "Mozzarella cheese",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 198,
-    "name": "Ser Parmezan",
+    "name": "Parmesan cheese",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 199,
-    "name": "Ser topiony 60% tłuszczu",
+    "name": "Creamed cheese 60% fat",
     "uricAcid": 13,
     "purine": 5,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 200,
-    "name": "Serek wiejski, ziarnisty",
+    "name": "Cottage cheese, grainy",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 201,
-    "name": "Sery pleśniowe",
+    "name": "Moulded cheese",
     "uricAcid": 7,
     "purine": 3,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 202,
-    "name": "Sery żółte",
+    "name": "Yellow cheese",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 203,
-    "name": "Sezam, nasiona suszone",
+    "name": "Sesame, dried seeds",
     "uricAcid": 63,
     "purine": 26,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 204,
-    "name": "Skórka pomarańczowa",
+    "name": "Orange peel",
     "uricAcid": 26,
     "purine": 11,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 205,
-    "name": "Słonecznik, nasiona",
+    "name": "Sunflower, seeds",
     "uricAcid": 43,
     "purine": 18,
-    "category": "Orzechy i nasiona"
+    "category": "Nuts and seeds"
   },
   {
     "idProd": 206,
-    "name": "Smardze",
+    "name": "Morels",
     "uricAcid": 30,
     "purine": 13,
-    "category": "Grzyby"
+    "category": "Mushrooms"
   },
   {
     "idProd": 207,
-    "name": "Soczewica",
+    "name": "Lentils",
     "uricAcid": 127,
     "purine": 53,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 208,
-    "name": "Soja, sucha",
+    "name": "Soybeans, dry",
     "uricAcid": 192,
     "purine": 80,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 209,
-    "name": "Sok grejpfrutowy",
+    "name": "Grapefruit juice",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 210,
-    "name": "Sok jabłkowy",
+    "name": "Apple juice",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 211,
-    "name": "Sok multiwitamina",
+    "name": "Multivitamin juice",
     "uricAcid": 16,
     "purine": 7,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 212,
-    "name": "Sok pomarańczowy",
+    "name": "Orange juice",
     "uricAcid": 12,
     "purine": 5,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 213,
-    "name": "Sok pomidorowy",
+    "name": "Tomato juice",
     "uricAcid": 5,
     "purine": 2,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 214,
-    "name": "Sok z marchwi",
+    "name": "Carrot juice",
     "uricAcid": 5,
     "purine": 2,
-    "category": "Napoje"
+    "category": "Drinks"
   },
   {
     "idProd": 215,
-    "name": "Sola",
+    "name": "Sole fish",
     "uricAcid": 131,
     "purine": 55,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 216,
-    "name": "Sos sojowy",
+    "name": "Soy sauce",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 217,
-    "name": "Suchary",
+    "name": "Rusks",
     "uricAcid": 60,
     "purine": 25,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 218,
-    "name": "Syrop klonowy",
+    "name": "Maple syrup",
     "uricAcid": 5,
     "purine": 2,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 219,
-    "name": "Szampan",
+    "name": "Champagne",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 220,
-    "name": "Szczaw",
+    "name": "Oxalis",
     "uricAcid": 55,
     "purine": 23,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 221,
-    "name": "Szczupak",
+    "name": "Pike.",
     "uricAcid": 140,
     "purine": 58,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 222,
-    "name": "Szczypiorek",
+    "name": "Chives",
     "uricAcid": 67,
     "purine": 28,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 223,
-    "name": "Szparagi",
+    "name": "Asparagus",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 224,
-    "name": "Szpinak",
+    "name": "Spinach",
     "uricAcid": 57,
     "purine": 24,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 225,
-    "name": "Szprotki wędzone",
+    "name": "Smoked sprats",
     "uricAcid": 804,
     "purine": 335,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 226,
-    "name": "Szynka gotowana wieprzowa",
+    "name": "Cooked pork ham",
     "uricAcid": 130,
     "purine": 54,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 227,
-    "name": "Śledź",
+    "name": "Herring",
     "uricAcid": 210,
     "purine": 88,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 228,
-    "name": "Śliwki",
+    "name": "Plums",
     "uricAcid": 24,
     "purine": 10,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 229,
-    "name": "Śliwki mirabelki",
+    "name": "Mirabelle plums",
     "uricAcid": 17,
     "purine": 7,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 230,
-    "name": "Śliwki, suszone",
+    "name": "Plums, dried",
     "uricAcid": 64,
     "purine": 27,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 231,
-    "name": "Tapioka",
+    "name": "Tapioca",
     "uricAcid": 89,
     "purine": 37,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   },
   {
     "idProd": 232,
     "name": "Tofu",
     "uricAcid": 70,
     "purine": 29,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 233,
-    "name": "Truskawki",
+    "name": "Strawberries",
     "uricAcid": 21,
     "purine": 9,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 234,
-    "name": "Tuńczyk",
+    "name": "Tuna fish",
     "uricAcid": 257,
     "purine": 107,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 235,
-    "name": "Twaróg",
+    "name": "Cottage cheese",
     "uricAcid": 10,
     "purine": 4,
-    "category": "Nabiał"
+    "category": "Dairy"
   },
   {
     "idProd": 236,
-    "name": "Wegorz wędzony",
+    "name": "Smoked eel",
     "uricAcid": 80,
     "purine": 33,
-    "category": "Ryby i owoce morza"
+    "category": "Fish and seafood"
   },
   {
     "idProd": 237,
-    "name": "Wieprzowina, golonka",
+    "name": "Pork, knuckle",
     "uricAcid": 160,
     "purine": 67,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 238,
-    "name": "Wieprzowina, karkówka",
+    "name": "Pork, pork neck",
     "uricAcid": 145,
     "purine": 60,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 239,
-    "name": "Wieprzowina, łopatka",
+    "name": "Pork, shoulder",
     "uricAcid": 150,
     "purine": 63,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 240,
-    "name": "Wieprzowina, nerki",
+    "name": "Pork, kidney",
     "uricAcid": 334,
     "purine": 139,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 241,
-    "name": "Wieprzowina, ozory",
+    "name": "Pork, tongues",
     "uricAcid": 136,
     "purine": 57,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 242,
-    "name": "Wieprzowina, polędwica",
+    "name": "Pork, sirloin",
     "uricAcid": 150,
     "purine": 63,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 243,
-    "name": "Wieprzowina, szynka",
+    "name": "Pork, ham",
     "uricAcid": 160,
     "purine": 67,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 244,
-    "name": "Wieprzowina, wątróbka",
+    "name": "Pork, liver",
     "uricAcid": 515,
     "purine": 215,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 245,
-    "name": "Wino",
+    "name": "Wine",
     "uricAcid": 0,
-    "purine": 0,
-    "category": "Alkohole"
+    "urine": 0,
+    "category": "Alcohols"
   },
   {
     "idProd": 246,
-    "name": "Winogrona",
+    "name": "Grapes",
     "uricAcid": 27,
     "purine": 11,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 247,
-    "name": "Wiśnie",
+    "name": "Cherries",
     "uricAcid": 19,
     "purine": 8,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 248,
-    "name": "Wołowina, antrykot",
+    "name": "Beef, entrecote",
     "uricAcid": 120,
     "purine": 50,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 249,
-    "name": "Wołowina, karkówka",
+    "name": "Beef, pork neck",
     "uricAcid": 120,
     "purine": 50,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 250,
-    "name": "Wołowina, łopatka",
+    "name": "Beef, shoulder",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 251,
-    "name": "Wołowina, mostek",
+    "name": "Beef, brisket",
     "uricAcid": 90,
     "purine": 38,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 252,
-    "name": "Wołowina, nerki",
+    "name": "Beef, kidneys",
     "uricAcid": 269,
     "purine": 112,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 253,
-    "name": "Wołowina, ozory",
+    "name": "Beef, tongues",
     "uricAcid": 160,
     "purine": 67,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 254,
-    "name": "Wołowina, płucka",
+    "name": "Beef, lungs",
     "uricAcid": 399,
     "purine": 166,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 255,
-    "name": "Wołowina, polędwica",
+    "name": "Beef, sirloin",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 256,
-    "name": "Wołowina, rostbef",
+    "name": "Beef, roastbeef",
     "uricAcid": 110,
     "purine": 46,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 257,
-    "name": "Wołowina, serca",
+    "name": "Beef, hearts",
     "uricAcid": 256,
     "purine": 107,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 258,
-    "name": "Wołowina, wątróbka",
+    "name": "Beef, liver",
     "uricAcid": 554,
     "purine": 231,
-    "category": "Mięso i produkty mięsne"
+    "category": "Meat and meat products"
   },
   {
     "idProd": 259,
-    "name": "Wódka",
+    "name": "Vodka",
     "uricAcid": 0,
     "purine": 0,
-    "category": "Alkohole"
+    "category": "Alcohols"
   },
   {
     "idProd": 260,
-    "name": "Zając",
+    "name": "Hare",
     "uricAcid": 105,
     "purine": 44,
-    "category": "Drób i dziczyzna"
+    "category": "Poultry and venison"
   },
   {
     "idProd": 261,
-    "name": "Ziemniaki",
+    "name": "Potatoes",
     "uricAcid": 16,
     "purine": 7,
-    "category": "Warzywa"
+    "category": "Vegetables"
   },
   {
     "idProd": 262,
-    "name": "Żelatyna",
+    "name": "Gelatin",
     "uricAcid": 37,
     "purine": 15,
-    "category": "Inne produkty spożywcze"
+    "category": "Other food products"
   },
   {
     "idProd": 263,
-    "name": "Żurawina",
+    "name": "Cranberries",
     "uricAcid": 13,
     "purine": 5,
-    "category": "Owoce"
+    "category": "Fruits"
   },
   {
     "idProd": 264,
-    "name": "Żyto (pełne ziarno)",
+    "name": "Rye (whole grain)",
     "uricAcid": 51,
     "purine": 21,
-    "category": "Produkty zbożowe"
+    "category": "Cereal products"
   }
  ]
