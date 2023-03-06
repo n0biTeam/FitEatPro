@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, StatusBar, ImageBackground, Dimensions, TouchableOpacity, ToastAndroid, Alert, Image } from 'react-native';
-import { Avatar, Appbar } from 'react-native-paper';
+import { Avatar, Appbar, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AuthContext } from '../../navigation/AuthProvider';
@@ -14,6 +14,16 @@ import { ScrollView } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import { UNIT } from '../../styles/units';
 
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.COLORS.WHITE,
+    accent: colors.COLORS.YELLOW,
+  },
+};
 
 const ProfileScreen = ({ navigation }) => {
 
@@ -55,7 +65,7 @@ const ProfileScreen = ({ navigation }) => {
   }, []);
 
    // console.log(isVerified)
-  const [image, setImage] = useState(require('../../assets/images/iconProfileBlue.png'));
+   const [image, setImage] = useState('http://serwer102731.lh.pl/img/iconProfileBlue.png');
   //const [uploading, setUploading] = useState(false);
   //const [transferred, setTransferred] = useState(0);
   
@@ -108,7 +118,7 @@ const ProfileScreen = ({ navigation }) => {
   const imageBG = require('../../assets/images/bg-abstract.jpg');
 
   return (
-    
+    <PaperProvider theme={theme}>
     <SafeAreaProvider>
     <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
       <Appbar.BackAction onPress={_goBack} />
@@ -153,8 +163,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.box}>
       <View style={{marginBottom: spacing.SCALE_10, paddingHorizontal: spacing.SCALE_6, flexDirection: 'row', alignContent: 'center' }}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            {/* <Avatar.Image size={spacing.SCALE_90} source={{uri: userData.userImg != null ? userData.userImg : image }} /> */}
-            <Image source={userData.userImg != null ? userData.userImg : image} style={styles.imageProfile} />
+        <Avatar.Image size={spacing.SCALE_90} source={{uri: userData.userImg != null ? userData.userImg : image }} />
         </View>
      </View>
 
@@ -310,6 +319,7 @@ const ProfileScreen = ({ navigation }) => {
     </ImageBackground>
     </ImageBackground>
     </SafeAreaProvider>
+    </PaperProvider>
   )
 }
 
@@ -375,10 +385,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.COLORS.GREEN,
     padding: spacing.SCALE_8,
     borderRadius: spacing.SCALE_5
-  },
-  imageProfile: {
-    width: spacing.SCALE_90,
-    height: spacing.SCALE_90,
-    
   }
 })

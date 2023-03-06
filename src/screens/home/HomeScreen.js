@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, BackHandler, Alert, Image } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, BackHandler, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { Avatar, Banner, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -36,7 +36,7 @@ const theme = {
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: colors.COLORS.LIGHT_BLUE,
+    primary: colors.COLORS.DEEP_BLUE,
     accent: colors.COLORS.YELLOW,
   },
 };
@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
   
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState('');
-  const [image, setImage] = useState(require('../../assets/images/iconProfileWhite.png'));
+  const [image, setImage] = useState('http://serwer102731.lh.pl/img/iconProfileWhite.png');
   const [loading, setLoading] = useState(true);
   //const refRBSheet = useRef();
   //const [isOpen, setIsOpen] = useState(true);
@@ -729,8 +729,7 @@ const _differenceWeight = () => {
     <View style={{marginTop: StatusBar.currentHeight, paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', alignContent: 'space-around', zIndex: 0 }}>
       <View style={{paddingTop: spacing.SCALE_3, justifyContent: 'center', flex: 1}}>
           <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
-            {/* <Avatar.Image size={isTablet ? spacing.SCALE_40 : spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} /> */}
-            <Image source={userData.userImg != null ? userData.userImg : image} style={styles.imageProfile} />
+              <Avatar.Image size={isTablet ? spacing.SCALE_40 : spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} /> 
           </TouchableOpacity>
       </View>
 
