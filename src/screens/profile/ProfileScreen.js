@@ -170,17 +170,17 @@ const ProfileScreen = ({ navigation }) => {
      <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_10}}>
        <View style={{flex: 1, alignItems: 'flex-end', marginRight: spacing.SCALE_3}}>
         <TouchableOpacity style={styles.btnChangePassword} onPress={changePassword}>
-          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10}}>ZMIANA HASŁA</Text>
+          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('profileScreen.change-password')}</Text>
         </TouchableOpacity>
        </View>
        <View style={{flex: 1, alignItems: 'flex-start', marginLeft: spacing.SCALE_3}}>
         { isVerified === false ? 
         <TouchableOpacity style={styles.btnVerificationAccount} onPress={sendVerificationEmail}>
-          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10}}>ZWERYFIKUJ E-MAIL</Text>
+          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('profileScreen.verify-email')}</Text>
         </TouchableOpacity>
          : 
          <View style={styles.btnVerificationAccountTrue}>
-         <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10}}>E-MAIL ZWERYFIKOWANY</Text>
+         <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('profileScreen.email-verified')}</Text>
        </View>
         
         }

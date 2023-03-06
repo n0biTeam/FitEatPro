@@ -142,11 +142,15 @@
         "profileScreen.first-name-last-name": "NAME AND LAST NAME",
         "profileScreen.other-data": "Other data",
         "profileScreen.current-weight": "CURRENT WEIGHT",
-        "profileScreen.target-weight": "HEIGHT",
+        "profileScreen.target-weight": "WEIGHT",
+        "profileScreen.height": "HEIGHT",
         "profileScreen.gender": "GENDER",
         "profileScreen.women": "WOMAN",
         "profileScreen.men": "MAN",
         "profileScreen.birthday": "DATE OF BIRTH",
+        "profileScreen.change-password": "Password change",
+        "profileScreen.verify-email": "Verify email",
+        "profileScreen.email-verified": "Email verified",
 
         "editProfileScreen.profile-updated": "Profile-updated",
         "editProfileScreen.no-photo-selected": "No photo-selected",
@@ -561,6 +565,22 @@
         "provider.user-account-created": "User-account-created and logged-in",
         "provider.email-already-in-use": "Email-address is already in use",
         "provider.invalid-email": "Email address is invalid",
-        "provider.user-not-found": "No email specified"
+        "provider.user-not-found": "No email specified",
+
+        "settingScreen.unit-setting": "Unit setting",
+        "settingScreen.bay": "Buy / Subscriptions",
+        "settingScreen.please-rate-the-app": "Evaluate application",
+        "settingScreen.privacy-policy": "Privacy Policy",
+        "settingScreen.about.the.app": "About the app",
+
+        "unitSettingScreen.unit-settings": "Unit settings",
+        "unitSettingScreen.body-mass-unit": "Body mass unit",
+        "unitSettingScreen.length-unit": "Length unit",
+        "unitSettingScreen.save": "SAVE",
+        "unitSettingScreen.kg": "Kilograms",
+        "unitSettingScreen.funt": "Pounds",
+        "unitSettingScreen.cm": "Centimeters",
+        "unitSettingScreen.cal": "Inches"
+
     }
 }

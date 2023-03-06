@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions,ToastAndroid } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions, ToastAndroid } from 'react-native'
 import React, {useState, useContext, useEffect} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar, Button, Switch, DefaultTheme, Provider as PaperProvider, } from 'react-native-paper';
@@ -77,17 +77,17 @@ const UnitSettingScreen = ({ navigation }) => {
   
   const _getWeightUnit = (weightUnit) => {
     if(weightUnit === UNIT.KG){
-        return 'Kilogram'
+        return t('unitSettingScreen.kg')
     }else{
-        return 'Funt'
+        return t('unitSettingScreen.funt')
     }
   }
 
   const _getHeightUnit = (growthUnit) => {
     if(growthUnit === UNIT.CM){
-        return 'Centymetr'
+        return t('unitSettingScreen.cm')
     }else{
-        return 'Cale'
+        return t('unitSettingScreen.cal')
     }
   }
 
@@ -106,14 +106,14 @@ const UnitSettingScreen = ({ navigation }) => {
   //console.log(selected)
   //console.log(growthUnit)
   const dataWeidth = [
-      {key: UNIT.KG, value: 'Kilogramy'},
-      {key: UNIT.LB, value: 'Funt'},
+      {key: UNIT.KG, value: t('unitSettingScreen.kg')},
+      {key: UNIT.LB, value: t('unitSettingScreen.funt')},
       // {key:'st', value: 'Stopa'},
   ];
 
   const dataHeight = [
-    {key: UNIT.CM, value: 'Centymetry'},
-    {key: UNIT.IN, value: 'Cale'},
+    {key: UNIT.CM, value: t('unitSettingScreen.cm')},
+    {key: UNIT.IN, value: t('unitSettingScreen.cal')},
     // {key:'ft', value: 'Stopa'},
 ];
 
@@ -147,9 +147,9 @@ const UnitSettingScreen = ({ navigation }) => {
   return (
     <PaperProvider theme={theme}>
     <SafeAreaProvider>
-      <Appbar.Header style={{backgroundColor: '#224870', marginTop: 30}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
-       <Appbar.Content title="Ustawienia jednostek" />
+       <Appbar.Content title={t('unitSettingScreen.unit-settings')} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -183,7 +183,7 @@ const UnitSettingScreen = ({ navigation }) => {
             <View style={styles.container}>
 
                 <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
-                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta masy ciała:</Text>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('unitSettingScreen.body-mass-unit')}:</Text>
                 </View>
                 <View style={{marginHorizontal: spacing.SCALE_6}}>
                    
@@ -224,7 +224,7 @@ const UnitSettingScreen = ({ navigation }) => {
                 </View>
 
                 <View style={{marginVertical: spacing.SCALE_6, marginHorizontal: spacing.SCALE_6}}>
-                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>Jednosta długości:</Text>
+                    <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('unitSettingScreen.length-unit')}:</Text>
                 </View>
                 <View style={{marginHorizontal: spacing.SCALE_6}}>
                    
@@ -305,7 +305,7 @@ const UnitSettingScreen = ({ navigation }) => {
 
                 <View style={{marginHorizontal: spacing.SCALE_6, marginTop: spacing.SCALE_10}}>
                 <Button mode="contained" color={colors.COLORS.DEEP_BLUE} onPress={_updateUnit}>
-                    ZAPISZ
+                    {t('unitSettingScreen.save')}
                 </Button>
                 </View>
                 

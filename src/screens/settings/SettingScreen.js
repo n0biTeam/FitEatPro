@@ -7,12 +7,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { version } from '../../styles/constants';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { useTranslation } from 'react-i18next';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
 const SettingScreen = ({ route, navigation }) => {
   
   //const _goBack = () => navigation.navigate('GlycemicIndex');
+  const {t, i18n} = useTranslation();
  
   const openPlayStore = () => {
 
@@ -62,7 +64,7 @@ const SettingScreen = ({ route, navigation }) => {
                             <MaterialCommunityIcons name='cog' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                            <Text style={styles.text}>Ustawienie jednostek</Text>
+                            <Text style={styles.text}>{t('settingScreen.unit-setting')}</Text>
                         </View>
                         <View style={{justifyContent: 'center'}}>
                             <MaterialCommunityIcons name='chevron-right' size={25} />
@@ -78,7 +80,7 @@ const SettingScreen = ({ route, navigation }) => {
                             <MaterialCommunityIcons name='cart-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                            <Text style={styles.text}>Kup / Subskrypcje</Text>
+                            <Text style={styles.text}>{t('settingScreen.bay')}</Text>
                         </View>
                         <View style={{justifyContent: 'center'}}>
                             <MaterialCommunityIcons name='chevron-right' size={25} />
@@ -94,7 +96,7 @@ const SettingScreen = ({ route, navigation }) => {
                             <MaterialCommunityIcons name='star-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                            <Text style={styles.text}>Oceń aplikację</Text>
+                            <Text style={styles.text}>{t('settingScreen.please-rate-the-app')}</Text>
                         </View>
                         <View style={{justifyContent: 'center'}}>
                             <MaterialCommunityIcons name='chevron-right' size={25} />
@@ -108,7 +110,7 @@ const SettingScreen = ({ route, navigation }) => {
                             <MaterialCommunityIcons name='eye-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                            <Text style={styles.text}>Polityka prywatności</Text>
+                            <Text style={styles.text}>{t('settingScreen.privacy-policy')}</Text>
                         </View>
                         <View style={{justifyContent: 'center'}}>
                             <MaterialCommunityIcons name='chevron-right' size={25} />
@@ -122,7 +124,7 @@ const SettingScreen = ({ route, navigation }) => {
                             <MaterialCommunityIcons name='information-outline' size={25} color={colors.COLORS.DEEP_BLUE} />
                         </View>
                         <View style={{justifyContent: 'center', marginLeft: spacing.SCALE_10, flex: 1}}>
-                            <Text style={styles.text}>O aplikacji</Text>
+                            <Text style={styles.text}>{t('settingScreen.about.the.app')}</Text>
                         </View>
                         <View style={{justifyContent: 'center'}}>
                             <MaterialCommunityIcons name='chevron-right' size={25} />

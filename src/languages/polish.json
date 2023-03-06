@@ -148,6 +148,9 @@
         "profileScreen.women": "Kobieta",
         "profileScreen.men": "Mężczyzna",
         "profileScreen.birthday": "DATA URZODZENIA",
+        "profileScreen.change-password": "Zmiana hasła",
+        "profileScreen.verify-email": "Zweryfikuj e-mail",
+        "profileScreen.email-verified": "E-mail zweryfikowany",
 
 
         "editProfileScreen.profile-updated": "Zaktualizowano profil",
@@ -563,6 +566,22 @@
         "provider.user-account-created": "Konto użytkownika utworzone i zalogowano się",
         "provider.email-already-in-use": "Adres-e-mail jest już używany",
         "provider.invalid-email": "Adres e-mail jest nieprawidłowy",
-        "provider.user-not-found": "Brak podanego e-maila"
+        "provider.user-not-found": "Brak podanego e-maila",
+
+        "settingScreen.unit-setting": "Ustawienie jednostek",
+        "settingScreen.bay": "Kup / Subskrypcje",
+
+        "settingScreen.please-rate-the-app": "Oceń aplikację",
+        "settingScreen.privacy-policy": "Polityka prywatności",
+        "settingScreen.about.the.app": "O aplikacji",
+
+        "unitSettingScreen.unit-settings": "Ustawienia jednostek",
+        "unitSettingScreen.body-mass-unit": "Jednosta masy ciała",
+        "unitSettingScreen.length-unit": "Jednotka długości",
+        "unitSettingScreen.save": "ZAPISZ",
+        "unitSettingScreen.kg": "Kilogram",
+        "unitSettingScreen.funt": "Funt",
+        "unitSettingScreen.cm": "Centrymetr",
+        "unitSettingScreen.cal": "Cale"
     }
 }
