@@ -839,7 +839,7 @@ const _differenceWeight = () => {
       </View>
     </View>
 
-    <View style={{flex: 1, marginRight: scale(spacing.SCALE_10), justifyContent: 'flex-start', alignItems: 'flex-end', marginTop: isTablet ? 0 : scale(-spacing.SCALE_30)}}>
+    <View style={{flex: 1, marginRight: scale(spacing.SCALE_10), justifyContent: 'flex-start', alignItems: 'flex-end', marginTop: isTablet ? 0 : scale(-spacing.SCALE_20)}}>
       {netConnect()}
       {netInfoType()}
     </View>
