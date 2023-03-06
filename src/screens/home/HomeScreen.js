@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, BackHandler, Alert } from 'react-native';
+import { View, Text, StatusBar, ImageBackground, Dimensions, TouchableOpacity, StyleSheet, BackHandler, Alert, Image } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { Avatar, Banner, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
   
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState('');
-  const [image, setImage] = useState('https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg');
+  const [image, setImage] = useState(require('../../assets/images/iconProfileWhite.png'));
   const [loading, setLoading] = useState(true);
   //const refRBSheet = useRef();
   //const [isOpen, setIsOpen] = useState(true);
@@ -729,7 +729,8 @@ const _differenceWeight = () => {
     <View style={{marginTop: StatusBar.currentHeight, paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', alignContent: 'space-around', zIndex: 0 }}>
       <View style={{paddingTop: spacing.SCALE_3, justifyContent: 'center', flex: 1}}>
           <TouchableOpacity onPress={()=> {navigation.navigate('Profile')}}>
-            <Avatar.Image size={isTablet ? spacing.SCALE_40 : spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} />
+            {/* <Avatar.Image size={isTablet ? spacing.SCALE_40 : spacing.SCALE_50} source={{uri: userData.userImg != null ? userData.userImg : image }} /> */}
+            <Image source={userData.userImg != null ? userData.userImg : image} style={styles.imageProfile} />
           </TouchableOpacity>
       </View>
 
@@ -1000,4 +1001,10 @@ const styles = StyleSheet.create({
     fontSize: 8,
     fontWeight: 'bold',
   },
+  imageProfile: {
+    width: spacing.SCALE_50,
+    height: spacing.SCALE_50,
+    //backgroundColor: colors.COLORS.LIGHT_GREY,
+    //borderRadius: spacing.SCALE_25
+  }
 });

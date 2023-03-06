@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { StyleSheet, Text, View, StatusBar, ImageBackground, Dimensions, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, ImageBackground, Dimensions, TouchableOpacity, ToastAndroid, Alert, Image } from 'react-native';
 import { Avatar, Appbar } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -55,7 +55,7 @@ const ProfileScreen = ({ navigation }) => {
   }, []);
 
    // console.log(isVerified)
-  const [image, setImage] = useState('https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg');
+  const [image, setImage] = useState(require('../../assets/images/iconProfileBlue.png'));
   //const [uploading, setUploading] = useState(false);
   //const [transferred, setTransferred] = useState(0);
   
@@ -153,7 +153,8 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.box}>
       <View style={{marginBottom: spacing.SCALE_10, paddingHorizontal: spacing.SCALE_6, flexDirection: 'row', alignContent: 'center' }}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Avatar.Image size={spacing.SCALE_90} source={{uri: userData.userImg != null ? userData.userImg : image }} />
+            {/* <Avatar.Image size={spacing.SCALE_90} source={{uri: userData.userImg != null ? userData.userImg : image }} /> */}
+            <Image source={userData.userImg != null ? userData.userImg : image} style={styles.imageProfile} />
         </View>
      </View>
 
@@ -374,5 +375,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.COLORS.GREEN,
     padding: spacing.SCALE_8,
     borderRadius: spacing.SCALE_5
+  },
+  imageProfile: {
+    width: spacing.SCALE_90,
+    height: spacing.SCALE_90,
+    
   }
 })
