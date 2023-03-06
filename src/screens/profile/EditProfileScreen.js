@@ -320,11 +320,11 @@ const EditProfileScreen = ({ navigation }) => {
                ? image 
                : userData 
                ? userData.userImg || 
-              'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'
-              : 'https://primacgurus.org.au/wp-content/uploads/2021/01/No-Profile-image.jpg'
+              'http://serwer102731.lh.pl/img/iconProfileGrey.png'
+              : 'http://serwer102731.lh.pl/img/iconProfileGrey.png'
               }}
             style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
-            imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.LIGHT_BLUE}}
+            imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.DEEP_BLUE}}
           >
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <MaterialCommunityIcons name='camera' color={colors.COLORS.WHITE} size={35}
