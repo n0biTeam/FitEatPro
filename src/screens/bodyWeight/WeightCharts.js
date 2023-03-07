@@ -13,7 +13,7 @@ import { Rect, Text as TextSVG, Svg } from "react-native-svg";
 import { colors, spacing, typography } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
-
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const WeightCharts = ({ navigation }) => {
 
@@ -207,8 +207,8 @@ const WeightCharts = ({ navigation }) => {
        
       ]
     }}
-    width={Dimensions.get("window").width-12} // from react-native
-    height={220}
+    width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
+    height={isTablet ? 420 : 220}
     yAxisLabel=""
     yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
@@ -255,8 +255,8 @@ const WeightCharts = ({ navigation }) => {
                   ],
                   legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
-                  width={Dimensions.get("window").width-12} // from react-native
-                  height={200}
+                  width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
+                  height={isTablet ? 400 : 200}
                   yAxisLabel=""
                   yAxisSuffix={' ' + userData.weightUnit}
                   yAxisInterval={1} // optional, defaults to 1
@@ -339,8 +339,8 @@ const WeightCharts = ({ navigation }) => {
                   ],
                   legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
-                  width={Dimensions.get("window").width-12} // from react-native
-                  height={200}
+                  width={ isTablet ? Dimensions.get("window").width-50 : Dimensions.get("window").width-12} // from react-native
+                  height={isTablet ? 400 : 200}
                   yAxisLabel=""
                   yAxisSuffix={' ' + userData.weightUnit}
                   yAxisInterval={1} // optional, defaults to 1

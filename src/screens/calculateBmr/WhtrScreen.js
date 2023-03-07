@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -230,7 +231,7 @@ const WhtrScreen = ({ navigation }) => {
   >
     <View style={styles.rootContainer}>
       <View style={{}}>
-        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: typography.FONT_SIZE_14}}>{t('whtrScreen.whtr-ratio')}</Text>
+        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_14)}}>{t('whtrScreen.whtr-ratio')}</Text>
       </View>
         <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.WHITE}}>{t('whtrScreen.enter-values')}</Text>
       <View style={{flexDirection: 'row'}}>
@@ -261,20 +262,20 @@ const WhtrScreen = ({ navigation }) => {
 
       <View style={{ marginTop: spacing.SCALE_6, elevation: 5, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: 5, borderTopEndRadius: 5}}>
             <View style={{padding: spacing.SCALE_10}}>
-              <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('whtrScreen.gender')}</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('whtrScreen.gender')}</Text>
             </View>
             <View style={{marginLeft: spacing.SCALE_10, marginTop: -spacing.SCALE_5, marginBottom: spacing.SCALE_10}}>
             { userData.gender === 1 ? 
                 ( 
                 <View style={{flexDirection: 'row'}}>
-                  <MaterialCommunityIcons name='gender-female' size={spacing.SCALE_22} color={colors.COLORS.GREEN} />
+                  <MaterialCommunityIcons name='gender-female' size={isTablet ? spacing.SCALE_12 : spacing.SCALE_22} color={colors.COLORS.GREEN} />
                   <Text style={{marginLeft: spacing.SCALE_10, marginTop: spacing.SCALE_3}}>{t('whtrScreen.women')}</Text>
                 </View>
                  ) 
                 :
                 (
                 <View style={{flexDirection: 'row'}}>
-                  <MaterialCommunityIcons name='gender-male' size={spacing.SCALE_22} color={colors.COLORS.GREEN} />
+                  <MaterialCommunityIcons name='gender-male' size={isTablet ? spacing.SCALE_12 : spacing.SCALE_22} color={colors.COLORS.GREEN} />
                   <Text style={{marginLeft: spacing.SCALE_10, marginTop: spacing.SCALE_3}}>{t('whtrScreen.men')}</Text>
                 </View>
                  ) 
@@ -297,13 +298,13 @@ const WhtrScreen = ({ navigation }) => {
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}
-            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_35, marginBottom: -spacing.SCALE_8 }}
+            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_35), marginBottom: -spacing.SCALE_8 }}
             activeStrokeColor={colorWHtR(sumWHtR)}
             inActiveStrokeColor={colors.COLORS.GREY_999}
             duration={1000}
             title={'WHtR'}
             titleColor={colors.COLORS.DEEP_BLUE}
-            titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_15}}
+            titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_15)}}
             dashedStrokeConfig={{
                 count: 60,
                 width: 8,

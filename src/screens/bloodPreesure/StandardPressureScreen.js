@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, spacing, typography } from '../../styles';
 import { useTranslation } from 'react-i18next';
-
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const StandardPressureScreen = ({ route, navigation }) => {
   
@@ -41,7 +41,7 @@ const StandardPressureScreen = ({ route, navigation }) => {
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -211,29 +211,29 @@ const styles = StyleSheet.create({
     },
     title: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_14,
+        fontSize: fontScale(typography.FONT_SIZE_14),
         fontWeight: 'bold',
         textTransform: 'uppercase'
     },
     rowText: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         fontWeight: 'bold',
         textTransform: 'uppercase'
     },
     rowText1: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         
     },
     rowText2: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         fontWeight: 'bold'
     },
     rowText3: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         fontWeight: 'bold'
     }
 })

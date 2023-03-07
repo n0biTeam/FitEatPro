@@ -14,6 +14,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import { UNIT } from '../../styles/units';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -180,7 +181,7 @@ const BmrScreen = ({ navigation }) => {
   >
     <View style={styles.rootContainer}>
     <View style={{}}>
-        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: typography.FONT_SIZE_16}}>{t('bmrScreen.calorie-calculator')}</Text>
+        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16)}}>{t('bmrScreen.calorie-calculator')}</Text>
       </View>
       
       <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.WHITE}}>{t('bmrScreen.enter-values')}</Text>
@@ -226,22 +227,22 @@ const BmrScreen = ({ navigation }) => {
 
         <View style={{flex: 1, marginLeft: spacing.SCALE_3, elevation: 5, backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: 5, borderTopEndRadius: 5}}>
             
-            <View style={{padding: spacing.SCALE_10}}>
-              <Text style={{fontSize: 12}}>{t('bmrScreen.gender')}</Text>
+            <View style={{padding: isTablet ? spacing.SCALE_5 : spacing.SCALE_10}}>
+              <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('bmrScreen.gender')}</Text>
             </View>
-            <View style={{marginLeft: spacing.SCALE_10, marginTop: -spacing.SCALE_5}}>
+            <View style={{marginLeft: spacing.SCALE_10, marginTop: isTablet ? -spacing.SCALE_5 : -spacing.SCALE_5}}>
             { userData.gender === 1 ? 
               (
                 <View style={{flexDirection: 'row'}}>
-                <MaterialCommunityIcons name='gender-female' size={spacing.SCALE_22} color={colors.COLORS.GREEN} />
+                <MaterialCommunityIcons name='gender-female' size={ spacing.SCALE_22} color={colors.COLORS.GREEN} />
                 <Text style={{marginLeft: spacing.SCALE_10, marginTop: spacing.SCALE_3}}>{t('bmrScreen.women')}</Text>
               </View>
                ) 
               :
               (
               <View style={{flexDirection: 'row'}}>
-                <MaterialCommunityIcons name='gender-male' size={spacing.SCALE_22} color={colors.COLORS.GREEN} />
-                <Text style={{marginLeft: spacing.SCALE_10, marginTop: spacing.SCALE_3}}>{t('bmrScreen.men')}</Text>
+                <MaterialCommunityIcons name='gender-male' size={ isTablet ? spacing.SCALE_10 : spacing.SCALE_22} color={colors.COLORS.GREEN} />
+                <Text style={{marginLeft: spacing.SCALE_10, marginTop: isTablet ? 0 : spacing.SCALE_3}}>{t('bmrScreen.men')}</Text>
               </View>
               )
               }
@@ -315,13 +316,13 @@ const BmrScreen = ({ navigation }) => {
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}
-            progressValueStyle={{ color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_20, marginBottom: -spacing.SCALE_8 }}
+            progressValueStyle={{ color: colors.COLORS.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_20), marginBottom: isTablet ? -spacing.SCALE_4 : -spacing.SCALE_8 }}
             activeStrokeColor={colors.BMI.BMI_3}
             inActiveStrokeColor={colors.COLORS.GREY_999}
             duration={4000}
             title={'kcal/dzień'}
             titleColor={colors.COLORS.DEEP_BLUE}
-            titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}
+            titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_12), color: colors.TEXT.DEEP_BLUE}}
             dashedStrokeConfig={{
                 count: 40,
                 width: 7,
@@ -343,13 +344,13 @@ const BmrScreen = ({ navigation }) => {
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}
-            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_20, marginBottom: -spacing.SCALE_8 }}
+            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_20), marginBottom: isTablet ? -spacing.SCALE_4 : -spacing.SCALE_8 }}
             activeStrokeColor={colors.BMI.BMI_4}
             inActiveStrokeColor={colors.COLORS.GREY_999}
             duration={3000}
             title={'kcal/dzień'}
             titleColor={colors.COLORS.DEEP_BLUE}
-            titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_12}}
+            titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_12)}}
             dashedStrokeConfig={{
                 count: 40,
                 width: 7,
@@ -404,12 +405,12 @@ input: {
     color: colors.TEXT.WHITE
   },
   textTitle: {
-    fontSize: typography.FONT_SIZE_18,
+    fontSize: fontScale(typography.FONT_SIZE_18),
     color: colors.TEXT.DEEP_BLUE,
     fontWeight: 'bold'
 
   },
   textSubtitle: {
-    fontSize: typography.FONT_SIZE_12,
+    fontSize: fontScale(typography.FONT_SIZE_12),
   }
 });

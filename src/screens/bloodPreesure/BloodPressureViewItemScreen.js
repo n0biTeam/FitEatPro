@@ -10,6 +10,7 @@ import DatePicker from 'react-native-date-picker';
 import { format } from 'date-fns';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const BloodPressureViewItemScreen = ({ route, navigation }) => {
   
@@ -296,7 +297,7 @@ const alertHandler = () => {
   
   return (
     <SafeAreaProvider style={{flex: 1}}>
-      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_33}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('bloodPressureViewScreen.title')} />
        <Appbar.Action icon="clipboard-edit-outline" onPress={() => 
@@ -326,7 +327,7 @@ const alertHandler = () => {
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -340,10 +341,10 @@ const alertHandler = () => {
                 <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
                 
                     <View>
-                        <MaterialCommunityIcons name='clock-time-five' size={spacing.SCALE_14} color={colors.COLORS.DEEP_BLUE} />
+                        <MaterialCommunityIcons name='clock-time-five' size={ isTablet ? spacing.SCALE_8 : spacing.SCALE_14} color={colors.COLORS.DEEP_BLUE} />
                     </View>
                     <View>
-                        <Text style={{marginLeft: spacing.SCALE_3, fontSize: typography.FONT_SIZE_11, color: colors.TEXT.DEEP_BLUE}}>{format(dataItem.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
+                        <Text style={{marginLeft: spacing.SCALE_3, fontSize: fontScale(typography.FONT_SIZE_11), color: colors.TEXT.DEEP_BLUE}}>{format(dataItem.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
                     </View>
 
                 </View>
@@ -361,23 +362,23 @@ const alertHandler = () => {
                     
                       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2 }}>
                           <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.RED}}>{t('bloodPressureScreen.sys')}</Text>
-                            <Text style={{fontSize: typography.FONT_SIZE_30, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{dataItem.systolic} </Text> 
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.RED}}>{t('bloodPressureScreen.sys')}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_30), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{dataItem.systolic} </Text> 
                           </View>
 
                           <View style={{alignItems: 'center'}}>
                             <Text></Text>
-                             <Text style={{fontSize: typography.FONT_SIZE_18}}>/</Text>
+                             <Text style={{fontSize: fontScale(typography.FONT_SIZE_18)}}>/</Text>
                           </View>
 
                           <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.ORANGE}}>{t('bloodPressureScreen.dia')}</Text>
-                            <Text style={{fontSize: typography.FONT_SIZE_30, color: colors.TEXT.BLACK, fontWeight: 'bold'}}> {dataItem.diastolic}</Text> 
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.ORANGE}}>{t('bloodPressureScreen.dia')}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_30), color: colors.TEXT.BLACK, fontWeight: 'bold'}}> {dataItem.diastolic}</Text> 
                          </View>
 
                          <View style={{alignItems: 'center'}}>
                             <Text></Text>
-                            <Text style={{fontSize: typography.FONT_SIZE_14}}> mmHg</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_14)}}> mmHg</Text>
                          </View>
 
                       </View>
@@ -385,13 +386,13 @@ const alertHandler = () => {
                       
                       <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
                         <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                           <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.LIGHT_BLUE}}>{t('bloodPressureScreen.pulse')}</Text>
-                           <Text style={{fontSize: typography.FONT_SIZE_30, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{dataItem.pulse}</Text> 
+                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.LIGHT_BLUE}}>{t('bloodPressureScreen.pulse')}</Text>
+                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_30), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{dataItem.pulse}</Text> 
                         </View>
 
                          <View style={{alignItems: 'center'}}>
                            <Text></Text>
-                           <Text style={{fontSize: typography.FONT_SIZE_14}}> {t('bloodPressureScreen.bpm')}</Text>
+                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_14)}}> {t('bloodPressureScreen.bpm')}</Text>
                         </View>
                       </View>
                     
@@ -436,16 +437,16 @@ const styles = StyleSheet.create({
       text: {
         textTransform: 'uppercase',
         color: colors.TEXT.BLACK,
-        fontSize: typography.FONT_SIZE_12
+        fontSize: fontScale(typography.FONT_SIZE_12)
       },
       textMessage1: {
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         fontWeight: 'bold',
         color: colors.TEXT.BLACK,
         textTransform: 'uppercase',
       },
       textMessage2: {
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         fontWeight: 'bold',
         color: colors.TEXT.WHITE,
         textTransform: 'uppercase',

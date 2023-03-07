@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -203,7 +204,7 @@ const BmiScreen = ({ navigation }) => {
     <View style={styles.rootContainer}>
 
       <View style={{}}>
-        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: typography.FONT_SIZE_16}}>{t('bmiScreen.body-mass-index')}</Text>
+        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16)}}>{t('bmiScreen.body-mass-index')}</Text>
       </View>
       <ScrollView>
         <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.WHITE}}>{t('bmiScreen.enter-values')}</Text>
@@ -247,13 +248,13 @@ const BmiScreen = ({ navigation }) => {
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}
-            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_35, marginBottom: -spacing.SCALE_8 }}
+            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_35), marginBottom: -spacing.SCALE_8 }}
             activeStrokeColor={colorBMI(sumBMI)}
             inActiveStrokeColor={colors.COLORS.GREY_999}
             duration={5000}
             title={'BMI'}
             titleColor={colors.COLORS.DEEP_BLUE}
-            titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_15}}
+            titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_15)}}
             dashedStrokeConfig={{
                 count: 60,
                 width: 8,
@@ -314,12 +315,12 @@ const styles = StyleSheet.create({
         color: colors.TEXT.WHITE
       },
       textTitle: {
-        fontSize: typography.FONT_SIZE_18,
+        fontSize: fontScale(typography.FONT_SIZE_18),
         color: colors.TEXT.DEEP_BLUE,
         fontWeight: 'bold'
 
       },
       textSubtitle: {
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
       }
 });

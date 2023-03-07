@@ -10,6 +10,7 @@ import DatePicker from 'react-native-date-picker';
 import { format } from 'date-fns';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const GlucoseViewItemScreen = ({ route, navigation }) => {
   
@@ -48,25 +49,25 @@ const lastGlucose = () => {
     if((dataItem.glucoseMg >= 70) && (dataItem.glucoseMg <= 99)){
       return(
         <View style={{backgroundColor: colors.GLUCOSE.G1, padding: 5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-          <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.value-normal')}</Text>
+          <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.value-normal')}</Text>
         </View>
       )
     } else if((dataItem.glucoseMg >= 100) && (dataItem.glucoseMg <= 125)){
       return(
         <View style={{backgroundColor: colors.GLUCOSE.G2, padding: 5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-          <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.pre-diabetes')}</Text>
+          <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.pre-diabetes')}</Text>
         </View>
       )
     } else if(dataItem.glucoseMg > 126){
         return(
           <View style={{backgroundColor: colors.GLUCOSE.G3, padding: 5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-            <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.diabetes')}</Text>
+            <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.diabetes')}</Text>
           </View>
         )
     }else{
       return(
           <View style={{backgroundColor: colors.GLUCOSE.G4, padding: 5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-          <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.measurement-error')}</Text>
+          <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.measurement-error')}</Text>
         </View>
       )
     }
@@ -161,7 +162,7 @@ const alertHandler = () => {
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -175,10 +176,10 @@ const alertHandler = () => {
                 <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
                 
                     <View>
-                        <MaterialCommunityIcons name='clock-time-five' size={spacing.SCALE_14} color={colors.COLORS.DEEP_BLUE} />
+                        <MaterialCommunityIcons name='clock-time-five' size={ isTablet ? spacing.SCALE_8 : spacing.SCALE_14} color={colors.COLORS.DEEP_BLUE} />
                     </View>
                     <View>
-                        <Text style={{marginLeft: spacing.SCALE_3, fontSize: typography.FONT_SIZE_11, color: colors.TEXT.DEEP_BLUE}}>{format(dataItem.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
+                        <Text style={{marginLeft: spacing.SCALE_3, fontSize: fontScale(typography.FONT_SIZE_11), color: colors.TEXT.DEEP_BLUE}}>{format(dataItem.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
                     </View>
 
                 </View>
@@ -198,22 +199,22 @@ const alertHandler = () => {
                 <View style={{flexDirection: 'row'}}>
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
                         <View style={{}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_30, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{dataItem.glucoseMg}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_30), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{dataItem.glucoseMg}</Text>
                         </View>
 
                         <View style={{justifyContent: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_14}}> mg/dL</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_14)}}> mg/dL</Text>
                         </View>
 
                     </View>
 
                     <View style={{flexDirection: 'row', flex: 1, justifyContent: 'center'}}>
                         <View>
-                            <Text style={{fontSize: typography.FONT_SIZE_30, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{(dataItem.glucoseMmol).toFixed(1)}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_30), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{(dataItem.glucoseMmol).toFixed(1)}</Text>
                         </View>
 
                         <View style={{justifyContent: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_14}}> mmol/L</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_14)}}> mmol/L</Text>
                         </View>
 
                     </View>
@@ -254,6 +255,6 @@ const styles = StyleSheet.create({
       text: {
         textTransform: 'uppercase',
         color: colors.TEXT.BLACK,
-        fontSize: typography.FONT_SIZE_12
+        fontSize: fontScale(typography.FONT_SIZE_12)
       }
 })

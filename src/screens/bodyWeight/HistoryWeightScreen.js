@@ -11,6 +11,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { scaleFont } from '../../styles/mixins';
 
 const HistoryWeightScreen = ({ navigation }) => {
 
@@ -45,29 +47,7 @@ const HistoryWeightScreen = ({ navigation }) => {
         })
       };
 
-      // const getWeight = () => {
-      //   firestore().collection('users').doc(user.uid).collection('weightLog')
-      //     .orderBy('createdAt', 'desc')
-      //     //.limit(1)
-      //     .onSnapshot(
-      //        querySnapshot => {
-      //         const dataWeight = [];
-      //           querySnapshot.forEach(doc => {
-      //           //console.log('User data: ', doc.data());
-      //            if( doc.exists ) {
-      //             dataWeight.push({...doc.data(), id: doc.id}); 
-                  
-      //            }
-      //            setDataWeight(dataWeight);
-      //           });
-      //           },
-      //             error => {
-      //              console.log(error)
-      //           }
-            
-      //     )
-      // }
-
+     
       const onResult = (querySnapshot) => {
         const dataWeight = [];
           querySnapshot.forEach(function(doc) {
@@ -102,11 +82,11 @@ const HistoryWeightScreen = ({ navigation }) => {
         }
         else if(item.difference > 0 ){
             return (
-                <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.difference).toFixed(2)}</Text>
+                <Text style={{color: colors.TEXT.RED, fontSize: scaleFont(typography.FONT_SIZE_13)}}>+{ (item.difference).toFixed(2)}</Text>
             )
         }else{
             return (
-                <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.difference).toFixed(2)}</Text>
+                <Text style={{color: colors.TEXT.GREEN, fontSize: scaleFont(typography.FONT_SIZE_13)}}>{ (item.difference).toFixed(2)}</Text>
             )
         }
 
@@ -298,7 +278,7 @@ const HistoryWeightScreen = ({ navigation }) => {
         <BigList
               data={dataWeight}
               onEndReachedThreshold={1}
-              itemHeight={50}
+              itemHeight={isTablet ?  70 : 50}
               renderItem={({item}) => (
                 <TouchableOpacity 
                 onPress={() => {
@@ -311,8 +291,8 @@ const HistoryWeightScreen = ({ navigation }) => {
                   <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY, paddingBottom: spacing.SCALE_6, marginTop: spacing.SCALE_6}}>
                   
                   <View style={{flex: 1, alignItems: 'flex-start', marginLeft: spacing.SCALE_10}}>
-                        <Text style={{fontSize: typography.FONT_SIZE_12}}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}</Text>
-                        <Text style={{fontSize: typography.FONT_SIZE_10}}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
+                        <Text style={{fontSize: scaleFont(typography.FONT_SIZE_12)}}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}</Text>
+                        <Text style={{fontSize: scaleFont(typography.FONT_SIZE_10)}}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
                      </View>
 
                      <View style={{flex: 1, alignItems: 'center', flexDirection: 'row'}}>
@@ -323,7 +303,7 @@ const HistoryWeightScreen = ({ navigation }) => {
                             }
                         </View>
                         <View style={{alignItems: 'center'}}>
-                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>
+                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: scaleFont(typography.FONT_SIZE_16), fontWeight: 'bold'}}>
                               {/* {Number(item.currentWeight).toFixed(2)} */}
                               { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
                               { userData.weightUnit === UNIT.LB && Number(item.currentWeightLB).toFixed(2) }
@@ -333,7 +313,7 @@ const HistoryWeightScreen = ({ navigation }) => {
                      </View>
 
                      <View style={{flex: 1, alignItems: 'center'}}>
-                        <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>{(item.bmi).toFixed(1)}</Text>
+                        <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: scaleFont(typography.FONT_SIZE_16), fontWeight: 'bold'}}>{(item.bmi).toFixed(1)}</Text>
                         {textBMI(item)}
                      </View>
 
@@ -348,7 +328,7 @@ const HistoryWeightScreen = ({ navigation }) => {
             ) : (
                 // <ActivityIndicator size="large" color={colors.COLORS.DEEP_BLUE} />
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('historyWeightScreen.empty-data')}</Text>
+                  <Text style={{fontSize: scaleFont(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{t('historyWeightScreen.empty-data')}</Text>
                 </View>
               )
             }
@@ -382,9 +362,9 @@ const styles = StyleSheet.create({
     textTitle: {
         color: colors.TEXT.DEEP_BLUE,
         fontWeight: 'bold', 
-        fontSize: typography.FONT_SIZE_14
+        fontSize: scaleFont(typography.FONT_SIZE_14)
     },
     textA: {
-        fontSize: typography.FONT_SIZE_10,
+        fontSize: scaleFont(typography.FONT_SIZE_12),
       },
 })

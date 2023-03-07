@@ -13,6 +13,7 @@ import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import BigList from "react-native-big-list";
 import { UNIT } from '../../styles/units';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const theme = {
   ...DefaultTheme,
@@ -211,11 +212,11 @@ const [isExtended, setIsExtended] = useState(true);
       
       if(userData.weightUnit === UNIT.KG){
          return (
-            <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.difference).toFixed(2)}</Text>
+            <Text style={{color: colors.TEXT.RED, fontSize: fontScale(typography.FONT_SIZE_13)}}>+{ (item.difference).toFixed(2)}</Text>
         )
       }else{
         return (
-          <Text style={{color: colors.TEXT.RED, fontSize: typography.FONT_SIZE_13}}>+{ (item.differenceLB).toFixed(2)}</Text>
+          <Text style={{color: colors.TEXT.RED, fontSize: fontScale(typography.FONT_SIZE_13)}}>+{ (item.differenceLB).toFixed(2)}</Text>
       )
       }
        
@@ -224,11 +225,11 @@ const [isExtended, setIsExtended] = useState(true);
       
         if(userData.weightUnit === UNIT.KG){
           return (
-            <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.difference).toFixed(2)}</Text>
+            <Text style={{color: colors.TEXT.GREEN, fontSize: fontScale(typography.FONT_SIZE_13)}}>{ (item.difference).toFixed(2)}</Text>
         )
       }else{
         return (
-          <Text style={{color: colors.TEXT.GREEN, fontSize: typography.FONT_SIZE_13}}>{ (item.differenceLB).toFixed(2)}</Text>
+          <Text style={{color: colors.TEXT.GREEN, fontSize: fontScale(typography.FONT_SIZE_13)}}>{ (item.differenceLB).toFixed(2)}</Text>
       )
      }
     }
@@ -390,7 +391,7 @@ const [isExtended, setIsExtended] = useState(true);
       return (
         <View style={{alignItems: 'center'}}>
           <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(userTarget).toFixed(2)}</Text>
-          <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+          <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>({userData.weightUnit})</Text>
         </View>
       );
     } else {
@@ -400,14 +401,14 @@ const [isExtended, setIsExtended] = useState(true);
             return (
                     <View style={{alignItems: 'center'}}>
                       <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeight - item.targetWeight).toFixed(2)}</Text>
-                      <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+                      <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>({userData.weightUnit})</Text>
                     </View>
             );
           } else {
             return (
               <View style={{alignItems: 'center'}}>
                 <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(item.currentWeightLB - item.targetWeightLB).toFixed(2)}</Text>
-                <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>({userData.weightUnit})</Text>
               </View>
             );
           }
@@ -416,9 +417,9 @@ const [isExtended, setIsExtended] = useState(true);
         return (
                 
                 <View style={{alignItems: 'center'}}>
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.COLORS.DEEP_BLUE, fontWeight: 'bold'}}>{t('weightLogScreen.set')}</Text>
+                  <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.COLORS.DEEP_BLUE, fontWeight: 'bold'}}>{t('weightLogScreen.set')}</Text>
                   
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.COLORS.DEEP_BLUE, fontWeight: 'bold'}}>{t('weightLogScreen.objective')}</Text>
+                  <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.COLORS.DEEP_BLUE, fontWeight: 'bold'}}>{t('weightLogScreen.objective')}</Text>
                   <Pressable 
                     onPress={() => {
                       navigation.navigate('EditProfile');
@@ -739,7 +740,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
       <Animated.View
         style={{ height, backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
       >
-        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
+        <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), color: colors.TEXT.DEEP_BLUE}}>
           {t('weightLogScreen.text-lbm')}
         </Text>
       </Animated.View>
@@ -763,7 +764,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
       <Animated.View
         style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
       >
-        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
+        <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), color: colors.TEXT.DEEP_BLUE}}>
           {t('weightLogScreen.text-bai')}
         </Text>
       </Animated.View>
@@ -787,7 +788,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
       <Animated.View
         style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
       >
-        <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.DEEP_BLUE}}>
+        <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), color: colors.TEXT.DEEP_BLUE}}>
           {t('weightLogScreen.text-bmi')}
         </Text>
       </Animated.View>
@@ -841,7 +842,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
               <View style={{flexDirection: 'row'}}>
 
                 <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
-                  <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.current-weight')}</Text>
+                  <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.current-weight')}</Text>
                     <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                       <Text style={styles.textCard}>{ _getWeightUnit() }</Text>
                       <Text style={{fontSize: 10}}>({userData.weightUnit})</Text>
@@ -849,18 +850,18 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                 </View>
 
                 <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
-                <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.target-weight')}</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.target-weight')}</Text>
                   <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                     <Text style={styles.textCard}>{_getTargetUnit()}</Text>
-                    <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+                    <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>({userData.weightUnit})</Text>
                   </View>
                 </View>
 
                 <View style={styles.boxCard}>
-                <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.difference')}</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.difference')}</Text>
                   <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                     <Text style={[styles.textCard,{color: colors.TEXT.RED}]}>+{(_getWeightUnit() - _getTargetUnit()).toFixed(2)}</Text>
-                    <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+                    <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>({userData.weightUnit})</Text>
                    
                   </View>
                 </View>
@@ -875,13 +876,13 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                   <BigList
                       data={dataWeight}
                       onEndReachedThreshold={1}
-                      itemHeight={510}
+                      itemHeight={ isTablet ? 770 : 510}
                       renderItem={({item}) => (
                       <>
                         <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
 
                           <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
-                            <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.current-weight')}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.current-weight')}</Text>
                               <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                                 <Text style={styles.textCard}>
                                   {/* { dataWeight.length === 0 ? userWeight.toFixed(2) : (item.currentWeight).toFixed(2) } */}
@@ -897,7 +898,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                           </View>
 
                           <View style={[styles.boxCard,{marginRight: spacing.SCALE_6}]}>
-                          <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.target-weight')}</Text>
+                          <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.target-weight')}</Text>
                             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                               <Text style={styles.textCard}>
                                 {/* {userTargetWeight < item.targetWeight ? userTargetWeight : item.targetWeight} */}
@@ -905,12 +906,12 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                                 { _getTargetUnit() }
                                
                               </Text>
-                              <Text style={{fontSize: typography.FONT_SIZE_10}}>({userData.weightUnit})</Text>
+                              <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>({userData.weightUnit})</Text>
                             </View>
                           </View>
 
                           <View style={styles.boxCard}>
-                          <Text style={{fontSize: typography.FONT_SIZE_10}}>{t('weightLogScreen.difference')}</Text>
+                          <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.difference')}</Text>
                             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                               {diff(item)}
                             </View>
@@ -926,7 +927,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                           </View>
                         
                           <View>
-                            <Text style={{marginLeft: spacing.SCALE_3, fontSize: typography.FONT_SIZE_11, color: colors.TEXT.DEEP_BLUE}}>{format(item.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
+                            <Text style={{marginLeft: spacing.SCALE_3, fontSize: fontScale(typography.FONT_SIZE_11), color: colors.TEXT.DEEP_BLUE}}>{format(item.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
                           </View>
 
                         </View>
@@ -936,11 +937,11 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                             <View style={{flex: 1, flexDirection: 'row'}}>
                           
                               <View style={{justifyContent: 'center'}}>
-                                <MaterialCommunityIcons name='scale-bathroom' size={spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
+                                <MaterialCommunityIcons name='scale-bathroom' size={ isTablet ? spacing.SCALE_15 : spacing.SCALE_24 } color={colors.COLORS.GREY_AAA} />
                               </View>
                             
                               <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                                <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>{t('weightLogScreen.weight')}</Text>
+                                <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_14)}}>{t('weightLogScreen.weight')}</Text>
                               </View>
                           
                             </View>
@@ -953,7 +954,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                             }
                         </View>
                         <View style={{alignItems: 'center'}}>
-                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16, fontWeight: 'bold'}}>
+                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_16), fontWeight: 'bold'}}>
                               {/* {Number(item.currentWeight).toFixed(2)} */}
                               { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
                               { userData.weightUnit === UNIT.LB && Number(item.currentWeightLB).toFixed(2) }
@@ -980,15 +981,15 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                   
                           <View style={{flex: 1, flexDirection: 'row'}}>
                             <View style={{justifyContent: 'center'}}>
-                              <MaterialCommunityIcons name='alpha-b-box-outline' size={spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
+                              <MaterialCommunityIcons name='alpha-b-box-outline' size={isTablet ? spacing.SCALE_15 : spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
                             </View>
                             <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14}}>BMI</Text>
+                              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_14)}}>BMI</Text>
                             </View>
                           </View>
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (item.bmi).toFixed(1) }</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (item.bmi).toFixed(1) }</Text>
                           </View>
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -1008,15 +1009,15 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                             
                             <View style={{flex: 1, flexDirection: 'row'}}>
                               <View style={{justifyContent: 'center'}}>
-                                <SimpleLineIcons name='drop' size={spacing.SCALE_20} color={colors.COLORS.GREY_AAA} />
+                                <SimpleLineIcons name='drop' size={isTablet ? spacing.SCALE_12 : spacing.SCALE_20} color={colors.COLORS.GREY_AAA} />
                               </View>
                               <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                                <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16}}>BAI</Text>
+                                <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_16)}}>BAI</Text>
                               </View>
                             </View>
 
                             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                              <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (item.bai).toFixed(2) }<Text style={{fontSize: 12, fontWeight: '400'}}> %</Text></Text>
+                              <Text style={{fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>{ (item.bai).toFixed(2) }<Text style={{fontSize: 12, fontWeight: '400'}}> %</Text></Text>
                             </View>
 
                             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -1034,21 +1035,21 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                     
                           <View style={{flex: 1, flexDirection: 'row'}}>
                             <View style={{justifyContent: 'center'}}>
-                              <MaterialCommunityIcons name='human-child' size={spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
+                              <MaterialCommunityIcons name='human-child' size={isTablet ? spacing.SCALE_15 : spacing.SCALE_24} color={colors.COLORS.GREY_AAA} />
                             
                             </View>
                             <View style={{marginLeft: spacing.SCALE_10, justifyContent: 'center'}}>
-                              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_16}}>LBM</Text>
+                              <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_16)}}>LBM</Text>
                             </View>
                           </View>
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
                               {/* { (item.lbm).toFixed(2) } */}
                               { userData.weightUnit === UNIT.KG && Number(item.lbm).toFixed(2) }
                               { userData.weightUnit === UNIT.LB && Number(item.lbmLB).toFixed(2) }
                               {/* { userData.weightUnit === 'st' && Number(item.lbmST).toFixed(2) } */}
-                            <Text style={{fontSize: typography.FONT_SIZE_12, fontWeight: '400'}}> {userData.weightUnit}</Text></Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), fontWeight: '400'}}> {userData.weightUnit}</Text></Text>
                           </View>
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -1066,7 +1067,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                     ) : (
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                      
-                        <Text style={{fontSize: typography.FONT_SIZE_18, color: colors.TEXT.DEEP_BLUE}}>{t('glucoseDiaryScreen.no-data')}</Text>
+                        <Text style={{fontSize: fontScale(typography.FONT_SIZE_18), color: colors.TEXT.DEEP_BLUE}}>{t('glucoseDiaryScreen.no-data')}</Text>
                     
                     </View>
                     )
@@ -1220,12 +1221,12 @@ const styles = StyleSheet.create({
         elevation: 5
       },
       textCard: {
-        fontSize: typography.FONT_SIZE_24,
+        fontSize: fontScale(typography.FONT_SIZE_24),
         color: colors.TEXT.DEEP_BLUE,
         fontWeight: 'bold'
       }, 
       textA: {
-        fontSize: typography.FONT_SIZE_14,
+        fontSize: fontScale(typography.FONT_SIZE_14),
       },
       boxRoot: {
         paddingHorizontal: spacing.SCALE_10, 
@@ -1240,7 +1241,7 @@ const styles = StyleSheet.create({
         borderRadius: 5
       },
       emptyText: {
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
         color: colors.TEXT.DEEP_BLUE,
       }
 

@@ -14,6 +14,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { scaleFont } from '../../styles/mixins';
 
 const theme = {
     ...DefaultTheme,
@@ -194,25 +196,25 @@ const GlucoseDiaryScreen = ({ route,
         if((getGlucoseMg >= 70) && (getGlucoseMg <= 99)){
           return(
             <View style={{backgroundColor: colors.GLUCOSE.G1, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-              <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.value-normal')}</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.value-normal')}</Text>
             </View>
           )
         } else if((getGlucoseMg >= 100) && (getGlucoseMg <= 125)){
           return(
             <View style={{backgroundColor: colors.GLUCOSE.G2, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-              <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.pre-diabetes')}</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.pre-diabetes')}</Text>
             </View>
           )
         } else if(getGlucoseMg > 126){
             return(
               <View style={{backgroundColor: colors.GLUCOSE.G3, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-                <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.diabetes')}</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.diabetes')}</Text>
               </View>
             )
         }else{
           return(
               <View style={{backgroundColor: colors.GLUCOSE.G4, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-              <Text style={{fontSize: typography.FONT_SIZE_14, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.measurement-error')}</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_14), fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('glucoseDiaryScreen.measurement-error')}</Text>
             </View>
           )
         }
@@ -314,7 +316,7 @@ const GlucoseDiaryScreen = ({ route,
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -328,21 +330,21 @@ const GlucoseDiaryScreen = ({ route,
           <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_5, marginRight: spacing.SCALE_3, padding: spacing.SCALE_10, alignItems: 'center'}}>
                 <CircularProgress
                 value={getGlucoseMg}
-                radius={40}
+                radius={isTablet ? 70 : 40}
                 maxValue={200}
                 inActiveStrokeOpacity={0.8}
-                activeStrokeWidth={10}
-                inActiveStrokeWidth={10}
-                progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_26, marginBottom: -spacing.SCALE_8 }}
+                activeStrokeWidth={ isTablet ? 15 : 10 }
+                inActiveStrokeWidth={isTablet ? 15 : 10 }
+                progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_35) : fontScale(typography.FONT_SIZE_26), marginBottom: -spacing.SCALE_8 }}
                 activeStrokeColor={colors.COLORS.DEEP_BLUE}
                 inActiveStrokeColor={colors.COLORS.GREY_999}
                 duration={2000}
                 title={'mg/dL'}
                 titleColor={colors.COLORS.DEEP_BLUE}
-                titleStyle={{fontWeight: '300', fontSize: spacing.SCALE_10}}
+                titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_14)}}
                 dashedStrokeConfig={{
-                    count: 30,
-                    width: 8,
+                  count: isTablet ? 40 : 30,
+                  width: isTablet ? 10 : 8,
                 }}
                 // progressFormatter={(value, total) => {
                 //     'worklet';   
@@ -355,21 +357,21 @@ const GlucoseDiaryScreen = ({ route,
             <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, marginLeft: spacing.SCALE_3, padding: spacing.SCALE_10, alignItems: 'center'}}>
               <CircularProgress
                   value={getGlucoseMmol}
-                  radius={40}
+                  radius={isTablet ? 70 : 40}
                   maxValue={50}
                   inActiveStrokeOpacity={0.8}
-                  activeStrokeWidth={10}
-                  inActiveStrokeWidth={10}
-                  progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_26, marginBottom: -spacing.SCALE_8 }}
+                  activeStrokeWidth={ isTablet ? 15 : 10 }
+                inActiveStrokeWidth={isTablet ? 15 : 10 }
+                  progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_35) : fontScale(typography.FONT_SIZE_26), marginBottom: -spacing.SCALE_8 }}
                   activeStrokeColor={colors.COLORS.DEEP_BLUE}
                   inActiveStrokeColor={colors.COLORS.GREY_999}
                   duration={2000}
                   title={'mmol/L'}
                   titleColor={colors.COLORS.DEEP_BLUE}
-                  titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_10}}
+                  titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_14)}}
                   dashedStrokeConfig={{
-                      count: 30,
-                      width: 8,
+                    count: isTablet ? 40 : 30,
+                    width: isTablet ? 10 : 8,
                   }}
                   progressFormatter={(value, total) => {
                       'worklet';   
@@ -399,7 +401,7 @@ const GlucoseDiaryScreen = ({ route,
           <BigList
               data={getData}
               onEndReachedThreshold={1}
-              itemHeight={50}
+              itemHeight={ isTablet ? 70 : 50}
               renderItem={({item}) => (
               
                 <TouchableOpacity onPress={() => 
@@ -408,19 +410,19 @@ const GlucoseDiaryScreen = ({ route,
                 <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY, paddingBottom: spacing.SCALE_7, marginTop: spacing.SCALE_6}}>
                   
                   <View style={{flex: 1, alignItems: 'flex-start', marginLeft: spacing.SCALE_10, flex: 1}}>
-                         <Text style={{fontSize: typography.FONT_SIZE_11}}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}</Text>
-                         <Text style={{fontSize: typography.FONT_SIZE_9}}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
+                         <Text style={{fontSize: fontScale(typography.FONT_SIZE_11)}}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}</Text>
+                         <Text style={{fontSize: fontScale(typography.FONT_SIZE_9)}}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
                   </View>
 
                   <View style={{flex: 1}}>
                     
                     <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
                         <View style={{alignItems: 'center'}}>   
-                                <Text style={{fontSize: typography.FONT_SIZE_22, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{item.glucoseMg}</Text>
+                                <Text style={{fontSize: fontScale(typography.FONT_SIZE_22), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{item.glucoseMg}</Text>
                         </View>
 
                         <View style={{justifyContent: 'center'}}>
-                                <Text style={{fontSize: typography.FONT_SIZE_10}}> mg/dL</Text>
+                                <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}> mg/dL</Text>
                             </View>
                     </View>
 
@@ -430,11 +432,11 @@ const GlucoseDiaryScreen = ({ route,
                     
                     <View style={{flexDirection: 'row', alignSelf: 'flex-end'}}>
                         <View style={{alignItems: 'center'}}>   
-                                <Text style={{fontSize: typography.FONT_SIZE_22, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{(item.glucoseMmol).toFixed(1)}</Text>
+                                <Text style={{fontSize: fontScale(typography.FONT_SIZE_22), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{(item.glucoseMmol).toFixed(1)}</Text>
                         </View>
 
                         <View style={{justifyContent: 'center'}}>
-                                <Text style={{fontSize: typography.FONT_SIZE_10}}> mmol/L</Text>
+                                <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}> mmol/L</Text>
                             </View>
                     </View>
 
@@ -630,7 +632,7 @@ const styles = StyleSheet.create({
     },
     boxText: {
       textTransform: 'uppercase',
-      fontSize: typography.FONT_SIZE_10,
+      fontSize: fontScale(typography.FONT_SIZE_12),
       color: colors.TEXT.DEEP_BLUE
     },
     fabStyle: {

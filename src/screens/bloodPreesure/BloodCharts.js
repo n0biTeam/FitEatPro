@@ -12,6 +12,7 @@ import { LineChart } from "react-native-chart-kit";
 import { Rect, Text as TextSVG, Svg } from "react-native-svg";
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 
 const BloodCharts = ({ route, navigation }) => {
@@ -120,8 +121,8 @@ const BloodCharts = ({ route, navigation }) => {
        
       ]
     }}
-    width={Dimensions.get("window").width-12} // from react-native
-    height={240}
+    width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
+    height={isTablet ? 420 : 240}
     yAxisLabel=""
     yAxisSuffix=" mmHg"
     yAxisInterval={1} // optional, defaults to 1
@@ -133,7 +134,7 @@ const BloodCharts = ({ route, navigation }) => {
       color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
       style: {
-        borderRadius: 10
+        borderRadius: 5
       },
       propsForDots: {
         r: "0",
@@ -143,8 +144,8 @@ const BloodCharts = ({ route, navigation }) => {
     }}
     bezier
     style={{
-      marginVertical: spacing.SCALE_6,
-      borderRadius: 10
+      //marginVertical: spacing.SCALE_6,
+      borderRadius: 5
     }}
 
     
@@ -169,8 +170,8 @@ const BloodCharts = ({ route, navigation }) => {
                   ],
                   legend: [t('bloodPressureScreen.systolic'), t('bloodPressureScreen.diastolic')]
                 }}
-                  width={Dimensions.get("window").width-12} // from react-native
-                  height={240}
+                  width={ isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
+                  height={ isTablet ? 420 : 240}
                   yAxisLabel=""
                   yAxisSuffix=""
                   yAxisInterval={1} // optional, defaults to 1
@@ -192,8 +193,8 @@ const BloodCharts = ({ route, navigation }) => {
                   }}
                   bezier
                   style={{
-                    marginVertical: spacing.SCALE_6,
-                    borderRadius: 5
+                    //marginVertical: spacing.SCALE_6,
+                    borderRadius: 5,
                   }}
     
                   decorator={() => {
@@ -255,8 +256,8 @@ const BloodCharts = ({ route, navigation }) => {
                   ],
                   legend: [t('bloodPressureScreen.systolic'), t('bloodPressureScreen.diastolic')]
                 }}
-                  width={Dimensions.get("window").width-12} // from react-native
-                  height={240}
+                  width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
+                  height={isTablet ? 420 : 240}
                   yAxisLabel=""
                   yAxisSuffix=""
                   yAxisInterval={1} // optional, defaults to 1
@@ -278,7 +279,7 @@ const BloodCharts = ({ route, navigation }) => {
                   }}
                   bezier
                   style={{
-                    marginVertical: spacing.SCALE_6,
+                    //marginVertical: spacing.SCALE_6,
                     borderRadius: 5
                   }}
     
@@ -335,7 +336,7 @@ const BloodCharts = ({ route, navigation }) => {
   
   return (
     <SafeAreaProvider>
-      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_33}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('bloodChartScreen.title')} />
     </Appbar.Header>
@@ -362,7 +363,7 @@ const BloodCharts = ({ route, navigation }) => {
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -419,6 +420,6 @@ const styles = StyleSheet.create({
   },
   textBtn: {
     color: colors.COLORS.WHITE,
-    fontSize: typography.FONT_SIZE_14
+    fontSize: fontScale(typography.FONT_SIZE_14)
   }
 })

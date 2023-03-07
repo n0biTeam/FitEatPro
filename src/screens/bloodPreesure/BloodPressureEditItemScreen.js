@@ -6,6 +6,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const BloodPressureEditItemScreen = ({ route, navigation }) => {
   
@@ -58,8 +59,8 @@ const BloodPressureEditItemScreen = ({ route, navigation }) => {
   const imageBG = require('../../assets/images/bloodpreesure1.jpg');
 
   return (
-    <SafeAreaProvider style={{flex: 1}}>
-      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_33}}>
+    <SafeAreaProvider>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('bloodPressureEditScreen.title')} />
     </Appbar.Header>
@@ -86,14 +87,14 @@ const BloodPressureEditItemScreen = ({ route, navigation }) => {
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 125,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
       }}
       >
         <View style={styles.rootContainer}>
-            <View style={{marginTop: spacing.SCALE_6}}>
+            <View style={{}}>
                 <TextInput
                     underlineColor={colors.COLORS.LIGHT_GREY}
                     activeUnderlineColor={colors.COLORS.DEEP_BLUE}
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     btnModal: {
         borderWidth: 0,
         padding: spacing.SCALE_10,
-        width: Dimensions.get('window').width-12,
+        width: isTablet ? Dimensions.get('window').width-24 : Dimensions.get('window').width-12,
         borderRadius: 10,
         alignItems: 'center',
         backgroundColor: colors.COLORS.DEEP_BLUE,

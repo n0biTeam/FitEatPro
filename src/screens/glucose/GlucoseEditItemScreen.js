@@ -6,6 +6,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const GlucoseEditItemScreen = ({ route, navigation }) => {
   
@@ -79,18 +80,7 @@ const GlucoseEditItemScreen = ({ route, navigation }) => {
     
   >
    
-    <ImageBackground
-      source={require('../../assets/images/wave.png')}
-      style={{
-        flex: 1, 
-        height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 125,
-      }}
-      imageStyle={{
-        //opacity: 0.8
-      }}
-      >
+   
         <View style={styles.rootContainer}>
             <View style={{marginTop: spacing.SCALE_6}}>
                 <TextInput
@@ -113,7 +103,7 @@ const GlucoseEditItemScreen = ({ route, navigation }) => {
         </View>
     </ImageBackground>
     
-    </ImageBackground>
+    
     </SafeAreaProvider>
   )
 }
@@ -128,7 +118,7 @@ const styles = StyleSheet.create({
     btnModal: {
         borderWidth: 0,
         padding: spacing.SCALE_10,
-        width: Dimensions.get('window').width-12,
+        width: isTablet ? Dimensions.get('window').width-24 : Dimensions.get('window').width-12,
         borderRadius: 10,
         alignItems: 'center',
         backgroundColor: colors.COLORS.DEEP_BLUE,

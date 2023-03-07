@@ -12,6 +12,7 @@ import { UNIT } from '../../styles/units';
 import { ScrollView } from 'react-native-gesture-handler';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -167,7 +168,7 @@ const WhrScreen = ({ navigation }) => {
   >
     <View style={styles.rootContainer}>
       <View style={{}}>
-        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: typography.FONT_SIZE_14}}>{t('whrScreen.whr-indicator')}</Text>
+        <Text style={{color: colors.TEXT.YELLOW, fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_14)}}>{t('whrScreen.whr-indicator')}</Text>
       </View>
         <Text style={{marginBottom: spacing.SCALE_6, color: colors.TEXT.WHITE}}>{t('whrScreen.enter-values')}</Text>
       <View style={{flexDirection: 'row'}}>
@@ -204,14 +205,14 @@ const WhrScreen = ({ navigation }) => {
             { userData.gender === 1 ? 
                 ( 
                 <View style={{flexDirection: 'row'}}>
-                  <MaterialCommunityIcons name='gender-female' size={spacing.SCALE_22} color={colors.COLORS.GREEN} />
+                  <MaterialCommunityIcons name='gender-female' size={isTablet ? spacing.SCALE_12 : spacing.SCALE_22} color={colors.COLORS.GREEN} />
                   <Text style={{marginLeft: spacing.SCALE_10, marginTop: spacing.SCALE_3}}>{t('whrScreen.women')}</Text>
                 </View>
                  ) 
                 :
                 (
                 <View style={{flexDirection: 'row'}}>
-                  <MaterialCommunityIcons name='gender-male' size={spacing.SCALE_22} color={colors.COLORS.GREEN} />
+                  <MaterialCommunityIcons name='gender-male' size={ isTablet ? spacing.SCALE_12 : spacing.SCALE_22} color={colors.COLORS.GREEN} />
                   <Text style={{marginLeft: spacing.SCALE_10, marginTop: spacing.SCALE_3}}>{t('whrScreen.men')}</Text>
                 </View>
                  ) 
@@ -234,13 +235,13 @@ const WhrScreen = ({ navigation }) => {
             inActiveStrokeOpacity={0.8}
             activeStrokeWidth={20}
             inActiveStrokeWidth={20}
-            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_35, marginBottom: -spacing.SCALE_8 }}
+            progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_35), marginBottom: -spacing.SCALE_8 }}
             activeStrokeColor={colors.BMI.BMI_3}
             inActiveStrokeColor={colors.COLORS.GREY_999}
             duration={1000}
             title={'WHR'}
             titleColor={colors.COLORS.DEEP_BLUE}
-            titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_15}}
+            titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_15)}}
             dashedStrokeConfig={{
                 count: 60,
                 width: 8,
@@ -300,22 +301,22 @@ const styles = StyleSheet.create({
         color: colors.TEXT.WHITE
       },
       textTitle: {
-        fontSize: typography.FONT_SIZE_18,
+        fontSize: fontScale(typography.FONT_SIZE_18),
         color: colors.TEXT.DEEP_BLUE,
         fontWeight: 'bold'
 
       },
       textSubtitle: {
-        fontSize: typography.FONT_SIZE_12,
+        fontSize: fontScale(typography.FONT_SIZE_12),
       },
       textOne: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_16,
+        fontSize: fontScale(typography.FONT_SIZE_16),
         marginBottom: spacing.SCALE_5
       },
       textTwo: {
         color: colors.TEXT.DEEP_BLUE,
-        fontSize: typography.FONT_SIZE_13
+        fontSize: fontScale(typography.FONT_SIZE_13)
       }
       
 });

@@ -13,6 +13,8 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import BigList from "react-native-big-list";
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { scaleFont } from '../../styles/mixins';
 
 const theme = {
   ...DefaultTheme,
@@ -712,7 +714,7 @@ const BloodPressureScreen = ({
   return (
     <PaperProvider theme={theme}>
     <SafeAreaProvider>
-      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_33}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('bloodPressureScreen.title')} />
        <Appbar.Action icon="trash-can" onPress={_alertHandler} />
@@ -739,7 +741,7 @@ const BloodPressureScreen = ({
         flex: 1, 
         height: Dimensions.get('window').height,
         //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -754,82 +756,82 @@ const BloodPressureScreen = ({
             <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, marginRight: spacing.SCALE_6, padding: spacing.SCALE_10, alignItems: 'center'}}>
                 <CircularProgress
                 value={getSystolic}
-                radius={40}
+                radius={isTablet ? 70 : 40}
                 maxValue={200}
                 inActiveStrokeOpacity={0.8}
-                activeStrokeWidth={10}
-                inActiveStrokeWidth={10}
-                progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_26, marginBottom: -spacing.SCALE_8 }}
+                activeStrokeWidth={ isTablet ? 15 : 10 }
+                inActiveStrokeWidth={isTablet ? 15 : 10 }
+                progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_35) : fontScale(typography.FONT_SIZE_26), marginBottom: -spacing.SCALE_8 }}
                 activeStrokeColor={colors.COLORS.DEEP_BLUE}
                 inActiveStrokeColor={colors.COLORS.GREY_999}
                 duration={2000}
                 title={'mmHg'}
                 titleColor={colors.COLORS.DEEP_BLUE}
-                titleStyle={{fontWeight: '300', fontSize: spacing.SCALE_10}}
+                titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_14)}}
                 dashedStrokeConfig={{
-                    count: 30,
-                    width: 8,
+                    count: isTablet ? 40 : 30,
+                    width: isTablet ? 10 : 8,
                 }}
                 // progressFormatter={(value, total) => {
                 //     'worklet';   
                 //     return value.toFixed(2);
                 // }}
                  />
-                 <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('bloodPressureScreen.systolic')}</Text>
+                 <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('bloodPressureScreen.systolic')}</Text>
             </View>
 
             <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, marginRight: spacing.SCALE_3, padding: spacing.SCALE_10, alignItems: 'center'}}>
               <CircularProgress
                   value={getDiastolic}
-                  radius={40}
+                  radius={isTablet ? 70 : 40}
                   maxValue={200}
                   inActiveStrokeOpacity={0.8}
-                  activeStrokeWidth={10}
-                  inActiveStrokeWidth={10}
-                  progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_26, marginBottom: -spacing.SCALE_8 }}
+                  activeStrokeWidth={ isTablet ? 15 : 10 }
+                  inActiveStrokeWidth={isTablet ? 15 : 10 }
+                  progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_35) : fontScale(typography.FONT_SIZE_26), marginBottom: -spacing.SCALE_8 }}
                   activeStrokeColor={colors.COLORS.DEEP_BLUE}
                   inActiveStrokeColor={colors.COLORS.GREY_999}
                   duration={2000}
                   title={'mmHg'}
                   titleColor={colors.COLORS.DEEP_BLUE}
-                  titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_10}}
+                  titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_14)}}
                   dashedStrokeConfig={{
-                      count: 30,
-                      width: 8,
+                    count: isTablet ? 40 : 30,
+                    width: isTablet ? 10 : 8,
                   }}
                   // progressFormatter={(value, total) => {
                   //     'worklet';   
                   //     return value.toFixed(2);
                   // }}
                   />
-                  <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('bloodPressureScreen.diastolic')}</Text>
+                  <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_14) : fontScale(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('bloodPressureScreen.diastolic')}</Text>
               </View>
 
             <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, marginLeft: spacing.SCALE_3, padding: spacing.SCALE_10, alignItems: 'center'}}>
             <CircularProgress
                   value={getPulse}
-                  radius={40}
+                  radius={isTablet ? 70 : 40}
                   maxValue={150}
                   inActiveStrokeOpacity={0.8}
-                  activeStrokeWidth={10}
-                  inActiveStrokeWidth={10}
-                  progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_26, marginBottom: -spacing.SCALE_8 }}
+                  activeStrokeWidth={ isTablet ? 15 : 10 }
+                  inActiveStrokeWidth={isTablet ? 15 : 10 }
+                  progressValueStyle={{ color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_35) : fontScale(typography.FONT_SIZE_26), marginBottom: -spacing.SCALE_8 }}
                   activeStrokeColor={colors.COLORS.DEEP_BLUE}
                   inActiveStrokeColor={colors.COLORS.GREY_999}
                   duration={2000}
                   title={t('bloodPressureScreen.bpm')}
                   titleColor={colors.COLORS.DEEP_BLUE}
-                  titleStyle={{fontWeight: '300', fontSize: typography.FONT_SIZE_10}}
+                  titleStyle={{fontWeight: '300', fontSize: fontScale(typography.FONT_SIZE_14)}}
                   dashedStrokeConfig={{
-                      count: 30,
-                      width: 8,
+                    count: isTablet ? 40 : 30,
+                    width: isTablet ? 10 : 8,
                   }}
                   // progressFormatter={(value, total) => {
                   //     'worklet';   
                   //     return value.toFixed(2);
                   // }}
                   />
-                  <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('bloodPressureScreen.pulse')}</Text>
+                  <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('bloodPressureScreen.pulse')}</Text>
               
             </View>
 
@@ -841,7 +843,7 @@ const BloodPressureScreen = ({
 
           <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, marginBottom: spacing.SCALE_6, borderRadius: 5}}>
             <View style={{alignItems: 'center', backgroundColor: colors.COLORS.DEEP_BLUE, borderTopRightRadius: 5, borderTopLeftRadius: 5, padding: spacing.SCALE_5}}>
-              <Text style={{fontSize: typography.FONT_SIZE_16, color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.measurement-history')}</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.measurement-history')}</Text>
             </View>
           
           { 
@@ -850,7 +852,7 @@ const BloodPressureScreen = ({
           <BigList
               data={getData}
               onEndReachedThreshold={1}
-              itemHeight={80}
+              itemHeight={ isTablet ? 110 : 80}
               renderItem={({item}) => (
               
                 <TouchableOpacity
@@ -861,8 +863,8 @@ const BloodPressureScreen = ({
                 <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY, paddingBottom: spacing.SCALE_7, marginTop: spacing.SCALE_6}}>
                   
                   <View style={{alignItems: 'flex-start', marginLeft: spacing.SCALE_10, flex: 2}}>
-                         <Text style={{fontSize: typography.FONT_SIZE_11}}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}</Text>
-                         <Text style={{fontSize: typography.FONT_SIZE_9}}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
+                         <Text style={{fontSize: fontScale(typography.FONT_SIZE_11)}}>{format(item.createdAt.toDate(), 'yyyy/MM/dd')}</Text>
+                         <Text style={{fontSize: fontScale(typography.FONT_SIZE_9)}}>{format(item.createdAt.toDate(), 'HH:mm')}</Text>
                   </View>
 
                   <View style={{flexDirection: 'column', flex: 6}}>
@@ -871,18 +873,18 @@ const BloodPressureScreen = ({
                     
                       <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2 }}>
                           <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.RED}}>{t('bloodPressureScreen.sys')}</Text>
-                            <Text style={{fontSize: typography.FONT_SIZE_22, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{item.systolic} </Text> 
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.RED}}>{t('bloodPressureScreen.sys')}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_22), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{item.systolic} </Text> 
                           </View>
 
                           <View style={{alignItems: 'center'}}>
                             <Text></Text>
-                             <Text style={{fontSize: typography.FONT_SIZE_18}}>/</Text>
+                             <Text style={{fontSize: fontScale(typography.FONT_SIZE_18)}}>/</Text>
                           </View>
 
                           <View style={{alignItems: 'center'}}>
-                            <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.ORANGE}}>{t('bloodPressureScreen.dia')}</Text>
-                            <Text style={{fontSize: typography.FONT_SIZE_22, color: colors.TEXT.BLACK, fontWeight: 'bold'}}> {item.diastolic}</Text> 
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.ORANGE}}>{t('bloodPressureScreen.dia')}</Text>
+                            <Text style={{fontSize: fontScale(typography.FONT_SIZE_22), color: colors.TEXT.BLACK, fontWeight: 'bold'}}> {item.diastolic}</Text> 
                          </View>
 
                          <View style={{alignItems: 'center'}}>
@@ -895,20 +897,20 @@ const BloodPressureScreen = ({
                       
                       <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}}>
                         <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                           <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.LIGHT_BLUE}}>{t('bloodPressureScreen.pulse')}</Text>
-                           <Text style={{fontSize: typography.FONT_SIZE_22, color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{item.pulse}</Text> 
+                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.LIGHT_BLUE}}>{t('bloodPressureScreen.pulse')}</Text>
+                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_22), color: colors.TEXT.BLACK, fontWeight: 'bold'}}>{item.pulse}</Text> 
                         </View>
 
                          <View style={{alignItems: 'center'}}>
                            <Text></Text>
-                           <Text style={{fontSize: typography.FONT_SIZE_10}}> {t('bloodPressureScreen.bpm')}</Text>
+                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}> {t('bloodPressureScreen.bpm')}</Text>
                         </View>
                       </View>
                     
                       </View>
 
                     <View style={{alignItems: 'center'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_12}}>{pressure(item)}</Text>
+                      <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{pressure(item)}</Text>
                     </View>
 
                   </View>
@@ -1140,25 +1142,25 @@ const styles = StyleSheet.create({
   },
   boxText: {
     textTransform: 'uppercase',
-    fontSize: typography.FONT_SIZE_10,
+    fontSize: scaleFont(typography.FONT_SIZE_12),
     color: colors.TEXT.DEEP_BLUE
   },
   textMessage1: {
-    fontSize: typography.FONT_SIZE_12,
+    fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_12),
     fontWeight: 'bold', color: colors.TEXT.BLACK,
     textTransform: 'uppercase',
   },
   textMessage2: {
-    fontSize: typography.FONT_SIZE_12,
+    fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_12),
     fontWeight: 'bold', color: colors.TEXT.WHITE,
     textTransform: 'uppercase',
   },
   textMessageBox1: {
-    fontSize: typography.FONT_SIZE_12,
+    fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_12),
     color: colors.TEXT.BLACK
   },
   textMessageBox2: {
-    fontSize: typography.FONT_SIZE_12,
+    fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_12),
     color: colors.TEXT.WHITE
   }
 })
