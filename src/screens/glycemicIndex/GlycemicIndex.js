@@ -1709,8 +1709,8 @@ const xxx = (item) => {
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
                       maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
-                      activeStrokeWidth={10}
-                      inActiveStrokeWidth={10}
+                      activeStrokeWidth={8}
+                      inActiveStrokeWidth={8}
                       activeStrokeColor={colors.COLORS.DEEP_BLUE}
                       progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                       progressFormatter={(value, number) => {
