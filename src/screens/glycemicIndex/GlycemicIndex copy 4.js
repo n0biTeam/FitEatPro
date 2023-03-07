@@ -87,76 +87,7 @@ const theme = {
            querySnapshot.forEach(doc => {
             //const listData = doc.data()
             //listData.id = doc.id
-            //listData.push({...doc.data(), id: doc.id})
-            const { 
-                name,
-                index_glycemic,
-                protein,
-                fat,
-                carbs,
-                fiber,
-                Sugars,
-                choresterol,
-                witA,
-                betaCarotene,
-                luteinaZeaksantyna,
-                WitB1Tiamina,
-                WitB2Ryboflawina,
-                WitB3Niacyna,
-                WitB4Cholina,
-                WitB5KwasPantotenowy,
-                WitB6,
-                WitB9KwasFoliowy,
-                WitB12,
-                WitC,
-                WitE,
-                WitK,
-                Wapn,
-                Magnez,
-                Fosfor,
-                Potas,
-                Sod,
-                Miedz,
-                Zelazo,
-                Mangan,
-                Selen,
-                Cynk
-              } = doc.data();
-            listData.push({
-              id: doc.id,
-              name,
-              index_glycemic,
-              protein,
-              fat,
-              carbs,
-              fiber,
-              Sugars,
-              choresterol,
-              witA,
-              betaCarotene,
-              luteinaZeaksantyna,
-              WitB1Tiamina,
-              WitB2Ryboflawina,
-              WitB3Niacyna,
-              WitB4Cholina,
-              WitB5KwasPantotenowy,
-              WitB6,
-              WitB9KwasFoliowy,
-              WitB12,
-              WitC,
-              WitE,
-              WitK,
-              Wapn,
-              Magnez,
-              Fosfor,
-              Potas,
-              Sod,
-              Miedz,
-              Zelazo,
-              Mangan,
-              Selen,
-              Cynk
-            })
+            listData.push({...doc.data(), id: doc.id})
           });
           
              setListData(listData);
@@ -169,35 +100,10 @@ const theme = {
     )
 };
 
-
 useEffect(() => {
     getList();
    // setIsOpen(false);
   }, []);
-
-  
-  const [product, setProduct] = useState('');
-  const getProduct = async (item) => {
-    //console.log(item.id)
-    await firestore()
-      .collection('users')
-      .doc(user.uid)
-      .collection('products')
-      .doc(item.id).get()
-      .then(doc => {
-      //console.log('User exists: ', doc.exists);
-  
-      if (doc.exists) {
-        //console.log('User data: ', doc.data());
-        setProduct({...doc.data(), id: doc.id});
-      }
-    });
-
-    //console.log(product)
-    
-  }
-
-  //console.log(product.id)
 
   const [isSwitchOn, setIsSwitchOn] = useState(null);
   const getUser = async () => {
@@ -229,7 +135,7 @@ useEffect(() => {
 
   const handleSheetChanges = useCallback((index) => {
   
-    //console.log('handleSheetChanges', index);
+    console.log('handleSheetChanges', index);
   }, []);
  
  
@@ -272,16 +178,16 @@ useEffect(() => {
         .doc(user.uid)
         .collection('meal')
         .add({
-          name: product.name,
+          name: initialItem.name,
           quantity: number != undefined ? parseInt(number) : 100, //ilosc gram
-          kcal: number != undefined ? parseInt(product.kcal/(100/number)) : parseInt(product.kcal),
-          glycemicIndex: parseInt(product.index_glycemic),
-          protein: parseFloat(product.protein),
-          fat: parseFloat(product.fat),
-          carbs: number != undefined ? parseFloat(product.carbs/(100/number)) : parseFloat(product.carbs),
-          fiber: number != undefined ? parseFloat(product.fiber/(100/number)) : parseFloat(product.fiber),
-          sugar: parseFloat(product.Sugars),
-          cholesterol: parseFloat(product.choresterol),
+          kcal: number != undefined ? parseInt(initialItem.kcal/(100/number)) : parseInt(initialItem.kcal),
+          glycemicIndex: parseInt(initialItem.index_glycemic),
+          protein: parseFloat(initialItem.protein),
+          fat: parseFloat(initialItem.fat),
+          carbs: number != undefined ? parseFloat(initialItem.carbs/(100/number)) : parseFloat(initialItem.carbs),
+          fiber: number != undefined ? parseFloat(initialItem.fiber/(100/number)) : parseFloat(initialItem.fiber),
+          sugar: parseFloat(initialItem.Sugars),
+          cholesterol: parseFloat(initialItem.choresterol),
           createdAt: firestore.Timestamp.fromDate(new Date()),
         })
         .then(() => {
@@ -986,7 +892,7 @@ const xxx = (item) => {
     )
   }else if(modalX === 'witB5'){
     return (
-      <ItemBigList value={(item.WitB5KwasPantotenowy).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+      <ItemBigList value={(item.WitB5KwasPantotenowy).toFixed(1)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witB6'){
     return (
@@ -1002,11 +908,11 @@ const xxx = (item) => {
     )
   }else if(modalX === 'witC'){
     return (
-      <ItemBigList value={(item.WitC).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+      <ItemBigList value={(item.WitC).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witE'){
     return (
-      <ItemBigList value={(item.WitE).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
+      <ItemBigList value={(item.WitE).toFixed(3)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_2} />
     )
   }else if(modalX === 'witK'){
     return (
@@ -1034,7 +940,7 @@ const xxx = (item) => {
     )
   }else if(modalX === 'miedz'){
     return (
-      <ItemBigList value={(item.Sod).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
+      <ItemBigList value={(item.Miedz).toFixed(2)} width={75} unit={UNIT.MG} backgroundColor={colors.WHtR.WHtR_3} />
     )
   }else if(modalX === 'iron'){
     return (
@@ -1062,7 +968,7 @@ const xxx = (item) => {
     const _goBack = () => navigation.goBack();
     const refRBSheet = useRef();
     const [isOpen, setIsOpen] = useState(true);
-    //const [initialItem, setInitialItem] = useState('');
+    const [initialItem, setInitialItem] = useState('');
     const [number, onChangeNumber] = React.useState(null);
     const heightMidal = (Dimensions.get('window').height);
     
@@ -1075,11 +981,11 @@ const xxx = (item) => {
   function obliczLG(number){
     
     if(number === null){
-      const result = (((product.carbs - product.fiber)*product.index_glycemic)/product.grammage);
+      const result = (((initialItem.carbs - initialItem.fiber)*initialItem.index_glycemic)/initialItem.grammage);
       return result;
     }else{
       const num2 = number/100;
-      const result = ((((product.carbs - product.fiber)*product.index_glycemic)/product.grammage)*num2);
+      const result = ((((initialItem.carbs - initialItem.fiber)*initialItem.index_glycemic)/initialItem.grammage)*num2);
       return result;
     }
  }
@@ -1092,11 +998,11 @@ const xxx = (item) => {
   function obliczWW(number)
   {
      if(number === null){
-         const result = (((product.carbs - product.fiber)*1)/10);
+         const result = (((initialItem.carbs - initialItem.fiber)*1)/10);
          return result;
      }else{
          const wartosc = number/100;
-         const result = ((((product.carbs - product.fiber)*wartosc)*1)/10);
+         const result = ((((initialItem.carbs - initialItem.fiber)*wartosc)*1)/10);
          return result;
      }
   }
@@ -1109,11 +1015,11 @@ const xxx = (item) => {
   function obliczWBT(number)
   {
      if(number === null){
-         const result = (product.kcal - (product.protein*4 + product.fat*9))/100;
+         const result = (initialItem.kcal - (initialItem.protein*4 + initialItem.fat*9))/100;
          return result;
      }else{
          const wartosc = number/100;
-         const result = ((product.kcal*wartosc) - ((product.protein*4 + product.fat*9)*wartosc))/100;
+         const result = ((initialItem.kcal*wartosc) - ((initialItem.protein*4 + initialItem.fat*9)*wartosc))/100;
          return result;
      }
   }
@@ -1126,12 +1032,12 @@ const xxx = (item) => {
    function obliczKcal(number){
      
     if(number === null){
-      const result = product.kcal;
+      const result = initialItem.kcal;
       return result;
       console.log(result);
     }else{
       const wartosc = number/100;
-      const result = (product.kcal*wartosc).toFixed();
+      const result = (initialItem.kcal*wartosc).toFixed();
       return result;
       console.log(result);
     }
@@ -1145,11 +1051,11 @@ const xxx = (item) => {
    function obliczBialko(numer)
    {
       if(number === null){
-          const result = product.protein;
+          const result = initialItem.protein;
           return result;
       }else{
           const wartosc = number/100;
-          const result = product.protein*wartosc;
+          const result = initialItem.protein*wartosc;
           return result;
       }
    }
@@ -1162,11 +1068,11 @@ const xxx = (item) => {
    function obliczBialkoOZ(numer)
    {
       if(number === null){
-          const result = product.protein / 28.34952 ;
+          const result = initialItem.protein / 28.34952 ;
           return result;
       }else{
           const wartosc = (number/100) / 28.34952;
-          const result = product.protein*wartosc;
+          const result = initialItem.protein*wartosc;
           return result;
       }
    }
@@ -1179,11 +1085,11 @@ const xxx = (item) => {
      function obliczTluszcz(numer)
      {
         if(number === null){
-            const result = product.fat;
+            const result = initialItem.fat;
             return result;
         }else{
             const wartosc = number/100;
-            const result = product.fat*wartosc;
+            const result = initialItem.fat*wartosc;
             return result;
         }
      }
@@ -1196,11 +1102,11 @@ const xxx = (item) => {
      function obliczTluszczOZ(numer)
      {
         if(number === null){
-            const result = product.fat / 28.34952;
+            const result = initialItem.fat / 28.34952;
             return result;
         }else{
             const wartosc = (number/100) / 28.34952;
-            const result = product.fat*wartosc;
+            const result = initialItem.fat*wartosc;
             return result;
         }
      }
@@ -1213,11 +1119,11 @@ const xxx = (item) => {
       function obliczWeglowodany(numer)
       {
          if(number === null){
-             const result = product.carbs;
+             const result = initialItem.carbs;
              return result;
          }else{
              const wartosc = number/100;
-             const result = product.carbs*wartosc;
+             const result = initialItem.carbs*wartosc;
              return result;
          }
       }
@@ -1229,11 +1135,11 @@ const xxx = (item) => {
      function obliczWeglowodanyOZ(numer)
      {
         if(number === null){
-            const result = product.carbs / 28.34952;
+            const result = initialItem.carbs / 28.34952;
             return result;
         }else{
             const wartosc = (number/100) / 28.34952;
-            const result = product.carbs*wartosc;
+            const result = initialItem.carbs*wartosc;
             return result;
         }
      }
@@ -1246,11 +1152,11 @@ const xxx = (item) => {
      function obliczBlonnik(numer)
      {
         if(number === null){
-            const result = product.fiber;
+            const result = initialItem.fiber;
             return result;
         }else{
             const wartosc = number/100;
-            const result = product.fiber*wartosc;
+            const result = initialItem.fiber*wartosc;
             return result;
         }
      }
@@ -1263,11 +1169,11 @@ const xxx = (item) => {
      function obliczBlonnikOZ(numer)
      {
         if(number === null){
-            const result = product.fiber / 28.34952;
+            const result = initialItem.fiber / 28.34952;
             return result;
         }else{
             const wartosc = (number/100) / 28.34952;
-            const result = product.fiber*wartosc;
+            const result = initialItem.fiber*wartosc;
             return result;
         }
      }
@@ -1280,11 +1186,11 @@ const xxx = (item) => {
         function obliczCukier(numer)
         {
            if(number === null){
-               const result = product.Sugars;
+               const result = initialItem.Sugars;
                return result;
            }else{
                const wartosc = number/100;
-               const result = product.Sugars*wartosc;
+               const result = initialItem.Sugars*wartosc;
                return result;
            }
         }
@@ -1297,11 +1203,11 @@ const xxx = (item) => {
     function obliczCukierOZ(numer)
     {
        if(number === null){
-           const result = product.Sugars / 28.34952;
+           const result = initialItem.Sugars / 28.34952;
            return result;
        }else{
            const wartosc = (number/100) / 28.34952;
-           const result = product.Sugars*wartosc;
+           const result = initialItem.Sugars*wartosc;
            return result;
        }
     }
@@ -1314,11 +1220,11 @@ const xxx = (item) => {
       function obliczCholesterol(numer)
       {
         if(number === null){
-          const result = product.choresterol;
+          const result = initialItem.choresterol;
           return result;
         }else{
           const wartosc = number/100;
-          const result = product.choresterol*wartosc;
+          const result = initialItem.choresterol*wartosc;
           return result;
         }
       }
@@ -1331,11 +1237,11 @@ const xxx = (item) => {
     function obliczCholesterolOZ(numer)
     {
       if(number === null){
-        const result = product.choresterol / 28.34952;
+        const result = initialItem.choresterol / 28.34952;
         return result;
       }else{
         const wartosc = (number/100) / 28.34952;
-        const result = product.choresterol*wartosc;
+        const result = initialItem.choresterol*wartosc;
         return result;
       }
     }
@@ -1343,9 +1249,9 @@ const xxx = (item) => {
 
     const colorIG = () => {
       let color;
-      if(product.index_glycemic <= 50){
+      if(initialItem.index_glycemic <= 50){
         color = colors.COLORS.GREEN;
-      } else if ((product.index_glycemic >= 51) && (product.index_glycemic <= 71)){
+      } else if ((initialItem.index_glycemic >= 51) && (initialItem.index_glycemic <= 71)){
         color = colors.COLORS.YELLOW;
       }else {
         color = colors.COLORS.RED;
@@ -1436,8 +1342,7 @@ const xxx = (item) => {
     <TouchableOpacity 
                 onPress={() => {
                   handlePresentModalPress();
-                  //setInitialItem(item);
-                  getProduct(item)
+                  setInitialItem(item);
                   onChangeNumber(null);
                 }}
                 >
@@ -1569,12 +1474,12 @@ const xxx = (item) => {
                 <View style={{flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
                     <View style={[styles.titleContainer, {flex: 1, justifyContent: 'center', flexDirection: 'row', marginLeft: spacing.SCALE_20}]}>
                        
-                        <Text style={styles.textTitle}>{product.name}</Text>
+                        <Text style={styles.textTitle}>{initialItem.name}</Text>
                         <View style={{marginLeft: spacing.SCALE_6}}>
                         <MaterialIcons name='mode-edit' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
                             onPress={() => {
                               bottomSheetModalRef.current.close();
-                            navigation.navigate('EditItemGlycemicIndex', {itemId: product.id})
+                            navigation.navigate('EditItemGlycemicIndex', {itemId: initialItem.id})
                             }}   
                             />
                         </View>
@@ -1612,7 +1517,7 @@ const xxx = (item) => {
 
         <View style={{flexDirection: 'row', borderWidth: 1, padding: spacing.SCALE_6, borderColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_5, backgroundColor: colors.COLORS.LIGHT_BLUE, elevation: 1}}>
           <Text style={{marginRight: spacing.SCALE_4, fontSize: typography.FONT_SIZE_12, color: colors.COLORS.WHITE}}>{t('glycemicIndex.category')}</Text>
-          <Text style={styles.titleCategory}>{product.category}</Text>
+          <Text style={styles.titleCategory}>{initialItem.category}</Text>
         </View>
 
         <View style={{flexDirection: 'row' }}>
@@ -1636,14 +1541,14 @@ const xxx = (item) => {
         <View style={{flexDirection: 'row', marginTop: spacing.SCALE_6}}>
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 3}}>
             <CircularProgress
-                    value={product.index_glycemic === undefined ? '' : product.index_glycemic}
+                    value={initialItem.index_glycemic}
                     radius={spacing.SCALE_25}
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={110}
                     activeStrokeWidth={8}
                     inActiveStrokeWidth={8}
-                    activeStrokeColor={colorIG(product.index_glycemic)}
+                    activeStrokeColor={colorIG(initialItem.index_glycemic)}
                     progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
                     dashedStrokeConfig={{
                       count: 25,
@@ -1655,7 +1560,7 @@ const xxx = (item) => {
 
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
             <CircularProgress
-                      value={product.index_glycemic === undefined ? '' : obliczLG(number)}
+                      value={obliczLG(number)}
                       radius={spacing.SCALE_25}
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
@@ -1680,7 +1585,7 @@ const xxx = (item) => {
         <View style={{flexDirection: 'row', marginTop: spacing.SCALE_6}}>
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 5}}>
           <CircularProgress
-                    value={product.index_glycemic === undefined ? '' : obliczWW(number)}
+                    value={obliczWW(number)}
                     radius={spacing.SCALE_25}
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
@@ -1703,7 +1608,7 @@ const xxx = (item) => {
           </View>
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
           <CircularProgress
-                      value={product.index_glycemic === undefined ? '' : obliczWBT(number)}
+                      value={obliczWBT(number)}
                       radius={spacing.SCALE_25}
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
@@ -1730,7 +1635,7 @@ const xxx = (item) => {
         <View style={{paddingHorizontal: spacing.SCALE_6, backgroundColor: colors.COLORS.WHITE, marginTop: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
           
           
-          { product.protein !== 0 &&
+          { initialItem.protein !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1739,13 +1644,13 @@ const xxx = (item) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {product.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
+                    {initialItem.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
                     <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({product.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
+                      ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
                   }
@@ -1754,7 +1659,7 @@ const xxx = (item) => {
           </View>
           }
 
-          { product.fat !== 0 &&
+          { initialItem.fat !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1763,13 +1668,13 @@ const xxx = (item) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {product.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
+                    {initialItem.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
                     <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({product.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
+                      ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
                   }
@@ -1778,7 +1683,7 @@ const xxx = (item) => {
           </View>
           }
 
-          { product.carbs !== 0 &&
+          { initialItem.carbs !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1787,13 +1692,13 @@ const xxx = (item) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {product.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
+                    {initialItem.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
                     <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({product.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
+                      ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
                   }
@@ -1802,7 +1707,7 @@ const xxx = (item) => {
           </View>
           }
 
-          { product.fiber !== 0 &&
+          { initialItem.fiber !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1811,13 +1716,13 @@ const xxx = (item) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {product.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
+                    {initialItem.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
                     <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({product.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
+                      ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
                   }
@@ -1826,7 +1731,7 @@ const xxx = (item) => {
           </View>
           }
 
-          { product.Sugars !== 0 &&
+          { initialItem.Sugars !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1835,13 +1740,13 @@ const xxx = (item) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {product.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
+                    {initialItem.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
                     <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({product.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
+                      ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
                   }
@@ -1850,7 +1755,7 @@ const xxx = (item) => {
           </View>
           }
 
-          { product.choresterol !== 0 &&
+          { initialItem.choresterol !== 0 &&
           <View style={{flex: 1, borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, marginVertical: spacing.SCALE_6, paddingHorizontal: spacing.SCALE_6}}>
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -1859,13 +1764,13 @@ const xxx = (item) => {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
-                    {product.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
+                    {initialItem.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
                     <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
-                      ({product.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
+                      ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
                   }
@@ -1882,7 +1787,7 @@ const xxx = (item) => {
           </TouchableOpacity>       
         </View>
 
-        {product.Status === 0 &&
+        {initialItem.Status === 0 &&
         <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
             <TouchableOpacity onPress={() => toggleBox1()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
               <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
@@ -1894,7 +1799,7 @@ const xxx = (item) => {
             </TouchableOpacity>
             { showContent1  &&  
             <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
-              { product.witA !== 0 &&
+              { initialItem.witA !== 0 &&
               
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
@@ -1903,150 +1808,150 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{product.witA} {UNIT.IU}</Text>
+                    <Text style={styles.textBox3}>{initialItem.witA} {UNIT.IU}</Text>
                   </View>
                 </View>
                 }
 
-                { product.betaCarotene !== 0 &&
+                { initialItem.betaCarotene !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1, marginLeft: 10}}>
                       <Text style={styles.textBox2}>{t('views.modal.beta-carotene')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{product.betaCarotene} {UNIT.UG}</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.betaCarotene} {UNIT.UG}</Text>
                     </View>
                   </View>
                 } 
 
-                { product.luteinaZeaksantyna !== 0 &&
+                { initialItem.luteinaZeaksantyna !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1, marginLeft: 10}}>
                       <Text style={styles.textBox2}>{t('views.modal.lutein-zeaxanthin')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{product.luteinaZeaksantyna} {UNIT.UG}</Text>
+                      <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.GREY_777, fontWeight: 'bold'}}>{initialItem.luteinaZeaksantyna} {UNIT.UG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB1Tiamina !== 0 &&
+                { initialItem.WitB1Tiamina !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b1')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB1Tiamina).toFixed(3)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB1Tiamina).toFixed(3)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB2Ryboflawina !== 0 &&
+                { initialItem.WitB2Ryboflawina !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b2')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB2Ryboflawina).toFixed(3)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB2Ryboflawina).toFixed(3)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB3Niacyna !== 0 &&
+                { initialItem.WitB3Niacyna !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b3')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB3Niacyna).toFixed(3)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB3Niacyna).toFixed(3)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB4Cholina !== 0 &&
+                { initialItem.WitB4Cholina !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b4')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB4Cholina).toFixed(3)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB4Cholina).toFixed(3)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB5KwasPantotenowy !== 0 &&
+                { initialItem.WitB5KwasPantotenowy !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b5')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB5KwasPantotenowy).toFixed(3)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB5KwasPantotenowy).toFixed(3)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB6 !== 0 &&
+                { initialItem.WitB6 !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b6')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB6).toFixed(3)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB6).toFixed(3)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB9KwasFoliowy !== 0 &&
+                { initialItem.WitB9KwasFoliowy !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b9')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB9KwasFoliowy).toFixed(3)} {UNIT.UG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB9KwasFoliowy).toFixed(3)} {UNIT.UG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitB12 !== 0 &&
+                { initialItem.WitB12 !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-b12')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitB12).toFixed(2)} {UNIT.UG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitB12).toFixed(2)} {UNIT.UG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitC !== 0 &&
+                { initialItem.WitC !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-c')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitC).toFixed(2)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitC).toFixed(2)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitE !== 0 &&
+                { initialItem.WitE !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-e')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitE).toFixed(2)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitE).toFixed(2)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.WitK !== 0 &&
+                { initialItem.WitK !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.vitamin-k')}</Text>
                     </View>
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.WitK).toFixed(2)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.WitK).toFixed(2)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
@@ -2056,7 +1961,7 @@ const xxx = (item) => {
         </View>
         }
 
-        { product.Status === 0 &&
+        { initialItem.Status === 0 &&
           <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
           <TouchableOpacity onPress={() => toggleBox2()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
             <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
@@ -2069,7 +1974,7 @@ const xxx = (item) => {
           
           { showContent2  &&  
               <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
-                { product.Wapn !== 0 &&
+                { initialItem.Wapn !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.calcium')}</Text>
@@ -2077,12 +1982,12 @@ const xxx = (item) => {
                     </View>
                     
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.Wapn).toFixed(1)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.Wapn).toFixed(1)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.Magnez !== 0 &&
+                { initialItem.Magnez !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.magnesium')}</Text>
@@ -2090,12 +1995,12 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Magnez).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Magnez).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
 
-                { product.Fosfor !== 0 &&
+                { initialItem.Fosfor !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.phosphorus')}</Text>
@@ -2103,12 +2008,12 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Fosfor).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Fosfor).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
 
-                { product.Potas !== 0 &&
+                { initialItem.Potas !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.potassium')}</Text>
@@ -2116,12 +2021,12 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Potas).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Potas).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
 
-                { product.Sod !== 0 &&
+                { initialItem.Sod !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.sodium')}</Text>
@@ -2129,7 +2034,7 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Sod).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Sod).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
@@ -2139,7 +2044,7 @@ const xxx = (item) => {
         </View>
       }
 
-      { product.Status === 0 &&
+      { initialItem.Status === 0 &&
           <View style={{backgroundColor: colors.COLORS.WHITE, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_6, overflow: 'hidden'}}>
           <TouchableOpacity onPress={() => toggleBox3()} style={{padding: spacing.SCALE_10, backgroundColor: colors.COLORS.LIGHT_GREY, borderTopStartRadius: spacing.SCALE_5, borderTopEndRadius: spacing.SCALE_5}}>
             <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between'}}>
@@ -2152,7 +2057,7 @@ const xxx = (item) => {
           
           { showContent3  &&  
               <View style={{backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderBottomRightRadius: spacing.SCALE_5, borderBottomLeftRadius: spacing.SCALE_5}}>
-                { product.Miedz !== 0 &&
+                { initialItem.Miedz !== 0 &&
                   <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                     <View style={{flex: 1}}>
                       <Text style={styles.textBox1}>{t('views.modal.copper')}</Text>
@@ -2160,12 +2065,12 @@ const xxx = (item) => {
                     </View>
                     
                     <View style={{alignItems: 'flex-end'}}>
-                      <Text style={styles.textBox3}>{(product.Miedz).toFixed(1)} {UNIT.MG}</Text>
+                      <Text style={styles.textBox3}>{(initialItem.Miedz).toFixed(1)} {UNIT.MG}</Text>
                     </View>
                   </View>
                 }
 
-                { product.Zelazo !== 0 &&
+                { initialItem.Zelazo !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.iron')}</Text>
@@ -2173,12 +2078,12 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Zelazo).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Zelazo).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
 
-                { product.Mangan !== 0 &&
+                { initialItem.Mangan !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.manganese')}</Text>
@@ -2186,12 +2091,12 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Mangan).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Mangan).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
 
-                { product.Selen !== 0 &&
+                { initialItem.Selen !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.selenium')}</Text>
@@ -2199,12 +2104,12 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Selen).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Selen).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
 
-                { product.Cynk !== 0 &&
+                { initialItem.Cynk !== 0 &&
                 <View style={{flexDirection: 'row', paddingHorizontal: spacing.SCALE_20, paddingVertical: spacing.SCALE_6, borderBottomWidth: 1, borderBottomColor: colors.COLORS.GREY_CCC}}>
                   <View style={{flex: 1}}>
                     <Text style={styles.textBox1}>{t('views.modal.zinc')}</Text>
@@ -2212,7 +2117,7 @@ const xxx = (item) => {
                   </View>
                   
                   <View style={{alignItems: 'flex-end'}}>
-                    <Text style={styles.textBox3}>{(product.Cynk).toFixed(1)} {UNIT.MG}</Text>
+                    <Text style={styles.textBox3}>{(initialItem.Cynk).toFixed(1)} {UNIT.MG}</Text>
                   </View>
                 </View>
                 }
