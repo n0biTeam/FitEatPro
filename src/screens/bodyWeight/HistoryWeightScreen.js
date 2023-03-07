@@ -168,7 +168,7 @@ const HistoryWeightScreen = ({ navigation }) => {
         } else if ((wagBmi >= 25.00) && (wagBmi <= 29.99)){
             return( 
               <View style={{backgroundColor: colorBMI(wagBmi), paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5}}>
-                <Text style={styles.textA}>{t('value.obesity')}</Text>
+                <Text style={styles.textA}>{t('value.overweight')}</Text>
             </View>
              );
         } else if ((wagBmi >= 30.00) && (wagBmi <= 34.99)){
