@@ -544,11 +544,10 @@ const colorLG = (ladunek) => {
           </View>
 
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
-            {console.log(ladunek)}
           <CircularProgress
               value={ladunek}
               radius={spacing.SCALE_40}
-              maxValue={ladunek >= 20 ? ladunek : 20}
+              maxValue={110}
               inActiveStrokeOpacity={0.8}
               activeStrokeWidth={12}
               inActiveStrokeWidth={12}
