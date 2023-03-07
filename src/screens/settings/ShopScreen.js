@@ -96,7 +96,7 @@ const ShopScreen = ({ navigation }) => {
 
   return (
     <SafeAreaProvider>
-      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: spacing.SCALE_30}}>
+      <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('settingScreen.bay')} />
     </Appbar.Header>

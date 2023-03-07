@@ -15,6 +15,7 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import { colors, spacing, typography } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { ScrollView} from 'react-native-gesture-handler';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const theme = {
     ...DefaultTheme,
@@ -249,7 +250,7 @@ setMasterDataSource([...listData]);
         <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
             <TouchableOpacity onPress={_goBack}>
-                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
+                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={isTablet ? spacing.SCALE_10 : spacing.SCALE_24}/>
             </TouchableOpacity>
         </View>
         <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
@@ -258,7 +259,7 @@ setMasterDataSource([...listData]);
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
           iconColor={colors.COLORS.DEEP_BLUE}
-          inputStyle={{marginLeft: -spacing.SCALE_15}}
+          inputStyle={{marginLeft: isTablet ? 0 : -spacing.SCALE_15}}
         />
         </View>
 
@@ -272,6 +273,7 @@ setMasterDataSource([...listData]);
                 data={filteredDataSource}
                 //renderItem={renderItem}
                 renderItem={renderItem}
+                itemHeight={scale(50)}
                 />
             ) : (
                 <View style={{flex: 1, justifyContent: 'center'}}>

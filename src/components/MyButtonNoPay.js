@@ -2,6 +2,7 @@ import React from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, spacing, typography } from "../styles";
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 //import { COLORS } from "../constants/colors";
 
@@ -10,7 +11,7 @@ const widthDimensions = (Dimensions.get('window').width - 20) /5;
 export const MyButtonNoPay = ({icons, onPress, fontSize, borderColor, backgroundColor}) => (
     <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={[styles.buttonContainer, {backgroundColor: backgroundColor, borderColor: borderColor}]}>
-            <MaterialCommunityIcons name={icons} color={colors.COLORS.WHITE} size={spacing.SCALE_22} />
+            <MaterialCommunityIcons name={icons} color={colors.COLORS.WHITE} size={ isTablet ? spacing.SCALE_15 : spacing.SCALE_22} />
             
         </View>
     </TouchableOpacity>

@@ -20,6 +20,7 @@ import dataPurinePL from '../../data/dataPurinePL';
 import dataPurineEN from '../../data/dataPurineEN';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -235,7 +236,7 @@ setMasterDataSource([...data]);
         <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
             <TouchableOpacity onPress={_goBack}>
-                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
+                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={isTablet ? spacing.SCALE_10 : spacing.SCALE_24}/>
             </TouchableOpacity>
         </View>
         <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
@@ -244,7 +245,7 @@ setMasterDataSource([...data]);
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
           iconColor={colors.COLORS.DEEP_BLUE}
-          inputStyle={{marginLeft: -spacing.SCALE_15}}
+          inputStyle={{marginLeft: isTablet ? 0 : -spacing.SCALE_15}}
         />
         </View>
 
@@ -258,6 +259,7 @@ setMasterDataSource([...data]);
                 data={filteredDataSource}
                 //renderItem={renderItem}
                 renderItem={renderItem}
+                itemHeight={scale(50)}
                 />
             ) : (
                 <View style={{flex: 1, justifyContent: 'center'}}>
@@ -536,7 +538,7 @@ const styles = StyleSheet.create({
       shadowRadius: 16.00,
       
       elevation: 24,
-    }
+    },
 });
 
 export default PurineListScreenNoPay;

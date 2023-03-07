@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
 import { UNIT } from '../../styles/units';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 
 const theme = {
@@ -170,17 +171,17 @@ const ProfileScreen = ({ navigation }) => {
      <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_10}}>
        <View style={{flex: 1, alignItems: 'flex-end', marginRight: spacing.SCALE_3}}>
         <TouchableOpacity style={styles.btnChangePassword} onPress={changePassword}>
-          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('profileScreen.change-password')}</Text>
+          <Text style={{color: colors.TEXT.WHITE, fontSize: fontScale(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('profileScreen.change-password')}</Text>
         </TouchableOpacity>
        </View>
        <View style={{flex: 1, alignItems: 'flex-start', marginLeft: spacing.SCALE_3}}>
         { isVerified === false ? 
         <TouchableOpacity style={styles.btnVerificationAccount} onPress={sendVerificationEmail}>
-          <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('profileScreen.verify-email')}</Text>
+          <Text style={{color: colors.TEXT.WHITE, fontSize: fontScale(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('profileScreen.verify-email')}</Text>
         </TouchableOpacity>
          : 
          <View style={styles.btnVerificationAccountTrue}>
-         <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_10, textTransform: 'uppercase'}}>{t('profileScreen.email-verified')}</Text>
+         <Text style={{color: colors.TEXT.WHITE, fontSize: fontScale(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('profileScreen.email-verified')}</Text>
        </View>
         
         }
@@ -188,12 +189,12 @@ const ProfileScreen = ({ navigation }) => {
      </View>
 
         <View style={{borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, backgroundColor: colors.COLORS.WHITE }}>
-          <Text style={{fontWeight: 'bold', fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE}}>{t('profileScreen.account-information')}</Text>
+          <Text style={{fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE}}>{t('profileScreen.account-information')}</Text>
         </View>
 
         <View style={{marginTop: spacing.SCALE_10}}>
             <View style={{width: 150, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.first-name-last-name')}</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('profileScreen.first-name-last-name')}</Text>
             </View>
         </View>
         <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
@@ -203,7 +204,7 @@ const ProfileScreen = ({ navigation }) => {
 
         <View style={{marginTop: spacing.SCALE_6}}>
             <View style={{width: 150, }}>
-              <Text style={{fontSize: typography.FONT_SIZE_12}}>E-MAIL</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>E-MAIL</Text>
             </View>
         </View>
         <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
@@ -212,7 +213,7 @@ const ProfileScreen = ({ navigation }) => {
         </View>
 
         <View style={{borderBottomWidth: 1, borderColor: colors.COLORS.GREY_CCC, backgroundColor: colors.COLORS.WHITE, marginBottom: spacing.SCALE_6, marginTop: spacing.SCALE_15 }}>
-            <Text style={{fontWeight: 'bold', fontSize: typography.FONT_SIZE_16, color: colors.TEXT.DEEP_BLUE}}>{t('profileScreen.other-data')}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE}}>{t('profileScreen.other-data')}</Text>
         </View>
 
         <View style={{flexDirection: 'row'}}>
@@ -221,7 +222,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.current-weight')} ({userData.weightUnit})</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('profileScreen.current-weight')} ({userData.weightUnit})</Text>
               </View>     
             </View>
 
@@ -236,7 +237,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.target-weight')} ({userData.weightUnit})</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('profileScreen.target-weight')} ({userData.weightUnit})</Text>
               </View>     
             </View>
 
@@ -255,7 +256,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.height')} ({userData.growthUnit})</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('profileScreen.height')} ({userData.growthUnit})</Text>
               </View>     
             </View>
 
@@ -270,7 +271,7 @@ const ProfileScreen = ({ navigation }) => {
 
             <View style={{marginTop: spacing.SCALE_6, flexDirection: 'row'}}>
               <View style={{width: Dimensions.get('window').width/2-22, }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.gender')}</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('profileScreen.gender')}</Text>
               </View>     
             </View>
 
@@ -298,9 +299,9 @@ const ProfileScreen = ({ navigation }) => {
 
         <View>
 
-          <View style={{marginTop: spacing.SCALE_6}}>
+          <View style={{marginTop: scale(spacing.SCALE_6)}}>
               <View style={{ }}>
-                <Text style={{fontSize: typography.FONT_SIZE_12}}>{t('profileScreen.birthday')}</Text>
+                <Text style={{fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('profileScreen.birthday')}</Text>
               </View>
           </View>
           <View style={{marginTop: spacing.SCALE_3, marginLeft: spacing.SCALE_10, flexDirection: 'row'}}>
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textTitle: {
-    fontSize: typography.FONT_SIZE_20,
+    fontSize: fontScale(typography.FONT_SIZE_20),
     color: colors.TEXT.DEEP_BLUE,
   },
   textSubtitle: {
@@ -367,7 +368,7 @@ const styles = StyleSheet.create({
   },
   textValue: {
     fontWeight: 'bold',
-    fontSize: typography.FONT_SIZE_15, 
+    fontSize: fontScale(typography.FONT_SIZE_15), 
     marginLeft: spacing.SCALE_10,
     color: colors.TEXT.DEEP_BLUE
   },

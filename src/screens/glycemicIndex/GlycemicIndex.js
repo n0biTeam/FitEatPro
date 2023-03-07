@@ -19,18 +19,7 @@ import { colors, typography, spacing } from '../../styles';
 import { UNIT } from '../../styles/units';
 import MySwitch2 from '../../components/MySwitch';
 import { ScrollView} from 'react-native-gesture-handler';
-import {
-  fontScale,
-  scale,
-  deviceInch,
-  hasNotch,
-  isAndroid,
-  isIOS,
-  isSmallDevice,
-  isTablet,
-  width,
-  height,
-} from 'react-native-utils-scale';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const theme = {
     ...DefaultTheme,
@@ -1479,7 +1468,7 @@ const xxx = (item) => {
         <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
             <TouchableOpacity onPress={_goBack}>
-                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={spacing.SCALE_24}/>
+                <AntDesign name='arrowleft' color={colors.COLORS.WHITE} size={ isTablet ? spacing.SCALE_10 : spacing.SCALE_24}/>
             </TouchableOpacity>
         </View>
         <View style={{flex: 1, marginTop: spacing.SCALE_10, marginBottom: spacing.SCALE_10}}>
@@ -1488,7 +1477,7 @@ const xxx = (item) => {
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
           iconColor={colors.COLORS.DEEP_BLUE}
-          inputStyle={{marginLeft: -spacing.SCALE_15}}
+          inputStyle={{marginLeft: isTablet ? 0 : -spacing.SCALE_15}}
         />
         </View>
 
@@ -1501,6 +1490,7 @@ const xxx = (item) => {
                 <BigList
                 data={filteredDataSource}
                 //renderItem={renderItem}
+                itemHeight={scale(50)}
                 renderItem={renderItem}
                 />
             ) : (
@@ -1572,7 +1562,7 @@ const xxx = (item) => {
                        
                         <Text style={styles.textTitle}>{product.name}</Text>
                         <View style={{marginLeft: spacing.SCALE_6}}>
-                        <MaterialIcons name='mode-edit' size={spacing.SCALE_24} color={colors.COLORS.WHITE}
+                        <MaterialIcons name='mode-edit' size={isTablet ? spacing.SCALE_15 : spacing.SCALE_24} color={colors.COLORS.WHITE}
                             onPress={() => {
                               bottomSheetModalRef.current.close();
                             navigation.navigate('EditItemGlycemicIndex', {itemId: product.id})
@@ -1583,8 +1573,8 @@ const xxx = (item) => {
                     <View style={{justifyContent: 'center', marginRight: spacing.SCALE_10}}>
                       <View style={{}}>
                         
-                        <View style={{marginLeft: spacing.SCALE_15}}>
-                            <MaterialCommunityIcons name='window-close' size={spacing.SCALE_26} color={colors.COLORS.WHITE}
+                        <View style={{marginLeft: scale(spacing.SCALE_15)}}>
+                            <MaterialCommunityIcons name='window-close' size={isTablet ? spacing.SCALE_15 : spacing.SCALE_26} color={colors.COLORS.WHITE}
                             onPress={() => {
                             bottomSheetModalRef.current.close()
                             }} 
@@ -1596,7 +1586,7 @@ const xxx = (item) => {
 
                     <View style={{flexDirection: 'row', alignSelf: 'center', marginBottom: spacing.SCALE_6}}>
                         <View style={{justifyContent: 'center'}}>
-                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
+                            <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', marginRight: spacing.SCALE_10, fontSize: fontScale(typography.FONT_SIZE_12)}}>{t('glycemicIndex.modal-enter-quantity')}</Text>
                         </View>
                             <TextInput
                                 style={styles.textInput}
@@ -1605,14 +1595,14 @@ const xxx = (item) => {
                                 placeholder="100"
                                 keyboardType="numeric"
                             />
-                            <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE}}> g</Text>
+                            <Text style={{marginTop: spacing.SCALE_10, fontWeight: 'bold', color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_12)}}> g</Text>
                     </View>
 
                     <ScrollView>
       <View style={{marginHorizontal: spacing.SCALE_8}}>
 
         <View style={{flexDirection: 'row', borderWidth: 1, padding: spacing.SCALE_6, borderColor: colors.COLORS.LIGHT_BLUE, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_5, backgroundColor: colors.COLORS.LIGHT_BLUE, elevation: 1}}>
-          <Text style={{marginRight: spacing.SCALE_4, fontSize: typography.FONT_SIZE_12, color: colors.COLORS.WHITE}}>{t('glycemicIndex.category')}</Text>
+          <Text style={{marginRight: spacing.SCALE_4, fontSize: fontScale(typography.FONT_SIZE_12), color: colors.COLORS.WHITE}}>{t('glycemicIndex.category')}</Text>
           <Text style={styles.titleCategory}>{product.category}</Text>
         </View>
 
@@ -1621,14 +1611,14 @@ const xxx = (item) => {
           <View style={{borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, flex: 1, borderRadius: 5, marginRight: spacing.SCALE_3, elevation: 3 }}>
             <View style={{ alignItems: 'center'}}>
               <Text style={[styles.titleKcal, {marginRight: spacing.SCALE_4, flex: 1 }]}>{obliczKcal(number)}</Text>
-              <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.COLORS.DEEP_BLUE, marginTop: -spacing.SCALE_5}}>kcal</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), color: colors.COLORS.DEEP_BLUE, marginTop: isTablet ? scale(-spacing.SCALE_3) : -spacing.SCALE_5}}>kcal</Text>
             </View>
           </View>
 
           <View style={{ borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, flex: 1, borderRadius: 5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
             <View style={{ alignItems: 'center'}}>
               <Text style={[styles.titleKcal, {marginRight: 4, flex: 1 }]}> {(obliczKcal(number)*4.184).toFixed(0)}</Text>
-              <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.COLORS.DEEP_BLUE, marginTop: -spacing.SCALE_5}}>kJ</Text>
+              <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), color: colors.COLORS.DEEP_BLUE, marginTop: isTablet ? scale(-spacing.SCALE_3) : -spacing.SCALE_5}}>kJ</Text>
             </View>
           </View>
           
@@ -1638,20 +1628,20 @@ const xxx = (item) => {
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 3}}>
             <CircularProgress
                     value={product.index_glycemic === undefined ? '' : product.index_glycemic}
-                    radius={spacing.SCALE_25}
+                    radius={ isTablet ? spacing.SCALE_25 : spacing.SCALE_25}
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={110}
-                    activeStrokeWidth={8}
-                    inActiveStrokeWidth={8}
+                    activeStrokeWidth={ isTablet ? 16 : 8 }
+                    inActiveStrokeWidth={isTablet ? 16 : 8}
                     activeStrokeColor={colorIG(product.index_glycemic)}
-                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                    progressValueStyle={{ fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16) }}
                     dashedStrokeConfig={{
-                      count: 25,
-                      width: 5,
+                      count: isTablet ? 35 : 25,
+                      width: isTablet ? 7 : 5,
                     }}
                   />
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-index')}</Text>
+                  <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-index')}</Text>
           </View>
 
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
@@ -1661,20 +1651,20 @@ const xxx = (item) => {
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
                       maxValue={obliczLG(number) >= 100 ? obliczLG(number) : 100}
-                      activeStrokeWidth={8}
-                      inActiveStrokeWidth={8}
+                      activeStrokeWidth={ isTablet ? 16 : 8 }
+                      inActiveStrokeWidth={isTablet ? 16 : 8}
                       activeStrokeColor={colorLG(obliczLG(number))}
-                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                      progressValueStyle={{ fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16) }}
                       progressFormatter={(value, number) => {
                         'worklet';   
                         return value.toFixed(1);
                       }}
                       dashedStrokeConfig={{
-                        count: 25,
-                        width: 5,
+                        count: isTablet ? 35 : 25,
+                        width: isTablet ? 7 : 5,
                       }}
                     />
-                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-load')}</Text>
+                    <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('glycemicIndex.glycemic-load')}</Text>
           </View>
         </View>
 
@@ -1686,21 +1676,21 @@ const xxx = (item) => {
                     duration={2000}
                     progressValueColor={colors.COLORS.DEEP_BLUE}
                     maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
-                    activeStrokeWidth={8}
-                    inActiveStrokeWidth={8}
+                    activeStrokeWidth={ isTablet ? 16 : 8 }
+                    inActiveStrokeWidth={isTablet ? 16 : 8}
                     activeStrokeColor={colors.COLORS.DEEP_BLUE}
-                    progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                    progressValueStyle={{ fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16) }}
                     progressFormatter={(value, number) => {
                         'worklet';
                         return value.toFixed(1);
                       }}
                       dashedStrokeConfig={{
-                        count: 25,
-                        width: 5,
+                        count: isTablet ? 35 : 25,
+                        width: isTablet ? 7 : 5,
                       }}
                   />
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
-                  <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.carbohydrate')}</Text>
+                  <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
+                  <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.carbohydrate')}</Text>
           </View>
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3 }}>
           <CircularProgress
@@ -1709,22 +1699,22 @@ const xxx = (item) => {
                       duration={2000}
                       progressValueColor={colors.COLORS.DEEP_BLUE}
                       maxValue={obliczLG(number) >= 10 ? obliczLG(number) : 10}
-                      activeStrokeWidth={8}
-                      inActiveStrokeWidth={8}
+                      activeStrokeWidth={ isTablet ? 16 : 8 }
+                      inActiveStrokeWidth={isTablet ? 16 : 8}
                       activeStrokeColor={colors.COLORS.DEEP_BLUE}
-                      progressValueStyle={{ fontWeight: 'bold', fontSize: typography.FONT_SIZE_16 }}
+                      progressValueStyle={{ fontWeight: 'bold', fontSize: fontScale(typography.FONT_SIZE_16) }}
                       progressFormatter={(value, number) => {
                         'worklet';
                           
                         return value.toFixed(1);
                       }}
                       dashedStrokeConfig={{
-                        count: 25,
-                        width: 5,
+                        count: isTablet ? 35 : 25,
+                      width: isTablet ? 7 : 5,
                       }}
                     />
-                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
-                    <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.protein-fat')}</Text>
+                    <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('glycemicIndex.exchanger')}</Text>
+                    <Text style={{fontSize: fontScale(typography.FONT_SIZE_10), color: colors.TEXT.DEEP_BLUE}}>{t('glycemicIndex.protein-fat')}</Text>
           </View>
         </View>
         
@@ -1736,16 +1726,16 @@ const xxx = (item) => {
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.protein')}</Text>
+                  <Text style={styles.boxText}>{t('value.protein')}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                  <Text style={styles.boxText2}>
                     {product.protein  === undefined ? '' : obliczBialko(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    <Text style={styles.textOz}>
                       ({product.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -1760,16 +1750,16 @@ const xxx = (item) => {
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fat')}</Text>
+                  <Text style={styles.boxText}>{t('value.fat')}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                  <Text style={styles.boxText2}>
                     {product.fat  === undefined ? '' : obliczTluszcz(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    <Text style={styles.textOz}>
                       ({product.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -1784,16 +1774,16 @@ const xxx = (item) => {
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.carbohydrates')}</Text>
+                  <Text style={styles.boxText}>{t('value.carbohydrates')}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                  <Text style={styles.boxText2}>
                     {product.carbs  === undefined ? '' : obliczWeglowodany(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    <Text style={styles.textOz}>
                       ({product.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -1808,16 +1798,16 @@ const xxx = (item) => {
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.fiber')}</Text>
+                  <Text style={styles.boxText}>{t('value.fiber')}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                  <Text style={styles.boxText2}>
                     {product.fiber  === undefined ? '' : obliczBlonnik(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    <Text style={styles.textOz}>
                       ({product.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -1832,16 +1822,16 @@ const xxx = (item) => {
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.sugar')}</Text>
+                  <Text style={styles.boxText}>{t('value.sugar')}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                  <Text style={styles.boxText2}>
                     {product.Sugars  === undefined ? '' : obliczCukier(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    <Text style={styles.textOz}>
                       ({product.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -1856,16 +1846,16 @@ const xxx = (item) => {
               
               <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{flex: 1}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, textTransform: 'uppercase', fontWeight: 'bold'}}>{t('value.cholesterol')}</Text>
+                  <Text style={styles.boxText}>{t('value.cholesterol')}</Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_13, fontWeight: 'bold'}}>
+                  <Text style={styles.boxText2}>
                     {product.choresterol  === undefined ? '' : obliczCholesterol(number).toFixed(1)} {UNIT.GR + ' '}
                   </Text>
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={{color: colors.TEXT.GREY_777, fontSize: typography.FONT_SIZE_10}}>
+                    <Text style={styles.textOz}>
                       ({product.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -2448,7 +2438,8 @@ const styles = StyleSheet.create({
       marginBottom: spacing.SCALE_10,
     },
     textBtn: {
-      color: colors.TEXT.WHITE
+      color: colors.TEXT.WHITE,
+      fontSize: fontScale(typography.FONT_SIZE_12),
     },
     titleContainer: {
       //marginBottom: 10, 
@@ -2457,7 +2448,7 @@ const styles = StyleSheet.create({
       padding: spacing.SCALE_10,
     },
     textTitle: {
-      fontSize: typography.FONT_SIZE_16,
+      fontSize: fontScale(typography.FONT_SIZE_16),
       color: colors.TEXT.WHITE,
       textTransform: 'uppercase',
       fontWeight: 'bold',
@@ -2465,13 +2456,13 @@ const styles = StyleSheet.create({
       //borderBottomColor: 'orange'
     },
     titleCategory: {
-      fontSize: typography.FONT_SIZE_12,
+      fontSize: fontScale(typography.FONT_SIZE_12),
       color: colors.TEXT.WHITE,
       fontWeight: 'bold',
       textTransform: 'uppercase',
     },
     titleKcal:{
-      fontSize: typography.FONT_SIZE_24,
+      fontSize: fontScale(typography.FONT_SIZE_24),
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',
     },
@@ -2495,20 +2486,20 @@ const styles = StyleSheet.create({
       marginBottom: spacing.SCALE_35,
     },
     textBox1: {
-      fontSize: typography.FONT_SIZE_12,
+      fontSize: fontScale(typography.FONT_SIZE_12),
       textTransform: 'uppercase'
     },
     textBox2: {
-      fontSize: typography.FONT_SIZE_10,
+      fontSize: fontScale(typography.FONT_SIZE_12),
       textTransform: 'uppercase'
     },
     textBox3: {
-      fontSize: typography.FONT_SIZE_12,
+      fontSize: fontScale(typography.FONT_SIZE_12),
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold'
     },
     modalBtnText: {
-      fontSize: typography.FONT_SIZE_10,
+      fontSize: fontScale(typography.FONT_SIZE_10),
       textTransform: 'uppercase',
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold'
@@ -2528,6 +2519,21 @@ const styles = StyleSheet.create({
       shadowRadius: 16.00,
       
       elevation: 24,
+    },
+    boxText: {
+      color: colors.TEXT.DEEP_BLUE, 
+      fontSize: fontScale(typography.FONT_SIZE_13),
+      textTransform: 'uppercase',
+      fontWeight: 'bold'
+    },
+    boxText2: {
+      color: colors.TEXT.DEEP_BLUE,
+      fontSize: fontScale(typography.FONT_SIZE_13),
+      fontWeight: 'bold'
+    },
+    textOz: {
+      color: colors.TEXT.GREY_777,
+      fontSize: fontScale(typography.FONT_SIZE_10),
     }
 });
 
