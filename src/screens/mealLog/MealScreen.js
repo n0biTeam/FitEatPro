@@ -544,6 +544,7 @@ const colorLG = (ladunek) => {
           </View>
 
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_5, paddingVertical: spacing.SCALE_5, marginLeft: spacing.SCALE_3, elevation: 3}}>
+            {console.log(ladunek)}
           <CircularProgress
               value={ladunek}
               radius={spacing.SCALE_40}
@@ -574,7 +575,7 @@ const colorLG = (ladunek) => {
                 <Text style={{color: colors.TEXT.DEEP_BLUE}}>{t('mealScreen.meal-weight')} </Text>
               </View>
               <View>
-                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_16}}>
                   {sumGramma} <Text>{UNIT.GR}</Text></Text>
                   {isSwitchOn === true &&
                   <Text style={{fontSize: typography.FONT_SIZE_10}}>{(sumGramma / 28.34952).toFixed(3)} {UNIT.OZ}</Text>
@@ -584,7 +585,7 @@ const colorLG = (ladunek) => {
 
             <View style={{flex: 1, marginTop: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, padding: spacing.SCALE_5, elevation: 3, marginLeft: spacing.SCALE_3, justifyContent: 'center'}}>
               <View style={{alignItems: 'center'}}>
-                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_18}}>{sumKcal} kcal / {(sumKcal*4.184).toFixed(0)} kJ</Text>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold', fontSize: typography.FONT_SIZE_16}}>{sumKcal.toFixed(1)} kcal / {(sumKcal*4.184).toFixed(0)} kJ</Text>
               </View>
             </View>
           </View>
