@@ -880,7 +880,7 @@ if(lang === 'pl'){
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={textOz}>
+                    <Text style={styles.textOz}>
                       ({initialItem.protein  === undefined ? '' : obliczBialkoOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -904,7 +904,7 @@ if(lang === 'pl'){
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={textOz}>
+                    <Text style={styles.textOz}>
                       ({initialItem.fat  === undefined ? '' : obliczTluszczOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -928,7 +928,7 @@ if(lang === 'pl'){
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={textOz}>
+                    <Text style={styles.textOz}>
                       ({initialItem.carbs  === undefined ? '' : obliczWeglowodanyOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -952,7 +952,7 @@ if(lang === 'pl'){
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={textOz}>
+                    <Text style={styles.textOz}>
                       ({initialItem.fiber  === undefined ? '' : obliczBlonnikOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -976,7 +976,7 @@ if(lang === 'pl'){
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={textOz}>
+                    <Text style={styles.textOz}>
                       ({initialItem.Sugars  === undefined ? '' : obliczCukierOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>
@@ -1000,7 +1000,7 @@ if(lang === 'pl'){
                   </View>
                   {isSwitchOn === true &&
                   <View style={{justifyContent: 'flex-end'}}>
-                    <Text style={textOz}>
+                    <Text style={styles.textOz}>
                       ({initialItem.choresterol  === undefined ? '' : obliczCholesterolOZ(number).toFixed(3)} {UNIT.OZ})
                     </Text>
                   </View>

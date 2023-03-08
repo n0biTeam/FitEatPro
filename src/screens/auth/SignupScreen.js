@@ -11,17 +11,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import { colors, typography, spacing } from '../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const registerValidationSchema = yup.object().shape({
-    firstName: yup.string().min(2, t('signupScreen.text-1')).max(50, t('signupScreen.text-2')).required(t('signupScreen.text-3')),
-    lastName: yup.string().min(2, t('signupScreen.text-1')).max(50, t('signupScreen.text-2')).required('signupScreen.text-4'),
-    email: yup.string().email(t('signupScreen.text-5')).required(t('signupScreen.text-6')),
-    password: yup.string().min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`).required(t('forgetScreen.text-4'))
-                  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, t('forgetScreen.text-5')),
-    confirmPassword: yup.string()
-                      .min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`)
-                      .oneOf([yup.ref('password')], t('signupScreen.text-7'))
-                      .required(t('signupScreen.text-8'))
-  });
+
 
 const SignupScreen = ({ navigation }) => {
  
@@ -29,7 +19,16 @@ const SignupScreen = ({ navigation }) => {
     const [showPassword, setShowPassword] = useState(true);
     const [showConfirmPassword, setShowConfirmPassword] = useState(true);
     const {t, i18n} = useTranslation();
-      
+    
+    const registerValidationSchema = yup.object().shape({
+    email: yup.string().email(i18n.t('signupScreen.text-5')).required(i18n.t('signupScreen.text-6')),
+    password: yup.string().min(8, ({ min }) => `${i18n.t('forgetScreen.text-3a')} ${min} ${i18n.t('forgetScreen.text-3b')})`).required(i18n.t('forgetScreen.text-4'))
+                  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, i18n.t('forgetScreen.text-5')),
+    confirmPassword: yup.string()
+                      .min(8, ({ min }) => `${i18n.t('forgetScreen.text-3a')} ${min} ${i18n.t('forgetScreen.text-3b')})`)
+                      .oneOf([yup.ref('password')], i18n.t('signupScreen.text-7'))
+                      .required(i18n.t('signupScreen.text-8'))
+  });  
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     useEffect(() => {
@@ -218,7 +217,6 @@ const SignupScreen = ({ navigation }) => {
         {(errors.confirmPassword && touched.confirmPassword) && 
               <Text style={styles.errors}>{errors.confirmPassword}</Text>
         }
-
 
         <View style={{marginTop: spacing.SCALE_20, justifyContent: 'center', alignItems: 'center'}}>
               

@@ -11,7 +11,16 @@ const AuthStack = () => {
   let routeName;
 
   useEffect(() => {
-       
+    // AsyncStorage.getItem('alreadyLaunched').then((value) => {
+    //   if (value === null) {
+    //    AsyncStorage.setItem('alreadyLaunched', 'true'); // No need to wait for `setItem` to finish, although you might want to handle errors
+    //     setIsFirstLaunch(true);
+    //   } else {
+    //     setIsFirstLaunch(false);
+    //   }
+
+    // }); // Add some error handling, also you can simply do setIsFirstLaunch(null)
+    
     async function setData() {
       const appData = await AsyncStorage.getItem("appLaunched");
       if (appData == null) {

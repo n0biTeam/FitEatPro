@@ -11,11 +11,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import auth from '@react-native-firebase/auth';
 
 
-const loginValidationSchema = yup.object().shape({
-    email: yup.string().email(t('forgetScreen.text-1')).required(t('forgetScreen.text-2')),
-    password: yup.string().min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`).required(t('forgetScreen.text-4'))
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, t('forgetScreen.text-5')),
-  });
+
 
 const ForgetPasswordScreen = ({ navigation }) => {
 
@@ -23,7 +19,11 @@ const ForgetPasswordScreen = ({ navigation }) => {
     const [showPassword, setShowPassword] = useState(true);
     const {t, i18n} = useTranslation();
   
-   
+   const loginValidationSchema = yup.object().shape({
+    email: yup.string().email(i18n.t('forgetScreen.text-1')).required(i18n.t('forgetScreen.text-2')),
+    password: yup.string().min(8, ({ min }) => `${i18n.t('forgetScreen.text-3a')} ${min} ${i18n.t('forgetScreen.text-3b')})`).required(i18n.t('forgetScreen.text-4'))
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, i18n.t('forgetScreen.text-5')),
+  });
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     useEffect(() => {

@@ -39,7 +39,6 @@ const OnboardingScreen = ({ navigation }) => {
     <Onboarding
         SkipButtonComponent={Skip}
         NextButtonComponent={Next}
-        //DoneButtonComponent={Done}
         onSkip={() => navigation.navigate('Login')}
         onDone={() => navigation.navigate('Login')}
         transitionAnimationDuration={400}
