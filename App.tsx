@@ -4,7 +4,7 @@ import { LogBox } from 'react-native';
 import Purchases from 'react-native-purchases';
 import { API_KEY } from './src/styles/constants';
 
-//LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 const App = () => {
 

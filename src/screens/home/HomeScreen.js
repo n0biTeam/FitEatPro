@@ -16,18 +16,15 @@ import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
 import Purchases from 'react-native-purchases';
 import { ENTITLEMENT_ID } from '../../styles/constants';
-import {
-  fontScale,
-  scale,
-  deviceInch,
-  hasNotch,
-  isAndroid,
-  isIOS,
-  isSmallDevice,
-  isTablet,
-  width,
-  height,
-} from 'react-native-utils-scale';
+import { fontScale, scale, isSmallDevice, isTablet } from 'react-native-utils-scale';
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-6580805673232587/2860695924';
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ['fashion', 'clothing'],
+});
 
 const heightScreen = Dimensions.get('window').height;
 
@@ -71,9 +68,9 @@ const HomeScreen = ({ navigation }) => {
     };
 
 
-    const [userPro, setUserPro] = useState(false);
+  const [userPro, setUserPro] = useState(false);
 
-    const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
 
   const [activated, setActivated] = useState([]);
@@ -83,7 +80,19 @@ const HomeScreen = ({ navigation }) => {
         
          try {
            const customerInfo = await Purchases.getCustomerInfo();
-           setActivated(customerInfo.activeSubscriptions)
+           setActivated(customerInfo.activeSubscriptions);
+                    
+           if(customerInfo.activeSubscriptions.length === 0){
+              interstitial.addAdEventListener(AdEventType.LOADED, () => {
+                interstitial.show();
+              });
+              interstitial.load();
+              return () => {
+                  interstitialListener = null;
+              };
+            }else {
+              return null;
+            }
    
          } catch (e) {
           // Error fetching customer info
