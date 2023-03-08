@@ -6,7 +6,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
-import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { isTablet } from 'react-native-utils-scale';
 
 const BloodPressureEditItemScreen = ({ route, navigation }) => {
   
@@ -27,7 +27,6 @@ const BloodPressureEditItemScreen = ({ route, navigation }) => {
     .get()
     .then(( doc ) => {
       if( doc.exists ) {
-        //console.log('Products Data: ', documentSnapshot.data());
         setPressureData(doc.data());
       }
     })
@@ -70,7 +69,6 @@ const BloodPressureEditItemScreen = ({ route, navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -86,11 +84,10 @@ const BloodPressureEditItemScreen = ({ route, navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
          height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
         <View style={styles.rootContainer}>

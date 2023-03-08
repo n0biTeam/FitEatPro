@@ -31,9 +31,6 @@ const HomairScreen = ({ navigation }) => {
       .get()
       .then(( doc ) => {
         if( doc.exists ) {
-          //console.log('User Data: ', documentSnapshot.data());
-          //console.log(doc.data().weightName);
-          //console.log(doc.data().heightName);
           setUserData(doc.data());
         }
       })
@@ -155,7 +152,6 @@ const HomairScreen = ({ navigation }) => {
                         value={insulin.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setInsulin}
-                        //onChangeText={(text) => setInsulin(text)}
                         keyboardType="numeric"
                     />
                 </View>
@@ -168,7 +164,6 @@ const HomairScreen = ({ navigation }) => {
                         value={glucose.toString()}
                         style={{backgroundColor: colors.COLORS.WHITE}}
                         onChangeText={setGlucose}
-                        //onChangeText={(text) => setGlucose(text)}
                         keyboardType="numeric"
                     />
                 </View>
@@ -276,8 +271,6 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase'
 
       },
-
-      
       textSubtitle: {
         fontSize: 12,
       }

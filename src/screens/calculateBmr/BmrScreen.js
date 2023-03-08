@@ -5,7 +5,6 @@ import { Appbar, Button, TextInput } from 'react-native-paper';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-//import DropDownPicker from 'react-native-dropdown-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors, typography, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -14,7 +13,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import { UNIT } from '../../styles/units';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
-import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { fontScale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -23,7 +22,6 @@ const BmrScreen = ({ navigation }) => {
   const {t, i18n} = useTranslation();
 
   const {user} = useContext(AuthContext); 
-  //const [male, setMale] = useState(false);
   const [female, setFemale] = useState(false);
   const [userData, setUserData] = useState('');
   const [age, setAge] = useState(0);
@@ -52,26 +50,9 @@ const BmrScreen = ({ navigation }) => {
         
       }, []);
 
-      //console.log('statusBarHeight: ', StatusBar.currentHeight)
+     
   const _goBack = () => navigation.navigate('HomeScreen');
-
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
-  // const [items, setItems] = useState([
-  //   {label: t('bmrScreen.label-1'), value: 1.2},
-  //   {label: t('bmrScreen.label-2'), value: 1.3},
-  //   {label: t('bmrScreen.label-3'), value: 1.4},
-  //   {label: t('bmrScreen.label-4'), value: 1.5},
-  //   {label: t('bmrScreen.label-5'), value: 1.6},
-  //   {label: t('bmrScreen.label-6'), value: 1.7},
-  //   {label: t('bmrScreen.label-7'), value: 1.8},
-  //   {label: t('bmrScreen.label-8'), value: 1.9},
-  //   {label: t('bmrScreen.label-9'), value: 2.0},
-  //   {label: t('bmrScreen.label-10'), value: 2.2},
-  // ]);
-
   const [selected, setSelected] = useState("");
-  
 
   const data = [
       {key:'1.2', value: t('bmrScreen.label-1')},
@@ -90,24 +71,20 @@ const BmrScreen = ({ navigation }) => {
             && (userData.gender != null && userData.gender != '');
 
     const bmrCalc = () => {
-    //console.log(userData.weightName);
+   
     if(userData.weightUnit === UNIT.KG){
       if(userData.gender === 1){
-        //console.log('Kobieta');
         const ppm = 665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age);
         setSumBMR(ppm);
       }else{
-        //console.log('Mężczyzna');
         const ppm = 66 + (13.7 * userData.weightName) + (5 * userData.heightName) - (6.8 * age);
         setSumBMR(ppm);
       }
     }else{
       if(userData.gender === 1){
-        //console.log('Kobieta');
         const ppm = 665 + (9.6 * (userData.weightNameLB * 0.45359237)) + (1.7 * (userData.heightNameIN) * 2.54) - (4.7 * age);
         setSumBMR(ppm);
       }else{
-        //console.log('Mężczyzna');
         const ppm = 66 + (13.7 * (userData.weightNameLB * 0.45359237)) + (5 * (userData.heightNameIN) * 2.54) - (6.8 * age);
         setSumBMR(ppm);
       }
@@ -117,21 +94,17 @@ const BmrScreen = ({ navigation }) => {
   const cpmCalc = () => {
     if(userData.weightUnit === UNIT.KG){
       if(female === true){
-        //console.log('Kobieta');
         const ppm = (665 + (9.6 * userData.weightName) + (1.7 * userData.heightName) - (4.7 * age))*selected;
         setSumCPM(ppm);
       }else{
-        //console.log('Mężczyzna');
         const ppm = (66 + (13.7 * userData.weightName) + (5 * userData.heightName) - (6.8 * age))*selected;
         setSumCPM(ppm);
       }
     }else{
       if(female === true){
-        //console.log('Kobieta');
         const ppm = (665 + (9.6 * (userData.weightName) * 0.45359237) + (1.7 * (userData.heightName) * 2.54) - (4.7 * age)) * selected;
         setSumCPM(ppm);
       }else{
-        //console.log('Mężczyzna');
         const ppm = (66 + (13.7 * (userData.weightName) * 0.45359237) + (5 * (userData.heightName) * 2.54) - (6.8 * age)) * selected;
         setSumCPM(ppm);
       }
@@ -169,13 +142,12 @@ const BmrScreen = ({ navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
        }}
        imageStyle={{
-        //opacity: 0.8
+        
       }}
     
   >
@@ -253,27 +225,7 @@ const BmrScreen = ({ navigation }) => {
       </View>
       
       <View style={{marginTop: spacing.SCALE_10, zIndex: 1, }}>
-        {/* <DropDownPicker
-           
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            containerStyle={{
-            }}
-            textStyle={{
-              fontSize: typography.FONT_SIZE_15, zIndex: 2, 
-              color: colors.COLORS.DEEP_BLUE, 
-            }}
-            translation={{
-              PLACEHOLDER: "Wybierz"
-            }}
-            dropDownContainerStyle={{
-              //height: 300
-            }}
-          /> */}
+        
           <SelectList 
                 setSelected={(val) => setSelected(val)} 
                 data={data} 
@@ -302,7 +254,7 @@ const BmrScreen = ({ navigation }) => {
             {t('bmrScreen.calculate')}
         </Button>
       </View>
-      {/* { selected && */}
+    
       <ScrollView>
       <View style={{flexDirection: 'row', marginTop: spacing.SCALE_10, alignItems: 'center',}}>
         
@@ -377,7 +329,7 @@ const BmrScreen = ({ navigation }) => {
         : null
         }
     </ScrollView>
-    {/* } */}
+  
     </View>
     
     </ImageBackground>

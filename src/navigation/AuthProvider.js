@@ -79,18 +79,14 @@ const insertPurineJson = async (dataPurineJson) => {
               values.password
             )
             .then(() => {
-              //console.log('User account created & signed in!');
               ToastAndroid.show(t('provider.user-account-created'), ToastAndroid.LONG, ToastAndroid.CENTER);
-              //navigation.navigate('Home');
             })
             .catch(error => {
               if (error.code === 'auth/email-already-in-use') {
-                //console.log('That email address is already in use!');
                 ToastAndroid.show(t('provider.email-already-in-use'), ToastAndroid.LONG, ToastAndroid.CENTER);
               }
           
               if (error.code === 'auth/invalid-email') {
-                //console.log('That email address is invalid!');
                 ToastAndroid.show(t('provider.invalid-email'), ToastAndroid.LONG, ToastAndroid.CENTER);
               }
           
@@ -105,36 +101,23 @@ const insertPurineJson = async (dataPurineJson) => {
         register: async (values) => {
     
             const email = values.email;
-            //console.log(email);
             await auth()
                 .createUserWithEmailAndPassword(
                     values.email,
                     values.password
                 )
-                // .then(() => {
-                //     console.log('User account created & signed in!');
-                //     ToastAndroid.show('Konto zostało utworzone.', ToastAndroid.LONG, ToastAndroid.BOTTOM);
-                // })
                 .catch(error => {
                   if (error.code === 'auth/email-already-in-use') {
-                    //console.log('That email address is already in use!');
                     ToastAndroid.show(t('provider.email-already-in-use'), ToastAndroid.LONG, ToastAndroid.CENTER);
                   }
               
                   if (error.code === 'auth/invalid-email') {
-                    //console.log('That email address is invalid!');
                     ToastAndroid.show(t('provider.invalid-email'), ToastAndroid.LONG, ToastAndroid.CENTER);
                   }
                            
                   console.error(error);
                 })
-                // .catch((error) =>{
-                //     console.log(error);
-                // })
                 .then(() => {
-                    //const uuid = firebase.auth().currentUser.uid;
-
-                    //console.log('User uid: ' + uuid);
                     firestore().collection('users')
                     .doc(auth().currentUser.uid).collection('profile').doc('profil')
                     .set({
@@ -152,11 +135,8 @@ const insertPurineJson = async (dataPurineJson) => {
                       growthUnit: UNIT.CM,
                       showOunce: true,
                       weightNameLB: 0, 
-                      //weightNameST: 0,
                       heightNameIN: 0,
-                      //heightNameFT: 0,
                       targetWeightLB: 0,
-                      //targetWeightST: 0
                     })
                 }).catch((error) => {
                     console.log('Error: 1' + error);
@@ -182,7 +162,6 @@ const insertPurineJson = async (dataPurineJson) => {
            await auth()
             .signOut()
             .then(() => console.log('User signed out!'));
-            //navigation.navigate('Login');
           } catch (e) {
             console.log(e);
           }

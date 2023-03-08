@@ -8,7 +8,8 @@ import { TextInput } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
-//import { ScrollView } from 'react-native-gesture-handler';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+
 const EditItemGlycemicIndex = ({ route, navigation }) => {
   
   const _goBack = () => navigation.navigate('GlycemicIndex');
@@ -27,7 +28,6 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
     .get()
     .then(( documentSnapshot ) => {
       if( documentSnapshot.exists ) {
-        //console.log('Products Data: ', documentSnapshot.data());
         setProductData(documentSnapshot.data());
       }
     })
@@ -81,7 +81,6 @@ const EditItemGlycemicIndex = ({ route, navigation }) => {
     })
     .then(() => {
       console.log('Product Update');
-      //Alert.alert('Produkt zaktualizowany');
       navigation.navigate('GlycemicIndex')
       ToastAndroid.show(t('editItemGlycemicIndex.toast.product-update'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
     })

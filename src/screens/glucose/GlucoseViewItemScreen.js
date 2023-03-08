@@ -30,10 +30,9 @@ const GlucoseViewItemScreen = ({ route, navigation }) => {
    .doc(ItemId)
    .get()
    .then(doc => {
-     //console.log('User exists: ', doc.exists);
+
 
      if (doc.exists) {
-       //console.log('Data: ', doc.data());
        setDataItem(doc.data());
      }
    });
@@ -45,7 +44,6 @@ useEffect(() => {
 }, [navigation, loading]);
 
 const lastGlucose = () => {
-    //console.log(getGlucoseMg)
     if((dataItem.glucoseMg >= 70) && (dataItem.glucoseMg <= 99)){
       return(
         <View style={{backgroundColor: colors.GLUCOSE.G1, padding: 5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
@@ -161,11 +159,10 @@ const alertHandler = () => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: isTablet ? 300 : 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
        

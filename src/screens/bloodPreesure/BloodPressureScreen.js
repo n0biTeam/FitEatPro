@@ -1,19 +1,17 @@
-import { StyleSheet, Text, View, TouchableOpacity, Animated, ImageBackground, StatusBar, Dimensions, ToastAndroid, Alert, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions, ToastAndroid, Alert, ActivityIndicator } from 'react-native'
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AnimatedFAB, DefaultTheme, Provider as PaperProvider, Appbar, TextInput, Button } from 'react-native-paper';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import RBSheet from "react-native-raw-bottom-sheet";
-import DatePicker from 'react-native-date-picker';
-import moment from 'moment/moment';
-import { format, getISODay } from 'date-fns';
+import { format} from 'date-fns';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import BigList from "react-native-big-list";
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
-import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { fontScale, isTablet } from 'react-native-utils-scale';
 import { scaleFont } from '../../styles/mixins';
 
 const theme = {
@@ -56,11 +54,7 @@ const BloodPressureScreen = ({
   const [loading, setLoading] = useState(true);
   
   //-------------------------------------------------------------------
-  //const [dateForm, setDateForm] = useState(new Date());
-  //const [timeForm, setTimeForm] = useState(new Date());
-  //const [open1, setOpen1] = useState(false);
-  //const [open2, setOpen2] = useState(false);
-  
+ 
   const refRBSheet = useRef();
   const [isOpen, setIsOpen] = useState(true);
   const heightModal = (Dimensions.get('window').height/1.5);
@@ -91,7 +85,6 @@ const BloodPressureScreen = ({
      .get()
      .then(( doc ) => {
        if( doc.exists ) {
-         //setUserData(doc.data());
          const dateB = new Date(doc.data().birthday.seconds * 1000);
          setUserAge(new Date().getFullYear() - dateB.getFullYear());        
        }
@@ -101,7 +94,6 @@ const BloodPressureScreen = ({
    const getMeasurement = () => {
     firestore().collection('users').doc(user.uid).collection('bloodPressure')
       .orderBy('createdAt', 'desc')
-      //.limit(30)
       .onSnapshot(
          querySnapshot => {
           const getData = [];
@@ -128,11 +120,10 @@ const BloodPressureScreen = ({
       .limit(1)
       .onSnapshot(
          querySnapshot => {
-          //const dataWeight = [];
             querySnapshot.forEach(doc => {
-            //console.log('User data: ', doc.data());
+            
              if( doc.exists ) {
-              //dataWeight.push({...doc.data(), id: doc.id}); 
+          
               setGetSystolic(doc.data().systolic);
               setGetDiastolic(doc.data().diastolic);
               setGetPulse(doc.data().pulse);
@@ -152,39 +143,7 @@ const BloodPressureScreen = ({
 
     let sbpt;
     let dbpt;
-    // komunikaty = new Array(5);
-    // komunikaty[0]=new Array(5);
-    // komunikaty[1]=new Array(5);
-    // komunikaty[2]=new Array(5);
-    // komunikaty[3]=new Array(5);
-    // komunikaty[4]=new Array(5);
-
-    // komunikaty[0][0]="Prawidłowe";
-    // komunikaty[0][1]="Wysokie prawidłowe";
-    // komunikaty[0][2]="Nadciśnienie Tętnicze I stopnia";
-    // komunikaty[0][3]="Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[0][4]="Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[1][0]="Wysokie prawidłowe";
-    // komunikaty[1][1]="Wysokie prawidłowe";
-    // komunikaty[1][2]="Nadciśnienie Tętnicze I stopnia";
-    // komunikaty[1][3]="Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[1][4]="Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[2][0]="Izolowane Skurczowe Nadciśnienie Tętnicze I stopnia";
-    // komunikaty[2][1]="Izolowane Skurczowe Nadciśnienie Tętnicze I stopnia";
-    // komunikaty[2][2]="Nadciśnienie Tętnicze I stopnia";
-    // komunikaty[2][3]="Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[2][4]="Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[3][0]="Izolowane Skurczowe Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[3][1]="Izolowane Skurczowe Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[3][2]="Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[3][3]="Nadciśnienie Tętnicze II stopnia";
-    // komunikaty[3][4]="Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[4][0]="Izolowane Skurczowe Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[4][1]="Izolowane Skurczowe Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[4][2]="Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[4][3]="Nadciśnienie Tętnicze III stopnia";
-    // komunikaty[4][4]="Nadciśnienie Tętnicze III stopnia";
-
+   
     if ( getSystolic >= 180 ) { sbpt=4;  };
     if ( getSystolic < 180 ) { sbpt=3; };
     if ( getSystolic < 160 ) { sbpt=2;  };
@@ -350,59 +309,11 @@ const BloodPressureScreen = ({
       )
     }
 
-    // return(
-    // <View>
-    //   <Text>{komunikaty[sbpt][dbpt]}</Text>
-    // </View>
-    // )
-
-    // if((getSystolic < 120) && (getDiastolic < 80)){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.optimal')}</Text>
-    //     </View>
-    //   )
-    // } else if(((getSystolic >= 120) && (getSystolic <= 129)) || ((getDiastolic >= 80) && (getDiastolic <= 84))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
-    //     </View>
-    //   )
-    // } else if(((getSystolic >= 130) && (getSystolic <= 139)) || ((getDiastolic >= 85) && (getDiastolic <= 89))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P2, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
-    //     </View>
-    //     )
-    // } else if(((getSystolic >= 140) && (getSystolic <= 159)) || ((getDiastolic >= 90) && (getDiastolic <= 99))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
-    //     </View>
-    //   )
-    // } else if(((getSystolic >= 160) && (getSystolic <= 179)) || ((getDiastolic >= 100) && (getDiastolic <= 109))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
-    //     </View>
-    //     )
-    // } else if((getSystolic >= 180) && (getDiastolic >= 110)){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.value-3st')}</Text>
-    //     </View>
-    //   )
-    // }else{
-    //   return(
-    //       <View style={{backgroundColor: colors.PRESSURE.P5, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center', elevation: 4}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.measurement-error')}</Text>
-    //     </View>
-    //   )
-    // }
+   
   }
- //console.log('------')
+ 
   const pressure = (item) => {
-    //console.log(item.systolic + ' ' + item.diastolic)
+   
     let sbpt;
     let dbpt;
   
@@ -571,50 +482,6 @@ const BloodPressureScreen = ({
       )
     }
 
-    
-    // if((item.systolic < 120) && (item.diastolic < 80)){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P1, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{ffontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.optimal')}</Text>
-    //     </View>
-    //   )
-    // }else if(((item.systolic >= 120) && (item.systolic <= 129)) || ((item.diastolic >= 80) && (item.diastolic <= 84))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P1, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
-    //     </View>
-    //   )
-    //   }else if(((item.systolic >= 130) && (item.systolic <= 139)) || ((item.diastolic >= 85) && (item.diastolic <= 89))){
-    //     return(
-    //       <View style={{backgroundColor: colors.PRESSURE.P2, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //         <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
-    //       </View>
-    //     )
-    //   }else if(((item.systolic >= 140) && (item.systolic <= 159)) || ((item.diastolic >= 90) && (item.diastolic <= 99))){
-    //     return(
-    //       <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //         <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
-    //       </View>
-    //     )
-    //   }else if(((item.systolic >= 160) && (item.systolic <= 179)) || ((item.diastolic >= 100) && (item.diastolic <= 109))){
-    //     return(
-    //       <View style={{backgroundColor: colors.PRESSURE.P3, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //         <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
-    //       </View>
-    //     )
-    //   }else if((item.systolic >= 180) && (item.diastolic >= 110)){
-    //     return(
-    //       <View style={{backgroundColor: colors.PRESSURE.P4, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //         <Text style={{color: colors.TEXT.WHITE, fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-3st')}</Text>
-    //       </View>
-    //     )
-    // }else{
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P5, paddingHorizontal: spacing.SCALE_10, paddingVertical: spacing.SCALE_3, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_12, color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.measurement-error')}</Text>
-    //     </View>
-    //   )
-    // }
   }
 
 
@@ -627,23 +494,12 @@ const BloodPressureScreen = ({
     return unsubscribe;
   }, [navigation, loading]);
 
-
-//   const getDateTime = () => {
-//     //Data i czas 2022-12-12T20:16:03.151Z
-//     const dates = moment(dateForm).format("YYYY-MM-DD");
-//     const times = moment(timeForm).format("HH:mm");
-//     // const dateTime = dates + 'T' + times + ':00';
-//     const dateTime = new Date(dates + 'T' + times + ':00Z');
-//     return dateTime;
-//  }
-
   const handleAdd = async () => {
     await firestore()
       .collection('users')
       .doc(user.uid)
       .collection('bloodPressure')
       .add({
-        //createdAt: getDateTime(),
         createdAt: firestore.Timestamp.fromDate(new Date()),
         systolic: parseInt(systolic),
         diastolic: parseInt(diastolic),
@@ -671,7 +527,6 @@ const BloodPressureScreen = ({
   }
 
   const _alertHandler = () => {
-    //function to make two option alert
     Alert.alert(
       //title
       '',
@@ -686,7 +541,6 @@ const BloodPressureScreen = ({
         },
       ],
       { cancelable: false }
-      //clicking out side of alert will not cancel
     );
   };
 
@@ -740,11 +594,10 @@ const BloodPressureScreen = ({
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: isTablet ? 300 : 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+       
       }}
       >
         <View style={styles.rootContainer}>
@@ -772,10 +625,7 @@ const BloodPressureScreen = ({
                     count: isTablet ? 40 : 30,
                     width: isTablet ? 10 : 8,
                 }}
-                // progressFormatter={(value, total) => {
-                //     'worklet';   
-                //     return value.toFixed(2);
-                // }}
+              
                  />
                  <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('bloodPressureScreen.systolic')}</Text>
             </View>
@@ -799,10 +649,7 @@ const BloodPressureScreen = ({
                     count: isTablet ? 40 : 30,
                     width: isTablet ? 10 : 8,
                   }}
-                  // progressFormatter={(value, total) => {
-                  //     'worklet';   
-                  //     return value.toFixed(2);
-                  // }}
+                  
                   />
                   <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? fontScale(typography.FONT_SIZE_14) : fontScale(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('bloodPressureScreen.diastolic')}</Text>
               </View>
@@ -826,10 +673,7 @@ const BloodPressureScreen = ({
                     count: isTablet ? 40 : 30,
                     width: isTablet ? 10 : 8,
                   }}
-                  // progressFormatter={(value, total) => {
-                  //     'worklet';   
-                  //     return value.toFixed(2);
-                  // }}
+                
                   />
                   <Text style={{marginTop: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE, fontSize: isTablet ? scaleFont(typography.FONT_SIZE_14) : scaleFont(typography.FONT_SIZE_10), textTransform: 'uppercase'}}>{t('bloodPressureScreen.pulse')}</Text>
               
@@ -930,9 +774,7 @@ const BloodPressureScreen = ({
               <Text style={{fontSize: typography.FONT_SIZE_18, color: colors.TEXT.DEEP_BLUE}}>{t('bloodPressureScreen.no-data')}</Text>
             </View>
             )
-            // (
-            //     <ActivityIndicator size="large" color="#224870" />
-            //   )
+          
             }
 
           </View>
@@ -943,9 +785,7 @@ const BloodPressureScreen = ({
         ref={refRBSheet}
         closeOnDragDown={true}
         closeOnPressMask={false}
-       // closeOnPressBack={true}
         onClose={() => setIsOpen(false)}
-        //animationType='slide'
         height={heightModal}
         openDuration={400}
         closeDuration={200}
@@ -965,63 +805,10 @@ const BloodPressureScreen = ({
         }}
       >
        <View style={styles.modalRoot}>
-        {/* <Text>{userData.weightName}</Text> */}
+       
         <View style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_8, borderRadius: 5}}>
             <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>{t('bloodPressureScreen.give-data')}</Text>
         </View>
-
-        {/* <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1, marginRight: 3}}>
-            
-              <TouchableOpacity onPress={() => setOpen1(true)} style={{borderWidth: 1, borderColor: colors.COLORS.GREY_DDD, padding: 8, backgroundColor: colors.COLORS.WHITE}}>
-                <Text style={{fontSize: 12, marginBottom: 5}}>Data</Text>
-                <Text style={{fontSize: 16, color: colors.TEXT.BLACK}}>{moment(dateForm).format('DD-MM-YYYY')}</Text>
-              </TouchableOpacity>
-                         
-                  <DatePicker
-                    modal
-                    mode='date'
-                    locale='PL-pl'
-                    title='Data dodania'
-                    confirmText='Ustaw'
-                    cancelText='Anuluj'
-                    open={open1}
-                    date={dateForm}
-                    onConfirm={(dateForm) => {
-                      setOpen1(false)
-                      setDateForm(dateForm)
-                    }}
-                    onCancel={() => {
-                      setOpen1(false)
-                    }}
-                  />
-            </View>
-
-            <View style={{flex: 1, marginLeft: 3}}>
-            <TouchableOpacity onPress={() => setOpen2(true)} style={{borderWidth: 1, borderColor: colors.COLORS.GREY_DDD, padding: 8, backgroundColor: colors.COLORS.WHITE}}>
-                <Text style={{fontSize: 12, marginBottom: 5}}>Godzina</Text>
-                <Text style={{fontSize: 16, color: colors.TEXT.BLACK}}>{moment(timeForm).format("HH:mm")}</Text>
-              </TouchableOpacity>
-                         
-                  <DatePicker
-                    modal
-                    mode='time'
-                    locale='PL-pl'
-                    title='Godzina dodania'
-                    confirmText='Ustaw'
-                    cancelText='Anuluj'
-                    open={open2}
-                    date={timeForm}
-                    onConfirm={(timeForm) => {
-                      setOpen2(false)
-                      setTimeForm(timeForm)
-                    }}
-                    onCancel={() => {
-                      setOpen2(false)
-                    }}
-                  />
-            </View>
-          </View> */}
 
           <View>
           <View style={{ elevation: 5, marginTop: spacing.SCALE_6}}>
@@ -1085,7 +872,6 @@ const BloodPressureScreen = ({
       <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
-       // extended={isExtended}
         onPress={() => {
             refRBSheet.current.open();
         }}
@@ -1127,7 +913,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width-12,
     borderRadius: 10,
     alignItems: 'center',
-    //backgroundColor: getBackGroundColor(),
     elevation: 2,
     marginBottom: spacing.SCALE_10,
   },

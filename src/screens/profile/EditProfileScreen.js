@@ -25,7 +25,6 @@ const EditProfileScreen = ({ navigation }) => {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [userData, setUserData] = useState('');
-  //const [loading, setLoading] = useState(true);
 
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -48,7 +47,6 @@ const EditProfileScreen = ({ navigation }) => {
               setDate(dateB);
               const v = documentSnapshot.data().gender;
               setGenderV(v);
-              //setImage(documentSnapshot.data().userImg)
             }
       })
   }
@@ -114,16 +112,13 @@ const EditProfileScreen = ({ navigation }) => {
       
       weightName: parseFloat(weightKG),
       weightNameLB: parseFloat(weightLB),
-      //weightNameST: weightST,
-
+     
       targetWeight: parseFloat(targetKG),
       targetWeightLB: parseFloat(targetLB),
-      //targetWeightST: targetST,
-      
+           
       heightName: parseFloat(heightCM),
       heightNameIN: parseFloat(heightIN),
-      //heightNameFT: heightFT,
-      
+            
       birthday: date,
       gender: gender ? gender : userData.gender,
       userImg: imgUrl === null ? imgUrl : imgUrl,
@@ -167,7 +162,6 @@ const EditProfileScreen = ({ navigation }) => {
       cropping: true,
       compressImageQuality: 0.7
     }).then(image => {
-      //console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       refRBSheet.current.close();
@@ -176,8 +170,7 @@ const EditProfileScreen = ({ navigation }) => {
      });
   }
 
-  //console.log(image)
-  const uploadImage = async () => {
+   const uploadImage = async () => {
 
     if(image == null) {
       return null;
@@ -193,8 +186,6 @@ const EditProfileScreen = ({ navigation }) => {
     setUploading(true);
     setTransferred(0);
 
-    //const task = storage().ref('users/' + user.uid + '/photoProfile/' + filename).putFile(uploadUri);
-
     const storageRef = storage().ref('users/' + user.uid + '/photoProfile/' + filename);
     const task = storageRef.putFile(uploadUri);
 
@@ -209,7 +200,6 @@ const EditProfileScreen = ({ navigation }) => {
       await task;
       
       const url = await storageRef.getDownloadURL();
-      //console.log('URL: ' + url)
       
       setUploading(false);
       setImage(null);
@@ -242,7 +232,6 @@ const EditProfileScreen = ({ navigation }) => {
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('editProfileScreen.edit-profile')} />
     </Appbar.Header>
-    {/* <StatusBar translucent={false} backgroundColor="#224870" barStyle="light-content"/> */}
     <RBSheet
         ref={refRBSheet}
         closeOnDragDown={true}
@@ -288,7 +277,6 @@ const EditProfileScreen = ({ navigation }) => {
         blurRadius={1}
         resizeMode="cover"
         style={{ 
-          //height: getHeight(), 
           flex: 1, 
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
@@ -382,10 +370,8 @@ const EditProfileScreen = ({ navigation }) => {
               underlineColor={colors.COLORS.LIGHT_GREY}
               activeUnderlineColor={colors.COLORS.DEEP_BLUE}
               label={t('editProfileScreen.height') + ' (' + userData.growthUnit + ')'}
-              //value={userData ? String(userData.heightName) : String('0')}
               value={userData ? (userData.growthUnit === UNIT.CM ? (userData.heightName).toString() : (userData.heightNameIN).toString()) : ''}
               onChangeText={(txt) => userData.growthUnit === UNIT.CM ? (setUserData({...userData, heightName: txt})) : (setUserData({...userData, heightNameIN: txt}))}
-              //onChangeText={(txt) => setUserData({...userData, heightName: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
             />
@@ -396,10 +382,8 @@ const EditProfileScreen = ({ navigation }) => {
              underlineColor={colors.COLORS.LIGHT_GREY}
              activeUnderlineColor={colors.COLORS.DEEP_BLUE}
               label={t('editProfileScreen.current-weight') + ' (' + userData.weightUnit + ')'}
-              //value={userData ? String(userData.weightName) : ''}
               value={userData ? (userData.weightUnit === UNIT.KG ? ( userData.weightName).toString() : (userData.weightNameLB).toString() ) : ''}
               onChangeText={(txt) => userData.weightUnit === UNIT.KG ? (setUserData({...userData, weightName: txt})) : (setUserData({...userData, weightNameLB: txt}))}
-              //onChangeText={(txt) => setUserData({...userData, weightName: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
             />
@@ -411,10 +395,8 @@ const EditProfileScreen = ({ navigation }) => {
               underlineColor={colors.COLORS.LIGHT_GREY}
               activeUnderlineColor={colors.COLORS.DEEP_BLUE}
               label={t('editProfileScreen.target-weight') + ' (' + userData.weightUnit + ')'}
-              //value={userData ? String(userData.targetWeight) : ''}
               value={userData ? (userData.weightUnit === UNIT.KG ? (userData.targetWeight).toString() : (userData.targetWeightLB).toString()) : ''}
               onChangeText={(txt) => userData.weightUnit === UNIT.KG ? (setUserData({...userData, targetWeight: txt})) : (setUserData({...userData, targetWeightLB: txt}))}
-              //onChangeText={(txt) => setUserData({...userData, targetWeight: txt})}
               keyboardType="numeric"
               style={styles.boxTextInput}
             />
@@ -467,8 +449,6 @@ const EditProfileScreen = ({ navigation }) => {
               ''
             )
             }
-            {/* {console.log(genderV)} */}
-            {/* {console.log()} */}
             
           </View>
 
@@ -491,8 +471,6 @@ const EditProfileScreen = ({ navigation }) => {
             ) : (
               ''
             )
-
-
           }
         </View>
         </ScrollView>

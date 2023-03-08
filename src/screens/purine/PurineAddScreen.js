@@ -85,7 +85,6 @@ const PurineAddScreen = ({ navigation }) => {
     blurRadius={5}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,

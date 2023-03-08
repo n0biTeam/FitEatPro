@@ -7,6 +7,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const theme = {
   ...DefaultTheme,
@@ -103,11 +104,10 @@ const NotesAddScreen = ({
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+       
       }}
       >
         <View style={styles.rootContainer}>
@@ -136,7 +136,6 @@ const NotesAddScreen = ({
 
       
         </View>
-
         
     </ImageBackground>
     

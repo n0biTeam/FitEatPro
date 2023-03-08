@@ -36,7 +36,7 @@ const ProfileScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState(new Date());
   const [isVerified, setIsVerified] = useState(false)
-  //console.log(user.emailVerified);
+
   const getUser = async () => {
     await firestore()
     .collection('users')
@@ -46,7 +46,6 @@ const ProfileScreen = ({ navigation }) => {
     .get()
     .then(( documentSnapshot ) => {
       if( documentSnapshot.exists ) {
-        //console.log('User Data: ', documentSnapshot.data());
         setUserData(documentSnapshot.data());
         const dateB = new Date(documentSnapshot.data().birthday.seconds * 1000);
         setDate(dateB);
@@ -65,11 +64,7 @@ const ProfileScreen = ({ navigation }) => {
     
   }, []);
 
-   // console.log(isVerified)
    const [image, setImage] = useState('http://serwer102731.lh.pl/img/iconProfileBlue.png');
-  //const [uploading, setUploading] = useState(false);
-  //const [transferred, setTransferred] = useState(0);
-  
 
   const sendVerificationEmail = async () => {
     await user.sendEmailVerification()
@@ -81,7 +76,6 @@ const ProfileScreen = ({ navigation }) => {
     
   }
   
-  //console.log(user)
   const changePassword = () => {
     auth().sendPasswordResetEmail(user.email)
     .then(() => {
@@ -96,8 +90,6 @@ const ProfileScreen = ({ navigation }) => {
         return userData.weightNameLB;
     }
   }
-
-  //console.log(_getWeightUnit())
 
   const _getWeighTargetUnit = () => {
     if(userData.weightUnit === UNIT.KG){
@@ -125,7 +117,6 @@ const ProfileScreen = ({ navigation }) => {
       <Appbar.BackAction onPress={_goBack} />
       <Appbar.Content title={t('profileScreen.my-profile')} />
       
-        {/* <Appbar.Action icon="cog" onPress={() => navigation.navigate('SettingsScreen')}  /> */}
         <Appbar.Action icon="account-edit" onPress={() => navigation.navigate('EditProfile')}  />
         <Appbar.Action icon="logout" onPress={logout} style={{marginRight: spacing.SCALE_4}}/>
     </Appbar.Header>
@@ -135,7 +126,6 @@ const ProfileScreen = ({ navigation }) => {
     resizeMode="cover"
     blurRadius={1}
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -148,12 +138,10 @@ const ProfileScreen = ({ navigation }) => {
     <ImageBackground 
     source={require('../../assets/images/wave.png')}
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: 200,
       width: Dimensions.get('window').width,
-      //overflow: 'hidden',
        }}
     
   >
@@ -336,7 +324,6 @@ const styles = StyleSheet.create({
     paddingTop: spacing.SCALE_20, 
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    
   },
   panelHeader: {
     alignItems: 'center',
@@ -351,20 +338,14 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     marginHorizontal: spacing.SCALE_6,
-    //marginTop: spacing.SCALE_30,
     backgroundColor: colors.COLORS.WHITE,
-    //height: Dimensions.get('screen').height-106,
     marginBottom: spacing.SCALE_6,
     borderRadius: spacing.SCALE_5,
-    //borderTopLeftRadius: spacing.SCALE_5,
-    //borderTopRightRadius: spacing.SCALE_5,
-    //elevation: 3
   },
   box: {
     backgroundColor: colors.COLORS.WHITE,
     padding: spacing.SCALE_10,
     borderRadius: 5,
-    //elevation: 3
   },
   textValue: {
     fontWeight: 'bold',

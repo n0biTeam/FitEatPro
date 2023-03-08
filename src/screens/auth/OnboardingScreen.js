@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
 import { useTranslation } from 'react-i18next';
 import { TEXT } from '../../styles/colors';
@@ -79,8 +79,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height-280,
         resizeMode: 'stretch',
-        
-        
     },
   });
 

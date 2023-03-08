@@ -51,7 +51,6 @@ const FindingScreen = ({
   const getFindings = () => {
     firestore().collection('users').doc(user.uid).collection('findings')
       .orderBy('createdAt', 'desc')
-      //.limit(30)
       .onSnapshot(
          querySnapshot => {
           const getData = [];
@@ -95,8 +94,7 @@ const FindingScreen = ({
     source={imageBG}
     blurRadius={1}
     resizeMode="cover"
-    style={{ 
-      //height: getHeight(), 
+    style={{  
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -165,7 +163,6 @@ const FindingScreen = ({
     <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
-       // extended={isExtended}
         onPress={() => {
             navigation.navigate('FindingAddScreen');
         }}
@@ -173,9 +170,7 @@ const FindingScreen = ({
         theme={'tertiary'}
         animateFrom={'right'}
         iconMode={'static'}
-        //color={COLORS.ORANGE}
-
-        style={[styles.fabStyle, style, fabStyle]}
+          style={[styles.fabStyle, style, fabStyle]}
       />
     </ImageBackground>
     </SafeAreaProvider>

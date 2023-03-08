@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
 import React, {useState, useContext, useEffect} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Appbar, TextInput, Button, Checkbox } from 'react-native-paper';
+import { Appbar, TextInput, Button } from 'react-native-paper';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -24,8 +24,6 @@ const WhrScreen = ({ navigation }) => {
     const [sumWHR, setSumWHR] = useState(0.00);
     const [waistSize, setWaistSize] = useState('');
     const [hipGirth, setHipGirth] = useState('');
-    //const [male, setMale] = useState(false);
-    //const [female, setFemale] = useState(false);
     const [type, setType] = useState('');
     const [userData, setUserData] = useState('');
 
@@ -49,21 +47,9 @@ const WhrScreen = ({ navigation }) => {
       getUser();
       
     }, []);
-
-    // const femaleGender = () => {
-    //     setFemale(true);
-    //     setMale(false);
-    //   }
-    
-    //   const maleGender = () => {
-    //     setFemale(false);
-    //     setMale(true);
-    //   }
   
-    const _goBack = () => navigation.navigate('HomeScreen');
+  const _goBack = () => navigation.navigate('HomeScreen');
   
-
-
   const calcWHR = () => {
 
     if(userData.gender === 1){
@@ -123,7 +109,6 @@ const WhrScreen = ({ navigation }) => {
 
   const emptyBtn = (waistSize != null && waistSize != '') 
                 && (hipGirth != null && hipGirth != '');
-   // && ((male != null && male != '' ) || (female != null && female != '' ));
    
   const image = require('../../assets/images/owoce8.jpg');
 
@@ -156,13 +141,12 @@ const WhrScreen = ({ navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
        }}
        imageStyle={{
-        //opacity: 0.7
+        
       }}
     
   >

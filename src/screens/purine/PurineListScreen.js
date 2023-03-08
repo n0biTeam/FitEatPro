@@ -84,7 +84,6 @@ const theme = {
 
     useEffect(() => {
         getList();
-       // setIsOpen(false);
       }, []);
 
       
@@ -225,7 +224,6 @@ setMasterDataSource([...listData]);
                   
                       <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: spacing.SCALE_10}}>
                       <MyCircle percentage={item.purine} /> 
-                        {/* <Text>{boxPurine(item)}</Text> */}
                     </View>
                   
                   </View>
@@ -242,11 +240,6 @@ setMasterDataSource([...listData]);
       <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
     
       <View style={styles.container}>
-        {/* <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        /> */}
         <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
             <TouchableOpacity onPress={_goBack}>
@@ -271,16 +264,12 @@ setMasterDataSource([...listData]);
             (
                 <BigList
                 data={filteredDataSource}
-                //renderItem={renderItem}
                 renderItem={renderItem}
                 itemHeight={scale(50)}
                 />
             ) : (
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
-                {/* <View style={{alignItems: 'center'}}>
-                    <Text style={{color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_11}}>WCZYTYWANIE DANYCH...</Text>
-                </View> */}
+                  <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
                 </View>
             )
             }
@@ -299,7 +288,6 @@ setMasterDataSource([...listData]);
         <AnimatedFAB
             icon={'plus'}
             label={'Dodaj'}
-            //extended={isExtended}
             onPress={() => {
             navigation.navigate('PurineAddScreen');
             }}
@@ -307,9 +295,6 @@ setMasterDataSource([...listData]);
             theme={'tertiary'}
             animateFrom={'right'}
             iconMode={'static'}
-            //color={colors.COLORS.ORANGE}
-            //disabled
-
             style={[styles.fabStyle, style, fabStyle]}
         />
 
@@ -318,7 +303,6 @@ setMasterDataSource([...listData]);
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
-          //contentContainerStyle={styles.bottomSheet}
           backgroundStyle={styles.bottomSheet}
         >
             <ImageBackground
@@ -407,10 +391,6 @@ setMasterDataSource([...listData]);
                         count: 40,
                         width: 5,
                       }}
-                    //   progressFormatter={(value, number) => {
-                    //     'worklet';   
-                    //     return value.toFixed(0);
-                    //   }}
                     />
                     <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: spacing.SCALE_5}}>{t('purineListScreen.uric-acid')} [mg]</Text>
           </View>
@@ -418,16 +398,6 @@ setMasterDataSource([...listData]);
 
         </View>
         
-
-      
-
-
-      {/* <View style={{flex: 1,alignItems: 'center', marginTop: 10}}>
-        <TouchableOpacity onPress={addMeal} style={styles.btnModal}>
-          <Text style={styles.textBtn}>Dodaj do posiłku</Text>
-        </TouchableOpacity>
-       
-      </View> */}
       </ScrollView>
     </View>
             </ImageBackground>
@@ -474,7 +444,6 @@ const styles = StyleSheet.create({
       color: colors.TEXT.WHITE
     },
     titleContainer: {
-      //marginBottom: 10, 
       alignItems: 'center',
       backgroundColor: colors.COLORS.DEEP_BLUE,
       padding: spacing.SCALE_10,
@@ -484,8 +453,6 @@ const styles = StyleSheet.create({
       color: colors.TEXT.WHITE,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      //borderBottomWidth: 3,
-      //borderBottomColor: 'orange'
     },
     titleCategory: {
       fontSize: typography.FONT_SIZE_12,
@@ -503,13 +470,10 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
       borderBottomColor: colors.COLORS.DEEP_BLUE,
-      //backgroundColor: COLORS.WHITE,
       width: 200,
       textAlign: 'center',
       height: 40,
       color: colors.TEXT.DEEP_BLUE,
-      //fontWeight: 'bold',
-      //elevation: 3
     },
     fabStyle: {
       bottom: spacing.SCALE_25,
@@ -549,7 +513,6 @@ const styles = StyleSheet.create({
       },
       shadowOpacity: 0.58,
       shadowRadius: 16.00,
-      
       elevation: 24,
     }
 });

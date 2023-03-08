@@ -57,7 +57,7 @@ const [isExtended, setIsExtended] = useState(true);
   const [userAge, setUserAge] = useState(0);   //Wiek
   const [userWeight, setUserWeight] = useState(0); //waga KG
   const [userWeightLB, setUserWeightLB] = useState(0); //waga funt
-  //const [userWeightST, setUserWeightST] = useState(0); //waga stopa
+ 
   const [userHeigth, setUserHeight] = useState(0); //wzrost
   const [userTargetWeight, setUserTargetWeight] = useState(0); //waga docelowa
   const [userTarget, setUserTarget] = useState(0); //roznica
@@ -74,16 +74,11 @@ const [isExtended, setIsExtended] = useState(true);
 
   const [dataWeight, setDataWeight] = useState([]);
   const [weightWag, setWeightWag] = useState(0); //waga z dziennika
-  //const [subWeight, setSubWeight] = useState(0); //roznica z dziennika
   const [targetWeight, setTargetWeight] = useState(0);
   const [currentWeight, setCurrentWeight] = useState(0);
 
   //---------------------------------------------------------------------------------
   const [userData, setUserData] = useState([]);
-  // const [wagBmi, setWagBmi] = useState(0);
-  // const [wagDate, setWagDate] = useState(new Date());
-  // const [wagBai, setWagBai] = useState(0);
-  // const [wagLBM, setWagLBM] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false); //button
   const toggleLoading = () => {
@@ -104,9 +99,7 @@ const [isExtended, setIsExtended] = useState(true);
          setUserAge(new Date().getFullYear() - dateB.getFullYear());
          setUserWeight(doc.data().weightName);
          setUserWeightLB(doc.data().weightNameLB);
-         //setUserWeightST(doc.data().weightNameST);
          setUserHeight(doc.data().heightName);
-         //setSum(doc.data().weightName - doc.data().targetWeight);
          setUserTargetWeight(doc.data().targetWeight);
          setUserTarget(doc.data().weightName - doc.data().targetWeight);
          setUserGender(doc.data().gender);
@@ -159,7 +152,6 @@ const [isExtended, setIsExtended] = useState(true);
     )
   }
 
-  //console.log(userData.weightUnit)
   const _getWeightUnit = () => {
     try{
         if(userData.weightUnit === UNIT.KG){
@@ -171,7 +163,6 @@ const [isExtended, setIsExtended] = useState(true);
       console.log(e);
     }
   }
-  //console.log(_getWeightUnit())
 
   const _getTargetUnit = () => {
     try{
@@ -252,8 +243,7 @@ const [isExtended, setIsExtended] = useState(true);
     
     
   }
-  //console.log(dataWeight)
-
+  
   const getLMB = () => {
     //LMB
       //LBM (kobiety) = 1,07 x całkowita masa ciała (kg) - 148 [całkowita masa ciała/ wzrost (cm)]2
@@ -276,65 +266,38 @@ const [isExtended, setIsExtended] = useState(true);
 
   const _handleAdd = async () => {
 
-    //console.log(getBMI())
     let diffKG = 0;
     let diffLB = 0;
-    //let diffST = 0;
-    
 
     if(userData.weightUnit === UNIT.KG){
       diffKG = parseFloat(currentWeightInput) - parseFloat(userWeight);
       diffLB = parseFloat(currentWeightInput / 0.4536) - parseFloat(userWeight / 0.4536);
-     // diffST = parseFloat(currentWeightInput / 6.35) - parseFloat(userWeight / 6.35);
     }else{
       diffKG = parseFloat(currentWeightInput * 0.45359237) - parseFloat(userWeight);
       diffLB = parseFloat(currentWeightInput) - parseFloat(userWeightLB);
-     // diffST = parseFloat(currentWeightInput / 14) - parseFloat(userWeightST);
     }
-    // else{
-    //   diffKG = parseFloat(currentWeightInput / 0.15747304) - parseFloat(userWeight);
-    //   diffLB = parseFloat(currentWeightInput * 14) - parseFloat(userWeightLB);
-    //  // diffST = parseFloat(currentWeightInput) - parseFloat(userWeightST);
-    // }
-    // console.log("KG: " + diffKG)
-    // console.log('LB: ' + diffLB)
-    // console.log('ST: ' + diffST)
+
 
     if(userData.weightUnit === UNIT.KG){
       lbmKG = getLMB();
       lbmLB = getLMB() / 0.4536;
-     // lbmST = getLMB() / 6.35;
     }else{
       lbmKG = getLMB() * 0.45359237;
       lbmLB = getLMB();
-    //  lbmST = getLMB() / 14;
     }
-    // else {
-    //   lbmKG = getLMB() / 0.15747;
-    //   lbmLB = getLMB() / 0.0714286;
-    //  // lbmST = getLMB();
-    // }
+    
 
 
     let weightKG = 0;
     let weightLB = 0;
-    //let weightST = 0;
-    // Waga aktualna
+  
     if(userData.weightUnit === UNIT.KG){
-      
       weightKG = parseFloat(currentWeightInput);               
-      weightLB = parseFloat(currentWeightInput) / 0.4536;      
-     // weightST = parseFloat(currentWeightInput) / 6.35;        
+      weightLB = parseFloat(currentWeightInput) / 0.4536;              
     }else{
       weightKG = parseFloat(currentWeightInput) * 0.45359237;  
-      weightLB = parseFloat(currentWeightInput);               
-     // weightST = parseFloat(currentWeightInput) / 14;          
+      weightLB = parseFloat(currentWeightInput);                     
     }
-    // else{
-    //   weightKG = parseFloat(currentWeightInput) / 0.15747;     
-    //   weightLB = parseFloat(currentWeightInput) / 0.0714286;   
-    // //  weightST = parseFloat(currentWeightInput);               
-    // }    
      
     const bai = _getHightUnit() / Math.pow((userHeigth/100), 1.5)-18;
 
@@ -344,10 +307,8 @@ const [isExtended, setIsExtended] = useState(true);
     .collection('profile')
     .doc('profil')
     .update({
-     // weightName: parseFloat(currentWeightInput),
       weightName: parseFloat(weightKG.toFixed(2)),
       weightNameLB: parseFloat(weightLB.toFixed(2)),
-     // weightNameST: weightST,
     });
 
    await firestore()
@@ -355,23 +316,17 @@ const [isExtended, setIsExtended] = useState(true);
     .doc(user.uid)
     .collection('weightLog')
     .add({
-      //createdAt: getDataTime(),
       createdAt: firestore.Timestamp.fromDate(new Date()),
       bmi: getBMI(),
       currentWeight: weightKG,
       currentWeightLB: weightLB,
-      //currentWeightST: weightST,
       lbm: lbmKG,
       lbmLB: lbmLB,
-      //lbmST: lbmST,
       targetWeight: parseFloat(userData.targetWeight),
       targetWeightLB: parseFloat(userData.targetWeightLB),
-     // targetWeightST: parseFloat(userData.targetWeightST),
-      //weightDifference: parseFloat(subWeight),
       bai: hipGirth ? bai : 0,
       difference: dataWeight.length === 0 ? 0 : diffKG,
       differenceLB: dataWeight.length === 0 ? 0 : diffLB,
-      //differenceST: dataWeight.length === 0 ? 0 : diffST,
     })
     .then(() => {
       console.log('Added');
@@ -380,12 +335,9 @@ const [isExtended, setIsExtended] = useState(true);
       ToastAndroid.show(t('weightLogScreen.measurement-added'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
       
     })
-    
-    
   }
 
-  //console.log(userTargetWeight)
-
+ 
   const diff = (item) => {
     if(dataWeight.length === 0) {
       return (
@@ -782,8 +734,6 @@ const [isExpanded3, setIsExpanded3] = useState(false);
       }).start();
     }, [expanded, height]);
   
-    // console.log('rerendered');
-  
     return (
       <Animated.View
         style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
@@ -805,7 +755,6 @@ const [isExpanded3, setIsExpanded3] = useState(false);
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('memu-weight.weight-log')} />
-       {/* <Appbar.Action icon="history" onPress={() => navigation.navigate('HistoryWeightScreen')} /> */}
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -827,8 +776,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
         style={{
           flex: 1, 
           height: Dimensions.get('window').height,
-          //width: Dimensions.get('window').width,
-          height: 126,
+          height: isTablet ? 300 : 126,
         }}
         imageStyle={{
           //opacity: 0.8
@@ -885,13 +833,10 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                             <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.current-weight')}</Text>
                               <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                                 <Text style={styles.textCard}>
-                                  {/* { dataWeight.length === 0 ? userWeight.toFixed(2) : (item.currentWeight).toFixed(2) } */}
-                                  
+
                                   { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
                                   { userData.weightUnit === UNIT.LB && (Number(item.currentWeightLB)).toFixed(2) }
-                                  {/* { userData.weightUnit === 'st' && (Number(item.currentWeightST)).toFixed(2) } */}
-                                  
-                                  
+                                                                 
                                 </Text>
                                 <Text style={{fontSize: 10}}>({userData.weightUnit})</Text>
                             </View>
@@ -901,8 +846,7 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                           <Text style={{fontSize: fontScale(typography.FONT_SIZE_10)}}>{t('weightLogScreen.target-weight')}</Text>
                             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center'}}>
                               <Text style={styles.textCard}>
-                                {/* {userTargetWeight < item.targetWeight ? userTargetWeight : item.targetWeight} */}
-                                
+                                                              
                                 { _getTargetUnit() }
                                
                               </Text>
@@ -955,10 +899,8 @@ const [isExpanded3, setIsExpanded3] = useState(false);
                         </View>
                         <View style={{alignItems: 'center'}}>
                             <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: fontScale(typography.FONT_SIZE_16), fontWeight: 'bold'}}>
-                              {/* {Number(item.currentWeight).toFixed(2)} */}
                               { userData.weightUnit === UNIT.KG && Number(item.currentWeight).toFixed(2) }
                               { userData.weightUnit === UNIT.LB && Number(item.currentWeightLB).toFixed(2) }
-                              {/* { userData.weightUnit === 'st' && Number(item.currentWeightST).toFixed(2) } */}
                             </Text>                          
                             {sing(item)}
                             
@@ -1045,10 +987,8 @@ const [isExpanded3, setIsExpanded3] = useState(false);
 
                           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={{fontSize: fontScale(typography.FONT_SIZE_16), color: colors.TEXT.DEEP_BLUE, fontWeight: 'bold'}}>
-                              {/* { (item.lbm).toFixed(2) } */}
                               { userData.weightUnit === UNIT.KG && Number(item.lbm).toFixed(2) }
                               { userData.weightUnit === UNIT.LB && Number(item.lbmLB).toFixed(2) }
-                              {/* { userData.weightUnit === 'st' && Number(item.lbmST).toFixed(2) } */}
                             <Text style={{fontSize: fontScale(typography.FONT_SIZE_12), fontWeight: '400'}}> {userData.weightUnit}</Text></Text>
                           </View>
 
@@ -1075,20 +1015,13 @@ const [isExpanded3, setIsExpanded3] = useState(false);
             }
             </View>
 
-          
-
-
-
-
       </ImageBackground>
 
       <RBSheet
         ref={refRBSheet}
         closeOnDragDown={true}
         closeOnPressMask={false}
-       // closeOnPressBack={true}
         onClose={() => setIsOpen(false)}
-        //animationType='slide'
         height={heightModal}
         openDuration={400}
         closeDuration={200}
@@ -1163,7 +1096,6 @@ const [isExpanded3, setIsExpanded3] = useState(false);
      <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
-       // extended={isExtended}
         onPress={() => {
             refRBSheet.current.open();
         }}

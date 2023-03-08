@@ -24,7 +24,6 @@ const MySwitch2 = ({
       <View
         style={{
           height: 20,
-          //width: 215,
           backgroundColor: 'white',
           borderRadius: getRoundCorner ? 10 : 0,
           borderWidth: 1,
@@ -50,26 +49,26 @@ const MySwitch2 = ({
             }}>
             {option1}
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          TouchableOpacity
-          activeOpacity={1}
-          onPress={() => updatedSwitchData(2)}
-          style={{
-            flex: 1,
-
-            backgroundColor: getSelectionMode == 2 ? selectionColor : 'white',
-            borderRadius: getRoundCorner ? 10 : 0,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
+          </TouchableOpacity>
+          <TouchableOpacity
+            TouchableOpacity
+            activeOpacity={1}
+            onPress={() => updatedSwitchData(2)}
             style={{
-              color: getSelectionMode == 2 ? 'white' : selectionColor, fontSize: 10
+              flex: 1,
+
+              backgroundColor: getSelectionMode == 2 ? selectionColor : 'white',
+              borderRadius: getRoundCorner ? 10 : 0,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            {option2}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: getSelectionMode == 2 ? 'white' : selectionColor, fontSize: 10
+              }}>
+              {option2}
+            </Text>
+          </TouchableOpacity>
       </View>
     </View>
   );

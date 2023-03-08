@@ -410,11 +410,8 @@ const AppStack = () => {
                          
                   },
                   headerStyle: {
-                  backgroundColor: colors.COLORS.DEEP_BLUE,
-                  //color: TEXT_COLORS.WHITE,
-                        
+                  backgroundColor: colors.COLORS.DEEP_BLUE,                       
                   },
-                  //headerTintColor: TEXT_COLORS.WHITE,
                   headerTitleAlign: 'center',
                   headerShown: false,
                   }}
@@ -439,14 +436,6 @@ const AppStack = () => {
         headerShown: false,
       }}
     />
-
-    {/* <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-          options={{
-            title: t('menu-profile'),      
-          }}
-      /> */}
 
     <Stack.Screen
       name="PrivacyPolicyScreen"

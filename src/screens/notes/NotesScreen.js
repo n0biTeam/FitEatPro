@@ -56,7 +56,6 @@ const NotesScreen = ({
   const getNotes = () => {
     firestore().collection('users').doc(user.uid).collection('notes')
       .orderBy('createdAt', 'desc')
-      //.limit(30)
       .onSnapshot(
          querySnapshot => {
           const getData = [];
@@ -156,7 +155,6 @@ const NotesScreen = ({
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -211,7 +209,6 @@ const NotesScreen = ({
         <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
-       // extended={isExtended}
         onPress={() => {
             navigation.navigate('NotesAddScreen');
         }}
@@ -219,7 +216,6 @@ const NotesScreen = ({
         theme={'tertiary'}
         animateFrom={'right'}
         iconMode={'static'}
-        //color={COLORS.ORANGE}
 
         style={[styles.fabStyle, style, fabStyle]}
       />

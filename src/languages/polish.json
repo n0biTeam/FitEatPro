@@ -136,6 +136,7 @@
         "diaryItemScreen.modal-enter-the-name": "Podaj nazwę",
         "diaryItemScreen.rename-the-list": "Zmień nazwę listy",
         "diaryItemScreen.update": "ZAKTUALIZUJ",
+        "diaryItemScreen.btn-save": "ZAPISZ", 
 
         "profileScreen.my-profile": "Mój profil",
         "profileScreen.account-information": "Dane konta",
@@ -632,6 +633,24 @@
         "notesEditScreen.alert.yes": "Tak",
         "notesEditScreen.alert.cancel": "Anuluj",
         "notesEditScreen.toast.note-deleted": "Skasowano notatkę",
-        "notesEditScreen.title": "Notatka"
+        "notesEditScreen.title": "Notatka",
+
+        "forgetScreen.text-1": "Proszę podać poprawny adres e-mail",
+        "forgetScreen.text-2": "Adres e-mail jest wymagany",
+        "forgetScreen.text-3a": "Hasło musi mieć co najmniej",
+        "forgetScreen.text-3b": "znaków",
+        "forgetScreen.text-4": "Hasło jest wymagane",
+        "forgetScreen.text-5": "Musi zawierać 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jedną specjalną literę",
+        "forgetScreen.reset-password": "Reset hasła",
+        "forgetScreen.btn-send": "Wyślij",
+
+        "signupScreen.text-1": "Zamała ilość znaków",
+        "signupScreen.text-2": "Za długa nazwa",
+        "signupScreen.text-3": "Imię jest wymagane",
+        "signupScreen.text-4": "Nazwisko jest wymagane",
+        "signupScreen.text-5": "Proszę podać poprawny adres e-mail",
+        "signupScreen.text-6": "Adres e-mail jest wymagany",
+        "signupScreen.text-7": "Twoje hasło nie jest takie samo",
+        "signupScreen.text-8": "Potwierdzenie hasła jest wymagane"
     }
 }

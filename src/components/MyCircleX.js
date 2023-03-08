@@ -4,13 +4,6 @@ import Svg, {G, Circle} from 'react-native-svg';
 import { colors } from '../styles';
 
 function colorBar(color){
-    // if(progress <= 50){
-    //   return color = '#009900';
-    // }else if ((progress >= 51) && (progress <= 71)){
-    //   return color = '#ffcc00';
-    // }else {
-    //   return color = '#ff0000';
-    // }
     return color = colors.COLORS.DEEP_BLUE;
   }
   

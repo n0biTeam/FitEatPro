@@ -75,9 +75,6 @@ const theme = {
        const listData = []
 
            querySnapshot.forEach(doc => {
-            //const listData = doc.data()
-            //listData.id = doc.id
-            //listData.push({...doc.data(), id: doc.id})
             const { 
                 name,
                 index_glycemic,
@@ -162,32 +159,24 @@ const theme = {
 
 useEffect(() => {
     getList();
-   // setIsOpen(false);
   }, []);
 
   
   const [product, setProduct] = useState('');
   const getProduct = async (item) => {
-    //console.log(item.id)
     await firestore()
       .collection('users')
       .doc(user.uid)
       .collection('products')
       .doc(item.id).get()
       .then(doc => {
-      //console.log('User exists: ', doc.exists);
   
       if (doc.exists) {
-        //console.log('User data: ', doc.data());
         setProduct({...doc.data(), id: doc.id});
       }
     });
-
-    //console.log(product)
     
   }
-
-  //console.log(product.id)
 
   const [isSwitchOn, setIsSwitchOn] = useState(null);
   const getUser = async () => {
@@ -219,37 +208,9 @@ useEffect(() => {
 
   const handleSheetChanges = useCallback((index) => {
   
-    //console.log('handleSheetChanges', index);
   }, []);
  
  
-
-//   useEffect(() => {
-// console.log('indx: '+ indx);
-//     const backAction1 = () => {  
-//         bottomSheetModalRef.current.close()
-//       return true;
-//     };
-    
-//     if(indx === -1){
-//     const backHandler = BackHandler.addEventListener(
-//       "hardwareBackPress",
-//       backAction1
-//     );
-//     return () => backHandler.remove();
-//     }else if(indx === 0){
-       
-//       //return () => navigation.navigate('GlycemicIndex');
-//     }else{
-//       return () => navigation.navigate('HomeScreen');
-//     }
-
-
-    
-//     }, [indx]);
-
-    
-
   useEffect(() => {
     getUser();
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
@@ -277,7 +238,6 @@ useEffect(() => {
         .then(() => {
           console.log('Product Added list meal');
           ToastAndroid.show(t('glycemicIndex.toast-add'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-          //refRBSheet.current.close();
           bottomSheetModalRef.current.close();
         })
       }
@@ -1426,7 +1386,6 @@ const xxx = (item) => {
     <TouchableOpacity 
                 onPress={() => {
                   handlePresentModalPress();
-                  //setInitialItem(item);
                   getProduct(item)
                   onChangeNumber(null);
                 }}
@@ -1443,7 +1402,6 @@ const xxx = (item) => {
                         
                       }
 
-                        {/* <MyCircle percentage={item.index_glycemic} />  */}
                      
                     </View>
                   </View>
@@ -1460,11 +1418,6 @@ const xxx = (item) => {
       <StatusBar translucent={false} backgroundColor={colors.COLORS.DEEP_BLUE} barStyle="light-content"/>
     
       <View style={styles.container}>
-        {/* <Button
-          onPress={handlePresentModalPress}
-          title="Present Modal"
-          color="black"
-        /> */}
         <View style={{ paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6}}>
         <View style={{marginRight: spacing.SCALE_15, justifyContent: 'center'}}>
             <TouchableOpacity onPress={_goBack}>
@@ -1489,16 +1442,12 @@ const xxx = (item) => {
             (
                 <BigList
                 data={filteredDataSource}
-                //renderItem={renderItem}
                 itemHeight={scale(50)}
                 renderItem={renderItem}
                 />
             ) : (
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
-                {/* <View style={{alignItems: 'center'}}>
-                    <Text style={{color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_11}}>WCZYTYWANIE DANYCH...</Text>
-                </View> */}
+                  <ActivityIndicator size="large" color={colors.COLORS.GREY_CCC} />
                 </View>
             )
             }
@@ -1513,7 +1462,6 @@ const xxx = (item) => {
               <MyButton icons="sort-numeric-descending" borderColor={colors.COLORS.DEEP_BLUE} backgroundColor={colors.COLORS.DEEP_BLUE} onPress={sortListDES}/>
               <MyButton icons="sort" borderColor={colors.COLORS.LIGHT_BLUE} backgroundColor={colors.COLORS.LIGHT_BLUE} 
               onPress={showModal}
-              //onPress={sortListFiberASC}
               />
               <MyButton icons="clipboard-edit" borderColor='#343a40' backgroundColor='#343a40' onPress={() => navigation.navigate('MealScreen')}/>
         
@@ -1522,7 +1470,6 @@ const xxx = (item) => {
         <AnimatedFAB
             icon={'plus'}
             label={'Dodaj'}
-            //extended={isExtended}
             onPress={() => {
             navigation.navigate('AddGlycemicIndex');
             }}
@@ -1530,9 +1477,6 @@ const xxx = (item) => {
             theme={'tertiary'}
             animateFrom={'right'}
             iconMode={'static'}
-            //color={colors.COLORS.ORANGE}
-            //disabled
-
             style={[styles.fabStyle, style, fabStyle]}
         />
 
@@ -1541,7 +1485,6 @@ const xxx = (item) => {
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
-          //contentContainerStyle={styles.bottomSheet}
           backgroundStyle={styles.bottomSheet}
         >
             <ImageBackground
@@ -2442,7 +2385,6 @@ const styles = StyleSheet.create({
       fontSize: fontScale(typography.FONT_SIZE_12),
     },
     titleContainer: {
-      //marginBottom: 10, 
       alignItems: 'center',
       backgroundColor: colors.COLORS.DEEP_BLUE,
       padding: spacing.SCALE_10,
@@ -2452,8 +2394,6 @@ const styles = StyleSheet.create({
       color: colors.TEXT.WHITE,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      //borderBottomWidth: 3,
-      //borderBottomColor: 'orange'
     },
     titleCategory: {
       fontSize: fontScale(typography.FONT_SIZE_12),
@@ -2471,13 +2411,10 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
       borderBottomColor: colors.COLORS.DEEP_BLUE,
-      //backgroundColor: COLORS.WHITE,
       width: 200,
       textAlign: 'center',
       height: 40,
       color: colors.TEXT.DEEP_BLUE,
-      //fontWeight: 'bold',
-      //elevation: 3
     },
     fabStyle: {
       bottom: spacing.SCALE_25,

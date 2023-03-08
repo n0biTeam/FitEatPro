@@ -27,7 +27,6 @@ const GlucoseEditItemScreen = ({ route, navigation }) => {
     .get()
     .then(( doc ) => {
       if( doc.exists ) {
-        //console.log('Products Data: ', documentSnapshot.data());
         setGlucoseData(doc.data());
       }
     })
@@ -79,7 +78,6 @@ const GlucoseEditItemScreen = ({ route, navigation }) => {
       }}
     
   >
-   
    
         <View style={styles.rootContainer}>
             <View style={{marginTop: spacing.SCALE_6}}>

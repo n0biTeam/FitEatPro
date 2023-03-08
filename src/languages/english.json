@@ -136,6 +136,7 @@
         "diaryItemScreen.modal-enter-the-name": "Enter the name",
         "diaryItemScreen.rename-the-list": "Rename the list",
         "diaryItemScreen.update": "UPDATE",
+        "diaryItemScreen.btn-save": "SAVE", 
 
         "profileScreen.my-profile": "My profile",
         "profileScreen.account-information": "Account information",
@@ -629,7 +630,25 @@
         "notesEditScreen.alert.yes": "Yes",
         "notesEditScreen.alert.cancel": "Cancel",
         "notesEditScreen.toast.note-deleted": "Note deleted",
-        "notesEditScreen.title": "Note"
+        "notesEditScreen.title": "Note",
+
+        "forgetScreen.text-1": "Please enter a valid email address",
+        "forgetScreen.text-2": "Email address is required",
+        "forgetScreen.text-3a": "The password must be at least",
+        "forgetScreen.text-3b": "characters long",
+        "forgetScreen.text-4": "Password is required",
+        "forgetScreen.text-5": "Must contain 8 characters, one uppercase letter, one lowercase letter, one number and one special letter",
+        "forgetScreen.reset-password": "Password reset",
+        "forgetScreen.btn-send": "Send",
+        
+        "signupScreen.text-1": "Low number of characters",
+        "signupScreen.text-2": "Too long name",
+        "signupScreen.text-3": "Name is required",
+        "signupScreen.text-4": "Last name is required",
+        "signupScreen.text-5": "Please enter a valid email address",
+        "signupScreen.text-6": "Email address is required",
+        "signupScreen.text-7": "Your password isn't the same",
+        "signupScreen.text-8": "Password confirmation is required"
 
     }
 }

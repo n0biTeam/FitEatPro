@@ -11,7 +11,6 @@ import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
 import Purchases from 'react-native-purchases';
-import { ENTITLEMENT_ID } from '../../styles/constants';
 
 const DiaryScreen = ({ navigation }) => {
 
@@ -25,35 +24,7 @@ const DiaryScreen = ({ navigation }) => {
     const [masterDataSource, setMasterDataSource] = useState(diaryData);
     const [loading, setLoading] = useState(true);
 
-    //const [userPro, setUserPro] = useState(false);
-    
-
-    // useEffect(() => {
-      
-    //   const statusInc = async () => {
         
-    //     try {
-    //       // access latest customerInfo
-    //       const customerInfo = await Purchases.getCustomerInfo();
-    
-    //       if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-                      
-    //         setUserPro(true);
-            
-    //       } else {
-          
-    //         setUserPro(false);
-            
-    //       }
-    //     } catch (e) {
-    //       Alert.alert('Error fetching customer info', e.message);
-    //     }
-    //   };
-    //   statusInc();
-    
-    // },[]);
-
-    
   const [activated, setActivated] = useState([]);
      
       
@@ -77,13 +48,6 @@ const DiaryScreen = ({ navigation }) => {
     
    }, [navigation, loading, activated]);
 
-  //console.log(activated)
-  //console.log('d: ' + activated.indexOf('fp_1199_m') >= 0)
-
-  //  console.log('userPro: ' + userPro)
-  //  console.log('activated: ' + activated)
-  //  console.log('activated.indexOf: ' + activated.indexOf('fp_0599_m'))
-  //  console.log('activated.length: ' + activated.length)
   
     const getDiary = () => {
       firestore().collection('users').doc(user.uid).collection('diary')
@@ -99,7 +63,6 @@ const DiaryScreen = ({ navigation }) => {
                  setDiaryData(diaryData);
                  setFilteredDataSource(diaryData);
                  setMasterDataSource(diaryData);
-                 //console.log(diaryData);
               },
                 error => {
                  console.log(error)
@@ -198,7 +161,6 @@ const DiaryScreen = ({ navigation }) => {
   return (
     <SafeAreaProvider style={{ flexGrow: 1}}>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
-    {/* <Appbar.BackAction onPress={_goBack} /> */}
        <Appbar.Content title={t('diaryScreen.meal-log')} />
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
@@ -276,7 +238,6 @@ const DiaryScreen = ({ navigation }) => {
                               <CircularProgress
                               value={item.indexGlycemic}
                               radius={spacing.SCALE_20}
-                              //duration={2000}
                               activeStrokeWidth={6}
                               inActiveStrokeWidth={6}
                               progressValueColor={colors.COLORS.DEEP_BLUE}
@@ -304,7 +265,6 @@ const DiaryScreen = ({ navigation }) => {
                                     radius={spacing.SCALE_20}
                                     activeStrokeWidth={6}
                                     inActiveStrokeWidth={6}
-                                    //duration={2000}
                                     progressValueColor={colors.COLORS.DEEP_BLUE}
                                     maxValue={item.loadGlycemic >= 20 ? item.loadGlycemic : 20}
                                     progressValueStyle={{ color: colors.COLORS.DEEP_BLUE, fontSize: typography.FONT_SIZE_11, fontWeight:'bold' }}
@@ -326,7 +286,6 @@ const DiaryScreen = ({ navigation }) => {
                     </View>
                       
                       <View style={{alignItems: 'flex-end'}}>
-                          {/* <Text style={styles.dataBox}>{t('diaryScreen.date-added')} {item.createdAt.toDate().toLocaleDateString('pl-PL')}, {item.createdAt.toDate().toLocaleTimeString('pl-PL')}</Text> */}
                           <Text style={styles.dataBox}>{t('diaryScreen.date-added')} {format(item.createdAt.toDate(), 'dd/MM/yyyy, HH:mm')}</Text>
                       </View>
                   </View>

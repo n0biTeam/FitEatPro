@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Dimensions, TextInput, Platform, Keyboard, StatusBar, TouchableOpacity, Alert } from 'react-native';
 import * as yup from 'yup';
 import { Formik } from 'formik';
@@ -6,54 +6,24 @@ import { useTranslation } from 'react-i18next';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
-import { AuthContext } from '../../navigation/AuthProvider';
 import { colors, typography, spacing } from '../../styles';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import auth from '@react-native-firebase/auth';
 
+
 const loginValidationSchema = yup.object().shape({
-    email: yup.string().email('Proszę podać poprawny adres e-mail').required('Adres e-mail jest wymagany'),
-    //password: yup.string().min(8, ({ min }) => `Hasło musi mieć co najmniej ${min} znaków`).required('Hasło jest wymagane')
-    // .matches(
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //   "Musi zawierać 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jedną specjalną literę"
-    // ),
+    email: yup.string().email(t('forgetScreen.text-1')).required(t('forgetScreen.text-2')),
+    password: yup.string().min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`).required(t('forgetScreen.text-4'))
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, t('forgetScreen.text-5')),
   });
 
 const ForgetPasswordScreen = ({ navigation }) => {
 
-    //const { forgetPassword } = useContext(AuthContext);
+    
     const [showPassword, setShowPassword] = useState(true);
-    //const [rememberMe, setRememberMe] = useState(true);
     const {t, i18n} = useTranslation();
   
-    // const loginUser = (values) => {
-    //   auth()
-    // .signInWithEmailAndPassword(
-    //   values.email,
-    //   values.password
-    // )
-    // .then(() => {
-    //   console.log('User account created & signed in!');
-    //   navigation.navigate('Home');
-    // })
-    // .catch(error => {
-    //   if (error.code === 'auth/email-already-in-use') {
-    //     console.log('That email address is already in use!');
-    //   }
-  
-    //   if (error.code === 'auth/invalid-email') {
-    //     console.log('That email address is invalid!');
-    //   }
-  
-    //   if (error.code === 'auth/user-not-found') {
-    //     ToastAndroid.show('Brak rekordu użytkownika odpowiadającego temu identyfikatorowi. Użytkownik mógł zostać usunięty.', ToastAndroid.LONG, ToastAndroid.CENTER);
-    //   }
-  
-    //   console.error(error);
-    // });
-    // }
-
+   
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     useEffect(() => {
@@ -164,7 +134,7 @@ const ForgetPasswordScreen = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
             <View>
-                <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_30}}>Reset hasła</Text>
+                <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_30}}>{t('forgetScreen.reset-password')}</Text>
             </View>
       </View>
 
@@ -187,28 +157,6 @@ const ForgetPasswordScreen = ({ navigation }) => {
               <Text style={styles.errors}>{errors.email}</Text>
         }
 
-        {/* <Text style={[styles.text_footer, {marginTop: spacing.SCALE_15}]}>{t('login-screen-password')}</Text>
-        <View style={styles.action}>
-          <Ionicons name='lock-closed' size={spacing.SCALE_20} color={colors.COLORS.DEEP_BLUE} />
-          <TextInput 
-            placeholder={t('login-screen-password')}
-            onChangeText={handleChange('password')}
-            onBlur={handleBlur('password')}
-            value={values.password}
-            //underlineColorAndroid = "transparent"
-            style={styles.textInput}
-            autoCapitalize="none"
-            secureTextEntry={showPassword}
-          />
-          <TouchableOpacity onPress={() => { showPassword ? setShowPassword(false) : setShowPassword(true) }} >
-            {showPassword ? <Feather name="eye" size={spacing.SCALE_20} color={colors.COLORS.GREEN} /> : <Feather name="eye-off" size={spacing.SCALE_20} color={colors.COLORS.GREEN} />}
-          </TouchableOpacity>
-        </View>
-        {(errors.password && touched.password) && 
-              <Text style={styles.errors}>{errors.password}</Text>
-        } */}
-
-
         <View style={{marginTop: spacing.SCALE_20, justifyContent: 'center', alignItems: 'center'}}>
               
               <TouchableOpacity 
@@ -224,15 +172,13 @@ const ForgetPasswordScreen = ({ navigation }) => {
                     
                   }}>
                    <View style={{flexDirection: 'row' }}>
-                        <Text style={{color: !isValid ? colors.TEXT.DEEP_BLUE: colors.TEXT.WHITE, marginLeft: spacing.SCALE_10, fontWeight: 'bold'}}>WYŚLIJ</Text> 
+                        <Text style={{color: !isValid ? colors.TEXT.DEEP_BLUE: colors.TEXT.WHITE, marginLeft: spacing.SCALE_10, fontWeight: 'bold', textTransform: 'uppercase'}}>{t('forgetScreen.btn-send')}</Text> 
                     </View>
               </TouchableOpacity>
 
         </View>
         </View>
 
-        
-        
       </View>
      </ImageBackground>
      </Animatable.View>

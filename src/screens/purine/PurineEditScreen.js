@@ -7,6 +7,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import { TextInput } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const PurineEditScreen = ({ route, navigation }) => {
   
@@ -27,7 +28,6 @@ const PurineEditScreen = ({ route, navigation }) => {
     .get()
     .then(( documentSnapshot ) => {
       if( documentSnapshot.exists ) {
-        //console.log('Products Data: ', documentSnapshot.data());
         setProductData(documentSnapshot.data());
       }
     })
@@ -87,7 +87,6 @@ const PurineEditScreen = ({ route, navigation }) => {
     blurRadius={5}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -102,11 +101,10 @@ const PurineEditScreen = ({ route, navigation }) => {
         style={{
           flex: 1, 
           height: Dimensions.get('window').height,
-          //width: Dimensions.get('window').width,
-          height: 125,
+          height: isTablet ? 300 : 126,
         }}
         imageStyle={{
-          //opacity: 0.8
+          
         }}
         >
                  
@@ -163,8 +161,6 @@ const PurineEditScreen = ({ route, navigation }) => {
             </TouchableOpacity>
 
           </View>
-        
-        
         
         </View>
 

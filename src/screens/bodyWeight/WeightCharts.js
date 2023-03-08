@@ -1,11 +1,9 @@
 import { StyleSheet, View, ImageBackground, StatusBar, Dimensions, Text, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect, useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Appbar, Button } from 'react-native-paper';
+import { Appbar } from 'react-native-paper';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import DatePicker from 'react-native-date-picker';
-import moment from 'moment/moment';
 import { format } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import { LineChart } from "react-native-chart-kit";
@@ -35,9 +33,6 @@ const WeightCharts = ({ navigation }) => {
       const [dataCharts2, setDataCharts2] = useState([0]);
       const [dataChartsLB, setDataChartsLB] = useState([0]);
       const [dataChartsLB2, setDataChartsLB2] = useState([0]);
-
-      // const [dataChartsST, setDataChartsST] = useState([0]);
-      // const [dataChartsST2, setDataChartsST2] = useState([0]);
       const [dataDate, setDataDate] = useState([0]);
       const [dataDate30, setDataDate30] = useState([0]);
 
@@ -50,7 +45,6 @@ const WeightCharts = ({ navigation }) => {
         .get()
         .then(( doc ) => {
           if( doc.exists ) {
-            //console.log('User Data: ', documentSnapshot.data());
             setUserData(doc.data());
           }
         })
@@ -69,30 +63,23 @@ const WeightCharts = ({ navigation }) => {
               const dataChartsLB = [];
               const dataChartsLB2 = [];
 
-              // const dataChartsST = [];
-              // const dataChartsST2 = [];
-
                 querySnapshot.forEach(doc => {
                  if( doc.exists ) {
-                //console.log('User data: ', doc.data());
+                
                   dataCharts.push(doc.data().currentWeight);
                   dataCharts2.push(doc.data().targetWeight); 
 
                   dataChartsLB.push(doc.data().currentWeightLB); 
                   dataChartsLB2.push(doc.data().targetWeightLB); 
-    
-                  // dataChartsST.push(doc.data().currentWeightST); 
-                  // dataChartsST2.push(doc.data().targetWeightST); 
                   
                   const year = format((doc.data().createdAt).toDate(), 'yyyy');
                   const month = format((doc.data().createdAt).toDate(), 'MM');
                   const month2 = format((doc.data().createdAt).toDate(), 'MM', {locale: pl});
                   const day = format((doc.data().createdAt).toDate(), 'dd');
-                  //const fullDate = day + '/' + month + '/'+ year;
+                  
                   const fullDate = day + '/' + month;
                   const monthDate = month2 + '/' + year;
-                  //const fullDate = day;
-                  //const monthDate = month2;
+
                   dataDate.push(fullDate);
                   dataDate2.push(monthDate);
 
@@ -110,11 +97,6 @@ const WeightCharts = ({ navigation }) => {
                   arrayDataLB.reverse();
                   setDataChartsLB(arrayDataLB);
 
-                  // waga ST
-                  // const arrayDataST = dataChartsST;
-                  // arrayDataST.reverse();
-                  // setDataChartsST(arrayDataST);
-
                   // cel KG
                   const arrayData2 = dataCharts2;
                   arrayData2.reverse();
@@ -124,11 +106,6 @@ const WeightCharts = ({ navigation }) => {
                   const arrayDataLB2 = dataChartsLB2;
                   arrayDataLB2.reverse();
                   setDataChartsLB2(arrayDataLB2);
-
-                  //cel ST
-                  // const arrayDataST2 = dataChartsST2;
-                  // arrayDataST2.reverse();
-                  // setDataChartsST2(arrayDataST2);
 
                   const arrayDate = dataDate;
                   arrayDate.reverse();
@@ -162,8 +139,6 @@ const WeightCharts = ({ navigation }) => {
       }
       }
 
-      //console.log(_chartWeight())
-
       const _chartWeight2 = () => {
         try{
         if(userData.weightUnit === UNIT.KG){
@@ -190,14 +165,13 @@ const WeightCharts = ({ navigation }) => {
         let [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0, visible: false, value: 0 });
 
       const charts = (dataCharts, dataCharts2, dataDate, dataDate30) => {
-        //console.log(dataCharts);
+
         if (dataCharts.length === 0) {
           return (
             <View style={{elevation: 5}}>
         <LineChart
 
     data={{
-      //labels: ["January", "February", "March", "April", "May", "June"],
       datasets: [
         {
           data: [0],
@@ -428,7 +402,6 @@ const WeightCharts = ({ navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -444,24 +417,20 @@ const WeightCharts = ({ navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
         <View style={styles.rootContainer}>
-          {/* { dataCharts.length > 0 && */}
+          
           <View style={{elevation: 5}}>
       
             {charts(dataCharts, dataCharts2, dataDate, dataDate30)}
              
           </View>
-          {/* } */}
 
-      {/* { dataCharts.length >= 2 && */}
-              
               <View style={{flexDirection: 'row'}}>
                 <View style={{ flex:1, marginRight: spacing.SCALE_3}}>
                     <TouchableOpacity onPress={changeNumber} style={styles.btn}>
@@ -475,7 +444,6 @@ const WeightCharts = ({ navigation }) => {
                 </View>
               </View>
               
-           {/* } */}
         </View>
 
     </ImageBackground>

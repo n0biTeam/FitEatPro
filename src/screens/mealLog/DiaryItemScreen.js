@@ -10,6 +10,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const theme = {
   ...DefaultTheme,
@@ -61,7 +62,6 @@ const DiaryItemScreen = ({ route, navigation }) => {
         console.log('Title updated!');
         ToastAndroid.show('Tytuł zmieniony', ToastAndroid.LONG, ToastAndroid.BOTTOM);
         setVisible(false);
-        //navigation.navigate('DiaryItemScreen');
       });
     }
 
@@ -73,12 +73,8 @@ const DiaryItemScreen = ({ route, navigation }) => {
         await firestore().collection('users').doc(user.uid).collection('diary').doc(itemId)
           .get()
           .then(doc => {
-             // const diaryData = [];
-           
+            
                    setTitle(doc.data().title);
-
-                  
-                  // console.log(doc.data().title);
                 },
                   error => {
                    console.log(error)
@@ -146,22 +142,14 @@ const DiaryItemScreen = ({ route, navigation }) => {
                     totalFiber +=doc.data().fiber;
     
                     totalSugar +=doc.data().sugar;
-    
-    
-    
-                    //totalPrzyswajalne += doc.data().carbs - doc.data().fiber;
-    
+       
                     total += ( (((doc.data().carbs - doc.data().fiber)*100)/totalPrzyswajalne) * doc.data().glycemicIndex )/100;
-                    //total += ( (((doc.data().carbs - doc.data().fiber)*100)/totalPrzyswajalne) * doc.data().glycemicIndex )/100;
-                    //console.log(doc.data().quantity/100);
-    
+                
                     lg += ((doc.data().carbs-doc.data().fiber)*doc.data().glycemicIndex)/100;
                     
                    
                   });
-                  //console.log(mealData);
-                  //console.log('---');
-                                
+                                                 
                     setSumGramma(totalGramme);
                     setSumKcal(totalKacl);
                     setSumProtein(totalProtein);
@@ -274,8 +262,7 @@ const DiaryItemScreen = ({ route, navigation }) => {
     .delete()
     .then(() => {
       console.log('Product deleted!');
-      //Alert.alert('Produkt usunięty');
-      ToastAndroid.show('Usunięto posiłek', ToastAndroid.LONG, ToastAndroid.BOTTOM);
+      ToastAndroid.show(t('diaryItemScreen.toast-product-removed'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
       navigation.navigate('DiaryScreen');
     });
   }
@@ -328,10 +315,6 @@ const DiaryItemScreen = ({ route, navigation }) => {
           });
 };
   
-
-
- 
-
 const handleUpdate2 = async () => {
         
    await firestore()
@@ -345,10 +328,7 @@ const handleUpdate2 = async () => {
     loadGlycemic: ladunek,
     sumKcal: sumKcal
   }).then(() => {
-   // console.log('Product Update');
     setVisible2(false);
-    //ToastAndroid.show('Zaktualizowano', ToastAndroid.LONG, ToastAndroid.BOTTOM);
-    //navigation.navigate('DiaryItemScreen')
     onChangeNumber(null);
 
    });
@@ -359,9 +339,7 @@ const handleUpdate2 = async () => {
     handleUpdate2(initialItem)
 }, [total, sumGramma, ladunek, sumKcal]);
 
-   //console.log(stateIG);
-   const handleUpdate = async (initialItem) => {
-   //console.log(initialItem)
+    const handleUpdate = async (initialItem) => {
     await firestore()
     .collection('users')
     .doc(user.uid)
@@ -384,7 +362,6 @@ const handleUpdate2 = async () => {
       console.log('Product Update');
       setVisible2(false);
       ToastAndroid.show(t('diaryItemScreen.toast-updated'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-      //navigation.navigate('DiaryItemScreen')
       onChangeNumber(null);
 
      });
@@ -402,11 +379,8 @@ const handleUpdate2 = async () => {
   .delete()
   .then(() => {
     console.log('Product deleted!');
-    //Alert.alert('Produkt usunięty');
     ToastAndroid.show(t('diaryItemScreen.toast-product-removed'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
-    //navigation.navigate('MealScreen');
   });
-  //console.log(item);
 }
 
 const imageBG = require('../../assets/images/talerz.jpg');
@@ -445,11 +419,10 @@ const imageBG = require('../../assets/images/talerz.jpg');
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
          <View style={{ marginHorizontal: spacing.SCALE_6, flex: 1 }}>
@@ -529,8 +502,6 @@ const imageBG = require('../../assets/images/talerz.jpg');
                   return value.toFixed(1);
                 }}
               />
-
-          
                   <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE, marginTop: 5}}>{t('diaryItemScreen.exchanger')}</Text>
                   <Text style={{fontSize: typography.FONT_SIZE_10, color: colors.TEXT.DEEP_BLUE}}>{t('diaryItemScreen.carbohydrate')}</Text>
           </View>
@@ -660,10 +631,6 @@ const imageBG = require('../../assets/images/talerz.jpg');
                         </Text>
                       }
                     </Text>
-
-                    {/* <Text style={styles.textContainer}>{(sumFiber).toFixed(1)}</Text> */}
-                    {/* <Text style={styles.textContainer}>{(sumCholesterol).toFixed(1)}</Text>
-                    <Text style={styles.textContainer}>{(sumSugar).toFixed(1)}</Text> */}
                 </View>
                
               </View>
@@ -695,10 +662,8 @@ const imageBG = require('../../assets/images/talerz.jpg');
                         <Pressable style={{marginLeft: spacing.SCALE_10, flexDirection: 'row'}} 
                         
                         onPress={() => {
-                          //handleItem(item.id);
                           setInitialItem(item);
                           setVisible2(true);
-                          //onChangeNumber(null);
                          }}
                         >
                             <View style={{flexDirection: 'column', justifyContent: 'center', marginRight: spacing.SCALE_6}}>
@@ -739,9 +704,6 @@ const imageBG = require('../../assets/images/talerz.jpg');
                 />
                 ) : ( 
                    <ActivityIndicator size="large" color={colors.COLORS.DEEP_BLUE} />
-                  // <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  //   <Text style={{color: '#224870', fontSize: 20, fontWeight: 'bold'}}>Lista pusta. Dodaj produkty</Text>
-                  // </View>
                 )}
                 
                 <View style={{marginBottom: spacing.SCALE_6}}></View>
@@ -758,13 +720,10 @@ const imageBG = require('../../assets/images/talerz.jpg');
                                   placeholder={parseInt(initialItem.quantity).toString()}
                                   keyboardType="numeric"
                                   label={t('diaryItemScreen.modal-enter-quantity')}
-                                  //value={parseInt(dataMeal.quantity).toString()}
                                   value={number}
-                                  //onChangeText={onChangeNumber}
                                   underlineColor={colors.COLORS.LIGHT_GREY}
                                   activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                                   onChangeText={onChangeNumber}
-                                  //onChangeText={(txt) => setDataMeal({...dataMeal, quantity: txt})}
                                   style={styles.btnTextInput}
                                 />
 
@@ -778,10 +737,9 @@ const imageBG = require('../../assets/images/talerz.jpg');
                                       handleUpdate(initialItem);
                                       handleUpdate2(initialItem);
                                     }} 
-                                   // style={{width: 330}}
                                     buttonColor={colors.COLORS.DEEP_BLUE}
                                   >
-                                    ZAPISZ
+                                    {t('diaryItemScreen.btn-save')}
                                   </Button>
                               
                                 </View>
@@ -792,16 +750,11 @@ const imageBG = require('../../assets/images/talerz.jpg');
                               <View initialItem={initialItem} style={{flex: 1, justifyContent: 'center'}}>
                                 <Text style={{color: colors.TEXT.DEEP_BLUE, fontSize: typography.FONT_SIZE_14, marginBottom: spacing.SCALE_6}}>{t('diaryItemScreen.rename-the-list')}</Text>
                                 <TextInput 
-                                  //placeholder='Tytuł'
-                                  //keyboardType="numeric"
                                   label={t('diaryItemScreen.modal-enter-the-name')}
-                                  //value={parseInt(dataMeal.quantity).toString()}
                                   value={changeTitle}
-                                  //onChangeText={onChangeNumber}
                                   underlineColor={colors.COLORS.LIGHT_GREY}
                                   activeUnderlineColor={colors.COLORS.DEEP_BLUE}
                                   onChangeText={setChangeTitle}
-                                  //onChangeText={(txt) => setDataMeal({...dataMeal, quantity: txt})}
                                   style={styles.btnTextInput}
                                 />
 
@@ -813,7 +766,6 @@ const imageBG = require('../../assets/images/talerz.jpg');
                                     onPress={() => {
                                       handleTitle()
                                     }} 
-                                    //style={{width: 330}}
                                     buttonColor={colors.COLORS.DEEP_BLUE}
                                   >
                                     {t('diaryItemScreen.update')}
@@ -840,8 +792,6 @@ const styles = StyleSheet.create({
     padding: spacing.SCALE_20,
     marginHorizontal: spacing.SCALE_10,
     height: 200,
-    //justifyContent: 'center'
-
   },
   btnModal: {
     borderWidth: 0,

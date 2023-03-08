@@ -32,9 +32,6 @@ const QuickiScreen = ({ navigation }) => {
       .get()
       .then(( doc ) => {
         if( doc.exists ) {
-          //console.log('User Data: ', documentSnapshot.data());
-          //console.log(doc.data().weightName);
-          //console.log(doc.data().heightName);
           setUserData(doc.data());
         }
       })
@@ -120,7 +117,6 @@ const QuickiScreen = ({ navigation }) => {
         blurRadius={1}
         resizeMode="cover"
         style={{ 
-          //height: getHeight(), 
           flex: 1, 
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
@@ -234,27 +230,25 @@ const styles = StyleSheet.create({
     },
     input: {
         borderBottomWidth: spacing.SCALE_2,
-        borderBottomColor: '#224870',
-        backgroundColor: '#fff',
+        borderBottomColor: colors.COLORS.DEEP_BLUE,
+        backgroundColor: colors.COLORS.WHITE,
         paddingLeft: spacing.SCALE_10,
         elevation: 4
       },
       textBtn: {
-        color: '#fff'
+        color: colors.TEXT.WHITE
       },
       textTitle1: {
         fontSize: typography.FONT_SIZE_14,
         color: colors.TEXT.GREEN,
         fontWeight: '700',
         textTransform: 'uppercase'
-
       },
       textTitle2: {
         fontSize: typography.FONT_SIZE_14,
         color: colors.TEXT.RED,
         fontWeight: '700',
         textTransform: 'uppercase'
-
       },
       textSubtitle: {
         fontSize: typography.FONT_SIZE_12,

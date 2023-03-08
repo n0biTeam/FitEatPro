@@ -21,14 +21,11 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
     setIsPurchasing(true);
 
     try {
-      //const { purchaserInfo } = await Purchases.purchasePackage(purchasePackage);
       const purchaseMade = await Purchases.purchasePackage(purchasePackage);
 
-      //if (typeof purchaserInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined') {
       if (typeof purchaseMade.customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
         console.log("User is PRO");
         setUserPro(true);
-       // navigation.navigate('HomeScreen');
       }
     } catch (e) {
       if (!e.userCancelled) {
@@ -62,9 +59,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
       
      }, [navigation, loading, subscriptionActive]);
 
-     //console.log(activated)
-     const getUserDetails = async () => {
-      //setIsAnonymous(await Purchases.isAnonymous());
+      const getUserDetails = async () => {
       setUserId(user.uid);
   
       const customerInfo = await Purchases.getCustomerInfo();
@@ -72,7 +67,6 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
     };
   
     useEffect(() => {
-      // Get user details when component first mounts
       getUserDetails();
     }, []);
   
@@ -96,9 +90,7 @@ const PackageItem = ({ purchasePackage, setIsPurchasing }) => {
                   <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={[styles.prince, {color: String(activated) === identifier && subscriptionActive ? colors.TEXT.GREY_AAA : colors.TEXT.WHITE}]}>{priceString}</Text>
                 </View>
-                {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                   <Text style={styles.title}>{title.replace("(FitEat Pro. Indeks glikemiczny)", "")}</Text>
-                </View> */}
+
                <View style={{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={[styles.terms, {color: String(activated) === identifier && subscriptionActive ? colors.TEXT.GREY_AAA : colors.TEXT.YELLOW}]}>{description}</Text>
                   </View>
@@ -115,26 +107,20 @@ export default PackageItem;
 
 const styles = StyleSheet.create({
     container: {
-      //flexDirection: 'row',
       justifyContent: 'space-between',
-      //alignItems: 'center',
       flex: 1,
       padding: spacing.SCALE_3,
       backgroundColor: colors.COLORS.LIGHT_BLUE,
-      //borderBottomWidth: 1,
-      //borderBottomColor: colors.COLORS.GREY_CCC,
     },
     title: {
       color: colors.TEXT.WHITE,
       fontSize: typography.FONT_SIZE_12,
-      //fontWeight: 'bold',
       textTransform: 'uppercase',
       marginTop: spacing.SCALE_6
     },
     prince: {
       color: colors.TEXT.WHITE,
       fontSize: typography.FONT_SIZE_20
-      //fontWeight: 'bold',
     },
     terms: {
       color: colors.TEXT.YELLOW,

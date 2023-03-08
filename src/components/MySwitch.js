@@ -24,7 +24,6 @@ const MySwitch = ({
       <View
         style={{
           height: 44,
-          //width: 215,
           backgroundColor: 'white',
           borderRadius: getRoundCorner ? 25 : 0,
           borderWidth: 1,

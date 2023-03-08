@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import { colors, spacing, typography } from '../styles';
+import { colors, spacing } from '../styles';
 
 export default function ItemBigList({value, unit, backgroundColor, width}) {
     return (
@@ -18,7 +18,6 @@ export default function ItemBigList({value, unit, backgroundColor, width}) {
 const styles = StyleSheet.create({
     containerView: {
         paddingVertical: 3,
-        //backgroundColor: colors.WHtR.WHtR_1, 
         width: 70,
         borderRadius: spacing.SCALE_5,
         alignItems: 'flex-end',

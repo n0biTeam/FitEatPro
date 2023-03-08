@@ -6,8 +6,6 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import RBSheet from "react-native-raw-bottom-sheet";
-import moment from 'moment/moment';
-import DatePicker from 'react-native-date-picker';
 import { format } from 'date-fns';
 import BigList from "react-native-big-list";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,7 +13,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { fontScale, scale, isTablet } from 'react-native-utils-scale';
-import { scaleFont } from '../../styles/mixins';
 
 const theme = {
     ...DefaultTheme,
@@ -57,17 +54,12 @@ const GlucoseDiaryScreen = ({ route,
 
     //---------------------------------------------------------------------------------
     const {user} = useContext(AuthContext);
-    //const [currentGlucose, setCurrentGlucose] = useState(0);
     const [getData, setGetData] = useState([]);
     const [glucose, setGlucose] = useState('');
     
     //---------------------------------------------------------------------------------
     const [getGlucoseMg, setGetGlucoseMg] = useState(0);
     const [getGlucoseMmol, setGetGlucoseMmol] = useState(0);
-    //const [dateForm, setDateForm] = useState(new Date());
-    //const [timeForm, setTimeForm] = useState(new Date());
-    //const [open1, setOpen1] = useState(false);
-    //const [open2, setOpen2] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const [isLoading, setIsLoading] = useState(false); //button
@@ -78,7 +70,6 @@ const GlucoseDiaryScreen = ({ route,
     const getGlucoseDiary = () => {
         firestore().collection('users').doc(user.uid).collection('glucoseDiary')
           .orderBy('createdAt', 'desc')
-          //.limit(30)
           .onSnapshot(
              querySnapshot => {
               const getData = [];
@@ -105,11 +96,8 @@ const GlucoseDiaryScreen = ({ route,
           .limit(1)
           .onSnapshot(
              querySnapshot => {
-              //const dataWeight = [];
                 querySnapshot.forEach(doc => {
-                //console.log('User data: ', doc.data());
                  if( doc.exists ) {
-                  //dataWeight.push({...doc.data(), id: doc.id}); 
                   setGetGlucoseMg(doc.data().glucoseMg);
                   setGetGlucoseMmol(doc.data().glucoseMmol);
                  }
@@ -133,23 +121,13 @@ const GlucoseDiaryScreen = ({ route,
         return unsubscribe;
       }, [navigation, loading]);
 
-    // const getDateTime = () => {
-    //     //Data i czas 2022-12-12T20:16:03.151Z
-    //     const dates = moment(dateForm).format("YYYY-MM-DD");
-    //     const times = moment(timeForm).format("HH:mm");
-    //     // const dateTime = dates + 'T' + times + ':00';
-    //     const dateTime = new Date(dates + 'T' + times + ':00Z');
-    //     return dateTime;
-    //  }
-    
+      
       const handleAdd = async () => {
-        //console.log(currentGlucose);
         await firestore()
           .collection('users')
           .doc(user.uid)
           .collection('glucoseDiary')
           .add({
-            //createdAt: getDateTime(),
             createdAt: firestore.Timestamp.fromDate(new Date()),
             glucoseMg: parseInt(glucose),
             glucoseMmol: parseInt(glucose)/18,
@@ -188,9 +166,6 @@ const GlucoseDiaryScreen = ({ route,
         return color;
       }
 
-    
-
-
     const lastGlucose = () => {
       
         if((getGlucoseMg >= 70) && (getGlucoseMg <= 99)){
@@ -221,8 +196,7 @@ const GlucoseDiaryScreen = ({ route,
       }
 
     const emoticon = (item) => {
-        //const v = item.glucoseMG;
-        //console.log(item.glucoseMG)
+      
         if((item.glucoseMg >= 70) && (item.glucoseMg <= 99)){
             return(
                     <MaterialCommunityIcons name='emoticon-happy' size={spacing.SCALE_20} color={colors.EMOTICON.E1} />
@@ -300,7 +274,6 @@ const GlucoseDiaryScreen = ({ route,
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -315,11 +288,10 @@ const GlucoseDiaryScreen = ({ route,
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: isTablet ? 300 : 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
         <View style={styles.rootContainer}>
@@ -346,12 +318,8 @@ const GlucoseDiaryScreen = ({ route,
                   count: isTablet ? 40 : 30,
                   width: isTablet ? 10 : 8,
                 }}
-                // progressFormatter={(value, total) => {
-                //     'worklet';   
-                //     return value.toFixed(2);
-                // }}
                  />
-                 {/* <Text style={{marginTop: 6, color: TEXT.DEEP_BLUE, fontSize: 10}}>SKURCZOWE</Text> */}
+               
             </View>
 
             <View style={{flex: 1, backgroundColor: colors.COLORS.WHITE, borderRadius: 5, marginLeft: spacing.SCALE_3, padding: spacing.SCALE_10, alignItems: 'center'}}>
@@ -378,7 +346,6 @@ const GlucoseDiaryScreen = ({ route,
                       return value.toFixed(1);
                   }}
                   />
-                  {/* <Text style={{marginTop: 6, color: TEXT.DEEP_BLUE, fontSize: 10}}>ROZKURCZOWE</Text> */}
               </View>
 
             </View>
@@ -463,9 +430,6 @@ const GlucoseDiaryScreen = ({ route,
               <Text style={{fontSize: typography.FONT_SIZE_18, color: colors.TEXT.DEEP_BLUE}}>{t('glucoseDiaryScreen.no-data')}</Text>
             </View>
             )
-            // (
-            //     <ActivityIndicator size="large" color="#224870" />
-            //   )
             }
 
           </View>
@@ -484,9 +448,7 @@ const GlucoseDiaryScreen = ({ route,
         ref={refRBSheet}
         closeOnDragDown={true}
         closeOnPressMask={false}
-       // closeOnPressBack={true}
         onClose={() => setIsOpen(false)}
-        //animationType='slide'
         height={heightModal}
         openDuration={400}
         closeDuration={200}
@@ -506,64 +468,11 @@ const GlucoseDiaryScreen = ({ route,
         }}
       >
        <View style={styles.modalRoot}>
-        {/* <Text>{userData.weightName}</Text> */}
         <View style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginBottom: spacing.SCALE_6, borderWidth: 1, borderColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_8, borderRadius: 5}}>
             <Text style={{color: colors.TEXT.WHITE, fontWeight: 'bold'}}>{t('glucoseDiaryScreen.give-data')}</Text>
         </View>
 
-        {/* <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 1, marginRight: 3}}>
-            
-              <TouchableOpacity onPress={() => setOpen1(true)} style={{borderWidth: 1, borderColor: COLORS.GREY_DDD, padding: 8, backgroundColor: COLORS.WHITE}}>
-                <Text style={{fontSize: 12, marginBottom: 5}}>Data</Text>
-                <Text style={{fontSize: 16, color: '#000'}}>{moment(dateForm).format('DD-MM-YYYY')}</Text>
-              </TouchableOpacity>
-                         
-                  <DatePicker
-                    modal
-                    mode='date'
-                    locale='PL-pl'
-                    title='Data dodania'
-                    confirmText='Ustaw'
-                    cancelText='Anuluj'
-                    open={open1}
-                    date={dateForm}
-                    onConfirm={(dateForm) => {
-                      setOpen1(false)
-                      setDateForm(dateForm)
-                    }}
-                    onCancel={() => {
-                      setOpen1(false)
-                    }}
-                  />
-            </View>
-
-            <View style={{flex: 1, marginLeft: 3}}>
-            <TouchableOpacity onPress={() => setOpen2(true)} style={{borderWidth: 1, borderColor: COLORS.GREY_DDD, padding: 8, backgroundColor: COLORS.WHITE}}>
-                <Text style={{fontSize: 12, marginBottom: 5}}>Godzina</Text>
-                <Text style={{fontSize: 16, color: TEXT.BLACK}}>{moment(timeForm).format("HH:mm")}</Text>
-              </TouchableOpacity>
-                         
-                  <DatePicker
-                    modal
-                    mode='time'
-                    locale='PL-pl'
-                    title='Godzina dodania'
-                    confirmText='Ustaw'
-                    cancelText='Anuluj'
-                    open={open2}
-                    date={timeForm}
-                    onConfirm={(timeForm) => {
-                      setOpen2(false)
-                      setTimeForm(timeForm)
-                    }}
-                    onCancel={() => {
-                      setOpen2(false)
-                    }}
-                  />
-            </View>
-          </View> */}
-
+      
           <View>
           <View style={{ elevation: 5, marginTop: spacing.SCALE_6}}>
                     <TextInput
@@ -599,7 +508,6 @@ const GlucoseDiaryScreen = ({ route,
     <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
-       // extended={isExtended}
         onPress={() => {
             refRBSheet.current.open();
         }}
@@ -607,8 +515,6 @@ const GlucoseDiaryScreen = ({ route,
         theme={'tertiary'}
         animateFrom={'right'}
         iconMode={'static'}
-        //color={COLORS.ORANGE}
-
         style={[styles.fabStyle, style, fabStyle]}
       />
     </ImageBackground>

@@ -31,11 +31,9 @@ export default function MyCircle({
     const inputRef = React.useRef();
     const halfCircle = radius + strokeWidth;
     const circleCircumference = 2 * Math.PI * radius;
-   
-    
-      
-  const maxPerc = 100 * percentage / max;
-  const strokeDashoffset = circleCircumference - (circleCircumference * maxPerc ) / 100;
+     
+    const maxPerc = 100 * percentage / max;
+    const strokeDashoffset = circleCircumference - (circleCircumference * maxPerc ) / 100;
       
     return (
       <View>

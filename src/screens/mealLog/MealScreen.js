@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
 import Purchases from 'react-native-purchases';
 import { ENTITLEMENT_ID } from '../../styles/constants';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const theme = {
   ...DefaultTheme,
@@ -65,8 +66,7 @@ const MealScreen = ({
   const [sumSugar, setSumSugar] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  //const [idMeal, setIdMeal] = useState('');
-
+  
   const [userPro, setUserPro] = useState(false);
     
   const [activated, setActivated] = useState([]);
@@ -134,9 +134,7 @@ const MealScreen = ({
               querySnapshot.forEach(doc1 => {
                 totalPrzyswajalne += doc1.data().carbs - doc1.data().fiber;
               });
-              //setPrzyswajalne(totalPrzyswajalne);
-              //console.log(totalPrzyswajalne);
-              
+                     
                querySnapshot.forEach(doc => {
                 
                 mealData.push({...doc.data(), id: doc.id});
@@ -157,21 +155,13 @@ const MealScreen = ({
 
                 totalSugar +=doc.data().sugar;
 
-
-
-                //totalPrzyswajalne += doc.data().carbs - doc.data().fiber;
-
                 total += ( (((doc.data().carbs - doc.data().fiber)*100)/totalPrzyswajalne) * doc.data().glycemicIndex )/100;
-                //total += ( (((doc.data().carbs - doc.data().fiber)*100)/totalPrzyswajalne) * doc.data().glycemicIndex )/100;
-                //console.log(doc.data().quantity/100);
-
+                
                 lg += ((doc.data().carbs-doc.data().fiber)*doc.data().glycemicIndex)/100;
                 
                
               });
-              //console.log(mealData);
-              //console.log('---');
-                            
+              
                 setSumGramma(totalGramme);
                 setSumKcal(totalKacl);
                 setSumProtein(totalProtein);
@@ -184,8 +174,6 @@ const MealScreen = ({
                 setMealData(mealData);
                 setLadunek(Number(lg));
                 setTotal(Number(total));
-                //console.log(mealData);
-                //console.log(total);
                
               },
                 error => {
@@ -212,7 +200,6 @@ const MealScreen = ({
     .then(( documentSnapshot ) => {
       if( documentSnapshot.exists ) {
         setIsSwitchOn(documentSnapshot.data().showOunce);
-        //setDiaryUnit(documentSnapshot.data().diaryUnit);
       }
     })
   }
@@ -223,8 +210,6 @@ const MealScreen = ({
    const unsubscribe = navigation.addListener("focus", () => setLoading(!loading));
     return unsubscribe;
    }, [navigation, loading, isSwitchOn]);
-
-  //console.log('switch: ' + activated)
 
   const colorFirst = (total) => {
     let color;
@@ -249,11 +234,6 @@ const colorLG = (ladunek) => {
   }
   return color;
 }
-
-
-  
-  //const _goBack = () => navigation.navigate('GlycemicIndex');
-
   
   const handleDeleteItem = async (item) => {
     await firestore()
@@ -264,15 +244,11 @@ const colorLG = (ladunek) => {
     .delete()
     .then(() => {
       console.log('Product deleted!');
-      //Alert.alert('Produkt usunięty');
       ToastAndroid.show(t('mealScreen.toast-product-removed'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
       navigation.navigate('MealScreen');
     });
-    //console.log(item);
   }
 
-
-  //const [number2, onChangeNumber2] = React.useState(null);
   const handleUpdate = async (initialItem) => {
   
     await firestore()
@@ -313,26 +289,6 @@ const colorLG = (ladunek) => {
   const emptyBtn = (number != null & number != '');
   const emptyBtnTitle = (title != null & title != '');
   
- 
-  // const handeDeleteAll = async () => {
-  //   await firestore()
-  //     .collection('users')
-  //     .doc(user.uid)
-  //     .collection('meal')
-  //     .get()
-  //     .then((snapshot) => {
-  //     snapshot.docs.forEach((doc) => {
-  //       doc.ref.delete();
-  //     })
-      
-  //   })
-  //   .then(() => {
-  //     console.log('Product deleted!');
-  //     //Alert.alert('Produkt usunięty');
-  //     ToastAndroid.show('Usunięto posiłek', ToastAndroid.LONG, ToastAndroid.BOTTOM);
-  //     //navigation.navigate('MealScreen');
-  //   });
-  // }
 
   async function handeDeleteAll() {
     // Get all users
@@ -353,23 +309,17 @@ const colorLG = (ladunek) => {
     return batch.commit();
   }
 
- // handeDeleteAll().then(() => console.log('All users deleted in a single batch operation.'));
-
   const [visible3, setVisible3] = React.useState(false);
 
   const showModal3 = () => setVisible3(true);
   const hideModal3 = () => setVisible3(false);
   
-  //const [docIdDiary, setDocIdDiary] = useState('');
-
-
-
   const handleTitle = async () => {
 
-   const codeID = Date.now().toString(20) + Math.random().toString(20).substring(2);
+  const codeID = Date.now().toString(20) + Math.random().toString(20).substring(2);
 
-   const titleName = title;
-   const dataJson = mealData;
+  const titleName = title;
+  const dataJson = mealData;
    
    
    const insertJson = (dataJson) => {
@@ -414,7 +364,6 @@ const colorLG = (ladunek) => {
       createdAt: firestore.Timestamp.fromDate(new Date())
     })
     .then(() => {
-      //setDocIdDiary('');
        insertJson(dataJson);
      }).catch((error) => {
       console.log('Error: 2' + error);
@@ -424,7 +373,6 @@ const colorLG = (ladunek) => {
       console.log('Title Added');
       ToastAndroid.show(t('mealScreen.toast-transferring'), ToastAndroid.LONG, ToastAndroid.BOTTOM);
       setVisible3(false);
-      //navigation.navigate('HomeScreen')
     })
     .then(async () => {
      handeDeleteAll();
@@ -466,7 +414,6 @@ const colorLG = (ladunek) => {
     <PaperProvider theme={theme}>
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
-    {/* <Appbar.BackAction onPress={_goBack} /> */}
        <Appbar.Content  title={t('mealScreen.meal-creator')} />
        { ( ((activated.indexOf('fp_1199_m') >= 0) === true)  || ((activated.indexOf('fp_8999_y') >= 0) === true )) &&
        <Appbar.Action icon="content-save" onPress={() => {
@@ -481,7 +428,6 @@ const colorLG = (ladunek) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -491,33 +437,19 @@ const colorLG = (ladunek) => {
       }}
     
   >
-    {/* <View>
-      <Text>GlycemicIndex</Text>
-      <Text>{productId}</Text>
-    </View> */}
     <ImageBackground
       source={require('../../assets/images/wave.png')}
       style={{
        flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
         <View style={{ marginHorizontal: spacing.SCALE_6, flex: 1 }}>
 
-        {/* { title != null ? 
-          (
-        <View>
-          <Text>{title}</Text>
-        </View>
-          ) : (
-            null
-          )
-        } */}
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, alignItems: 'center', borderWidth: 1, borderColor: colors.COLORS.WHITE, backgroundColor: colors.COLORS.WHITE, borderRadius: spacing.SCALE_6, paddingVertical: spacing.SCALE_5, marginRight: spacing.SCALE_3, elevation: 3}}>
           <CircularProgress
@@ -626,10 +558,7 @@ const colorLG = (ladunek) => {
                         </Text>
                       }
                     </Text>
-
-                    {/* <Text style={styles.textContainer}>{(sumProtein).toFixed(1)}</Text> */}
-                    {/* <Text style={styles.textContainer}>{(sumFat).toFixed(1)}</Text> */}
-                    
+                   
                 </View>
               </View>
 
@@ -674,9 +603,7 @@ const colorLG = (ladunek) => {
               </View>
 
           </View>
-          
-           
-               
+             
             <View style={{flex: 1}}>
             <View style={{marginTop: spacing.SCALE_6, alignItems: 'center', backgroundColor: colors.COLORS.DEEP_BLUE, padding: spacing.SCALE_8, marginBottom: spacing.SCALE_6, borderRadius: 5, elevation: 3}}>
               <Text style={{ color: colors.TEXT.WHITE, fontWeight: 'bold', textTransform: 'uppercase', fontSize: typography.FONT_SIZE_16 }}>{t('mealScreen.product-list')}  
@@ -755,16 +682,6 @@ const colorLG = (ladunek) => {
                 )}
                 </View>   
                 
-                {/* { 
-               
-                  (!subscriptionActive && mealData.length >= 2)
-                && 
-                  <View style={{flex: 1, justifyContent: 'flex-start'}}>
-                    <TouchableOpacity style={styles.btn} onPress={() => {navigation.navigate('ShopScreen')}}>
-                      <Text style={{color: colors.TEXT.WHITE, textTransform: 'uppercase'}}>{t('mealScreen.buy-subscription')}</Text>
-                    </TouchableOpacity>
-                  </View>
-                } */}
                 <View style={{marginBottom: spacing.SCALE_6}}></View>
                 </View>
                 
@@ -791,7 +708,6 @@ const colorLG = (ladunek) => {
                                   <Button 
                                     disabled={!emptyBtn} 
                                     mode='contained' onPress={() => {handleUpdate(initialItem); }} 
-                                    //style={{width: 330}}
                                     buttonColor={colors.COLORS.DEEP_BLUE}
                                   >
                                     {t('mealScreen.modal-update')}
@@ -830,12 +746,10 @@ const colorLG = (ladunek) => {
             
         
         </View>
-        {/* { userPro === true && */}
        
         <AnimatedFAB
         icon={'plus'}
         label={'Dodaj'}
-        //extended={isExtended}
         onPress={glycemicIndexRoute}
         visible={true}
         theme={'tertiary'}
@@ -844,9 +758,7 @@ const colorLG = (ladunek) => {
 
         style={[styles.fabStyle, style, fabStyle]}
       />
-       {/* } */}
       
-
     </ImageBackground>
     
     </ImageBackground>
@@ -870,7 +782,6 @@ const styles = StyleSheet.create({
     height: 200,
   },
   btnModal: {
-    //borderWidth: 0,
     padding: spacing.SCALE_10,
     width: Dimensions.get('window').width-60,
     borderRadius: 10,
@@ -887,7 +798,6 @@ const styles = StyleSheet.create({
     fontSize: typography.FONT_SIZE_10,
     color: colors.COLORS.DEEP_BLUE,
     textTransform: 'uppercase',
-    //fontWeight: 'bold'
   },
   btn: {
     backgroundColor: colors.COLORS.LIGHT_BLUE,
@@ -896,6 +806,5 @@ const styles = StyleSheet.create({
     borderRadius: spacing.SCALE_5,
     alignItems: 'center',
     alignContent: 'center',
-    //alignSelf: 'center'
   }
 })

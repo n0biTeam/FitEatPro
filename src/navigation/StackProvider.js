@@ -14,7 +14,7 @@ import RegisterScreen from "../screens/SignupScreen";
 const Stack = createNativeStackNavigator();
 
 function StackApp() {
-    // Set an initializing state whilst Firebase connects
+
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
 
@@ -31,7 +31,6 @@ function StackApp() {
         }); 
     }, []);
 
-    // Handle user state changes
     function onAuthStateChanged(user) {
       setUser(user);
       if (initializing) setInitializing(false);
@@ -39,15 +38,11 @@ function StackApp() {
   
     useEffect(() => {
       const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-      return subscriber; // unsubscribe on unmount
-    }, []);
+      return subscriber;     }, []);
   
     if (initializing) return null;
     
-    //console.log('1: ' + user);
-    
-         
-    
+   
             if (!user) {
 
             //**************************************** */
@@ -73,8 +68,6 @@ function StackApp() {
                 );
             }
             
-            
-    //****************************************** */  
             } 
 
             return (

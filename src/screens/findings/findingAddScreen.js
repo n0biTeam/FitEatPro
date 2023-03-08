@@ -11,6 +11,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ImageGallery } from '@georstat/react-native-image-gallery';
 import { t } from 'i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 
 const FindingAddScreen = ({ navigation }) => {
@@ -22,12 +23,8 @@ const FindingAddScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
-  ///const [loading, setLoading] = useState(true);
-
   const refRBSheet = useRef();
-  //const [isOpen, setIsOpen] = useState(true);
-
-    
+     
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       compressImageMaxWidth: 768,
@@ -51,7 +48,6 @@ const FindingAddScreen = ({ navigation }) => {
       cropping: true,
       compressImageQuality: 0.7
     }).then(image => {
-      //console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       refRBSheet.current.close();
@@ -60,7 +56,6 @@ const FindingAddScreen = ({ navigation }) => {
      });
   }
 
-  //console.log(Dimensions.get('window').width-12);
   const uploadImage = async () => {
 
     if(image == null) {
@@ -77,9 +72,7 @@ const FindingAddScreen = ({ navigation }) => {
 
     setUploading(true);
     setTransferred(0);
-
-    //const task = storage().ref('users/' + user.uid + '/photoProfile/' + filename).putFile(uploadUri);
-
+    
     const storageRef = storage().ref('users/' + user.uid + '/findings/' + filename);
     const task = storageRef.putFile(uploadUri);
 
@@ -94,8 +87,7 @@ const FindingAddScreen = ({ navigation }) => {
       await task;
       
       const url = await storageRef.getDownloadURL();
-      
-      
+          
       setUploading(false);
       setImage(null);
       
@@ -117,7 +109,7 @@ const FindingAddScreen = ({ navigation }) => {
     if( imgUrl === null ) {
       imgUrl = null;
     }
-    //console.log('image: ' + imgUrl);
+
     await firestore()
       .collection('users')
       .doc(user.uid)
@@ -159,9 +151,6 @@ const FindingAddScreen = ({ navigation }) => {
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('findingAddScreen.title')} />
-       {/* { title &&
-        <Appbar.Action icon="content-save" onPress={addFinding} color={colors.BMI.BMI_4}/>
-        } */}
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -169,7 +158,6 @@ const FindingAddScreen = ({ navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -184,11 +172,10 @@ const FindingAddScreen = ({ navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
 
@@ -344,10 +331,8 @@ export default FindingAddScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         marginHorizontal: spacing.SCALE_6,
-        //flex: 1,
       },
     noteContainer: {
-        //flex: 2,
         backgroundColor: colors.COLORS.WHITE,
         borderRadius: 5,
         marginBottom: spacing.SCALE_6,

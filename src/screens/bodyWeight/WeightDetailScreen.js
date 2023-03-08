@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions, Animated, Alert, ToastAndroid } from 'react-native'
 import React, {useState, useEffect, useContext} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Appbar, TextInput, Button } from 'react-native-paper';
+import { Appbar } from 'react-native-paper';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
@@ -10,6 +10,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { colors, typography, spacing } from '../../styles';
 import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const WeightDetailScreen = ({ route, navigation }) => {
   
@@ -52,7 +53,6 @@ const WeightDetailScreen = ({ route, navigation }) => {
           setAge(new Date().getFullYear() - dateB.getFullYear());
           setWeight(doc.data().weightName);
           setWeightLB(doc.data().weightNameLB);
-          //setSum(doc.data().weightName - doc.data().targetWeight);
           setTargetWeight(doc.data().targetWeight);
         }
       })
@@ -66,9 +66,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
            querySnapshot => {
             const newData = [];
               querySnapshot.forEach(doc => {
-              //console.log('User data: ', doc.data());
+    
                if( doc.exists ) {
-                //lastId.push({...doc.data(), id: doc.id}); 
                 setDifference(doc.data().difference);
                 setDifferenceLB(doc.data().differenceLB);
                 setLastId(doc.id);
@@ -84,8 +83,6 @@ const WeightDetailScreen = ({ route, navigation }) => {
           
         )
     }
-
-    //console.log(difference)
  
     const getWeight = () => {
        firestore()
@@ -95,10 +92,8 @@ const WeightDetailScreen = ({ route, navigation }) => {
       .doc(item)
       .get()
       .then(doc => {
-        //console.log('User exists: ', doc.exists);
-
+        
         if (doc.exists) {
-          //console.log('Data: ', doc.data());
           setDataWeight(doc.data());
         }
       });
@@ -403,9 +398,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
           useNativeDriver: false
         }).start();
       }, [expanded, height]);
-    
-      // console.log('rerendered');
-    
+        
       return (
         <Animated.View
           style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
@@ -427,8 +420,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
           useNativeDriver: false
         }).start();
       }, [expanded, height]);
-    
-      // console.log('rerendered');
+  
     
       return (
         <Animated.View
@@ -451,9 +443,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
           useNativeDriver: false
         }).start();
       }, [expanded, height]);
-    
-      // console.log('rerendered');
-    
+        
       return (
         <Animated.View
           style={{ height , backgroundColor: colors.COLORS.WHITE, paddingHorizontal: spacing.SCALE_6 }}
@@ -552,11 +542,10 @@ const WeightDetailScreen = ({ route, navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
       <SafeAreaProvider style={styles.rootContainer}>
@@ -565,7 +554,6 @@ const WeightDetailScreen = ({ route, navigation }) => {
          { dataWeight &&
           <View style={{}}>
 
-            
             <View style={{flexDirection: 'row', marginBottom: spacing.SCALE_6}}>
              
              <View>

@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, typography, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 
 const PrivacyPolicyScreen = ({ navigation }) => {
@@ -23,7 +24,6 @@ const PrivacyPolicyScreen = ({ navigation }) => {
     blurRadius={5}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -37,9 +37,8 @@ const PrivacyPolicyScreen = ({ navigation }) => {
       source={require('../../assets/images/wave.png')}
       style={{
         flex: 1, 
-        height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        //height: Dimensions.get('window').height,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8
@@ -251,27 +250,25 @@ export default PrivacyPolicyScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    //marginHorizontal: spacing.SCALE_6,
 },
 boxContainer: {
     flex: 1,
     backgroundColor: colors.COLORS.WHITE,
     padding: spacing.SCALE_10,
-    //marginBottom: spacing.SCALE_6,
     borderTopLeftRadius: spacing.SCALE_5,
     borderTopRightRadius: spacing.SCALE_5,
 },
 title:{
-  fontSize: typography.FONT_SIZE_14,
+  fontSize: fontScale(typography.FONT_SIZE_14),
   fontWeight: 'bold',
   color: colors.TEXT.GREEN
 },
 text: {
-  fontSize: typography.FONT_SIZE_13,
+  fontSize: fontScale(typography.FONT_SIZE_13),
   color: colors.TEXT.DEEP_BLUE
 },
 dot: {
-  fontSize: typography.FONT_SIZE_13,
+  fontSize: fontScale(typography.FONT_SIZE_13),
   color: colors.TEXT.LIGHT_BLUE
 }
 })

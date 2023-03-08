@@ -6,7 +6,7 @@ import { colors, spacing, typography } from '../../styles';
 import { version } from '../../styles/constants';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
-
+import { fontScale, isTablet } from 'react-native-utils-scale';
 
 const AboutTheAppScreen = ({ navigation }) => {
   
@@ -26,7 +26,6 @@ const AboutTheAppScreen = ({ navigation }) => {
     blurRadius={5}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -41,11 +40,10 @@ const AboutTheAppScreen = ({ navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
 
@@ -224,27 +222,25 @@ export default AboutTheAppScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
-        //marginHorizontal: spacing.SCALE_6,
     },
     boxContainer: {
         flex: 1,
         backgroundColor: colors.COLORS.WHITE,
         padding: spacing.SCALE_10,
-        //marginBottom: spacing.SCALE_6,
         borderTopLeftRadius: spacing.SCALE_5,
         borderTopRightRadius: spacing.SCALE_5,
     },
     title:{
-      fontSize: typography.FONT_SIZE_16,
+      fontSize: fontScale(typography.FONT_SIZE_16),
       fontWeight: 'bold',
       color: colors.TEXT.DEEP_BLUE
     },
     text: {
-      fontSize: typography.FONT_SIZE_13,
+      fontSize: fontScale(typography.FONT_SIZE_13),
       color: colors.TEXT.DEEP_BLUE,
     },
     dot: {
-      fontSize: typography.FONT_SIZE_13,
+      fontSize: fontScale(typography.FONT_SIZE_13),
       color: colors.TEXT.DEEP_BLUE
     }
 })

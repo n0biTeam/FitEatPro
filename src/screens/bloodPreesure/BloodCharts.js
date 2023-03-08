@@ -1,11 +1,9 @@
 import { StyleSheet, View, ImageBackground, StatusBar, Dimensions, Text, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect, useContext} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider as PaperProvider, Appbar, Button } from 'react-native-paper';
+import { Provider as PaperProvider, Appbar } from 'react-native-paper';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
-import DatePicker from 'react-native-date-picker';
-import moment from 'moment/moment';
 import { format } from 'date-fns';
 import { pl } from 'date-fns/locale';
 import { LineChart } from "react-native-chart-kit";
@@ -15,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 
-const BloodCharts = ({ route, navigation }) => {
+const BloodCharts = ({ navigation }) => {
 
   const {t, i18n} = useTranslation();
   const {user} = useContext(AuthContext);
@@ -48,7 +46,7 @@ const BloodCharts = ({ route, navigation }) => {
               const dataDate2 = [];
                 querySnapshot.forEach(doc => {
                  if( doc.exists ) {
-                //console.log('User data: ', doc.data());
+      
                   dataCharts.push(doc.data().systolic);
                   dataCharts2.push(doc.data().diastolic); 
                   
@@ -56,11 +54,10 @@ const BloodCharts = ({ route, navigation }) => {
                   const month = format((doc.data().createdAt).toDate(), 'MM');
                   const month2 = format((doc.data().createdAt).toDate(), 'MM', {locale: pl});
                   const day = format((doc.data().createdAt).toDate(), 'dd');
-                  //const fullDate = day + '/' + month + '/'+ year;
+        
                   const fullDate = day + '/' + month;
                   const monthDate = month2 + '/' + year;
-                  //const fullDate = day;
-                  //const monthDate = month2;
+               
                   dataDate.push(fullDate);
                   dataDate2.push(monthDate);
 
@@ -104,14 +101,13 @@ const BloodCharts = ({ route, navigation }) => {
         let [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0, visible: false, value: 0 });
 
       const charts = (dataCharts, dataCharts2, dataDate, dataDate30) => {
-        //console.log(dataCharts);
         if (dataCharts?.length === 0) {
           return (
             <View style={{elevation: 5}}>
         <LineChart
 
     data={{
-      //labels: ["January", "February", "March", "April", "May", "June"],
+
       datasets: [
         {
           data: [0],
@@ -144,7 +140,6 @@ const BloodCharts = ({ route, navigation }) => {
     }}
     bezier
     style={{
-      //marginVertical: spacing.SCALE_6,
       borderRadius: 5
     }}
 
@@ -193,7 +188,6 @@ const BloodCharts = ({ route, navigation }) => {
                   }}
                   bezier
                   style={{
-                    //marginVertical: spacing.SCALE_6,
                     borderRadius: 5,
                   }}
     
@@ -279,7 +273,6 @@ const BloodCharts = ({ route, navigation }) => {
                   }}
                   bezier
                   style={{
-                    //marginVertical: spacing.SCALE_6,
                     borderRadius: 5
                   }}
     
@@ -346,7 +339,6 @@ const BloodCharts = ({ route, navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -362,8 +354,7 @@ const BloodCharts = ({ route, navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: isTablet ? 300 : 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
         //opacity: 0.8

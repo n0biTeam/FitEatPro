@@ -9,6 +9,7 @@ import { colors, spacing } from '../../styles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { UNIT } from '../../styles/units';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const AddGlycemicIndex = ({ navigation }) => {
   
@@ -160,7 +161,6 @@ const AddGlycemicIndex = ({ navigation }) => {
     source={require('../../assets/images/bg5.jpg')}
     blurRadius={30}
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -175,11 +175,10 @@ const AddGlycemicIndex = ({ navigation }) => {
         style={{
           flex: 1, 
           height: Dimensions.get('window').height,
-          //width: Dimensions.get('window').width,
-          height: 110,
+          height: isTablet ? 300 : 126,
         }}
         imageStyle={{
-          //opacity: 0.8
+          
         }}
         >
                  
@@ -733,7 +732,6 @@ const AddGlycemicIndex = ({ navigation }) => {
                 </View>
               </View>
 
-            {/* <Text>{t('addGlycemicIndex.modal.text-2')}</Text> */}
           </View>
           <View style={{marginTop: spacing.SCALE_6}}>
             

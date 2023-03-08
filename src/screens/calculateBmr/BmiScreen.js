@@ -191,13 +191,12 @@ const BmiScreen = ({ navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
        }}
        imageStyle={{
-        //opacity: 0.8
+        
       }}
     
   >

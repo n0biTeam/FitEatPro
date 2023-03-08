@@ -11,6 +11,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ImageGallery } from '@georstat/react-native-image-gallery';
 import { t } from 'i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 //let imageRef = storage.refFromURL(URL);
 //imageRef.delete()
@@ -27,10 +28,8 @@ const FindingEditScreen = ({ route, navigation }) => {
   const [imageOld, setImageOld] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
-  ///const [loading, setLoading] = useState(true);
 
   const refRBSheet = useRef();
-  //const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(true);
     
   const takePhotoFromCamera = () => {
@@ -56,7 +55,6 @@ const FindingEditScreen = ({ route, navigation }) => {
       cropping: true,
       compressImageQuality: 0.7
     }).then(image => {
-      //console.log(image);
       const imageUri = Platform.OS === 'ios' ? image.sourceURL : image.path;
       setImage(imageUri);
       refRBSheet.current.close();
@@ -65,7 +63,6 @@ const FindingEditScreen = ({ route, navigation }) => {
      });
   }
 
-  //console.log(Dimensions.get('window').width-12);
   const uploadImage = async () => {
 
     if(image == null) {
@@ -82,8 +79,6 @@ const FindingEditScreen = ({ route, navigation }) => {
 
     setUploading(true);
     setTransferred(0);
-
-    //const task = storage().ref('users/' + user.uid + '/photoProfile/' + filename).putFile(uploadUri);
 
     const storageRef = storage().ref('users/' + user.uid + '/findings/' + filename);
     const task = storageRef.putFile(uploadUri);
@@ -114,18 +109,6 @@ const FindingEditScreen = ({ route, navigation }) => {
   };
   
   const _goBack = () => navigation.navigate('FindingViewScreen', {itemId: findingId});
-  
-
- 
-
-  
-//   const deleteImg = async (imageOld) => { 
-//     let imageRef = storage().ref('users/' + user.uid + '/findings/' + imageOld);
-//         imageRef.delete()
-//       .catch((error) => {
-//           console.log("Failed to delete image: ", error)
-//       })
-// }
 
   const _updateFinding = async () => {
 
@@ -155,20 +138,14 @@ const FindingEditScreen = ({ route, navigation }) => {
      
           })
           .then(async () => {
-           // await deleteImg(imageOld);
-           //console.log('imageOld: ' + imageOld);
-           
+                   
            if(image){
            let imageRef = storage().refFromURL(imageOld);
            await imageRef.delete();
            }
            })
-           //.catch((e) => console.log('error on image deletion => ', e));
           
   }
-
-
-  //console.log(image);
 
   const images = [
     {
@@ -186,11 +163,8 @@ const FindingEditScreen = ({ route, navigation }) => {
    .doc(findingId)
    .get()
    .then(doc => {
-     //console.log('User exists: ', doc.exists);
-
+     
      if (doc.exists) {
-       //console.log('Data: ', doc.data());
-       //setDataItem(doc.data());
        setTitle(doc.data().title);
        setDescription(doc.data().description)
        setImageOld(doc.data().imageUrl)
@@ -216,9 +190,7 @@ const FindingEditScreen = ({ route, navigation }) => {
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE, marginTop: StatusBar.currentHeight}}>
     <Appbar.BackAction onPress={_goBack} />
        <Appbar.Content title={t('findingEditScreen.title-1')} />
-       {/* { title &&
-        <Appbar.Action icon="content-save" onPress={addFinding} color={colors.BMI.BMI_4}/>
-        } */}
+  
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     <ImageBackground 
@@ -226,7 +198,6 @@ const FindingEditScreen = ({ route, navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -241,11 +212,10 @@ const FindingEditScreen = ({ route, navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
 
@@ -270,9 +240,6 @@ const FindingEditScreen = ({ route, navigation }) => {
                         style={styles.description}
                     />
                 </ScrollView>
-
-                           
-          
             </View>
 
             <View style={{ alignItems: 'center', flexDirection: 'row'}}>
@@ -334,8 +301,7 @@ const FindingEditScreen = ({ route, navigation }) => {
                             style={{ width: 150, height: Dimensions.get('window').height/3 }}
                            
                         />
-             
-             
+
              </Pressable>
             <View>
                
@@ -401,11 +367,8 @@ export default FindingEditScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         marginHorizontal: spacing.SCALE_6,
-        //flex: 1,
       },
     noteContainer: {
-        //flex: 2,
-        //flex: 1,
         backgroundColor: colors.COLORS.WHITE,
         borderRadius: 5,
         marginBottom: spacing.SCALE_6,

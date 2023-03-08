@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Appbar } from 'react-native-paper';
 import { colors, spacing, typography } from '../../styles';
 import { useTranslation } from 'react-i18next';
-import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { fontScale, isTablet } from 'react-native-utils-scale';
 
 const StandardPressureScreen = ({ route, navigation }) => {
   
@@ -24,7 +24,6 @@ const StandardPressureScreen = ({ route, navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -40,11 +39,10 @@ const StandardPressureScreen = ({ route, navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: isTablet ? 300 : 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+       
       }}
       >
         <View style={styles.rootContainer}>

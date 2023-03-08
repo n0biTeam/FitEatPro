@@ -12,18 +12,15 @@ import { colors, typography, spacing } from '../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const registerValidationSchema = yup.object().shape({
-    // firstName: yup.string().min(2, 'Zamała ilość znaków').max(50, 'Za długa nazwa').required('Imię jest wymagane'),
-    // lastName: yup.string().min(2, 'Zamała ilość znaków').max(50, 'Za długa nazwa').required('Nazwisko jest wymagane'),
-    email: yup.string().email('Proszę podać poprawny adres e-mail').required('Adres e-mail jest wymagany'),
-    password: yup.string().min(8, ({ min }) => `Hasło musi mieć co najmniej ${min} znaków`).required('Hasło jest wymagane'),
-    // .matches(
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //   "Musi zawierać 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jedną specjalną literę"
-    // ),
+    firstName: yup.string().min(2, t('signupScreen.text-1')).max(50, t('signupScreen.text-2')).required(t('signupScreen.text-3')),
+    lastName: yup.string().min(2, t('signupScreen.text-1')).max(50, t('signupScreen.text-2')).required('signupScreen.text-4'),
+    email: yup.string().email(t('signupScreen.text-5')).required(t('signupScreen.text-6')),
+    password: yup.string().min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`).required(t('forgetScreen.text-4'))
+                  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, t('forgetScreen.text-5')),
     confirmPassword: yup.string()
-                      .min(8, ({ min }) => `Hasło musi mieć co najmniej ${min} znaków`)
-                      .oneOf([yup.ref('password')], 'Twoje hasło nie jest takie samo')
-                      .required('Potwierdzenie hasła jest wymagane')
+                      .min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`)
+                      .oneOf([yup.ref('password')], t('signupScreen.text-7'))
+                      .required(t('signupScreen.text-8'))
   });
 
 const SignupScreen = ({ navigation }) => {
@@ -118,20 +115,7 @@ const SignupScreen = ({ navigation }) => {
             
           }}
         >
-        {/* <View style={styles.logoContainer}>
-          
-            {!isKeyboardVisible ? 
-            <Animatable.View style={[styles.textContainer, {marginTop: 20}]} animation={zoomIn} duration={2000}>
-                <Text style={styles.logoText}>FitEat 2</Text> 
-            </Animatable.View>
-            : 
-            <Animatable.View style={[styles.textContainer2, {marginTop: 30}]} animation={zoomOut} duration={2000}>
-            <Text style={styles.logoText2}>FitEat 2</Text> 
-            </Animatable.View>
-            }
-           
-          
-        </View> */}
+  
          <View style={styles.logoContainer}>
           <View style={[styles.textContainer, {flexDirection: 'row'}]}>
             <View>
@@ -150,19 +134,14 @@ const SignupScreen = ({ navigation }) => {
         source={require('../../assets/images/bg5.jpg')}
         resizeMode="stretch"
         style={{ 
-          //height: getHeight(), 
           flex: getFlex(), 
           backgroundColor: colors.COLORS.WHITE,
           borderTopRightRadius: spacing.SCALE_50,
           borderTopLeftRadius: spacing.SCALE_50,
           overflow: 'hidden',
-         // height: Dimensions.get('window').height,
-        //bottom: 50
            }}
         imageStyle= {{
           opacity: 0.3
-          //borderRadius: 50,
-          
           }}
       >
       <KeyboardAwareScrollView>

@@ -69,7 +69,6 @@ if(lang === 'pl'){
     .then(( documentSnapshot ) => {
       if( documentSnapshot.exists ) {
         setIsSwitchOn(documentSnapshot.data().showOunce);
-        //setDiaryUnit(documentSnapshot.data().diaryUnit);
       }
     })
   }
@@ -695,7 +694,6 @@ if(lang === 'pl'){
           index={1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
-          //contentContainerStyle={styles.bottomSheet}
           backgroundStyle={styles.bottomSheet}
         >
             <ImageBackground
@@ -1424,7 +1422,6 @@ const styles = StyleSheet.create({
       color: colors.TEXT.WHITE
     },
     titleContainer: {
-      //marginBottom: 10, 
       alignItems: 'center',
       backgroundColor: colors.COLORS.DEEP_BLUE,
       padding: spacing.SCALE_10,
@@ -1434,8 +1431,6 @@ const styles = StyleSheet.create({
       color: colors.TEXT.WHITE,
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      //borderBottomWidth: 3,
-      //borderBottomColor: 'orange'
     },
     titleCategory: {
       fontSize: fontScale(typography.FONT_SIZE_12),
@@ -1453,13 +1448,10 @@ const styles = StyleSheet.create({
       borderTopLeftRadius: 5,
       borderTopRightRadius: 5,
       borderBottomColor: colors.COLORS.DEEP_BLUE,
-      //backgroundColor: COLORS.WHITE,
       width: 200,
       textAlign: 'center',
       height: 40,
       color: colors.TEXT.DEEP_BLUE,
-      //fontWeight: 'bold',
-      //elevation: 3
     },
     fabStyle: {
       bottom: spacing.SCALE_25,

@@ -47,10 +47,6 @@ const HomeScreen = ({ navigation }) => {
   const [userData, setUserData] = useState('');
   const [image, setImage] = useState('http://serwer102731.lh.pl/img/iconProfileWhite.png');
   const [loading, setLoading] = useState(true);
-  //const refRBSheet = useRef();
-  //const [isOpen, setIsOpen] = useState(true);
-  //const heightModal = (Dimensions.get('window').height/3);
-  //const [newTarget, setNewTarget] = useState(0);
  
   const [dataCharts, setDataCharts] = useState([0]);
   const [dataCharts2, setDataCharts2] = useState([0]);
@@ -104,7 +100,6 @@ const HomeScreen = ({ navigation }) => {
 
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
-    //setIsAnonymous(await Purchases.isAnonymous());
     setUserId(await Purchases.getAppUserID());
 
     const customerInfo = await Purchases.getCustomerInfo();
@@ -119,7 +114,6 @@ const HomeScreen = ({ navigation }) => {
 
   
   useEffect(() => {
-    // Get user details when component first mounts
     getUserDetails();
   }, []);
 
@@ -131,33 +125,6 @@ const HomeScreen = ({ navigation }) => {
     };
   });
     
-
-    
-      // const glycemicIndexRoute = async () => {
-        
-      //   try {
-      //     // access latest customerInfo
-      //     const customerInfo = await Purchases.getCustomerInfo();
-    
-      //     if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-           
-      //       console.log('User is Pro')
-      //       navigation.navigate('GlycemicIndex');
-      //       //setUserPro(true);
-      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-            
-      //     } else {
-      //       navigation.navigate('GlycemicIndexNoPay');
-      //       console.log('User is not Pro')
-      //       //setUserPro(false);
-      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-            
-      //     }
-      //   } catch (e) {
-      //     Alert.alert('Error fetching customer info', e.message);
-      //   }
-      // };
-      
 
       const glycemicIndexRoute = async () => {
         try {
@@ -187,37 +154,6 @@ const HomeScreen = ({ navigation }) => {
       }
 
   
-      
-      // console.log(userPro)
-      // console.log(activated)
-      // console.log(activated.indexOf('fp_0599_rek'))
-      // console.log(activated.length)
-    
-      // const purineRoute = async () => {
-        
-      //   try {
-      //     // access latest customerInfo
-      //     const customerInfo = await Purchases.getCustomerInfo();
-    
-      //     if(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined") {
-           
-      //       console.log('User is Pro')
-      //       navigation.navigate('PurineAddScreen');
-      //       //setUserPro(true);
-      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-           
-      //     } else {
-      //       navigation.navigate('PurineListScreenNoPay');
-      //       console.log('User is not Pro')
-      //       //setUserPro(false);
-      //       setUserPro(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== "undefined");
-            
-      //     }
-      //   } catch (e) {
-      //     Alert.alert('Error fetching customer info', e.message);
-      //   }
-      // };
-
       const purineRoute = async () => {
         try {
         const customerInfo = await Purchases.getCustomerInfo();
@@ -244,11 +180,7 @@ const HomeScreen = ({ navigation }) => {
              Alert.alert('Error fetching customer info', e.message);
          }
       }
-    
-      
-
-    //console.log(userPro)
-
+          
     useEffect(() => {
       const backAction = () => {
         Alert.alert(t('exitApp.title'), t('exitApp.subTitle'), [
@@ -262,10 +194,6 @@ const HomeScreen = ({ navigation }) => {
         return true;
       };
   
-      // BackHandler.addEventListener("hardwareBackPress", backAction);
-
-      // return () =>
-      //   BackHandler.removeEventListener("hardwareBackPress", backAction);
       const backHandler = BackHandler.addEventListener(
         'hardwareBackPress',
         backAction,
@@ -313,10 +241,9 @@ const HomeScreen = ({ navigation }) => {
               dataChartsLB.push(doc.data().currentWeightLB); 
               dataChartsLB2.push(doc.data().targetWeightLB); 
 
-              //const year = format((doc.data().createdAt).toDate(), 'yyyy');
               const month = format((doc.data().createdAt).toDate(), 'MM');
               const day = format((doc.data().createdAt).toDate(), 'dd');
-              //const fullDate = day + '/' + month + '/'+ year;
+    
               const fullDate = day + '/' + month;
               dataDate7.push(fullDate);
 
@@ -546,7 +473,6 @@ const _differenceWeight = () => {
         <LineChart
         data={{
           labels: dataDate7,
-          //labels: ["06/02", "06/02", "06/02", "06/02", "06/02", "06/02", "07/02"],
           datasets: [
             { data: _chartWeight(),
              strokeWidth: 3,
@@ -564,10 +490,7 @@ const _differenceWeight = () => {
         yAxisLabel=""
         yAxisSuffix={' ' + userData.weightUnit}
         yAxisInterval={1} // optional, defaults to 1
-        //fromZero={true}
-        //verticalLabelRotation={-30}
         withInnerLines={true}
-        //withVerticalLabels={false}
         chartConfig={{
           backgroundColor: colors.COLORS.BLACK,
           backgroundGradientFrom: colors.COLORS.DEEP_BLUE,
@@ -639,7 +562,6 @@ const _differenceWeight = () => {
 
   }
 
-  //netInfo.configure({});
 
   const netConnect = () => {
     
@@ -713,8 +635,6 @@ const _differenceWeight = () => {
        )
     }
     }
-
-  //const heightScreen = Dimensions.get("screen").height;
   
   const [pay, setPay] = useState(false);
     
@@ -726,11 +646,8 @@ const _differenceWeight = () => {
     <ImageBackground 
     source={require('../../assets/images/wave2.png')}
     style={{ 
-      //flex: 1, 
-      //backgroundColor: 'red',
       width: Dimensions.get('window').width,
       height: !isTablet ? scale(145) : scale(240),
-      //width: Dimensions.get('window').width,
        }}
     
   >
@@ -747,7 +664,6 @@ const _differenceWeight = () => {
           <CircularProgress
             value={!weight ? 0 : _getWeightUnit()}
             radius={fontScale(spacing.SCALE_22)}
-            //inActiveStrokeOpacity={0.3}
             maxValue={!weight ? 0 : _getWeightUnit()}
             rotation={scale(360)}
             activeStrokeWidth={isTablet ? scale(10) : scale(5)}
@@ -774,16 +690,13 @@ const _differenceWeight = () => {
         <CircularProgress
             value={_getWeightUnit()-_getTargetUnit()}
             radius={scale(spacing.SCALE_30)}
-            //inActiveStrokeOpacity={0.3}
             maxValue={_differenceWeight()}
             rotation={scale(360)}
             valuePrefix={'+'}
             activeStrokeWidth={isTablet ? scale(10) : scale(5)}
             inActiveStrokeWidth={isTablet ? scale(10) : scale(5)}
-            //inActiveStrokeColor={ colors.BMI.BMI_2}
             inActiveStrokeColor={ colors.COLORS.DEEP_BLUE}
             progressValueStyle={{ color: colors.COLORS.WHITE, fontSize: fontScale(typography.FONT_SIZE_12) }}
-            //activeStrokeColor={colors.COLORS.DEEP_BLUE}
             activeStrokeColor={colors.BMI.BMI_2}
             duration={2000}
             dashedStrokeConfig={{
@@ -817,7 +730,6 @@ const _differenceWeight = () => {
           <CircularProgress
             value={!targetWeight ? 0 : _getTargetUnit()}
             radius={scale(spacing.SCALE_22)}
-            //inActiveStrokeOpacity={0.3}
             maxValue={!targetWeight ? 0 : _getTargetUnit()}
             rotation={scale(360)}
             activeStrokeWidth={isTablet ? scale(10) : scale(5)}
@@ -967,9 +879,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({ 
   menuContainer: {
     flexDirection: 'row',
-    //width: '95%',
     alignSelf: 'center',
-    //marginBottom: spacing.SCALE_3,
     flex: 1,
     
   },
@@ -979,9 +889,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    //width: 100,
-    //height: Dimensions.get("window").height > 600 ? Dimensions.get('window').width/6 : 80,
-    //height: Dimensions.get("window").height > 600 ? (heightScreen-530)/3 : 80,
     height: '100%',
     backgroundColor: colors.COLORS.WHITE,
     borderRadius: spacing.SCALE_10,
@@ -992,8 +899,6 @@ const styles = StyleSheet.create({
     color: colors.TEXT.WHITE,
   },
   menuBtn: {
-    //flex: 1,
-    //width: '30%',
     marginHorizontal: spacing.SCALE_6,
     alignSelf: 'center',
 
@@ -1012,7 +917,5 @@ const styles = StyleSheet.create({
   imageProfile: {
     width: spacing.SCALE_50,
     height: spacing.SCALE_50,
-    //backgroundColor: colors.COLORS.LIGHT_GREY,
-    //borderRadius: spacing.SCALE_25
   }
 });

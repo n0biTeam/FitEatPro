@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ImageBackground, StatusBar, Dimensions } from 'react-native'
 import React, {useState, useEffect, useContext} from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Appbar, TextInput, Button, Checkbox } from 'react-native-paper';
+import { Appbar, TextInput, Button } from 'react-native-paper';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { UNIT } from '../../styles/units';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import Purchases from 'react-native-purchases';
-import { fontScale, scale, isTablet } from 'react-native-utils-scale';
+import { fontScale, isTablet } from 'react-native-utils-scale';
 
 const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133529';
 
@@ -45,26 +45,13 @@ const WhtrScreen = ({ navigation }) => {
         
       }, []);
 
-    // const femaleGender = () => {
-    //     setFemale(true);
-    //     setMale(false);
-    //   }
-    
-    //   const maleGender = () => {
-    //     setFemale(false);
-    //     setMale(true);
-    //   }
+     
+  const _goBack = () => navigation.navigate('HomeScreen');
   
-    const _goBack = () => navigation.navigate('HomeScreen');
-  
-    const emptyBtn = (waistSize != null && waistSize != '');
-   // && ((male != null && male != '' ) || (female != null && female != '' ));
-
-
+  const emptyBtn = (waistSize != null && waistSize != '');
+   
   const calcWHtR = () => {
-    //  console.log('Obwod talii: ' + waistSize);
-    //  console.log('Wzrost: ' + userData.heightName);
-    // console.log('Plec: ' + male);
+  
     if(userData.growthUnit === UNIT.CM){
       if(female === true){
         const whtr = (waistSize / userData.heightName) * 100;
@@ -218,14 +205,13 @@ const WhtrScreen = ({ navigation }) => {
     source={image}
     blurRadius={1}
     resizeMode="cover"
-    style={{ 
-      //height: getHeight(), 
+    style={{  
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
        }}
        imageStyle={{
-        //opacity: 0.8
+        
       }}
     
   >

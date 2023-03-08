@@ -9,6 +9,7 @@ import { ENTITLEMENT_ID } from '../../styles/constants';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
 const ShopScreen = ({ navigation }) => {
   
@@ -19,14 +20,12 @@ const ShopScreen = ({ navigation }) => {
   const [packages, setPackages] = useState([]);
   const [isPurchasing, setIsPurchasing] = useState(false);
 
-  //const [isAnonymous, setIsAnonymous] = useState(true);
   const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
-    //setIsAnonymous(await Purchases.isAnonymous());
     setUserId(user.uid);
 
     const customerInfo = await Purchases.getCustomerInfo();
@@ -51,9 +50,7 @@ const ShopScreen = ({ navigation }) => {
       try {
         const offerings = await Purchases.getOfferings();
         if (offerings.current !== null) {  
-           //console.log(offerings.current);
            setPackages(offerings.current.availablePackages);
-           //console.log(packages)
         }
       } catch (e) {
         console.error(e)
@@ -121,16 +118,14 @@ const ShopScreen = ({ navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+        height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
         <View style={styles.rootContainer}>
-            {/* <View style={styles.boxContainer}> */}
-
+           
               <View style={{ backgroundColor: colors.COLORS.WHITE, padding: spacing.SCALE_10, borderRadius: spacing.SCALE_5, marginBottom: spacing.SCALE_10, elevation: 4}}>
                 <View style={{}}>
                   <Text style={styles.text2}>FitEat Pro Premium</Text>
@@ -162,9 +157,7 @@ const ShopScreen = ({ navigation }) => {
                   numColumns={2}
                   renderItem={({ item }) => <PackageItem purchasePackage={item} setIsPurchasing={setIsPurchasing} />}
                   keyExtractor={(item) => item.identifier}
-                  //ListHeaderComponent={header}
                   ListHeaderComponentStyle={styles.headerFooterContainer}
-                  // ListFooterComponent={footer}
                   ListFooterComponentStyle={styles.headerFooterContainer}
                 />
               </View>
@@ -192,8 +185,6 @@ const ShopScreen = ({ navigation }) => {
                   <Text style={styles.text}>{t('shopScreen.point-2')}</Text>
                   </View>
                 </View>
-
-                
 
                 <View style={{paddingHorizontal: spacing.SCALE_10, flexDirection: 'row', marginTop: spacing.SCALE_3}}>
                   <View>
@@ -260,11 +251,8 @@ const ShopScreen = ({ navigation }) => {
                 
               </View>
               </ScrollView>
-             
-             
-
-            {/* {isPurchasing && <View style={styles.overlay} />} */}
             
+           
             <View>
               <Text style={{fontSize: typography.FONT_SIZE_13, marginBottom: spacing.SCALE_6, color: colors.TEXT.DEEP_BLUE}}>* {t('shopScreen.text-1')}</Text>
               <View style={{marginBottom: spacing.SCALE_10}}>
@@ -273,9 +261,7 @@ const ShopScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
-          {/* </View> */}
-
-            
+                     
         </View>
     
     </ImageBackground>
@@ -289,14 +275,9 @@ export default ShopScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         flex: 1,
-        //marginHorizontal: spacing.SCALE_6,
         backgroundColor: colors.COLORS.LIGHT_GREY,
         padding: spacing.SCALE_6,
     },
-    // page: {
-    //   padding: 6,
-    //   flex: 1
-    // },
     text2: {
       color: colors.TEXT.DEEP_BLUE,
       fontWeight: 'bold',

@@ -30,10 +30,9 @@ const BloodPressureViewItemScreen = ({ route, navigation }) => {
    .doc(ItemId)
    .get()
    .then(doc => {
-     //console.log('User exists: ', doc.exists);
-
+     
      if (doc.exists) {
-       //console.log('Data: ', doc.data());
+      
        setDataItem(doc.data());
      }
    });
@@ -213,50 +212,6 @@ const lastPressure = () => {
       </View>
     )
   }
-
-    // if((dataItem.systolic < 120) && (dataItem.diastolic < 80)){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5, marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.optimal')}</Text>
-    //     </View>
-    //   )
-    // } else if(((dataItem.systolic >= 120) && (dataItem.systolic <= 129)) || ((dataItem.diastolic >= 80) && (dataItem.diastolic <= 84))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P1, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.correct')}</Text>
-    //     </View>
-    //   )
-    // } else if(((dataItem.systolic >= 130) && (dataItem.systolic <= 139)) || ((dataItem.diastolic >= 85) && (dataItem.diastolic <= 89))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P2, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.high-correct')}</Text>
-    //     </View>
-    //     )
-    // } else if(((dataItem.systolic >= 140) && (dataItem.systolic <= 159)) || ((dataItem.diastolic >= 90) && (dataItem.diastolic <= 99))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-1st')}</Text>
-    //     </View>
-    //   )
-    // } else if(((dataItem.systolic >= 160) && (dataItem.systolic <= 179)) || ((dataItem.diastolic >= 100) && (dataItem.diastolic <= 109))){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P3, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.BLACK}}>{t('bloodPressureScreen.value-2st')}</Text>
-    //     </View>
-    //     )
-    // } else if((dataItem.systolic >= 180) && (dataItem.diastolic >= 110)){
-    //   return(
-    //     <View style={{backgroundColor: colors.PRESSURE.P4, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.value-3st')}</Text>
-    //     </View>
-    //   )
-    // }else{
-    //   return(
-    //       <View style={{backgroundColor: colors.PRESSURE.P5, padding: spacing.SCALE_5,  marginBottom: spacing.SCALE_6, padding: spacing.SCALE_10, borderRadius: 5, alignItems: 'center'}}>
-    //       <Text style={{fontSize: typography.FONT_SIZE_16, fontWeight: 'bold', color: colors.TEXT.WHITE}}>{t('bloodPressureScreen.measurement-error')}</Text>
-    //     </View>
-    //   )
-    // }
   }
 
 
@@ -310,8 +265,7 @@ const alertHandler = () => {
     source={imageBG}
     blurRadius={1}
     resizeMode="cover"
-    style={{ 
-      //height: getHeight(), 
+    style={{  
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -326,11 +280,10 @@ const alertHandler = () => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
          height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+       
       }}
       >
        
@@ -348,11 +301,6 @@ const alertHandler = () => {
                     </View>
 
                 </View>
-           
-                
-                    {/* <View style={{flex: 1, justifyContent: 'center'}}>
-                        <Text style={styles.text}>Pomiar ciśnienia krwi</Text>
-                    </View> */}
         
                 <View style={{flexDirection: 'row', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY, paddingBottom: spacing.SCALE_7, marginTop: spacing.SCALE_6}}>
                 
@@ -407,8 +355,7 @@ const alertHandler = () => {
                 </View>
            </View>
         }
-            
-
+        
         </View>
     </ImageBackground>
     

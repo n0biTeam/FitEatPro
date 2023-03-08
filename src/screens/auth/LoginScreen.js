@@ -11,48 +11,18 @@ import { colors, typography, spacing } from '../../styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const loginValidationSchema = yup.object().shape({
-    email: yup.string().email('Proszę podać poprawny adres e-mail').required('Adres e-mail jest wymagany'),
-    password: yup.string().min(8, ({ min }) => `Hasło musi mieć co najmniej ${min} znaków`).required('Hasło jest wymagane')
-    // .matches(
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //   "Musi zawierać 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jedną specjalną literę"
-    // ),
+  email: yup.string().email(t('forgetScreen.text-1')).required(t('forgetScreen.text-2')),
+  password: yup.string().min(8, ({ min }) => `${t('forgetScreen.text-3a')} ${min} ${t('forgetScreen.text-3b')})`).required(t('forgetScreen.text-4'))
+  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, t('forgetScreen.text-5')),
   });
 
 const LoginScreen = ({ navigation }) => {
 
     const { login } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(true);
-    //const [rememberMe, setRememberMe] = useState(true);
+
     const {t, i18n} = useTranslation();
   
-    // const loginUser = (values) => {
-    //   auth()
-    // .signInWithEmailAndPassword(
-    //   values.email,
-    //   values.password
-    // )
-    // .then(() => {
-    //   console.log('User account created & signed in!');
-    //   navigation.navigate('Home');
-    // })
-    // .catch(error => {
-    //   if (error.code === 'auth/email-already-in-use') {
-    //     console.log('That email address is already in use!');
-    //   }
-  
-    //   if (error.code === 'auth/invalid-email') {
-    //     console.log('That email address is invalid!');
-    //   }
-  
-    //   if (error.code === 'auth/user-not-found') {
-    //     ToastAndroid.show('Brak rekordu użytkownika odpowiadającego temu identyfikatorowi. Użytkownik mógł zostać usunięty.', ToastAndroid.LONG, ToastAndroid.CENTER);
-    //   }
-  
-    //   console.error(error);
-    // });
-    // }
-
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     useEffect(() => {

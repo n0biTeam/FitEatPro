@@ -13,7 +13,6 @@ const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-6580805673232587/8267133
 
 const SettingScreen = ({ route, navigation }) => {
   
-  //const _goBack = () => navigation.navigate('GlycemicIndex');
   const {t, i18n} = useTranslation();
  
   const openPlayStore = () => {
@@ -48,8 +47,7 @@ const SettingScreen = ({ route, navigation }) => {
   return (
     <SafeAreaProvider>
       <Appbar.Header style={{backgroundColor: colors.COLORS.DEEP_BLUE}}>
-   
-       {/* <Appbar.Content title="Ustawienia" /> */}
+
     </Appbar.Header>
     <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"/>
     
@@ -173,9 +171,5 @@ const styles = StyleSheet.create({
         paddingVertical: spacing.SCALE_16,
         borderBottomWidth: 1,
         borderBottomColor: colors.COLORS.LIGHT_GREY,
-        //elevation: 1
     },
-    text: {
-
-    }
 })

@@ -6,14 +6,12 @@ import { colors, typography, spacing } from '../../styles';
 import { AuthContext } from '../../navigation/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import ImagePicker from 'react-native-image-crop-picker';
 import { ImageGallery } from '@georstat/react-native-image-gallery';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
+import { fontScale, scale, isTablet } from 'react-native-utils-scale';
 
-//let imageRef = storage.refFromURL(URL);
-//imageRef.delete()
 
 const FindingViewScreen = ({ route, navigation }) => {
 
@@ -23,18 +21,12 @@ const FindingViewScreen = ({ route, navigation }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const {user} = useContext(AuthContext); 
-
   const [image, setImage] = useState(null);
   const [imageOld, setImageOld] = useState(null);
   const [findingDate, setFindingDate] = useState(new Date());
   const [dataFinding, setDataFinding] = useState([]);
-  ///const [loading, setLoading] = useState(true);
-
-  //const [isOpen, setIsOpen] = useState(true);
   const [loading, setLoading] = useState(true);
-    
-  
-  
+      
   const _goBack = () => navigation.navigate('FindingScreen');
   
   const images = [
@@ -131,7 +123,6 @@ const FindingViewScreen = ({ route, navigation }) => {
     blurRadius={1}
     resizeMode="cover"
     style={{ 
-      //height: getHeight(), 
       flex: 1, 
       width: Dimensions.get('window').width,
       height: Dimensions.get('window').height,
@@ -146,14 +137,12 @@ const FindingViewScreen = ({ route, navigation }) => {
       style={{
         flex: 1, 
         height: Dimensions.get('window').height,
-        //width: Dimensions.get('window').width,
-         height: 126,
+         height: isTablet ? 300 : 126,
       }}
       imageStyle={{
-        //opacity: 0.8
+        
       }}
       >
-
 
         <View style={styles.rootContainer}>
         { dataFinding.length > 0 &&
@@ -219,11 +208,8 @@ export default FindingViewScreen;
 const styles = StyleSheet.create({
     rootContainer: {
         marginHorizontal: spacing.SCALE_6,
-        //flex: 1,
       },
     noteContainer: {
-        //flex: 2,
-        //flex: 1,
         backgroundColor: colors.COLORS.WHITE,
         borderRadius: 5,
         marginBottom: spacing.SCALE_6,
