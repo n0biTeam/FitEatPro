@@ -565,10 +565,7 @@ const WeightDetailScreen = ({ route, navigation }) => {
              </View>
 
            </View>
-
-           
-          
-              
+        
             <View style={{flexDirection: 'row', padding: spacing.SCALE_10, borderBottomWidth: 1, borderBottomColor: colors.COLORS.LIGHT_GREY, borderTopWidth: 1, borderTopColor: colors.COLORS.LIGHT_GREY}}>
               
               <View style={{flex: 1, flexDirection: 'row'}}>
