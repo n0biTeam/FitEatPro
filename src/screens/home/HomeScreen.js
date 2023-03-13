@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
   
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState('');
-  const [image, setImage] = useState('http://serwer102731.lh.pl/img/iconProfileWhite.png');
+  const [image, setImage] = useState('https://pk.czluchow.info/images/iconProfileWhite.png');
   const [loading, setLoading] = useState(true);
  
   const [dataCharts, setDataCharts] = useState([0]);
@@ -379,7 +379,7 @@ const _differenceWeight = () => {
     }}
     width = {isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
     
-    height={isTablet ? scale(260) : scale(210)}
+    height={isTablet ? scale(260) : (Dimensions.get('window').height > 900  ? scale(260) : scale(210))}
     yAxisLabel=""
     yAxisSuffix={' ' + userData.weightUnit}
     yAxisInterval={1} // optional, defaults to 1
@@ -412,7 +412,7 @@ const _differenceWeight = () => {
     );
         
   }
-      else if(dataCharts?.length === 1) {
+      else if(dataCharts.length === 1) {
           return (
             <View style={{elevation: 5}}>
               <LineChart
@@ -434,7 +434,7 @@ const _differenceWeight = () => {
                   legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
                 }}
                         width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12} // from react-native
-                        height={isTablet ? scale(260) : scale(190)}
+                        height={isTablet ? scale(260) : (Dimensions.get('window').height > 900  ? scale(240) : scale(190))}
                         yAxisLabel=""
                         yAxisSuffix={' ' + userData.weightUnit}
                         yAxisInterval={1} // optional, defaults to 1
@@ -486,7 +486,7 @@ const _differenceWeight = () => {
          legend: [t('homescreen-current-weight'), t('homescreen-designated-target')]
         }}
         width={isTablet ? Dimensions.get("window").width-24 : Dimensions.get("window").width-12}
-        height={isTablet ? scale(260) : scale(190)}
+        height={isTablet ? scale(260) : (Dimensions.get('window').height > 900  ? scale(240) : scale(190))}
         yAxisLabel=""
         yAxisSuffix={' ' + userData.weightUnit}
         yAxisInterval={1} // optional, defaults to 1
@@ -637,7 +637,7 @@ const _differenceWeight = () => {
     }
   
   const [pay, setPay] = useState(false);
-    
+   
   return (
     <PaperProvider theme={theme}>
     <SafeAreaProvider>
@@ -647,7 +647,7 @@ const _differenceWeight = () => {
     source={require('../../assets/images/wave2.png')}
     style={{ 
       width: Dimensions.get('window').width,
-      height: !isTablet ? scale(145) : scale(240),
+      height: isTablet ? scale(240) : (Dimensions.get('window').height > 900  ? scale(165) : scale(150)),
        }}
     
   >

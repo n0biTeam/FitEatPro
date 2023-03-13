@@ -640,6 +640,7 @@
         "forgetScreen.text-5": "Must contain 8 characters, one uppercase letter, one lowercase letter, one number and one special letter",
         "forgetScreen.reset-password": "Password reset",
         "forgetScreen.btn-send": "Send",
+        "forgetScreen.text-6": "Password reset email sent",
         
         "signupScreen.text-1": "Low number of characters",
         "signupScreen.text-2": "Too long name",

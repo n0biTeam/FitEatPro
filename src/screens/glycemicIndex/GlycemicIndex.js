@@ -2382,7 +2382,7 @@ const styles = StyleSheet.create({
     },
     textBtn: {
       color: colors.TEXT.WHITE,
-      fontSize: fontScale(typography.FONT_SIZE_12),
+      fontSize: isTablet ? typography.FONT_SIZE_12 : typography.FONT_SIZE_14,
     },
     titleContainer: {
       alignItems: 'center',

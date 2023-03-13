@@ -64,7 +64,7 @@ const ProfileScreen = ({ navigation }) => {
     
   }, []);
 
-   const [image, setImage] = useState('http://serwer102731.lh.pl/img/iconProfileBlue.png');
+   const [image, setImage] = useState('https://pk.czluchow.info/images/iconProfileBlue.png');
 
   const sendVerificationEmail = async () => {
     await user.sendEmailVerification()

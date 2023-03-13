@@ -308,8 +308,8 @@ const EditProfileScreen = ({ navigation }) => {
                ? image 
                : userData 
                ? userData.userImg || 
-              'http://serwer102731.lh.pl/img/iconProfileGrey.png'
-              : 'http://serwer102731.lh.pl/img/iconProfileGrey.png'
+              'https://pk.czluchow.info/images/iconProfileGrey.png'
+              : 'https://pk.czluchow.info/images/iconProfileGrey.png'
               }}
             style={{height: spacing.SCALE_90, width: spacing.SCALE_90}}
             imageStyle={{borderRadius: 45, borderWidth: 1, backgroundColor: colors.COLORS.DEEP_BLUE}}

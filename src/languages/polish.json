@@ -136,7 +136,8 @@
         "diaryItemScreen.modal-enter-the-name": "Podaj nazwę",
         "diaryItemScreen.rename-the-list": "Zmień nazwę listy",
         "diaryItemScreen.update": "ZAKTUALIZUJ",
-        "diaryItemScreen.btn-save": "ZAPISZ", 
+        "diaryItemScreen.btn-save": "ZAPISZ",
+
 
         "profileScreen.my-profile": "Mój profil",
         "profileScreen.account-information": "Dane konta",
@@ -643,6 +644,7 @@
         "forgetScreen.text-5": "Musi zawierać 8 znaków, jedną wielką literę, jedną małą literę, jedną cyfrę i jedną specjalną literę",
         "forgetScreen.reset-password": "Reset hasła",
         "forgetScreen.btn-send": "Wyślij",
+        "forgetScreen.text-6": "Wysłano na e-mail reset hasła",
 
         "signupScreen.text-1": "Zamała ilość znaków",
         "signupScreen.text-2": "Za długa nazwa",

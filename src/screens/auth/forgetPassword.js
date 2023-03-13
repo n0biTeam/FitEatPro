@@ -21,8 +21,8 @@ const ForgetPasswordScreen = ({ navigation }) => {
   
    const loginValidationSchema = yup.object().shape({
     email: yup.string().email(i18n.t('forgetScreen.text-1')).required(i18n.t('forgetScreen.text-2')),
-    password: yup.string().min(8, ({ min }) => `${i18n.t('forgetScreen.text-3a')} ${min} ${i18n.t('forgetScreen.text-3b')})`).required(i18n.t('forgetScreen.text-4'))
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, i18n.t('forgetScreen.text-5')),
+    // password: yup.string().min(8, ({ min }) => `${i18n.t('forgetScreen.text-3a')} ${min} ${i18n.t('forgetScreen.text-3b')})`).required(i18n.t('forgetScreen.text-4'))
+    // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, i18n.t('forgetScreen.text-5')),
   });
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -59,7 +59,7 @@ const ForgetPasswordScreen = ({ navigation }) => {
         console.log(email)
         auth().sendPasswordResetEmail(email)
         .then(() => {
-                Alert.alert('Wysłano na e-mail reset hasła.');
+                Alert.alert(t('forgetScreen.text-6'));
                 navigation.navigate('Login');
               }).catch((error) => {
                 console.log(error);

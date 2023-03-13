@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "693195862314",
-    "project_id": "fiteat-pro",
-    "storage_bucket": "fiteat-pro.appspot.com"
+    "project_number": "404477712148",
+    "project_id": "fiteat-pro-f4217",
+    "storage_bucket": "fiteat-pro-f4217.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:693195862314:android:f3b9b16fddd7c2eac4ae53",
+        "mobilesdk_app_id": "1:404477712148:android:667c244e32854e79a3d401",
         "android_client_info": {
           "package_name": "pl.it.impact.fiteatpro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "693195862314-8a19k6ckvprrgkdip4ropop4nbqk4gnu.apps.googleusercontent.com",
+          "client_id": "404477712148-kb9jrsds33j20qr6t48k1k2hko15134i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDHjuIIgiaQ9z24CtJmV0SkUFRSTGeHddo"
+          "current_key": "AIzaSyCIYS3Wqa6pnopkEgw9Dod4q44_rXLu9jY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "693195862314-8a19k6ckvprrgkdip4ropop4nbqk4gnu.apps.googleusercontent.com",
+              "client_id": "404477712148-kb9jrsds33j20qr6t48k1k2hko15134i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

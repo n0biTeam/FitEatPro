@@ -19,14 +19,34 @@ const ShopScreen = ({ navigation }) => {
   const imageBG = require('../../assets/images/bg5.jpg');
   const [packages, setPackages] = useState([]);
   const [isPurchasing, setIsPurchasing] = useState(false);
+  //const [isAnonymous, setIsAnonymous] = useState(true);
 
+  const [newUserId, setNewUserId] = useState('');
   const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
   const [loading, setLoading] = useState(true);
 
+
+  const userIds = async () => {
+    // if (!newUserId) {
+    //   return;
+    // }
+
+    try {
+      setNewUserId(user.uid);
+      await Purchases.logIn(user.uid);
+    } catch (e) {
+      console.log('OK')
+    }
+
+    //setNewUserId('');
+
+  };
+
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
-    setUserId(user.uid);
+    //setIsAnonymous(await Purchases.isAnonymous());
+    setUserId(await Purchases.getAppUserID());
 
     const customerInfo = await Purchases.getCustomerInfo();
     setSubscriptionActive(typeof customerInfo.entitlements.active[ENTITLEMENT_ID] !== 'undefined');
@@ -34,9 +54,11 @@ const ShopScreen = ({ navigation }) => {
 
   useEffect(() => {
     // Get user details when component first mounts
+    userIds();
     getUserDetails();
   }, []);
 
+  console.log(user.uid)
   useEffect(() => {
     // Subscribe to purchaser updates
     Purchases.addCustomerInfoUpdateListener(getUserDetails);
@@ -49,8 +71,8 @@ const ShopScreen = ({ navigation }) => {
     const getPackages = async () =>{
       try {
         const offerings = await Purchases.getOfferings();
-        if (offerings.current !== null) {  
-           setPackages(offerings.current.availablePackages);
+        if (offerings.current !== null && offerings.current.availablePackages.length !== 0) {
+          setPackages(offerings.current.availablePackages);
         }
       } catch (e) {
         console.error(e)
@@ -143,6 +165,9 @@ const ShopScreen = ({ navigation }) => {
                   {subscriptionActive && activated.indexOf('fp_8999_y') >= 0 ? <View style={styles.boxAcive}><Text style={styles.boxText}>{t('shopScreen.premium-year')}</Text></View> : null }
                   </View>
                 </View>
+                {/* <View>
+                  <Text style={{fontSize: spacing.SCALE_10}}>ID: {userId}</Text>
+                </View> */}
                 
               </View>
 
