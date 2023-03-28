@@ -5,7 +5,7 @@ import { Appbar } from 'react-native-paper';
 import { colors, spacing, typography } from '../../styles';
 import Purchases from 'react-native-purchases';
 import PackageItem from '../../components/PackageItem';
-import { ENTITLEMENT_ID } from '../../styles/constants';
+import { ENTITLEMENT_ID, API_KEY } from '../../styles/constants';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
@@ -25,8 +25,8 @@ const ShopScreen = ({ navigation }) => {
   const [userId, setUserId] = useState(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
   const [loading, setLoading] = useState(true);
-
-
+  
+console.log(user.uid)
   const userIds = async () => {
     // if (!newUserId) {
     //   return;
@@ -46,6 +46,7 @@ const ShopScreen = ({ navigation }) => {
   // get the latest details about the user (is anonymous, user id, has active subscription)
   const getUserDetails = async () => {
     //setIsAnonymous(await Purchases.isAnonymous());
+    //const { customerInfo, created } = await Purchases.logIn(user.uid);
     setUserId(await Purchases.getAppUserID());
 
     const customerInfo = await Purchases.getCustomerInfo();
@@ -54,6 +55,9 @@ const ShopScreen = ({ navigation }) => {
 
   useEffect(() => {
     // Get user details when component first mounts
+   // userIds();
+    Purchases.setLogLevel(Purchases.LOG_LEVEL.DEBUG);
+    Purchases.configure({apiKey: API_KEY, appUserID: user.uid, observerMode: false, useAmazon: false});
     userIds();
     getUserDetails();
   }, []);

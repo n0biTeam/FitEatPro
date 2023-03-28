@@ -1,7 +1,7 @@
 import React, {createContext, useState } from 'react';
 import { ToastAndroid } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore';
 import dataPL from '../data/dataPL';
 import dataEN from '../data/dataEN';
 import dataPurinePL from '../data/dataPurinePL';
