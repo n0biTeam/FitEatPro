@@ -1,5 +1,5 @@
 export const version ={
-    namber: '1.0.1'
+    namber: '1.0.2'
 }
 
 export const IG = {

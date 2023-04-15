@@ -15,7 +15,7 @@ import { colors, typography, spacing } from '../../styles';
 import { useNetInfo} from '@react-native-community/netinfo';
 import { UNIT } from '../../styles/units';
 import Purchases from 'react-native-purchases';
-import { ENTITLEMENT_ID } from '../../styles/constants';
+import { ENTITLEMENT_ID, API_KEY } from '../../styles/constants';
 import { fontScale, scale, isSmallDevice, isTablet } from 'react-native-utils-scale';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
@@ -63,6 +63,11 @@ const HomeScreen = ({ navigation }) => {
       setIsLoading(!isLoading);
     };
 
+
+    useEffect(() => {
+      Purchases.setLogLevel(Purchases.LOG_LEVEL.DEBUG);
+      Purchases.configure({apiKey: API_KEY, appUserID: user.uid, observerMode: false, useAmazon: false});
+    },[]);
 
   const [userPro, setUserPro] = useState(false);
 

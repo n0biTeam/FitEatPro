@@ -26,7 +26,6 @@ const ShopScreen = ({ navigation }) => {
   const [subscriptionActive, setSubscriptionActive] = useState(false);
   const [loading, setLoading] = useState(true);
   
-console.log(user.uid)
   const userIds = async () => {
     // if (!newUserId) {
     //   return;
@@ -62,7 +61,7 @@ console.log(user.uid)
     getUserDetails();
   }, []);
 
-  console.log(user.uid)
+  //console.log(user.uid)
   useEffect(() => {
     // Subscribe to purchaser updates
     Purchases.addCustomerInfoUpdateListener(getUserDetails);
