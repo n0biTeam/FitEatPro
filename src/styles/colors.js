@@ -83,3 +83,11 @@ export const PURINE = {
     P2: '#FFCC00',
     P3: '#ff0000'
 }
+
+export const VALUES = {
+    VALUE1: '#224870',
+    VALUE2: '#3e5f82',
+    VALUE3: '#597694',
+    VALUE4: '#758da6'
+
+}

@@ -26,7 +26,7 @@ const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
   keywords: ['fashion', 'clothing'],
 });
 
-const heightScreen = Dimensions.get('window').height;
+//const heightScreen = Dimensions.get('window').height;
 
 const theme = {
   ...DefaultTheme,
@@ -870,8 +870,39 @@ const _differenceWeight = () => {
         </TouchableOpacity>
       </View>
 
+     
+
     </View>
-      
+    
+    <View style={{marginHorizontal: spacing.SCALE_6, marginBottom: spacing.SCALE_10}}>
+      <TouchableOpacity onPress={() => {navigation.navigate('CulinaryRecipesScreen')}} disabled={!userPro || (activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1)}>
+        <ImageBackground 
+        //source={require(userPro === false ? '../../assets/images/baner2.jpg' : '../../assets/images/baner3.jpg')}
+        source={
+          userPro === false ? require('../../assets/images/banerCB.png') : require('../../assets/images/banerK.png')
+        }
+        blurRadius={0}
+        //resizeMode="cover"
+        style={{ 
+          //flex: 1, 
+          //width: Dimensions.get('window').width,
+          //height: Dimensions.get('window').height,
+          padding: spacing.SCALE_10,
+          //overflow: 'hidden'
+          elevation: 5
+           }}
+           imageStyle={{
+            opacity: 0.8,
+            borderRadius: 5,
+            alignSelf: 'flex-end',
+          }}
+        >
+          <View style={{padding: 2, alignItems: 'center', alignSelf: 'center'}}>
+            <Text style={[styles.recipesText, {color: userPro === false ? colors.COLORS.GREY_777 : ((activated.indexOf('fp_0599_rek') >= 0 && activated.length <= 1) ? colors.COLORS.GREY_CCC : colors.COLORS.DEEP_BLUE )}]}>PRZEPISY O NISKIM INDEKSIE GLIKEMICZNYM</Text>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
+    </View>
    
    
     </SafeAreaProvider>
@@ -922,5 +953,17 @@ const styles = StyleSheet.create({
   imageProfile: {
     width: spacing.SCALE_50,
     height: spacing.SCALE_50,
+  },
+  btn:{
+    padding: spacing.SCALE_12,
+    borderWidth: 1,
+    borderRadius: spacing.SCALE_10,
+    alignItems: 'center',
+    backgroundColor: colors.COLORS.WHITE,
+    borderColor: colors.COLORS.GREY_AAA,
+  },
+  recipesText:{
+    fontSize: fontScale(typography.FONT_SIZE_11),
+    fontWeight: 'bold',
   }
 });

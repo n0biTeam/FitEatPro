@@ -19,6 +19,7 @@ import { NotesScreen, NotesAddScreen, NotesEditScreen } from '../screens/notes';
 import { PurineListScreen, PurineAddScreen, PurineEditScreen, PurineListScreenNoPay } from '../screens/purine';
 import { FindingScreen, FindingAddScreen, FindingEditScreen, FindingViewScreen } from '../screens/findings';
 import { SettingScreen, UnitSettingScreen, ShopScreen, PrivacyPolicyScreen, AboutTheAppScreen } from '../screens/settings';
+import { CulinaryRecipesScreen, RecipeScreen } from '../screens/recipes';
 import { t } from 'i18next';
 
 
@@ -721,6 +722,26 @@ const AppStack = () => {
     <Stack.Screen
       name="FindingEditScreen"
       component={FindingEditScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+
+  <Stack.Screen
+      name="CulinaryRecipesScreen"
+      component={CulinaryRecipesScreen}
+      options={{
+        title: '',
+        headerBackTitleVisible: false,
+        headerShown: false,
+      }}
+    />
+
+  <Stack.Screen
+      name="RecipeScreen"
+      component={RecipeScreen}
       options={{
         title: '',
         headerBackTitleVisible: false,
